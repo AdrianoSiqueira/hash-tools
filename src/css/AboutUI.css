@@ -1,0 +1,47 @@
+@font-face {
+    -fx-font-family: "Ubuntu";
+    src: url("../font/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+    -fx-font-family: "Ubuntu";
+    src: url("../font/Ubuntu-Bold.ttf");
+}
+
+
+.hyperlink {
+    -fx-border-style: none;
+    -fx-border-width: 0px;
+    -fx-padding: 0px;
+    -fx-underline: false;
+
+    -fx-text-fill: darkcyan;
+
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}
+
+
+.label {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+.label#title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+
+.pane-root {
+    -fx-background-color: white;
+}
+
+
+.separator .line {
+    -fx-border-color: dimgrey;
+}
