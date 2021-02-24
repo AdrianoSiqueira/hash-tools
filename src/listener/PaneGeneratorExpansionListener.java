@@ -33,7 +33,7 @@ public class PaneGeneratorExpansionListener implements ChangeListener<Boolean> {
             controller.getLabelTitle()
                       .setText(LanguageManager.get("Generate.hash.sum"));
             controller.getLabel2()
-                      .setText(LanguageManager.get("Output"));
+                      .setText(LanguageManager.get("Destination"));
             controller.getItemSelectNone()
                       .fire();
         } else {
