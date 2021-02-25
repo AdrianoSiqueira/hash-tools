@@ -169,7 +169,7 @@ public class AppUI implements Initializable {
             new MessageDialog.Builder()
                     .alertType(Alert.AlertType.INFORMATION)
                     .title(LanguageManager.get("HashTools"))
-                    .header(LanguageManager.get("Manual"))
+                    .header(LanguageManager.get("Online.manual"))
                     .content(LanguageManager.get("Feature.not.implemented.yet."))
                     .favIcon(new Image("/icon/manual.png"))
                     .create()
