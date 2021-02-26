@@ -15,6 +15,8 @@ each modification made.
 
 This application is the successor to the [HashChecker](https://github.com/AdrianoSiqueira/HashChecker).
 
+![Main screen](.github/screenshots/screenshot-checker-mode.png)
+
 ### Highlights:
 - Two modes of operation: checker and generator.
 - Support for dragging files and texts.
