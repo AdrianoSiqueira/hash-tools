@@ -31,6 +31,6 @@ This application is the successor to the [HashChecker](https://github.com/Adrian
 
 ### Information
 
-[Manual](https://github.com/AdrianoSiqueira/HashTools/wiki)
+[![Manual](.github/icons/icon-manual-32.png) Manual](https://github.com/AdrianoSiqueira/HashTools/wiki)
 
-[Download](https://github.com/AdrianoSiqueira/HashTools/releases)
+[![Download](.github/icons/icon-download-32.png) Download](https://github.com/AdrianoSiqueira/HashTools/releases)
