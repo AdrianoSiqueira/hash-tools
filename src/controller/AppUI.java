@@ -162,21 +162,8 @@ public class AppUI implements Initializable {
     @FXML
     private void openManual() {
         if (ConnectionStatus.checkConnection().equals(ConnectionStatus.ONLINE)) {
-            // TODO Remove this logger and dialog and uncomment the hostServices call.
-            logger.log(Level.INFO,
-                       LanguageManager.get("Feature.not.implemented.yet."));
-
-            new MessageDialog.Builder()
-                    .alertType(Alert.AlertType.INFORMATION)
-                    .title(LanguageManager.get("HashTools"))
-                    .header(LanguageManager.get("Online.manual"))
-                    .content(LanguageManager.get("Feature.not.implemented.yet."))
-                    .favIcon(new Image("/icon/manual.png"))
-                    .create()
-                    .showAndWait();
-
-//            AppUITest.getHostService()
-//                     .showDocument("https://github.com/AdrianoSiqueira/HashTools/wiki");
+            Main.getHostService()
+                .showDocument("https://github.com/AdrianoSiqueira/HashTools/wiki");
         } else {
             logger.log(Level.WARNING,
                        LanguageManager.get("No.internet.connection."));
