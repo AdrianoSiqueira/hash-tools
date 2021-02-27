@@ -26,7 +26,7 @@
     </padding>
     <Label id="title" text="%About.HashTools" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"/>
     <Label text="%Version:" GridPane.rowIndex="1"/>
-    <Label text="0.0.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="1.0.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label text="%Project:" GridPane.rowIndex="2"/>
     <Hyperlink onAction="#openLink" text="github.com/AdrianoSiqueira/HashTools" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     <Separator prefHeight="20.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3"/>
