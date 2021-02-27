@@ -248,3 +248,18 @@
     -fx-font-family: "Ubuntu";
     -fx-font-size: 20px;
 }
+
+
+.tooltip {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 14px;
+
+    -fx-text-fill: white;
+
+    -fx-background-color: black;
+    -fx-background-radius: 5px;
+
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-border-width: 0px;
+}
