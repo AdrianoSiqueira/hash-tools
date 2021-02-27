@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/github/license/AdrianoSiqueira/HashTools)
 ![Release](https://img.shields.io/github/v/release/AdrianoSiqueira/HashTools)
 ![Last Commit](https://img.shields.io/github/last-commit/AdrianoSiqueira/HashTools)
-![Downloads](https://img.shields.io/github/downloads/AdrianoSiqueira/HashTools)
+![Downloads](https://img.shields.io/github/downloads/AdrianoSiqueira/HashTools/total)
 
 ### Requirement
 
