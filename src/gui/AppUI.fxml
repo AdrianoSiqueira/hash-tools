@@ -87,12 +87,30 @@
                                 </items>
                             </ContextMenu>
                         </contextMenu>
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.32.bytes" />
+                  </tooltip>
                     </CheckBox>
-                    <CheckBox fx:id="checkSHA224" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-224" GridPane.columnIndex="1" />
-                    <CheckBox fx:id="checkSHA384" layoutX="285.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-384" GridPane.columnIndex="2" />
-                    <CheckBox fx:id="checkSHA1" layoutX="496.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-1" GridPane.rowIndex="1" />
-                    <CheckBox fx:id="checkSHA256" layoutX="74.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-256" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <CheckBox fx:id="checkSHA512" layoutX="285.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-512" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <CheckBox fx:id="checkSHA224" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-224" GridPane.columnIndex="1">
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.56.bytes" />
+                  </tooltip></CheckBox>
+                    <CheckBox fx:id="checkSHA384" layoutX="285.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-384" GridPane.columnIndex="2">
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.96.bytes" />
+                  </tooltip></CheckBox>
+                    <CheckBox fx:id="checkSHA1" layoutX="496.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-1" GridPane.rowIndex="1">
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.40.bytes" />
+                  </tooltip></CheckBox>
+                    <CheckBox fx:id="checkSHA256" layoutX="74.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-256" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.64.bytes" />
+                  </tooltip></CheckBox>
+                    <CheckBox fx:id="checkSHA512" layoutX="285.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-512" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <tooltip>
+                     <Tooltip text="%Generates.a.hash.of.128.bytes" />
+                  </tooltip></CheckBox>
                 </GridPane>
             <tooltip>
                <Tooltip text="%Enable.generator.mode" />
