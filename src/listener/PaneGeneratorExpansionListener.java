@@ -40,6 +40,9 @@ public class PaneGeneratorExpansionListener implements ChangeListener<Boolean> {
             controller.getField2()
                       .getTooltip()
                       .setText(LanguageManager.get("File.to.save.the.generated.hashes"));
+            controller.getPaneGenerator()
+                      .getTooltip()
+                      .setText(LanguageManager.get("Disable.generator.mode"));
             controller.getItemSelectNone()
                       .fire();
         } else {
@@ -55,6 +58,9 @@ public class PaneGeneratorExpansionListener implements ChangeListener<Boolean> {
             controller.getField2()
                       .getTooltip()
                       .setText(LanguageManager.get("Hash.file.or.hash.to.check"));
+            controller.getPaneGenerator()
+                      .getTooltip()
+                      .setText(LanguageManager.get("Enable.generator.mode"));
         }
     }
 }
