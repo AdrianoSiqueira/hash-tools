@@ -1,6 +1,7 @@
 # HashTools
 
 [![License](https://img.shields.io/github/license/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/blob/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors-anon/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/graphs/contributors)
 [![Last Commit](https://img.shields.io/github/last-commit/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/commits/master)
 
 [![Release](https://img.shields.io/github/v/release/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/releases/latest)
