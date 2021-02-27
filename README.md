@@ -1,14 +1,14 @@
 # HashTools
 
-![License](https://img.shields.io/github/license/AdrianoSiqueira/HashTools)
-![Last Commit](https://img.shields.io/github/last-commit/AdrianoSiqueira/HashTools)
+[![License](https://img.shields.io/github/license/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/blob/master/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/commits/master)
 
-![Release](https://img.shields.io/github/v/release/AdrianoSiqueira/HashTools)
-![Downloads](https://img.shields.io/github/downloads/AdrianoSiqueira/HashTools/total)
+[![Release](https://img.shields.io/github/v/release/AdrianoSiqueira/HashTools)](https://github.com/AdrianoSiqueira/HashTools/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/AdrianoSiqueira/HashTools/total)](https://github.com/AdrianoSiqueira/HashTools/releases/latest)
 
 ### Requirement
 
-![JRE](https://img.shields.io/badge/JRE-%5E8.0.0-orange)
+[![JRE](https://img.shields.io/badge/JRE-%5E8.0.0-orange)](https://www.oracle.com/br/java/technologies/javase-jre8-downloads.html)
 
 This program is used to work with hash sums. These sums are used to ensure that
 files and texts are intact. It works like a fingerprint, which changes with
