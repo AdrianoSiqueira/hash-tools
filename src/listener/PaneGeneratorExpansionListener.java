@@ -34,6 +34,12 @@ public class PaneGeneratorExpansionListener implements ChangeListener<Boolean> {
                       .setText(LanguageManager.get("Generate.hash.sum"));
             controller.getLabel2()
                       .setText(LanguageManager.get("Destination"));
+            controller.getField1()
+                      .getTooltip()
+                      .setText(LanguageManager.get("File.or.text.to.generate"));
+            controller.getField2()
+                      .getTooltip()
+                      .setText(LanguageManager.get("File.to.save.the.generated.hashes"));
             controller.getItemSelectNone()
                       .fire();
         } else {
@@ -43,6 +49,12 @@ public class PaneGeneratorExpansionListener implements ChangeListener<Boolean> {
                       .setText(LanguageManager.get("Check.hash.sum"));
             controller.getLabel2()
                       .setText(LanguageManager.get("Hash"));
+            controller.getField1()
+                      .getTooltip()
+                      .setText(LanguageManager.get("File.or.text.to.check"));
+            controller.getField2()
+                      .getTooltip()
+                      .setText(LanguageManager.get("Hash.file.or.hash.to.check"));
         }
     }
 }
