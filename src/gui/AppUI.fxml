@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+
 <BorderPane fx:id="paneRoot" styleClass="pane-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppUI">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
@@ -57,15 +58,17 @@
                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
             </rowConstraints>
             <Label id="title" fx:id="labelTitle" text="%Check.hash.sum" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" />
-            <Label fx:id="label1" text="%File" GridPane.rowIndex="1" />
+            <Label fx:id="label1" minHeight="-Infinity" minWidth="-Infinity" text="%File" GridPane.rowIndex="1" />
             <TextField fx:id="field1" onDragOver="#enableDragAndDrop" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <tooltip>
                <Tooltip text="%File.or.text.to.check" />
-            </tooltip></TextField>
-            <Button id="1" fx:id="button1" mnemonicParsing="false" onAction="#openFile1" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            </tooltip>
+         </TextField>
+            <Button id="1" fx:id="button1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openFile1" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <tooltip>
                <Tooltip text="%Open.file" />
-            </tooltip></Button>
+            </tooltip>
+         </Button>
             <TitledPane fx:id="paneGenerator" expanded="false" text="%Generator" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                 <GridPane fx:id="paneAlgorithm" hgap="15.0" onMouseClicked="#showContextMenu" vgap="15.0">
                     <columnConstraints>
@@ -94,37 +97,44 @@
                     <CheckBox fx:id="checkSHA224" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-224" GridPane.columnIndex="1">
                   <tooltip>
                      <Tooltip text="%Generates.a.hash.of.56.bytes" />
-                  </tooltip></CheckBox>
+                  </tooltip>
+               </CheckBox>
                     <CheckBox fx:id="checkSHA384" layoutX="285.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-384" GridPane.columnIndex="2">
                   <tooltip>
                      <Tooltip text="%Generates.a.hash.of.96.bytes" />
-                  </tooltip></CheckBox>
+                  </tooltip>
+               </CheckBox>
                     <CheckBox fx:id="checkSHA1" layoutX="496.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-1" GridPane.rowIndex="1">
                   <tooltip>
                      <Tooltip text="%Generates.a.hash.of.40.bytes" />
-                  </tooltip></CheckBox>
+                  </tooltip>
+               </CheckBox>
                     <CheckBox fx:id="checkSHA256" layoutX="74.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-256" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <tooltip>
                      <Tooltip text="%Generates.a.hash.of.64.bytes" />
-                  </tooltip></CheckBox>
+                  </tooltip>
+               </CheckBox>
                     <CheckBox fx:id="checkSHA512" layoutX="285.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#showContextMenu" text="SHA-512" GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <tooltip>
                      <Tooltip text="%Generates.a.hash.of.128.bytes" />
-                  </tooltip></CheckBox>
+                  </tooltip>
+               </CheckBox>
                 </GridPane>
             <tooltip>
                <Tooltip text="%Enable.generator.mode" />
             </tooltip>
             </TitledPane>
-            <Label fx:id="label2" text="%Hash" GridPane.rowIndex="3" />
+            <Label fx:id="label2" minHeight="-Infinity" minWidth="-Infinity" text="%Hash" GridPane.rowIndex="3" />
             <TextField fx:id="field2" onDragOver="#enableDragAndDrop" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <tooltip>
                <Tooltip text="%Hash.file.or.hash.to.check" />
-            </tooltip></TextField>
+            </tooltip>
+         </TextField>
             <Button id="2" fx:id="button2" mnemonicParsing="false" onAction="#openFile2" GridPane.columnIndex="2" GridPane.rowIndex="3">
             <tooltip>
                <Tooltip text="%Open.file" />
-            </tooltip></Button>
+            </tooltip>
+         </Button>
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
@@ -135,10 +145,11 @@
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" />
             </padding>
-            <Button id="run" fx:id="buttonRun" mnemonicParsing="false" text="%Run" HBox.hgrow="NEVER">
+            <Button id="run" fx:id="buttonRun" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="%Run" HBox.hgrow="NEVER">
             <tooltip>
                <Tooltip text="%Start.the.task" />
-            </tooltip></Button>
+            </tooltip>
+         </Button>
             <ProgressBar fx:id="progressBar" maxWidth="1.7976931348623157E308" progress="0.0" HBox.hgrow="ALWAYS" />
         </HBox>
     </bottom>
