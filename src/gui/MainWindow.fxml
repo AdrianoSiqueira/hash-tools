@@ -19,28 +19,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<!--suppress JavaFxDefaultTag -->
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindow">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="%File">
+            <Menu fx:id="menuFile" mnemonicParsing="false" text="%File">
               <items>
-                <MenuItem mnemonicParsing="false" text="%Close">
+                <MenuItem fx:id="itemClose" mnemonicParsing="false" text="%Close">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="%Help">
+            <Menu fx:id="menuHelp" mnemonicParsing="false" text="%Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="%Online.manual">
+                  <MenuItem fx:id="itemOnlineManual" mnemonicParsing="false" text="%Online.manual">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="M" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="%About">
+                  <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="%About">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -51,11 +52,11 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="paneRoot" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab closable="false" text="%Checker">
+          <Tab fx:id="tabChecker" closable="false" text="%Checker">
                <content>
-                  <GridPane hgap="30.0" vgap="30.0">
+                  <GridPane fx:id="paneChecker" hgap="30.0" vgap="30.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
                       <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
@@ -67,29 +68,29 @@
                         <RowConstraints valignment="CENTER" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%Check.hash.sum" GridPane.columnSpan="2147483647" />
-                        <Label minHeight="-Infinity" minWidth="-Infinity" text="%Input" GridPane.rowIndex="1">
+                        <Label fx:id="labelTitleChecker" alignment="CENTER" maxWidth="1.7976931348623157E308" id="title" text="%Check.hash.sum" GridPane.columnSpan="2147483647" />
+                        <Label fx:id="labelCheckerInput" minHeight="-Infinity" minWidth="-Infinity" text="%Input" GridPane.rowIndex="1">
                            <tooltip>
-                              <Tooltip text="Empty Tooltip" />
+                              <Tooltip fx:id="tooltipCheckerInput" text="Empty Tooltip" />
                            </tooltip>
                         </Label>
-                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label minHeight="-Infinity" minWidth="-Infinity" text="%Official" GridPane.rowIndex="2">
+                        <TextField fx:id="fieldCheckerInput" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelCheckerOfficial" minHeight="-Infinity" minWidth="-Infinity" text="%Official" GridPane.rowIndex="2">
                            <tooltip>
-                              <Tooltip text="Empty Tooltip" />
+                              <Tooltip fx:id="tooltipCheckerOfficial" text="Empty Tooltip" />
                            </tooltip>
                         </Label>
-                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <HBox alignment="CENTER" spacing="30.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                        <TextField fx:id="fieldCheckerOfficial" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <HBox fx:id="paneCheckerRun" alignment="CENTER" spacing="30.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                            <children>
-                              <Button mnemonicParsing="false" text="%Check" HBox.hgrow="NEVER">
+                              <Button fx:id="buttonCheck" mnemonicParsing="false" text="%Check" HBox.hgrow="NEVER">
                                  <tooltip>
-                                    <Tooltip text="Empty Tooltip" />
+                                    <Tooltip fx:id="tooltipCheckerRun" text="Empty Tooltip" />
                                  </tooltip>
                               </Button>
-                              <ProgressBar maxWidth="1.7976931348623157E308" progress="0.0" HBox.hgrow="ALWAYS">
+                              <ProgressBar fx:id="progressReliability" maxWidth="1.7976931348623157E308" progress="0.0" HBox.hgrow="ALWAYS">
                                  <tooltip>
-                                    <Tooltip text="Empty Tooltip" />
+                                    <Tooltip fx:id="tooltipCheckerReliability" text="Empty Tooltip" />
                                  </tooltip>
                               </ProgressBar>
                            </children>
@@ -101,9 +102,9 @@
                   </GridPane>
                </content>
             </Tab>
-            <Tab closable="false" text="%Generator">
+            <Tab fx:id="tabGenerator" closable="false" text="%Generator">
                <content>
-                  <GridPane hgap="30.0" vgap="30.0">
+                  <GridPane fx:id="paneGenerator" hgap="30.0" vgap="30.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
                         <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
@@ -116,20 +117,21 @@
                         <RowConstraints valignment="CENTER" vgrow="NEVER" />
                      </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%Generate.hash.sum" GridPane.columnSpan="2147483647" />
-                        <Label minHeight="-Infinity" minWidth="-Infinity" text="%Input" GridPane.rowIndex="1">
+                        <Label fx:id="labelGeneratorTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" id="title" text="%Generate.hash.sum" GridPane.columnSpan="2147483647" />
+                        <Label fx:id="labelGeneratorInput" minHeight="-Infinity" minWidth="-Infinity" text="%Input" GridPane.rowIndex="1">
                            <tooltip>
-                              <Tooltip text="Empty Tooltip" />
+                              <Tooltip fx:id="tooltipGeneratorInput" text="Empty Tooltip" />
                            </tooltip>
                         </Label>
-                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label minHeight="-Infinity" minWidth="-Infinity" text="%Output" GridPane.rowIndex="2">
+                        <TextField fx:id="fieldGeneratorInput" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelGeneratorOutput" minHeight="-Infinity" minWidth="-Infinity" text="%Output" GridPane.rowIndex="2">
                            <tooltip>
-                              <Tooltip text="Empty Tooltip" />
+                              <Tooltip fx:id="tooltipGeneratorOutput" text="Empty Tooltip" />
                            </tooltip>
                         </Label>
-                        <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <GridPane hgap="15.0" vgap="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="fieldGeneratorOutput" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="labelGeneratorAlgorithms" text="%Algorithms" GridPane.rowIndex="3" />
+                        <GridPane fx:id="paneGeneratorAlgorithms" hgap="15.0" vgap="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <columnConstraints>
                               <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
                             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
@@ -140,29 +142,28 @@
                               <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox mnemonicParsing="false" text="MD5" />
-                              <CheckBox mnemonicParsing="false" text="SHA-1" GridPane.rowIndex="1" />
-                              <CheckBox layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="SHA-224" GridPane.columnIndex="1" />
-                              <CheckBox layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="SHA-256" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <CheckBox layoutX="10.0" layoutY="30.0" mnemonicParsing="false" text="SHA-384" GridPane.columnIndex="2" />
-                              <CheckBox mnemonicParsing="false" text="SHA-512" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="checkAlgorithmMD5" mnemonicParsing="false" text="MD5" />
+                              <CheckBox fx:id="checkAlgorithmSHA1" mnemonicParsing="false" text="SHA-1" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="checkAlgorithmSHA224" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="SHA-224" GridPane.columnIndex="1" />
+                              <CheckBox fx:id="checkAlgorithmSHA256" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="SHA-256" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="checkAlgorithmSHA384" layoutX="10.0" layoutY="30.0" mnemonicParsing="false" text="SHA-384" GridPane.columnIndex="2" />
+                              <CheckBox fx:id="checkAlgorithmSHA512" mnemonicParsing="false" text="SHA-512" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <HBox alignment="CENTER" spacing="30.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                        <HBox fx:id="paneGeneratorRun" alignment="CENTER" spacing="30.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                            <children>
-                              <Button mnemonicParsing="false" text="%Generate" HBox.hgrow="NEVER">
+                              <Button fx:id="buttonGeneratorRun" mnemonicParsing="false" text="%Generate" HBox.hgrow="NEVER">
                                  <tooltip>
-                                    <Tooltip text="Empty Tooltip" />
+                                    <Tooltip fx:id="tooltipGeneratorRun" text="Empty Tooltip" />
                                  </tooltip>
                               </Button>
-                              <ProgressBar maxWidth="1.7976931348623157E308" progress="0.0" HBox.hgrow="ALWAYS">
+                              <ProgressBar fx:id="progressGeneratorStatus" maxWidth="1.7976931348623157E308" progress="0.0" HBox.hgrow="ALWAYS">
                                  <tooltip>
-                                    <Tooltip text="Empty Tooltip" />
+                                    <Tooltip fx:id="tooltipGeneratorStatus" text="Empty Tooltip" />
                                  </tooltip>
                               </ProgressBar>
                            </children>
                         </HBox>
-                        <Label text="%Algorithms" GridPane.rowIndex="3" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
