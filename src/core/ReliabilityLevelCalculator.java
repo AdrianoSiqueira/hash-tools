@@ -13,14 +13,22 @@ public class ReliabilityLevelCalculator {
         Objects.requireNonNull(samples,
                                LanguageManager.get("Object.cannot.be.null."));
 
-        samples.forEach(sample -> {
-            if (sample.getOfficialHash().equals(sample.getCalculatedHash())) {
-                sample.setReliabilityLevel(ReliabilityLevel.SAFE);
-            } else if (sample.getOfficialHash().equalsIgnoreCase(sample.getCalculatedHash())) {
-                sample.setReliabilityLevel(ReliabilityLevel.UNSURE);
-            } else {
-                sample.setReliabilityLevel(ReliabilityLevel.DANGEROUS);
-            }
-        });
+        samples.forEach(sample -> sample.setReliabilityLevel(
+                calculateReliabilityLevel(
+                        sample.getOfficialHash(),
+                        sample.getCalculatedHash()
+                )
+        ));
+    }
+
+    private static ReliabilityLevel calculateReliabilityLevel(String officialHash,
+                                                              String calculatedHash) {
+        if (officialHash.equals(calculatedHash)) {
+            return ReliabilityLevel.SAFE;
+        } else if (officialHash.equalsIgnoreCase(calculatedHash)) {
+            return ReliabilityLevel.UNSURE;
+        } else {
+            return ReliabilityLevel.DANGEROUS;
+        }
     }
 }
