@@ -19,7 +19,7 @@ public class ReliabilityPercentageCalculator {
                                     .reduce(Double::sum)
                                     .orElse(0.0);
 
-        return samples.size() > 0
+        return !samples.isEmpty()
                ? reliability * 100 / samples.size()
                : 0.0;
     }
