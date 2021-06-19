@@ -4,9 +4,9 @@ import aslib.security.HashCalculator;
 import language.LanguageManager;
 import model.Sample;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ListHashGenerator {
 
@@ -14,23 +14,28 @@ public class ListHashGenerator {
         Objects.requireNonNull(samples,
                                LanguageManager.get("Object.cannot.be.null."));
 
-        HashCalculator calculator = new HashCalculator();
-        List<Thread>   threadList = new ArrayList<>();
+        final HashCalculator calculator = new HashCalculator();
 
-        samples.forEach(sample -> {
-            Thread thread = new Thread(new SampleHashGenerator(calculator, sample));
-            thread.start();
+        List<Thread> threads = createThreadList(calculator, samples);
+        threads.forEach(Thread::start);
 
-            threadList.add(thread);
-        });
+        waitThreadsToFinish(threads);
+    }
 
-        while (!threadList.isEmpty()) {
+    private static List<Thread> createThreadList(HashCalculator calculator,
+                                                 List<Sample> samples) {
+        return samples.stream()
+                      .map(sample -> new Thread(new SampleHashGenerator(calculator, sample)))
+                      .collect(Collectors.toList());
+    }
+
+    private static void waitThreadsToFinish(List<Thread> threads) {
+        threads.forEach(thread -> {
             try {
-                Thread thread = threadList.remove(0);
                 thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        });
     }
 }
