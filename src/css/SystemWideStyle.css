@@ -1,0 +1,287 @@
+@font-face {
+    -fx-font-family: "Ubuntu";
+    src: url("../font/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+    -fx-font-family: "Ubuntu";
+    src: url("../font/Ubuntu-Bold.ttf");
+}
+
+
+.button {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+
+    -fx-background-color: darkcyan;
+    -fx-background-radius: 5px;
+
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: derive(darkcyan, 90%);
+
+    /*-fx-background-color: rgba(0, 139, 139, 0.1);*/
+    -fx-border-color: darkcyan;
+    -fx-text-fill: black;
+}
+
+.button:armed {
+    -fx-background-color: darkcyan;
+    -fx-text-fill: white;
+}
+
+.button#1 {
+    -fx-graphic: url("../icon/file.png");
+}
+
+.button#2 {
+    -fx-graphic: url("../icon/file.png");
+}
+
+.button#run {
+    -fx-graphic: url("../icon/security.png");
+}
+
+
+.check-box {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+.check-box:hover {
+    -fx-text-fill: darkcyan;
+}
+
+.check-box .box {
+    -fx-background-color: lightcyan;
+    -fx-background-radius: 5px;
+
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+}
+
+.check-box:hover .box {
+    -fx-background-color: white;
+    -fx-border-color: darkcyan;
+}
+
+.check-box:selected .box {
+    -fx-background-color: darkcyan;
+    -fx-background-insets: 5px;
+
+    -fx-border-color: darkcyan;
+}
+
+.check-box:selected .box .mark {
+    -fx-background-color: transparent;
+}
+
+
+.hyperlink {
+    -fx-border-style: none;
+    -fx-border-width: 0px;
+    -fx-padding: 0px;
+    -fx-underline: false;
+
+    -fx-text-fill: darkcyan;
+
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}
+
+
+.label {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+.label#title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+
+.menu:hover,
+.menu:showing {
+    -fx-background-color: darkcyan;
+}
+
+.menu .label {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 15px;
+}
+
+
+.menu-bar {
+    /*noinspection CssInvalidFunction*/
+    -fx-background-color: linear-gradient(to bottom, derive(#008b8b, 90%) 80%, #008b8b);
+}
+
+
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: darkcyan;
+}
+
+.menu-item .label {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 15px;
+}
+
+.menu-item#about .label {
+    -fx-graphic: url("../icon/information.png");
+}
+
+.menu-item#close .label {
+    -fx-graphic: url("../icon/close.png");
+}
+
+.menu-item#invert-selection .label {
+    -fx-graphic: url("../icon/invert-square.png");
+}
+
+.menu-item#manual .label {
+    -fx-graphic: url("../icon/manual.png");
+}
+
+.menu-item#select-all .label {
+    -fx-graphic: url("../icon/check-square.png");
+}
+
+.menu-item#select-none .label {
+    -fx-graphic: url("../icon/uncheck-square.png");
+}
+
+.menu-item#about .accelerator-text,
+.menu-item#close .accelerator-text,
+.menu-item#invert-selection .accelerator-text,
+.menu-item#manual .accelerator-text,
+.menu-item#select-all .accelerator-text,
+.menu-item#select-none .accelerator-text {
+    -fx-graphic: none;
+    -fx-padding: 0px 0px 0px 30px;
+}
+
+
+.pane-root {
+    -fx-background-color: white;
+}
+
+
+.progress-bar {
+    -fx-indeterminate-bar-animation-time: 1;
+    -fx-indeterminate-bar-flip: false;
+}
+
+.progress-bar .bar {
+    /*noinspection CssInvalidFunction*/
+    -fx-background-color: linear-gradient(to right, darkcyan, derive(darkcyan, 90%), darkcyan);
+    -fx-background-radius: 100px;
+    -fx-background-insets: 5px;
+}
+
+.progress-bar .track {
+    -fx-background-color: white;
+    -fx-background-radius: 100px;
+
+    -fx-border-color: darkcyan;
+    -fx-border-radius: 100px;
+}
+
+
+.separator .line {
+    -fx-border-color: dimgrey;
+}
+
+
+.text-field {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+
+    -fx-text-fill: black;
+}
+
+.text-field:focused {
+    -fx-border-color: darkcyan;
+}
+
+
+/* Change overall border color */
+.titled-pane {
+    -fx-border-color: darkcyan;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+}
+
+/* Change content background color */
+.titled-pane .content {
+    -fx-background-color: white;
+    -fx-background-radius: 0px 0px 5px 5px;
+}
+
+/* Change title area background color */
+.titled-pane .title {
+    -fx-background-color: darkcyan;
+    -fx-background-radius: 5px 5px 0px 0px;
+}
+
+.titled-pane .title:hover {
+    -fx-background-color: derive(darkcyan, 90%);
+}
+
+/* Change title font color */
+.titled-pane .title .text {
+    -fx-fill: white;
+}
+
+.titled-pane .title:hover .text {
+    -fx-fill: black;
+}
+
+/* Change arrow color */
+.titled-pane .title .arrow-button .arrow {
+    -fx-background-color: white;
+    -fx-effect: none;
+}
+
+.titled-pane .title:hover .arrow-button .arrow {
+    -fx-background-color: black;
+}
+
+.titled-pane .text {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+}
+
+
+.tooltip {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 14px;
+
+    -fx-text-fill: white;
+
+    -fx-background-color: black;
+    -fx-background-radius: 5px;
+
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-border-width: 0px;
+}
