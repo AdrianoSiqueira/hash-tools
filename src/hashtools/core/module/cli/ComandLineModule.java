@@ -1,5 +1,6 @@
 package hashtools.core.module.cli;
 
+import hashtools.core.language.LanguageManager;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.generator.GeneratorModule;
 
@@ -9,13 +10,12 @@ import java.util.Objects;
 
 /**
  * <p>
- * Allows execution from the command line.
+ * Handles command-line execution. All application modules can be executed
+ * through this class.
  * </p>
  *
- * TODO Translate all the interaction and Exception messages.
- *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class ComandLineModule implements Runnable {
@@ -48,18 +48,18 @@ public class ComandLineModule implements Runnable {
     private void runCheckSequence()
     throws IllegalArgumentException {
         if (arguments.length != 3)
-            throw new IllegalArgumentException("Wrong number of arguments.");
+            throw new IllegalArgumentException(LanguageManager.get("Wrong.number.of.arguments."));
 
 
         System.out.println("HashTools" + System.lineSeparator() +
-                           ">> Running: Check Module");
+                           ">> " + LanguageManager.get("Running") + ": " + LanguageManager.get("Check.Module."));
 
         double percentage = new CheckerModule(arguments[1], arguments[2])
                 .call()
                 .getReliabilityPercentage();
 
-        System.out.println(">> Execution done." + System.lineSeparator() +
-                           "   Reliability: " + percentage + " %");
+        System.out.println(">> " + LanguageManager.get("Execution.done.") + System.lineSeparator() +
+                           "   " + LanguageManager.get("Reliability") + ": " + percentage + " %");
     }
 
     /**
@@ -73,18 +73,18 @@ public class ComandLineModule implements Runnable {
     private void runGenerationSequence()
     throws IllegalArgumentException {
         if (arguments.length < 4)
-            throw new IllegalArgumentException("Wrong number of arguments..");
+            throw new IllegalArgumentException(LanguageManager.get("Wrong.number.of.arguments."));
 
 
         System.out.println("HashTools" + System.lineSeparator() +
-                           ">> Running: Generation Module");
+                           ">> " + LanguageManager.get("Running") + ": " + LanguageManager.get("Generation.Module."));
 
         String[] algorithms = Arrays.copyOfRange(arguments, 3, arguments.length);
 
         new GeneratorModule(arguments[1], arguments[2], List.of(algorithms))
                 .call();
 
-        System.out.println(">> Execution done.");
+        System.out.println(">> " + LanguageManager.get("Execution.done."));
     }
 
 
@@ -104,7 +104,7 @@ public class ComandLineModule implements Runnable {
         } else if (arguments[0].equalsIgnoreCase("--generate")) {
             runGenerationSequence();
         } else {
-            throw new IllegalArgumentException("Invalid execution module: '" + arguments[0] + "'");
+            throw new IllegalArgumentException(LanguageManager.get("Invalid.execution.module") + ": '" + arguments[0] + "'");
         }
     }
 }
