@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -38,17 +39,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -233,19 +234,15 @@ public class App implements Initializable {
     }
 
     private List<SHAType> createGenerationList() {
-        List<SHAType> algorithms = new ArrayList<>();
-
-        paneGenerateAlgorithms.getChildren()
-                              .stream()
-                              .filter(CheckBox.class::isInstance)
-                              .map(CheckBox.class::cast)
-                              .forEach(checkBox -> {
-                                  if (checkBox.isSelected()) {
-                                      algorithms.add((SHAType) checkBox.getUserData());
-                                  }
-                              });
-
-        return algorithms;
+        return paneGenerateAlgorithms.getChildren()
+                                     .stream()
+                                     .filter(CheckBox.class::isInstance)
+                                     .map(CheckBox.class::cast)
+                                     .filter(CheckBox::isSelected)
+                                     .map(Node::getUserData)
+                                     .filter(SHAType.class::isInstance)
+                                     .map(SHAType.class::cast)
+                                     .collect(Collectors.toList());
     }
 
     @FXML
