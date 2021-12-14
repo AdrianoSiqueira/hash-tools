@@ -1,6 +1,7 @@
 package hashtools.gui.screen.app;
 
 import aslib.fx.dialog.MessageDialogBuilder;
+import aslib.fx.dialog.StackTraceDialogBuilder;
 import aslib.net.ConnectionChecker;
 import aslib.net.ConnectionStatus;
 import aslib.security.SHAType;
@@ -16,10 +17,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -37,8 +41,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +56,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.10
+ * @version 1.0.11
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -249,6 +255,29 @@ public class App implements Initializable {
         fieldOutput.setText("/home/adriano/Documents/settings_idea.txt");
     }
 
+    private void openWindowFromFxml(FXMLLoader loader) {
+        try {
+            Parent parent = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(LanguageManager.get("About"));
+            // TODO Add icon
+            stage.setScene(new Scene(parent));
+            stage.show();
+        } catch (IOException e) {
+            new StackTraceDialogBuilder()
+                    .setAlertType(Alert.AlertType.ERROR)
+                    .setTitle(this.getClass().getSimpleName())
+                    .setHeaderText("FXMLLoader failed to load")
+                    .setThrowable(e)
+                    .build()
+                    .show();
+
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void runCheckSequence() {
         String fieldCheckText    = fieldCheck.getText();
@@ -331,8 +360,12 @@ public class App implements Initializable {
 
     @FXML
     private void showAboutInfo() {
-        Logger.getGlobal()
-              .info("Showing info about the application.");
+        FXMLLoader loader = new FXMLLoader(
+                this.getClass().getResource("/hashtools/gui/screen/about/About.fxml"),
+                ResourceBundle.getBundle("hashtools.core.language.Language")
+        );
+
+        openWindowFromFxml(loader);
     }
 
     @FXML
@@ -380,9 +413,5 @@ public class App implements Initializable {
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
         configureAlgorithmCheckBoxGroup();
-
-//        openCheckFile();
-//        openOfficialFile();
-//        runCheckSequence();
     }
 }
