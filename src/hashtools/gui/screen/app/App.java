@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.3
+ * @version 1.0.4
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -82,9 +82,9 @@ public class App implements Initializable {
     @FXML private Label labelGenerateInput;
     @FXML private Label labelOutput;
 
-    @FXML private TextField fieldCheckInput;        // TODO Rename this to 'fieldCheck'
+    @FXML private TextField fieldCheck;
     @FXML private TextField fieldOfficial;
-    @FXML private TextField fieldGenerateInput;     // TODO Rename this to 'fieldGenerate'
+    @FXML private TextField fieldGenerate;
     @FXML private TextField fieldOutput;
 
     @FXML private CheckBox checkMD5;
@@ -123,8 +123,7 @@ public class App implements Initializable {
     }
 
 
-    // TODO Rename this to 'calculateTabPaneHeaderWidth'
-    private void calculateHeaderWidth() {
+    private void calculateTabPaneHeaderWidth() {
         double width = paneRootContent.getWidth()
                        /
                        paneRootContent.getTabs()
@@ -135,36 +134,13 @@ public class App implements Initializable {
         paneRootContent.setTabMaxWidth(width);
     }
 
-    // TODO Rename this to 'runCheckSequence'
-    @FXML
-    private void check() {
-        // TODO Check if fields are empty before continuing
-        new Thread(() -> {
-            setLoadingState(true);
-
-            SampleList list = new CheckerModule(
-                    fieldCheckInput.getText(),
-                    fieldOfficial.getText()
-            ).call();
-
-            // GUI changes must be made in a JavaFX thread.
-            Platform.runLater(() -> {
-                updateResultTab(list);
-                setLoadingState(false);
-                showResultTab();
-                selectResultTab();
-                clearCheckTab();
-            });
-        }).start();
-    }
-
     private void clearCheckTab() {
-        fieldCheckInput.clear();
+        fieldCheck.clear();
         fieldOfficial.clear();
     }
 
     private void clearGenerateTab() {
-        fieldGenerateInput.clear();
+        fieldGenerate.clear();
         fieldOutput.clear();
 
         // TODO Replace this with a for
@@ -188,6 +164,14 @@ public class App implements Initializable {
         checkSHA256.setUserData(SHAType.SHA256);
         checkSHA384.setUserData(SHAType.SHA384);
         checkSHA512.setUserData(SHAType.SHA512);
+    }
+
+    private void configureTabPaneTabWidth() {
+        paneRootContent.widthProperty()
+                       .addListener((observable, oldValue, newValue) -> calculateTabPaneHeaderWidth());
+
+        paneRootContent.getTabs()
+                       .addListener((ListChangeListener<Tab>) c -> calculateTabPaneHeaderWidth());
     }
 
     private void configureTableColumns() {
@@ -229,17 +213,7 @@ public class App implements Initializable {
                    .add(columnAlgorithm);
     }
 
-    // TODO Rename this to 'configureTabPaneTabWidth'
-    private void configureTabsWidth() {
-        paneRootContent.widthProperty()
-                       .addListener((observable, oldValue, newValue) -> calculateHeaderWidth());
-
-        paneRootContent.getTabs()
-                       .addListener((ListChangeListener<Tab>) c -> calculateHeaderWidth());
-    }
-
-    // TODO Rename this to 'createGenerationAlgorithmList'
-    private List<SHAType> createGenerationList() {
+    private List<SHAType> createGenerationAlgorithmList() {
         return paneGenerateAlgorithms.getChildren()
                                      .stream()
                                      .filter(CheckBox.class::isInstance)
@@ -251,47 +225,20 @@ public class App implements Initializable {
                                      .collect(Collectors.toList());
     }
 
-    // TODO Rename this to 'runGenerateSequence'
-    @FXML
-    private void generate() {
-        // TODO Check if fields are empty before continuing
-        new Thread(() -> {
-            setLoadingState(true);
-
-            List<?> algorithms = createGenerationList();
-
-            new GeneratorModule(
-                    fieldCheckInput.getText(),
-                    fieldOfficial.getText(),
-                    algorithms
-            ).call();
-
-            // GUI changes must be made in a JavaFX thread.
-            Platform.runLater(() -> {
-                setLoadingState(false);
-                clearGenerateTab();
-            });
-        }).start();
-    }
-
     // Merge this in a 'setResultTabVisible' method
     private void hideResultTab() {
         paneRootContent.getTabs()
                        .remove(tabResult);
     }
 
-    // TODO Rename this to 'openCheckFile'
     @FXML
-    private void openInputFileCheck() {
-        fieldCheckInput.setText("/home/adriano/Documents/settings_idea.zip");
-
+    private void openCheckFile() {
+        fieldCheck.setText("/home/adriano/Documents/settings_idea.zip");
     }
 
-    // TODO Rename this to 'openGenerateFile'
     @FXML
-    private void openInputFileGenerate() {
-        fieldGenerateInput.setText("/home/adriano/Documents/settings_idea.zip");
-
+    private void openGenerateFile() {
+        fieldGenerate.setText("/home/adriano/Documents/settings_idea.zip");
     }
 
     @FXML
@@ -302,6 +249,50 @@ public class App implements Initializable {
     @FXML
     private void openOutputFile() {
         fieldOutput.setText("/home/adriano/Documents/settings_idea.txt");
+    }
+
+    @FXML
+    private void runCheckSequence() {
+        // TODO Check if fields are empty before continuing
+        new Thread(() -> {
+            setLoadingState(true);
+
+            SampleList list = new CheckerModule(
+                    fieldCheck.getText(),
+                    fieldOfficial.getText()
+            ).call();
+
+            // GUI changes must be made in a JavaFX thread.
+            Platform.runLater(() -> {
+                updateResultTab(list);
+                setLoadingState(false);
+                showResultTab();
+                selectResultTab();
+                clearCheckTab();
+            });
+        }).start();
+    }
+
+    @FXML
+    private void runGenerateSequence() {
+        // TODO Check if fields are empty before continuing
+        new Thread(() -> {
+            setLoadingState(true);
+
+            List<?> algorithms = createGenerationAlgorithmList();
+
+            new GeneratorModule(
+                    fieldCheck.getText(),
+                    fieldOfficial.getText(),
+                    algorithms
+            ).call();
+
+            // GUI changes must be made in a JavaFX thread.
+            Platform.runLater(() -> {
+                setLoadingState(false);
+                clearGenerateTab();
+            });
+        }).start();
     }
 
     private void selectResultTab() {
@@ -375,14 +366,14 @@ public class App implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        configureTabsWidth();
+        configureTabPaneTabWidth();
         hideResultTab();
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
 
 
-//        openInputFileCheck();
+//        openCheckFile();
 //        openOfficialFile();
-//        check();
+//        runCheckSequence();
     }
 }
