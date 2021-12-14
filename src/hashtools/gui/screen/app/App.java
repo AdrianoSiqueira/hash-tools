@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.7
+ * @version 1.0.8
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -250,13 +250,17 @@ public class App implements Initializable {
 
     @FXML
     private void runCheckSequence() {
-        // TODO Check if fields are empty before continuing
+        String fieldCheckText    = fieldCheck.getText();
+        String fieldOfficialText = fieldOfficial.getText();
+
+        if (fieldCheckText.isBlank() || fieldOfficialText.isBlank()) return;
+
         new Thread(() -> {
             setLoadingState(true);
 
             SampleList list = new CheckerModule(
-                    fieldCheck.getText(),
-                    fieldOfficial.getText()
+                    fieldCheckText,
+                    fieldOfficialText
             ).call();
 
             // GUI changes must be made in a JavaFX thread.
@@ -272,15 +276,19 @@ public class App implements Initializable {
 
     @FXML
     private void runGenerateSequence() {
-        // TODO Check if fields are empty before continuing
+        String fieldGenerateText = fieldGenerate.getText();
+        String fieldOutputText   = fieldOutput.getText();
+
+        if (fieldGenerateText.isBlank() || fieldOutputText.isBlank()) return;
+
         new Thread(() -> {
             setLoadingState(true);
 
             List<?> algorithms = createGenerationAlgorithmList();
 
             new GeneratorModule(
-                    fieldCheck.getText(),
-                    fieldOfficial.getText(),
+                    fieldGenerateText,
+                    fieldOutputText,
                     algorithms
             ).call();
 
@@ -293,7 +301,8 @@ public class App implements Initializable {
     }
 
     private void selectResultTab() {
-        // TODO Check if tabResult is present before selecting it
+        if (!paneRootContent.getTabs().contains(tabResult)) return;
+
         paneRootContent.getSelectionModel()
                        .select(tabResult);
     }
