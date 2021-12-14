@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.9
+ * @version 1.0.10
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -113,15 +113,16 @@ public class App implements Initializable {
 
     // Provided from parent caller
     private HostServices hostServices;
-    private Stage        stage;
+    private Stage        parentStage;
 
 
     public void setHostServices(HostServices hostServices) {
         this.hostServices = hostServices;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    // TODO Rename this to 'setParentStage'
+    public void setStage(Stage parentStage) {
+        this.parentStage = parentStage;
     }
 
 
@@ -153,7 +154,7 @@ public class App implements Initializable {
 
     @FXML
     private void close() {
-        stage.close();
+        parentStage.close();
     }
 
     private void configureAlgorithmCheckBoxGroup() {
