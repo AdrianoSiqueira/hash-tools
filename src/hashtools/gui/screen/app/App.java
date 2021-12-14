@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -311,11 +311,14 @@ public class App implements Initializable {
 
     @FXML
     private void showAboutInfo() {
+        Logger.getGlobal()
+              .info("Showing info about the application.");
     }
 
     @FXML
     private void showOfflineManual() {
-        System.out.println(">> Offline manual.");
+        Logger.getGlobal()
+              .info("Showing offline manual.");
     }
 
     @FXML
