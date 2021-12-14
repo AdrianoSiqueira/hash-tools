@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -82,9 +82,9 @@ public class App implements Initializable {
     @FXML private Label labelGenerateInput;
     @FXML private Label labelOutput;
 
-    @FXML private TextField fieldCheckInput;
+    @FXML private TextField fieldCheckInput;        // TODO Rename this to 'fieldCheck'
     @FXML private TextField fieldOfficial;
-    @FXML private TextField fieldGenerateInput;
+    @FXML private TextField fieldGenerateInput;     // TODO Rename this to 'fieldGenerate'
     @FXML private TextField fieldOutput;
 
     @FXML private CheckBox checkMD5;
@@ -123,6 +123,7 @@ public class App implements Initializable {
     }
 
 
+    // TODO Rename this to 'calculateTabPaneHeaderWidth'
     private void calculateHeaderWidth() {
         double width = paneRootContent.getWidth()
                        /
@@ -134,8 +135,10 @@ public class App implements Initializable {
         paneRootContent.setTabMaxWidth(width);
     }
 
+    // TODO Rename this to 'runCheckSequence'
     @FXML
     private void check() {
+        // TODO Check if fields are empty before continuing
         new Thread(() -> {
             setLoadingState(true);
 
@@ -164,6 +167,7 @@ public class App implements Initializable {
         fieldGenerateInput.clear();
         fieldOutput.clear();
 
+        // TODO Replace this with a for
         checkMD5.setSelected(false);
         checkSHA1.setSelected(false);
         checkSHA224.setSelected(false);
@@ -225,6 +229,7 @@ public class App implements Initializable {
                    .add(columnAlgorithm);
     }
 
+    // TODO Rename this to 'configureTabPaneTabWidth'
     private void configureTabsWidth() {
         paneRootContent.widthProperty()
                        .addListener((observable, oldValue, newValue) -> calculateHeaderWidth());
@@ -233,6 +238,7 @@ public class App implements Initializable {
                        .addListener((ListChangeListener<Tab>) c -> calculateHeaderWidth());
     }
 
+    // TODO Rename this to 'createGenerationAlgorithmList'
     private List<SHAType> createGenerationList() {
         return paneGenerateAlgorithms.getChildren()
                                      .stream()
@@ -245,8 +251,10 @@ public class App implements Initializable {
                                      .collect(Collectors.toList());
     }
 
+    // TODO Rename this to 'runGenerateSequence'
     @FXML
     private void generate() {
+        // TODO Check if fields are empty before continuing
         new Thread(() -> {
             setLoadingState(true);
 
@@ -266,17 +274,20 @@ public class App implements Initializable {
         }).start();
     }
 
+    // Merge this in a 'setResultTabVisible' method
     private void hideResultTab() {
         paneRootContent.getTabs()
                        .remove(tabResult);
     }
 
+    // TODO Rename this to 'openCheckFile'
     @FXML
     private void openInputFileCheck() {
         fieldCheckInput.setText("/home/adriano/Documents/settings_idea.zip");
 
     }
 
+    // TODO Rename this to 'openGenerateFile'
     @FXML
     private void openInputFileGenerate() {
         fieldGenerateInput.setText("/home/adriano/Documents/settings_idea.zip");
@@ -294,6 +305,7 @@ public class App implements Initializable {
     }
 
     private void selectResultTab() {
+        // TODO Check if tabResult is present before selecting it
         paneRootContent.getSelectionModel()
                        .select(tabResult);
     }
@@ -345,6 +357,7 @@ public class App implements Initializable {
         }
     }
 
+    // Merge this in a 'setResultTabVisible' method
     private void showResultTab() {
         ObservableList<Tab> list = paneRootContent.getTabs();
 
