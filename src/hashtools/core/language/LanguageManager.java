@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
  * <p>Handles the management of multiple languages.</p>
  *
  * @author Adriano Siqueira
- * @version 2.0.0
+ * @version 2.1.0
  * @since 1.0.0
  */
 public class LanguageManager {
@@ -19,6 +19,10 @@ public class LanguageManager {
 
     public static String get(String key) {
         return bundle.getString(key);
+    }
+
+    public static ResourceBundle getBundle() {
+        return bundle;
     }
 
     public static void setLanguage(Locale locale) {
