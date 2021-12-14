@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.8
+ * @version 1.0.9
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -157,9 +157,9 @@ public class App implements Initializable {
     }
 
     private void configureAlgorithmCheckBoxGroup() {
-        groupAlgorithmCheckBox.getChildren()
-                              .addAll(checkMD5, checkSHA1, checkSHA224,
-                                      checkSHA256, checkSHA384, checkSHA512);
+        groupAlgorithmCheckBox = new Group(checkMD5, checkSHA1,
+                                           checkSHA224, checkSHA256,
+                                           checkSHA384, checkSHA512);
     }
 
     private void configureAlgorithmsCheckBoxes() {
