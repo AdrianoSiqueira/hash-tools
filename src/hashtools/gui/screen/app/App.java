@@ -56,7 +56,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.11
+ * @version 1.0.12
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -378,7 +378,7 @@ public class App implements Initializable {
     private void showOnlineManual() {
         if (ConnectionChecker.check().equals(ConnectionStatus.ONLINE)) {
             Optional.ofNullable(hostServices)
-                    .ifPresent(services -> services.showDocument(Links.ONLINE_DOCUMENTATION.getUrl()));
+                    .ifPresent(services -> services.showDocument(Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl()));
         } else {
             new MessageDialogBuilder()
                     .setAlertType(Alert.AlertType.WARNING)
