@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.6
+ * @version 1.0.7
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -221,11 +221,9 @@ public class App implements Initializable {
     private List<SHAType> createGenerationAlgorithmList() {
         return groupAlgorithmCheckBox.getChildren()
                                      .stream()
-                                     .filter(CheckBox.class::isInstance)
                                      .map(CheckBox.class::cast)
                                      .filter(CheckBox::isSelected)
                                      .map(Node::getUserData)
-                                     .filter(SHAType.class::isInstance)
                                      .map(SHAType.class::cast)
                                      .collect(Collectors.toList());
     }
