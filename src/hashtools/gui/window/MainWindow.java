@@ -1,6 +1,7 @@
 package hashtools.gui.window;
 
 import aslib.fx.dialog.StackTraceDialogBuilder;
+import hashtools.core.service.WebService;
 import hashtools.gui.screen.app.App;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.1.0
  * @since 2.0.0
  */
 public class MainWindow extends Application {
@@ -76,6 +77,16 @@ public class MainWindow extends Application {
         stage.show();
     }
 
+    /**
+     * <p>
+     * Configures the WebService. It is used along the application to open web
+     * pages.
+     * </p>
+     */
+    private void configureWebService() {
+        WebService.setHostServices(this.getHostServices());
+    }
+
 
     @Override
     public void start(Stage stage) {
@@ -89,6 +100,7 @@ public class MainWindow extends Application {
             Parent root = loader.load();
 
             configureController(stage, loader);
+            configureWebService();
             configureStage(stage, root);
         } catch (IOException e) {
             new StackTraceDialogBuilder()
