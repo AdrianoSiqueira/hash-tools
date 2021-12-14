@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.4
+ * @version 1.0.5
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -225,12 +225,6 @@ public class App implements Initializable {
                                      .collect(Collectors.toList());
     }
 
-    // Merge this in a 'setResultTabVisible' method
-    private void hideResultTab() {
-        paneRootContent.getTabs()
-                       .remove(tabResult);
-    }
-
     @FXML
     private void openCheckFile() {
         fieldCheck.setText("/home/adriano/Documents/settings_idea.zip");
@@ -266,7 +260,7 @@ public class App implements Initializable {
             Platform.runLater(() -> {
                 updateResultTab(list);
                 setLoadingState(false);
-                showResultTab();
+                setResultTabVisible(true);
                 selectResultTab();
                 clearCheckTab();
             });
@@ -312,6 +306,16 @@ public class App implements Initializable {
                        .forEach(node -> node.setDisable(loadingState));
     }
 
+    private void setResultTabVisible(boolean visible) {
+        ObservableList<Tab> tabs = paneRootContent.getTabs();
+
+        if (!visible) {
+            tabs.remove(tabResult);
+        } else if (!tabs.contains(tabResult)) {
+            tabs.add(tabResult);
+        }
+    }
+
     @FXML
     private void showAboutInfo() {
         Logger.getGlobal()
@@ -348,14 +352,6 @@ public class App implements Initializable {
         }
     }
 
-    // Merge this in a 'setResultTabVisible' method
-    private void showResultTab() {
-        ObservableList<Tab> list = paneRootContent.getTabs();
-
-        if (!list.contains(tabResult))
-            list.add(tabResult);
-    }
-
     private void updateResultTab(SampleList list) {
         tableResult.getItems()
                    .setAll(list.getSamples());
@@ -367,7 +363,7 @@ public class App implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configureTabPaneTabWidth();
-        hideResultTab();
+        setResultTabVisible(false);
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
 
