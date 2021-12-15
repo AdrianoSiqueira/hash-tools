@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2.0.0
  */
 public class About implements Initializable {
@@ -76,11 +76,11 @@ public class About implements Initializable {
             new WebService().openWebPage(hyperlink);
         } catch (NoInternetConnectionException e) {
             new MessageDialogBuilder()
-                    .setAlertType(Alert.AlertType.WARNING)
-                    .setTitle("")
+                    .setAlertType(Alert.AlertType.ERROR)
+                    .setTitle("HashTools")
                     .setHeaderText(LanguageManager.get("Internet.Connection"))
                     .setContentText(LanguageManager.get("There.is.no.internet.connection."))
-                    .setButtons(ButtonType.YES, ButtonType.NO)
+                    .setButtons(ButtonType.OK)
                     .build()
                     .show();
 
