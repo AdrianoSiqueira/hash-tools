@@ -2,16 +2,15 @@ package hashtools.gui.screen.app;
 
 import aslib.fx.dialog.MessageDialogBuilder;
 import aslib.fx.dialog.StackTraceDialogBuilder;
-import aslib.net.ConnectionChecker;
-import aslib.net.ConnectionStatus;
 import aslib.security.SHAType;
+import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.generator.GeneratorModule;
+import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
-import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -47,7 +46,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -56,7 +54,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.12
+ * @version 1.0.13
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -118,13 +116,8 @@ public class App implements Initializable {
     @FXML private ProgressBar progressBar;
 
     // Provided from parent caller
-    private HostServices hostServices;
-    private Stage        parentStage;
+    private Stage parentStage;
 
-
-    public void setHostServices(HostServices hostServices) {
-        this.hostServices = hostServices;
-    }
 
     // TODO Rename this to 'setParentStage'
     public void setStage(Stage parentStage) {
@@ -376,14 +369,14 @@ public class App implements Initializable {
 
     @FXML
     private void showOnlineManual() {
-        if (ConnectionChecker.check().equals(ConnectionStatus.ONLINE)) {
-            Optional.ofNullable(hostServices)
-                    .ifPresent(services -> services.showDocument(Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl()));
-        } else {
+        try {
+            new WebService().openWebPage(Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
+        } catch (NoInternetConnectionException e) {
             new MessageDialogBuilder()
                     .setAlertType(Alert.AlertType.WARNING)
+                    .setTitle("HashTools")
                     .setHeaderText(LanguageManager.get("Internet.Connection"))
-                    .setContentText(LanguageManager.get("There.is.no.internet.connection..Would.you.like.to.open.offline.manual.instead?"))
+                    .setContentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
                     .setButtons(ButtonType.YES, ButtonType.NO)
                     .build()
                     .showAndWait()
@@ -395,6 +388,8 @@ public class App implements Initializable {
                                   .warning("Cannot open online manual due to offline status.");
                         }
                     });
+
+            e.printStackTrace();
         }
     }
 
