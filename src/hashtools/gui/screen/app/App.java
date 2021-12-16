@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -54,7 +53,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.14
+ * @version 1.0.15
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -98,7 +97,6 @@ public class App implements Initializable {
     @FXML private CheckBox checkSHA256;
     @FXML private CheckBox checkSHA384;
     @FXML private CheckBox checkSHA512;
-    private       Group    groupAlgorithmCheckBox;
 
     @FXML private Button buttonCheck;
     @FXML private Button buttonOpenInputFileCheck;
@@ -144,8 +142,9 @@ public class App implements Initializable {
         fieldGenerate.clear();
         fieldOutput.clear();
 
-        groupAlgorithmCheckBox.getChildren()
+        paneGenerateAlgorithms.getChildren()
                               .stream()
+                              .filter(CheckBox.class::isInstance)
                               .map(CheckBox.class::cast)
                               .forEach(cb -> cb.setSelected(false));
     }
@@ -153,12 +152,6 @@ public class App implements Initializable {
     @FXML
     private void close() {
         parentStage.close();
-    }
-
-    private void configureAlgorithmCheckBoxGroup() {
-        groupAlgorithmCheckBox = new Group(checkMD5, checkSHA1,
-                                           checkSHA224, checkSHA256,
-                                           checkSHA384, checkSHA512);
     }
 
     private void configureAlgorithmsCheckBoxes() {
@@ -218,11 +211,13 @@ public class App implements Initializable {
     }
 
     private List<SHAType> createGenerationAlgorithmList() {
-        return groupAlgorithmCheckBox.getChildren()
+        return paneGenerateAlgorithms.getChildren()
                                      .stream()
+                                     .filter(CheckBox.class::isInstance)
                                      .map(CheckBox.class::cast)
                                      .filter(CheckBox::isSelected)
                                      .map(Node::getUserData)
+                                     .filter(SHAType.class::isInstance)
                                      .map(SHAType.class::cast)
                                      .collect(Collectors.toList());
     }
@@ -387,8 +382,6 @@ public class App implements Initializable {
                                   .warning("Cannot open online manual due to offline status.");
                         }
                     });
-
-            e.printStackTrace();
         }
     }
 
@@ -406,6 +399,5 @@ public class App implements Initializable {
         setResultTabVisible(false);
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
-        configureAlgorithmCheckBoxGroup();
     }
 }
