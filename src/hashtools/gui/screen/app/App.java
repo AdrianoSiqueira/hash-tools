@@ -54,7 +54,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.13
+ * @version 1.0.14
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -119,8 +119,7 @@ public class App implements Initializable {
     private Stage parentStage;
 
 
-    // TODO Rename this to 'setParentStage'
-    public void setStage(Stage parentStage) {
+    public void setParentStage(Stage parentStage) {
         this.parentStage = parentStage;
     }
 

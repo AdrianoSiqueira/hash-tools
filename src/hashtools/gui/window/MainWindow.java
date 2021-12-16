@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.1
+ * @version 1.1.2
  * @since 2.0.0
  */
 public class MainWindow extends Application {
@@ -50,7 +50,7 @@ public class MainWindow extends Application {
      */
     private void configureController(Stage stage, FXMLLoader loader) {
         App controller = loader.getController();
-        controller.setStage(stage);
+        controller.setParentStage(stage);
     }
 
     /**
