@@ -77,6 +77,22 @@
 }
 
 
+.hyperlink,
+.hyperlink:focused,
+.hyperlink:visited {
+    -fx-border-color : transparent;
+    -fx-border-style : none;
+    -fx-border-width : 0px;
+
+    -fx-font-family  : "Ubuntu";
+    -fx-font-size    : 16px;
+
+    -fx-padding      : 0px;
+    -fx-text-fill    : _gradient;
+    -fx-underline    : false;
+}
+
+
 .label {
     -fx-font-family : "Ubuntu";
     -fx-font-size   : 16px;
