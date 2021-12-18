@@ -1,7 +1,5 @@
 package hashtools.gui.screen.app;
 
-import aslib.fx.dialog.MessageDialogBuilder;
-import aslib.fx.dialog.StackTraceDialogBuilder;
 import aslib.security.SHAType;
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
@@ -11,6 +9,7 @@ import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
+import hashtools.gui.dialog.DialogFactory;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -53,7 +52,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.15
+ * @version 1.0.16
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -253,15 +252,13 @@ public class App implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
         } catch (IOException e) {
-            new StackTraceDialogBuilder()
+            new DialogFactory.StackTraceDialog()
                     .setAlertType(Alert.AlertType.ERROR)
                     .setTitle(this.getClass().getSimpleName())
                     .setHeaderText("FXMLLoader failed to load")
                     .setThrowable(e)
                     .build()
                     .show();
-
-            e.printStackTrace();
         }
     }
 
@@ -366,7 +363,7 @@ public class App implements Initializable {
         try {
             new WebService().openWebPage(Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
         } catch (NoInternetConnectionException e) {
-            new MessageDialogBuilder()
+            new DialogFactory.MessageDialog()
                     .setAlertType(Alert.AlertType.WARNING)
                     .setTitle("HashTools")
                     .setHeaderText(LanguageManager.get("Internet.Connection"))
