@@ -1,9 +1,9 @@
 package hashtools.gui.screen.about;
 
-import aslib.fx.dialog.MessageDialogBuilder;
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.service.WebService;
+import hashtools.gui.dialog.DialogFactory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class About implements Initializable {
@@ -75,7 +75,7 @@ public class About implements Initializable {
         try {
             new WebService().openWebPage(hyperlink);
         } catch (NoInternetConnectionException e) {
-            new MessageDialogBuilder()
+            new DialogFactory.MessageDialog()
                     .setAlertType(Alert.AlertType.ERROR)
                     .setTitle("HashTools")
                     .setHeaderText(LanguageManager.get("Internet.Connection"))
@@ -83,8 +83,6 @@ public class About implements Initializable {
                     .setButtons(ButtonType.OK)
                     .build()
                     .show();
-
-            e.printStackTrace();
         }
     }
 
