@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.17
+ * @version 1.0.18
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -349,13 +349,17 @@ public class App implements Initializable {
                 ResourceBundle.getBundle("hashtools.core.language.Language")
         );
 
-        openWindowFromFxml(loader);
+        openWindowFromFxml(loader, "About");
     }
 
     @FXML
     private void showOfflineManual() {
-        Logger.getGlobal()
-              .info("Showing offline manual.");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/hashtools/gui/screen/manual/Manual.fxml"),
+                LanguageManager.getBundle()
+        );
+
+        openWindowFromFxml(loader, "Manual");
     }
 
     @FXML
