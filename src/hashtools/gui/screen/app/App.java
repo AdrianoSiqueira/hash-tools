@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.16
+ * @version 1.0.17
  * @since 2.0.0
  */
 public class App implements Initializable {
@@ -241,13 +241,13 @@ public class App implements Initializable {
         fieldOutput.setText("/home/adriano/Documents/settings_idea.txt");
     }
 
-    private void openWindowFromFxml(FXMLLoader loader) {
+    private void openWindowFromFxml(FXMLLoader loader, String title) {
         try {
             Parent parent = loader.load();
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle(LanguageManager.get("About"));
+            stage.setTitle(LanguageManager.get(title));
             // TODO Add icon
             stage.setScene(new Scene(parent));
             stage.show();
