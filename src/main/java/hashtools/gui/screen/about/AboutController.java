@@ -4,6 +4,7 @@ import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.service.WebService;
 import hashtools.gui.dialog.DialogFactory;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,10 +27,10 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.2
+ * @version 1.1.0
  * @since 2.0.0
  */
-public class About implements Initializable {
+public class AboutController implements Initializable {
 
     @FXML private VBox     paneRoot;
     @FXML private GridPane paneContent;
@@ -48,6 +50,12 @@ public class About implements Initializable {
     @FXML private Hyperlink linkGithubUrl;
     @FXML private Hyperlink linkLinkedInUrl;
 
+
+    private Stage stage;
+
+    private HostServices getHostServices() {
+        return (HostServices) stage.getProperties().get("host.services");
+    }
 
     /**
      * <p>
@@ -73,7 +81,7 @@ public class About implements Initializable {
      */
     private void openHyperlink(Hyperlink hyperlink) {
         try {
-            new WebService().openWebPage(hyperlink);
+             WebService.openWebPage(getHostServices(),hyperlink);
         } catch (NoInternetConnectionException e) {
             new DialogFactory.MessageDialog()
                     .setAlertType(Alert.AlertType.ERROR)
@@ -83,12 +91,27 @@ public class About implements Initializable {
                     .setButtons(ButtonType.OK)
                     .build()
                     .show();
+        }catch (IllegalArgumentException e){
+            // TODO Translate this dialog
+            new DialogFactory.MessageDialog()
+                    .setAlertType(Alert.AlertType.ERROR)
+                    .setTitle("HashTools")
+                    .setHeaderText("Invalid url")
+                    .setContentText("The given url is invalid.")
+                    .setButtons(ButtonType.OK)
+                    .build()
+                    .showAndWait();
         }
+    }
+
+    private void setStage(Stage stage) {
+        this.stage = stage;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setStage((Stage) paneRoot.getScene().getWindow());
         configureHyperlinks();
     }
 
