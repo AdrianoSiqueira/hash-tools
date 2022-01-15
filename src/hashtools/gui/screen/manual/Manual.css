@@ -1,0 +1,68 @@
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Bold.ttf");
+}
+
+
+/*noinspection CssInvalidFunction*/
+* {
+    _gradient        : linear-gradient(to top right, _primary_color, _secondary_color);
+    _gradient_light  : linear-gradient(to top right, derive(_primary_color, 140%), derive(_secondary_color, 140%));
+
+    _primary_color   : rgb(0, 0, 255);
+    _secondary_color : rgb(255, 0, 0);
+}
+
+
+.label {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 16px;
+    -fx-text-fill   : black;
+}
+
+.left-pane > .label:hover {
+    -fx-text-fill : _gradient;
+}
+
+.left-pane > .label#expanded {
+    -fx-font-weight : bold;
+    -fx-text-fill   : _gradient;
+}
+
+
+.titled-pane > .content {
+    -fx-border-color : _gradient_light
+}
+
+.titled-pane > .title {
+    -fx-background-color : _gradient_light;
+}
+
+.titled-pane > .title > .text {
+    -fx-fill : black;
+}
+
+.titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color : black
+}
+
+.titled-pane:expanded > .content {
+    -fx-border-color : _gradient
+}
+
+.titled-pane:expanded > .title {
+    -fx-background-color : _gradient;
+}
+
+.titled-pane:expanded > .title > .text {
+    -fx-fill : white;
+}
+
+.titled-pane:expanded > .title > .arrow-button > .arrow {
+    -fx-background-color : white
+}
