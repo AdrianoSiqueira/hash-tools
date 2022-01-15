@@ -14,7 +14,7 @@ import java.io.IOException;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2.0.0
  */
 public class ApplicationWindow extends Application {
@@ -30,7 +30,7 @@ public class ApplicationWindow extends Application {
      */
     private Scene createScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("App.fxml"),
+                getClass().getResource("Application.fxml"),
                 LanguageManager.getBundle()
         );
 
