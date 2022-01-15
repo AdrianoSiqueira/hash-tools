@@ -14,7 +14,7 @@ import java.io.IOException;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class ApplicationWindow extends Application {
@@ -39,6 +39,7 @@ public class ApplicationWindow extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.getProperties().put("host.services", getHostServices());
         stage.setTitle("HashTools");
         stage.setScene(createScene());
         stage.show();
