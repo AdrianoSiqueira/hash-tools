@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0" prefWidth="640.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.manual.Manual" fx:id="paneRoot" stylesheets="@Manual.css">
+<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0" prefWidth="640.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.window.manual.Manual" fx:id="paneRoot" stylesheets="@Manual.css">
     <padding>
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
     </padding>

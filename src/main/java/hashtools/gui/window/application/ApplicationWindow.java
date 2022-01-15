@@ -1,4 +1,4 @@
-package hashtools.gui.screen.application;
+package hashtools.gui.window.application;
 
 import hashtools.core.language.LanguageManager;
 import javafx.application.Application;

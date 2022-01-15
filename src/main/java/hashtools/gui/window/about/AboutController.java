@@ -1,4 +1,4 @@
-package hashtools.gui.screen.about;
+package hashtools.gui.window.about;
 
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;

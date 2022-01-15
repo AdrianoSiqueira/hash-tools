@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0" prefWidth="840.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.application.ApplicationController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0" prefWidth="840.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.window.application.ApplicationController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <Menu fx:id="menuFile" mnemonicParsing="false" text="%File">

@@ -1,4 +1,4 @@
-package hashtools.gui.screen.manual;
+package hashtools.gui.window.manual;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package hashtools.gui.screen.application;
+package hashtools.gui.window.application;
 
 import aslib.security.SHAType;
 import hashtools.core.exception.NoInternetConnectionException;
@@ -347,7 +347,7 @@ public class ApplicationController implements Initializable {
     @FXML
     private void showAboutInfo() {
         FXMLLoader loader = new FXMLLoader(
-                this.getClass().getResource("/hashtools/gui/screen/about/About.fxml"),
+                this.getClass().getResource("/hashtools/gui/window/about/About.fxml"),
                 ResourceBundle.getBundle("hashtools.core.language.Language")
         );
 
@@ -357,7 +357,7 @@ public class ApplicationController implements Initializable {
     @FXML
     private void showOfflineManual() {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/hashtools/gui/screen/manual/Manual.fxml"),
+                getClass().getResource("/hashtools/gui/window/manual/Manual.fxml"),
                 LanguageManager.getBundle()
         );
 

@@ -1,14 +1,14 @@
 package hashtools.main;
 
 import hashtools.core.module.cli.ComandLineModule;
-import hashtools.gui.screen.application.ApplicationWindow;
+import hashtools.gui.window.application.ApplicationWindow;
 import javafx.application.Application;
 
 /**
  * <p>Application main class.</p>
  *
  * @author Adriano Siqueira
- * @version 2.1.0
+ * @version 2.1.1
  * @since 1.0.0
  */
 public class Main {
