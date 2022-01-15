@@ -8,38 +8,33 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox fx:id="paneRoot" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" styleClass="vbox" stylesheets="@About.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hashtools.gui.screen.about.About">
-    <children>
-        <GridPane fx:id="paneContent" hgap="20.0" vgap="20.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Hyperlink fx:id="linkApplicationUrl" text="github.com/AdrianoSiqueira/HashTools" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label fx:id="labelVersion" text="%Version" />
-                <Label fx:id="labelApplicationUrl" text="%Application.url" GridPane.rowIndex="1" />
-                <Label fx:id="labelVersionNumber" text="2.0.0" GridPane.columnIndex="1" />
-                <Separator fx:id="separator" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-                <Label fx:id="labelAuthor" text="%Author" GridPane.rowIndex="3" />
-                <Label fx:id="labelGithubUrl" text="%Github.account" GridPane.rowIndex="4" />
-                <Label fx:id="labelLinkedInUrl" text="%LinkedIn.account" GridPane.rowIndex="5" />
-                <Label fx:id="labelAuthorName" text="Adriano Siqueira" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Hyperlink fx:id="linkGithubUrl" text="github.com/AdrianoSiqueira" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Hyperlink fx:id="linkLinkedInUrl" text="linkedin.com/in/asadrianosiqueira" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            </children>
-        </GridPane>
-    </children>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" styleClass="vbox" stylesheets="@About.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.about.AboutController">
     <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
     </padding>
+    <GridPane fx:id="paneContent" hgap="20.0" vgap="20.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Hyperlink fx:id="linkApplicationUrl" text="github.com/AdrianoSiqueira/HashTools" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label fx:id="labelVersion" text="%Version"/>
+        <Label fx:id="labelApplicationUrl" text="%Application.url" GridPane.rowIndex="1"/>
+        <Label fx:id="labelVersionNumber" text="2.0.0" GridPane.columnIndex="1"/>
+        <Separator fx:id="separator" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2"/>
+        <Label fx:id="labelAuthor" text="%Author" GridPane.rowIndex="3"/>
+        <Label fx:id="labelGithubUrl" text="%Github.account" GridPane.rowIndex="4"/>
+        <Label fx:id="labelLinkedInUrl" text="%LinkedIn.account" GridPane.rowIndex="5"/>
+        <Label fx:id="labelAuthorName" text="Adriano Siqueira" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Hyperlink fx:id="linkGithubUrl" text="github.com/AdrianoSiqueira" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Hyperlink fx:id="linkLinkedInUrl" text="linkedin.com/in/asadrianosiqueira" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    </GridPane>
 </VBox>
