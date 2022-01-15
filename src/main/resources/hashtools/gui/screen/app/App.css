@@ -1,11 +1,11 @@
 @font-face {
     -fx-font-family : "Ubuntu";
-    src             : url("../../font/Ubuntu-Regular.ttf");
+    src             : url("../../../../../resources/hashtools/gui/font/Ubuntu-Regular.ttf");
 }
 
 @font-face {
     -fx-font-family : "Ubuntu";
-    src             : url("../../font/Ubuntu-Bold.ttf");
+    src             : url("../../../../../resources/hashtools/gui/font/Ubuntu-Bold.ttf");
 }
 
 
