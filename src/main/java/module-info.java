@@ -9,9 +9,8 @@ module HashTools {
     opens hashtools.gui.screen.application;
     opens hashtools.gui.screen.manual;
 
-    exports hashtools.main;
     exports hashtools.gui.screen.about;
     exports hashtools.gui.screen.application;
     exports hashtools.gui.screen.manual;
-    exports hashtools.gui.window;
+    exports hashtools.main;
 }
