@@ -3,9 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0"
-            prefWidth="840.0" stylesheets="@App.css" xmlns="http://javafx.com/javafx/17"
-            fx:controller="hashtools.gui.screen.app.App">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="360.0" prefWidth="840.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.application.ApplicationController">
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <Menu fx:id="menuFile" mnemonicParsing="false" text="%File">
@@ -58,8 +56,7 @@
                             <Tooltip text="%Open.the.file.with.the.official.hashes."/>
                         </tooltip>
                     </Button>
-                    <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#runCheckSequence" text="%Check" GridPane.columnIndex="1"
-                            GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                    <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#runCheckSequence" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                         <tooltip>
                             <Tooltip text="%Check.the.hashes."/>
                         </tooltip>
@@ -99,8 +96,7 @@
                             <Tooltip text="%Open.input.file."/>
                         </tooltip>
                     </Button>
-                    <Button fx:id="buttonOpenOutputFile" mnemonicParsing="false" onAction="#openOutputFile" text="..." GridPane.columnIndex="2"
-                            GridPane.rowIndex="1">
+                    <Button fx:id="buttonOpenOutputFile" mnemonicParsing="false" onAction="#openOutputFile" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1">
                         <tooltip>
                             <Tooltip text="%Open.output.file."/>
                         </tooltip>
@@ -123,8 +119,7 @@
                         <CheckBox fx:id="checkSHA512" mnemonicParsing="false" text="SHA-512" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                     </GridPane>
                     <Label text="%Algorithm" GridPane.rowIndex="2"/>
-                    <Button fx:id="buttonGenerate" mnemonicParsing="false" onAction="#runGenerateSequence" text="%Generate" GridPane.columnIndex="1"
-                            GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                    <Button fx:id="buttonGenerate" mnemonicParsing="false" onAction="#runGenerateSequence" text="%Generate" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                         <tooltip>
                             <Tooltip text="%Generate.the.hashes."/>
                         </tooltip>
