@@ -1,4 +1,4 @@
-package hashtools.gui.screen.app;
+package hashtools.gui.screen.application;
 
 import aslib.security.SHAType;
 import hashtools.core.exception.NoInternetConnectionException;
@@ -10,6 +10,7 @@ import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
 import hashtools.gui.dialog.DialogFactory;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -52,10 +53,10 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.18
+ * @version 1.0.19
  * @since 2.0.0
  */
-public class App implements Initializable {
+public class ApplicationController implements Initializable {
 
     @FXML private BorderPane paneRoot;
     @FXML private TabPane    paneRootContent;
@@ -112,14 +113,11 @@ public class App implements Initializable {
 
     @FXML private ProgressBar progressBar;
 
-    // Provided from parent caller
-    private Stage parentStage;
+    private Stage stage;
 
-
-    public void setParentStage(Stage parentStage) {
-        this.parentStage = parentStage;
+    private HostServices getHostServices() {
+        return (HostServices) stage.getProperties().get("host.services");
     }
-
 
     private void calculateTabPaneHeaderWidth() {
         double width = paneRootContent.getWidth()
@@ -150,7 +148,7 @@ public class App implements Initializable {
 
     @FXML
     private void close() {
-        parentStage.close();
+        stage.close();
     }
 
     private void configureAlgorithmsCheckBoxes() {
@@ -342,6 +340,10 @@ public class App implements Initializable {
         }
     }
 
+    private void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
     private void showAboutInfo() {
         FXMLLoader loader = new FXMLLoader(
@@ -365,7 +367,7 @@ public class App implements Initializable {
     @FXML
     private void showOnlineManual() {
         try {
-            new WebService().openWebPage(Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
+            WebService.openWebPage(getHostServices(), Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
         } catch (NoInternetConnectionException e) {
             new DialogFactory.MessageDialog()
                     .setAlertType(Alert.AlertType.WARNING)
@@ -383,6 +385,16 @@ public class App implements Initializable {
                                   .warning("Cannot open online manual due to offline status.");
                         }
                     });
+        } catch (IllegalArgumentException e) {
+            // TODO Translate this dialog
+            new DialogFactory.MessageDialog()
+                    .setAlertType(Alert.AlertType.ERROR)
+                    .setTitle("HashTools")
+                    .setHeaderText("Invalid url")
+                    .setContentText("The given url is invalid")
+                    .setButtons(ButtonType.OK)
+                    .build()
+                    .showAndWait();
         }
     }
 
@@ -396,6 +408,7 @@ public class App implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setStage((Stage) paneRoot.getScene().getWindow());
         configureTabPaneTabWidth();
         setResultTabVisible(false);
         configureTableColumns();
