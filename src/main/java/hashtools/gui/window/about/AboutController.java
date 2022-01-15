@@ -5,6 +5,7 @@ import hashtools.core.language.LanguageManager;
 import hashtools.core.service.WebService;
 import hashtools.gui.dialog.DialogFactory;
 import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.0
+ * @version 1.1.1
  * @since 2.0.0
  */
 public class AboutController implements Initializable {
@@ -111,8 +112,8 @@ public class AboutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setStage((Stage) paneRoot.getScene().getWindow());
         configureHyperlinks();
+        Platform.runLater(()->setStage((Stage) paneRoot.getScene().getWindow()));
     }
 
 

@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.19
+ * @version 1.0.20
  * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
@@ -408,10 +408,11 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setStage((Stage) paneRoot.getScene().getWindow());
         configureTabPaneTabWidth();
         setResultTabVisible(false);
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
+
+        Platform.runLater(()->setStage((Stage) paneRoot.getScene().getWindow()));
     }
 }
