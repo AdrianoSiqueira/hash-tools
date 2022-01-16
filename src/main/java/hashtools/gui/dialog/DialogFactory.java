@@ -16,6 +16,7 @@ import javafx.scene.control.DialogPane;
  * @version 1.0.0
  * @since 2.0.0
  */
+@Deprecated
 public class DialogFactory {
 
     private static Alert configureDialog(Alert alert) {
