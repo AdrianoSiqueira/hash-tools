@@ -12,5 +12,6 @@ module HashTools {
     exports hashtools.gui.window.about;
     exports hashtools.gui.window.application;
     exports hashtools.gui.window.manual;
+    exports hashtools.gui.window.preloader;
     exports hashtools.main;
 }
