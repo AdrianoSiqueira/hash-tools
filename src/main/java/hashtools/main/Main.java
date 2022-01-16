@@ -2,13 +2,16 @@ package hashtools.main;
 
 import hashtools.core.module.cli.ComandLineModule;
 import hashtools.gui.window.application.ApplicationWindow;
+import hashtools.gui.window.preloader.PreloaderWindow;
 import javafx.application.Application;
 
 /**
- * <p>Application main class.</p>
+ * <p>
+ * Application main class.
+ * </p>
  *
  * @author Adriano Siqueira
- * @version 2.1.1
+ * @version 2.2.0
  * @since 1.0.0
  */
 public class Main {
@@ -23,10 +26,8 @@ public class Main {
     }
 
     private static void runInGuiMode() {
-        // TODO Add preloader support
-//        System.setProperty("javafx.preloader",null);
+        System.setProperty("javafx.preloader", PreloaderWindow.class.getCanonicalName());
 
         Application.launch(ApplicationWindow.class);
-//        Platform.startup(MainWindow::new); // TODO Remove this statement
     }
 }
