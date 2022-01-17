@@ -1,6 +1,7 @@
 package hashtools.gui.window.application;
 
 import aslib.security.SHAType;
+import hashtools.core.exception.InvalidUrlException;
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.Sample;
@@ -9,7 +10,8 @@ import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
-import hashtools.gui.dialog.DialogFactory;
+import hashtools.gui.dialog.AlertBuilder;
+import hashtools.gui.dialog.DialogService;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -53,7 +55,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.21
+ * @version 1.0.22
  * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
@@ -259,12 +261,12 @@ public class ApplicationController implements Initializable {
         try {
             WebService.openWebPage(getHostServices(), Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
         } catch (NoInternetConnectionException e) {
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.WARNING)
-                    .setTitle("HashTools")
-                    .setHeaderText(LanguageManager.get("Internet.Connection"))
-                    .setContentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
-                    .setButtons(ButtonType.YES, ButtonType.NO)
+            new AlertBuilder()
+                    .alertType(Alert.AlertType.WARNING)
+                    .title("HashTools")
+                    .headerText(LanguageManager.get("Internet.Connection"))
+                    .contentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
+                    .buttons(ButtonType.YES, ButtonType.NO)
                     .build()
                     .showAndWait()
                     .ifPresent(response -> {
@@ -275,16 +277,10 @@ public class ApplicationController implements Initializable {
                                   .warning("Cannot open online manual due to offline status.");
                         }
                     });
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidUrlException e) {
             // TODO Translate this dialog
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.ERROR)
-                    .setTitle("HashTools")
-                    .setHeaderText("Invalid url")
-                    .setContentText("The given url is invalid")
-                    .setButtons(ButtonType.OK)
-                    .build()
-                    .showAndWait();
+            DialogService.showStackTraceDialog("HashTools", "Invalid URL", null, e)
+                         .showAndWait();
         }
     }
 
@@ -304,13 +300,8 @@ public class ApplicationController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
         } catch (IOException e) {
-            new DialogFactory.StackTraceDialog()
-                    .setAlertType(Alert.AlertType.ERROR)
-                    .setTitle(this.getClass().getSimpleName())
-                    .setHeaderText("FXMLLoader failed to load")
-                    .setThrowable(e)
-                    .build()
-                    .show();
+            DialogService.showStackTraceDialog(getClass().getSimpleName(), "FXMLLoader failed to looad", null, e)
+                         .show();
         }
     }
 
