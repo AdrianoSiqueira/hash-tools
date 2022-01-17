@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.1
+ * @version 1.1.2
  * @since 2.0.0
  */
 public class AboutController implements Initializable {
@@ -38,7 +38,6 @@ public class AboutController implements Initializable {
 
     @FXML private Separator separator;
 
-    @FXML private Label labelTitle;
     @FXML private Label labelVersion;
     @FXML private Label labelVersionNumber;
     @FXML private Label labelApplicationUrl;
@@ -105,15 +104,15 @@ public class AboutController implements Initializable {
         }
     }
 
-    private void setStage(Stage stage) {
-        this.stage = stage;
+    private void setStage() {
+        this.stage = (Stage) paneRoot.getScene().getWindow();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configureHyperlinks();
-        Platform.runLater(()->setStage((Stage) paneRoot.getScene().getWindow()));
+        Platform.runLater(this::setStage);
     }
 
 
