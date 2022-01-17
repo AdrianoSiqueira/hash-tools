@@ -12,10 +12,10 @@
             <Menu fx:id="menuSettings" mnemonicParsing="false" text="%Settings"/>
             <Menu fx:id="menuHelp" mnemonicParsing="false" text="%Help">
                 <Menu fx:id="menuManual" mnemonicParsing="false" text="%Manual">
-                    <MenuItem fx:id="itemOnline" mnemonicParsing="false" onAction="#showOnlineManual" text="%Online"/>
-                    <MenuItem fx:id="itemOffline" mnemonicParsing="false" onAction="#showOfflineManual" text="%Offline"/>
+                    <MenuItem fx:id="itemOnline" mnemonicParsing="false" onAction="#openOnlineManual" text="%Online"/>
+                    <MenuItem fx:id="itemOffline" mnemonicParsing="false" onAction="#openOfflineManual" text="%Offline"/>
                 </Menu>
-                <MenuItem fx:id="itemAbout" mnemonicParsing="false" onAction="#showAboutInfo" text="%About"/>
+                <MenuItem fx:id="itemAbout" mnemonicParsing="false" onAction="#openAboutWindow" text="%About"/>
             </Menu>
         </MenuBar>
     </top>
@@ -45,7 +45,7 @@
                             <Tooltip text="%Select.the.official.data..It.can.be.a.hash.string.or.a.file.with.the.hashes."/>
                         </tooltip>
                     </TextField>
-                    <Button fx:id="buttonOpenInputFileCheck" mnemonicParsing="false" onAction="#openCheckFile" text="..." GridPane.columnIndex="2">
+                    <Button fx:id="buttonOpenInputFileCheck" mnemonicParsing="false" onAction="#openFileToCheck" text="..." GridPane.columnIndex="2">
                         <tooltip>
                             <Tooltip text="%Open.input.file."/>
                         </tooltip>
@@ -91,7 +91,7 @@
                             <Tooltip text="%Select.the.file.where.the.hashes.will.be.saved."/>
                         </tooltip>
                     </TextField>
-                    <Button fx:id="buttonOpenInputFileGenerate" mnemonicParsing="false" onAction="#openGenerateFile" text="..." GridPane.columnIndex="2">
+                    <Button fx:id="buttonOpenInputFileGenerate" mnemonicParsing="false" onAction="#openFileToGenerate" text="..." GridPane.columnIndex="2">
                         <tooltip>
                             <Tooltip text="%Open.input.file."/>
                         </tooltip>

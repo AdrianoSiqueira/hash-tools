@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.20
+ * @version 1.0.21
  * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
@@ -220,18 +220,72 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    private void openCheckFile() {
+    private void openAboutWindow() {
+        FXMLLoader loader = new FXMLLoader(
+                this.getClass().getResource("/hashtools/gui/window/about/About.fxml"),
+                ResourceBundle.getBundle("hashtools.core.language.Language")
+        );
+
+        openWindowFromFxml(loader, "About");
+    }
+
+    @FXML
+    private void openFileToCheck() {
         fieldCheck.setText("/home/adriano/Documents/settings_idea.zip");
     }
 
     @FXML
-    private void openGenerateFile() {
+    private void openFileToGenerate() {
         fieldGenerate.setText("/home/adriano/Documents/settings_idea.zip");
     }
 
     @FXML
     private void openOfficialFile() {
         fieldOfficial.setText("/home/adriano/Documents/hashes.txt");
+    }
+
+    @FXML
+    private void openOfflineManual() {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/hashtools/gui/window/manual/Manual.fxml"),
+                LanguageManager.getBundle()
+        );
+
+        openWindowFromFxml(loader, "Manual");
+    }
+
+    @FXML
+    private void openOnlineManual() {
+        try {
+            WebService.openWebPage(getHostServices(), Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
+        } catch (NoInternetConnectionException e) {
+            new DialogFactory.MessageDialog()
+                    .setAlertType(Alert.AlertType.WARNING)
+                    .setTitle("HashTools")
+                    .setHeaderText(LanguageManager.get("Internet.Connection"))
+                    .setContentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
+                    .setButtons(ButtonType.YES, ButtonType.NO)
+                    .build()
+                    .showAndWait()
+                    .ifPresent(response -> {
+                        if (response.equals(ButtonType.YES)) {
+                            openOfflineManual();
+                        } else {
+                            Logger.getGlobal()
+                                  .warning("Cannot open online manual due to offline status.");
+                        }
+                    });
+        } catch (IllegalArgumentException e) {
+            // TODO Translate this dialog
+            new DialogFactory.MessageDialog()
+                    .setAlertType(Alert.AlertType.ERROR)
+                    .setTitle("HashTools")
+                    .setHeaderText("Invalid url")
+                    .setContentText("The given url is invalid")
+                    .setButtons(ButtonType.OK)
+                    .build()
+                    .showAndWait();
+        }
     }
 
     @FXML
@@ -340,62 +394,8 @@ public class ApplicationController implements Initializable {
         }
     }
 
-    private void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @FXML
-    private void showAboutInfo() {
-        FXMLLoader loader = new FXMLLoader(
-                this.getClass().getResource("/hashtools/gui/window/about/About.fxml"),
-                ResourceBundle.getBundle("hashtools.core.language.Language")
-        );
-
-        openWindowFromFxml(loader, "About");
-    }
-
-    @FXML
-    private void showOfflineManual() {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/hashtools/gui/window/manual/Manual.fxml"),
-                LanguageManager.getBundle()
-        );
-
-        openWindowFromFxml(loader, "Manual");
-    }
-
-    @FXML
-    private void showOnlineManual() {
-        try {
-            WebService.openWebPage(getHostServices(), Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
-        } catch (NoInternetConnectionException e) {
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.WARNING)
-                    .setTitle("HashTools")
-                    .setHeaderText(LanguageManager.get("Internet.Connection"))
-                    .setContentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
-                    .setButtons(ButtonType.YES, ButtonType.NO)
-                    .build()
-                    .showAndWait()
-                    .ifPresent(response -> {
-                        if (response.equals(ButtonType.YES)) {
-                            showOfflineManual();
-                        } else {
-                            Logger.getGlobal()
-                                  .warning("Cannot open online manual due to offline status.");
-                        }
-                    });
-        } catch (IllegalArgumentException e) {
-            // TODO Translate this dialog
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.ERROR)
-                    .setTitle("HashTools")
-                    .setHeaderText("Invalid url")
-                    .setContentText("The given url is invalid")
-                    .setButtons(ButtonType.OK)
-                    .build()
-                    .showAndWait();
-        }
+    private void setStage() {
+        this.stage = (Stage) paneRoot.getScene().getWindow();
     }
 
     private void updateResultTab(SampleList list) {
@@ -413,6 +413,6 @@ public class ApplicationController implements Initializable {
         configureTableColumns();
         configureAlgorithmsCheckBoxes();
 
-        Platform.runLater(()->setStage((Stage) paneRoot.getScene().getWindow()));
+        Platform.runLater(this::setStage);
     }
 }
