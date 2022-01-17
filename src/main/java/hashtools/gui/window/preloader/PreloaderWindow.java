@@ -5,6 +5,7 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.1.0
  * @since 2.0.0
  */
 public class PreloaderWindow extends Preloader {
@@ -42,6 +43,11 @@ public class PreloaderWindow extends Preloader {
         return new Scene(root);
     }
 
+    @SuppressWarnings("ConstantConditions")
+    private Image loadAppIcon() {
+        return new Image(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"));
+    }
+
 
     @Override
     public void handleStateChangeNotification(StateChangeNotification info) {
@@ -53,6 +59,7 @@ public class PreloaderWindow extends Preloader {
         this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(createScene());
+        stage.getIcons().add(loadAppIcon());
         stage.show();
     }
 }
