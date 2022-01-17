@@ -2,6 +2,7 @@ package hashtools.core.service;
 
 import aslib.net.ConnectionChecker;
 import aslib.net.ConnectionStatus;
+import hashtools.core.exception.InvalidUrlException;
 import hashtools.core.exception.NoInternetConnectionException;
 import javafx.application.HostServices;
 import javafx.scene.control.Hyperlink;
@@ -12,7 +13,7 @@ import javafx.scene.control.Hyperlink;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 2.0.0
+ * @version 2.0.1
  * @since 2.0.0
  */
 public class WebService {
@@ -31,8 +32,8 @@ public class WebService {
      * @throws NoInternetConnectionException If system is offline.
      */
     public static void openWebPage(HostServices hostServices, String url)
-    throws IllegalArgumentException, NoInternetConnectionException {
-        if (urlIsInvalid(url)) throw new IllegalArgumentException("Invalid url");
+    throws InvalidUrlException, NoInternetConnectionException {
+        if (urlIsInvalid(url)) throw new InvalidUrlException("Invalid url");
         else if (systemIsOffline()) throw new NoInternetConnectionException("No internet connection");
 
         hostServices.showDocument(url);
@@ -49,6 +50,7 @@ public class WebService {
      * @throws IllegalArgumentException      If the url is invalid.
      * @throws NoInternetConnectionException If system is offline.
      */
+    @Deprecated
     public static void openWebPage(HostServices hostServices, Hyperlink hyperlink)
     throws IllegalArgumentException, NoInternetConnectionException {
         if (hyperlinkIsInvalid(hyperlink)) throw new IllegalArgumentException("Invalid hyperlink");
