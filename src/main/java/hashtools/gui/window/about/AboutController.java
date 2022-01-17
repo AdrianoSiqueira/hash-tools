@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.3
+ * @version 1.1.4
  * @since 2.0.0
  */
 public class AboutController implements Initializable {
@@ -81,7 +81,7 @@ public class AboutController implements Initializable {
      */
     private void openHyperlink(Hyperlink hyperlink) {
         try {
-            WebService.openWebPage(getHostServices(), hyperlink);
+            WebService.openWebPage(getHostServices(), hyperlink.getText());
         } catch (NoInternetConnectionException e) {
             new AlertBuilder()
                     .alertType(Alert.AlertType.ERROR)
