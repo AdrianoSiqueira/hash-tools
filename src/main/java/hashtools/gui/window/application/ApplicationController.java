@@ -12,6 +12,7 @@ import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
 import hashtools.gui.dialog.AlertBuilder;
 import hashtools.gui.dialog.DialogService;
+import hashtools.gui.window.about.AboutWindow;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -55,7 +56,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.22
+ * @version 1.0.23
  * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
@@ -223,12 +224,7 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void openAboutWindow() {
-        FXMLLoader loader = new FXMLLoader(
-                this.getClass().getResource("/hashtools/gui/window/about/About.fxml"),
-                ResourceBundle.getBundle("hashtools.core.language.Language")
-        );
-
-        openWindowFromFxml(loader, "About");
+        new AboutWindow();
     }
 
     @FXML
