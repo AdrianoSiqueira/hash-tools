@@ -3,7 +3,8 @@ package hashtools.gui.window.about;
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.service.WebService;
-import hashtools.gui.dialog.DialogFactory;
+import hashtools.gui.dialog.AlertBuilder;
+import hashtools.gui.dialog.DialogService;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.2
+ * @version 1.1.3
  * @since 2.0.0
  */
 public class AboutController implements Initializable {
@@ -81,26 +81,19 @@ public class AboutController implements Initializable {
      */
     private void openHyperlink(Hyperlink hyperlink) {
         try {
-             WebService.openWebPage(getHostServices(),hyperlink);
+            WebService.openWebPage(getHostServices(), hyperlink);
         } catch (NoInternetConnectionException e) {
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.ERROR)
-                    .setTitle("HashTools")
-                    .setHeaderText(LanguageManager.get("Internet.Connection"))
-                    .setContentText(LanguageManager.get("There.is.no.internet.connection."))
-                    .setButtons(ButtonType.OK)
-                    .build()
-                    .show();
-        }catch (IllegalArgumentException e){
-            // TODO Translate this dialog
-            new DialogFactory.MessageDialog()
-                    .setAlertType(Alert.AlertType.ERROR)
-                    .setTitle("HashTools")
-                    .setHeaderText("Invalid url")
-                    .setContentText("The given url is invalid.")
-                    .setButtons(ButtonType.OK)
+            new AlertBuilder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title("HashTools")
+                    .headerText(LanguageManager.get("Internet.Connection"))
+                    .contentText(LanguageManager.get("There.is.no.internet.connection."))
                     .build()
                     .showAndWait();
+        } catch (IllegalArgumentException e) {
+            // TODO Translate this dialog
+            DialogService.showStackTraceDialog("HashTools", "Invalid url", null, e)
+                         .showAndWait();
         }
     }
 
