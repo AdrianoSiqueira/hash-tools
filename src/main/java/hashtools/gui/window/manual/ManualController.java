@@ -14,6 +14,15 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * <p>
+ * Manual screen controller class.
+ * </p>
+ *
+ * @author Adriano Siqueira
+ * @version 1.0.1
+ * @since 1.0.0
+ */
 public class ManualController implements Initializable {
 
     @FXML private HBox paneRoot;
@@ -43,10 +52,12 @@ public class ManualController implements Initializable {
     private void configureLeftPaneLabels() {
         LeftPanelLabelMouseClickHandler handler = new LeftPanelLabelMouseClickHandler();
 
-        labelHowToUse.setOnMouseClicked(handler);
-        labelSupportedAlgorithms.setOnMouseClicked(handler);
-        labelChecking.setOnMouseClicked(handler);
-        labelGenerating.setOnMouseClicked(handler);
+        labelHowToUse.setUserData(sectionHowToUse);
+        labelSupportedAlgorithms.setUserData(sectionSupportedAlgorithms);
+        labelChecking.setUserData(sectionChecking);
+        labelGenerating.setUserData(sectionGenerating);
+
+        leftPane.getChildren().forEach(n -> n.setOnMouseClicked(handler));
     }
 
     private void configureTitlePanes() {
@@ -59,9 +70,7 @@ public class ManualController implements Initializable {
     private void updateTitledPanesId() {
         accordionSection.getPanes()
                         .forEach(pane -> {
-                            String id = pane.isExpanded()
-                                        ? "expanded"
-                                        : "";
+                            String id = pane.isExpanded() ? "expanded" : "";
 
                             pane.setId(id);
                             ((Node) pane.getUserData()).setId(id);
@@ -80,15 +89,10 @@ public class ManualController implements Initializable {
     private class LeftPanelLabelMouseClickHandler implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
-            Label source = (Label) event.getSource();
+            Node       source  = (Node) event.getSource();
+            TitledPane section = (TitledPane) source.getUserData();
 
-            int index = leftPane.getChildren()
-                                .indexOf(source);
-
-            TitledPane pane = accordionSection.getPanes()
-                                              .get(index);
-
-            accordionSection.setExpandedPane(pane);
+            accordionSection.setExpandedPane(section);
         }
     }
 }
