@@ -1,10 +1,10 @@
 package hashtools.gui.window.about;
 
+import hashtools.core.exception.InvalidUrlException;
 import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.service.WebService;
 import hashtools.gui.dialog.AlertBuilder;
-import hashtools.gui.dialog.DialogService;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.1.4
+ * @version 1.1.5
  * @since 2.0.0
  */
 public class AboutController implements Initializable {
@@ -90,10 +90,14 @@ public class AboutController implements Initializable {
                     .contentText(LanguageManager.get("There.is.no.internet.connection."))
                     .build()
                     .showAndWait();
-        } catch (IllegalArgumentException e) {
-            // TODO Translate this dialog
-            DialogService.showStackTraceDialog("HashTools", "Invalid url", null, e)
-                         .showAndWait();
+        } catch (InvalidUrlException e) {
+            new AlertBuilder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title("HashTools")
+                    .headerText(LanguageManager.get("Invalid.URL"))
+                    .contentText(LanguageManager.get("The.given.URL.is.invalid."))
+                    .build()
+                    .show();
         }
     }
 
