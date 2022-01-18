@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Manual implements Initializable {
+public class ManualController implements Initializable {
 
     @FXML private HBox paneRoot;
     @FXML private VBox leftPane;
