@@ -13,6 +13,7 @@ import hashtools.core.supply.Links;
 import hashtools.gui.dialog.AlertBuilder;
 import hashtools.gui.dialog.DialogService;
 import hashtools.gui.window.about.AboutWindow;
+import hashtools.gui.window.manual.ManualWindow;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -244,12 +245,7 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void openOfflineManual() {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/hashtools/gui/window/manual/Manual.fxml"),
-                LanguageManager.getBundle()
-        );
-
-        openWindowFromFxml(loader, "Manual");
+        new ManualWindow();
     }
 
     @FXML
