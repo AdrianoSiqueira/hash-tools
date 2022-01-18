@@ -14,10 +14,23 @@ import java.io.IOException;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2.0.0
  */
 public class ManualWindow extends Application {
+
+    /**
+     * <p>
+     * Creates an instance of {@link ManualWindow} class. The
+     * {@link #start(Stage)} method will be automatically called.
+     * </p>
+     *
+     * @since 1.0.1
+     */
+    public ManualWindow() {
+        this.start(new Stage());
+    }
+
 
     /**
      * <p>
