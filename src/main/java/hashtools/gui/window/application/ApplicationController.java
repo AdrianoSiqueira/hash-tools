@@ -11,7 +11,6 @@ import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.WebService;
 import hashtools.core.supply.Links;
 import hashtools.gui.dialog.AlertBuilder;
-import hashtools.gui.dialog.DialogService;
 import hashtools.gui.window.about.AboutWindow;
 import hashtools.gui.window.manual.ManualWindow;
 import javafx.application.HostServices;
@@ -52,7 +51,7 @@ import java.util.stream.Collectors;
  * <p>App screen controller class.</p>
  *
  * @author Adriano Siqueira
- * @version 1.0.24
+ * @version 1.0.25
  * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
@@ -261,13 +260,17 @@ public class ApplicationController implements Initializable {
                             openOfflineManual();
                         } else {
                             Logger.getGlobal()
-                                  .warning("Cannot open online manual due to offline status.");
+                                  .warning(LanguageManager.get("Cannot.open.online.manual.due.to.offline.status."));
                         }
                     });
         } catch (InvalidUrlException e) {
-            // TODO Translate this dialog
-            DialogService.showStackTraceDialog("HashTools", "Invalid URL", null, e)
-                         .showAndWait();
+            new AlertBuilder()
+                    .alertType(Alert.AlertType.ERROR)
+                    .title("HashTools")
+                    .headerText(LanguageManager.get("Invalid.URL"))
+                    .contentText(LanguageManager.get("The.given.URL.is.invalid."))
+                    .build()
+                    .show();
         }
     }
 
@@ -367,6 +370,7 @@ public class ApplicationController implements Initializable {
 
         progressBar.setProgress(list.getReliabilityPercentage() / 100);
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
