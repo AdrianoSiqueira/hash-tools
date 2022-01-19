@@ -14,10 +14,10 @@
         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
     </padding>
     <VBox styleClass="left-pane" alignment="CENTER_RIGHT" HBox.hgrow="NEVER" fx:id="leftPane">
-        <Label fx:id="labelHowToUse" text="How to Use"/>
-        <Label fx:id="labelSupportedAlgorithms" text="Supported Algorithms"/>
-        <Label fx:id="labelChecking" text="Checking"/>
-        <Label fx:id="labelGenerating" text="Generating"/>
+        <Label fx:id="labelHowToUse" text="How to Use" onMouseClicked="#expandTitlePaneFromLabel"/>
+        <Label fx:id="labelSupportedAlgorithms" text="Supported Algorithms" onMouseClicked="#expandTitlePaneFromLabel"/>
+        <Label fx:id="labelChecking" text="Checking" onMouseClicked="#expandTitlePaneFromLabel"/>
+        <Label fx:id="labelGenerating" text="Generating" onMouseClicked="#expandTitlePaneFromLabel"/>
     </VBox>
     <Separator orientation="VERTICAL" prefHeight="200.0" HBox.hgrow="NEVER"/>
     <Accordion HBox.hgrow="ALWAYS" fx:id="accordionSection">
