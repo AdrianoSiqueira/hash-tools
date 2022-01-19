@@ -1,9 +1,7 @@
 package hashtools.gui.window.manual;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -20,7 +18,7 @@ import java.util.ResourceBundle;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class ManualController implements Initializable {
@@ -44,55 +42,48 @@ public class ManualController implements Initializable {
     @FXML private Label labelContentGenerating;
 
 
-    private void addListenerOnAccordion() {
+    private void configureAccordion() {
         accordionSection.expandedPaneProperty()
                         .addListener((observable, oldValue, newValue) -> updateTitledPanesId());
+        accordionSection.setExpandedPane(sectionHowToUse);
     }
 
-    private void configureLeftPaneLabels() {
-        LeftPanelLabelMouseClickHandler handler = new LeftPanelLabelMouseClickHandler();
+    @FXML
+    private void expandTitlePaneFromLabel(MouseEvent event) {
+        if (!(event.getSource() instanceof Label label)) return;
+        if (!(label.getUserData() instanceof TitledPane pane)) return;
 
+        accordionSection.setExpandedPane(pane);
+    }
+
+    private void linkLeftPaneLabelWithTitlePane() {
         labelHowToUse.setUserData(sectionHowToUse);
-        labelSupportedAlgorithms.setUserData(sectionSupportedAlgorithms);
-        labelChecking.setUserData(sectionChecking);
-        labelGenerating.setUserData(sectionGenerating);
+        sectionHowToUse.setUserData(labelHowToUse);
 
-        leftPane.getChildren().forEach(n -> n.setOnMouseClicked(handler));
+        labelSupportedAlgorithms.setUserData(sectionSupportedAlgorithms);
+        sectionSupportedAlgorithms.setUserData(labelSupportedAlgorithms);
+
+        labelChecking.setUserData(sectionChecking);
+        sectionChecking.setUserData(labelChecking);
+
+        labelGenerating.setUserData(sectionGenerating);
+        sectionGenerating.setUserData(labelGenerating);
     }
 
-    private void configureTitlePanes() {
-        sectionHowToUse.setUserData(labelHowToUse);
-        sectionSupportedAlgorithms.setUserData(labelSupportedAlgorithms);
-        sectionChecking.setUserData(labelChecking);
-        sectionGenerating.setUserData(labelGenerating);
+    private void setLabelIdAccordingToTitlePane(TitledPane pane) {
+        Label label = (Label) pane.getUserData();
+        label.setId(pane.isExpanded() ? "expanded" : "");
     }
 
     private void updateTitledPanesId() {
         accordionSection.getPanes()
-                        .forEach(pane -> {
-                            String id = pane.isExpanded() ? "expanded" : "";
-
-                            pane.setId(id);
-                            ((Node) pane.getUserData()).setId(id);
-                        });
+                        .forEach(this::setLabelIdAccordingToTitlePane);
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addListenerOnAccordion();
-        configureLeftPaneLabels();
-        configureTitlePanes();
-        updateTitledPanesId();
-    }
-
-
-    private class LeftPanelLabelMouseClickHandler implements EventHandler<MouseEvent> {
-        @Override
-        public void handle(MouseEvent event) {
-            Node       source  = (Node) event.getSource();
-            TitledPane section = (TitledPane) source.getUserData();
-
-            accordionSection.setExpandedPane(section);
-        }
+        linkLeftPaneLabelWithTitlePane();
+        configureAccordion();
     }
 }
