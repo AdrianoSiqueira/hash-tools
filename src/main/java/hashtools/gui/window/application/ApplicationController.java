@@ -38,11 +38,11 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * <p>App screen controller class.</p>
+ * <p>
+ * Application screen controller class.
+ * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.25
- * @since 2.0.0
  */
 public class ApplicationController implements Initializable {
 
