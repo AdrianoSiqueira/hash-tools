@@ -70,9 +70,11 @@ public class ApplicationController implements Initializable {
         paneRootContent.setTabMaxWidth(width);
     }
 
-    private void clearCheckTab() {
-        fieldCheck.clear();
-        fieldOfficial.clear();
+    private void addUserDataToLeftPaneButtons() {
+        buttonChecker.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
+        buttonGenerator.setUserData(getClass().getResource("/hashtools/gui/screen/generator/Generator.fxml"));
+        buttonHowToUse.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
+        buttonAbout.setUserData(getClass().getResource("/hashtools/gui/screen/generator/Generator.fxml"));
     }
 
     private Node loadFromFxml(URL url) throws IOException {
