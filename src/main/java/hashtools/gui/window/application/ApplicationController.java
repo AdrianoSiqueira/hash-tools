@@ -37,15 +37,14 @@ public class ApplicationController implements Initializable {
     private void addUserDataToLeftPaneButtons() {
         buttonChecker.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
         buttonGenerator.setUserData(getClass().getResource("/hashtools/gui/screen/generator/Generator.fxml"));
-        buttonHowToUse.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
-        buttonAbout.setUserData(getClass().getResource("/hashtools/gui/screen/generator/Generator.fxml"));
+        buttonHowToUse.setUserData(getClass().getResource("/hashtools/gui/screen/manual/Manual.fxml"));
+        buttonAbout.setUserData(getClass().getResource("/hashtools/gui/screen/about/About.fxml"));
     }
 
     private Node loadFromFxml(URL url) throws IOException {
         return FXMLLoader.load(url, LanguageManager.getBundle());
     }
 
-    // TODO Call this method from FXML
     @FXML
     private void openModuleScreen(ActionEvent event) {
         if (!(event.getSource() instanceof Button button)) return;
