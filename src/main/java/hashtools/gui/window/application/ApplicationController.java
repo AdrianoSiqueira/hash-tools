@@ -55,19 +55,9 @@ public class ApplicationController implements Initializable {
     @FXML private Button buttonHowToUse;
     @FXML private Button buttonAbout;
 
-    private HostServices getHostServices() {
-        return (HostServices) stage.getProperties().get("host.services");
-    }
-
-    private void calculateTabPaneHeaderWidth() {
-        double width = paneRootContent.getWidth()
-                       /
-                       paneRootContent.getTabs()
-                                      .size()
-                       - 20;
-
-        paneRootContent.setTabMinWidth(width);
-        paneRootContent.setTabMaxWidth(width);
+    private void addLeftPaneAction() {
+        leftPane.getChildren()
+                .forEach(n -> n.addEventHandler(ActionEvent.ACTION, this::openModuleScreen));
     }
 
     private void addUserDataToLeftPaneButtons() {
