@@ -1,0 +1,49 @@
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Regular.ttf");
+}
+
+
+* {
+    _hyperlink_color : #003a94;
+}
+
+
+.pane-root {
+    -fx-alignment        : center;
+    -fx-background-color : transparent;
+    -fx-hgap             : 20;
+    -fx-padding          : 20;
+    -fx-vgap             : 20;
+}
+
+.pane-root > .label {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 16;
+    -fx-max-width   : infinity;
+    -fx-text-fill   : black;
+}
+
+.pane-root > .left-label {
+    -fx-alignment : center-right;
+}
+
+.pane-root > .hyperlink,
+.pane-root > .hyperlink:focused,
+.pane-root > .hyperlink:visited {
+    -fx-border-width : 0;
+    -fx-cursor       : hand;
+    -fx-font-family  : "Ubuntu";
+    -fx-font-size    : 16;
+    -fx-text-fill    : _hyperlink_color;
+}
+
+.pane-root > .hyperlink:hover {
+    -fx-effect    : dropshadow(gaussian, _hyperlink_color, 1, 0, 1, 1);
+    -fx-underline : false;
+}
+
+.pane-root > .separator > .line {
+    -fx-border-color : _hyperlink_color;
+    -fx-border-width : 1;
+}
