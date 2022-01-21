@@ -1,41 +1,19 @@
 package hashtools.gui.window.application;
 
-import aslib.security.SHAType;
-import hashtools.core.exception.InvalidUrlException;
-import hashtools.core.exception.NoInternetConnectionException;
 import hashtools.core.language.LanguageManager;
-import hashtools.core.model.Sample;
-import hashtools.core.model.SampleList;
-import hashtools.core.module.checker.CheckerModule;
-import hashtools.core.module.generator.GeneratorModule;
-import hashtools.core.service.WebService;
-import hashtools.core.supply.Links;
-import hashtools.gui.dialog.AlertBuilder;
-import hashtools.gui.window.about.AboutWindow;
-import hashtools.gui.window.manual.ManualWindow;
-import javafx.application.HostServices;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * <p>
