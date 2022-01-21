@@ -24,20 +24,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -56,62 +44,14 @@ import java.util.stream.Collectors;
  */
 public class ApplicationController implements Initializable {
 
-    @FXML private BorderPane paneRoot;
-    @FXML private TabPane    paneRootContent;
-    @FXML private GridPane   paneCheckContent;
-    @FXML private GridPane   paneGenerateContent;
-    @FXML private GridPane   paneGenerateAlgorithms;
-    @FXML private VBox       paneResultContent;
+    @FXML private HBox      paneRoot;
+    @FXML private VBox      leftPane;
+    @FXML private StackPane rightPane;
 
-    @FXML private MenuBar menuBar;
-
-    @FXML private Menu menuFile;
-    @FXML private Menu menuSettings;
-    @FXML private Menu menuHelp;
-    @FXML private Menu menuManual;
-
-    @FXML private MenuItem itemClose;
-    @FXML private MenuItem itemOnline;
-    @FXML private MenuItem itemOffline;
-    @FXML private MenuItem itemAbout;
-
-    @FXML private Tab tabCheck;
-    @FXML private Tab tabGenerate;
-    @FXML private Tab tabResult;
-
-    @FXML private Label labelCheckInput;
-    @FXML private Label labelOfficial;
-    @FXML private Label labelGenerateInput;
-    @FXML private Label labelOutput;
-
-    @FXML private TextField fieldCheck;
-    @FXML private TextField fieldOfficial;
-    @FXML private TextField fieldGenerate;
-    @FXML private TextField fieldOutput;
-
-    @FXML private CheckBox checkMD5;
-    @FXML private CheckBox checkSHA1;
-    @FXML private CheckBox checkSHA224;
-    @FXML private CheckBox checkSHA256;
-    @FXML private CheckBox checkSHA384;
-    @FXML private CheckBox checkSHA512;
-
-    @FXML private Button buttonCheck;
-    @FXML private Button buttonOpenInputFileCheck;
-    @FXML private Button buttonOpenOfficial;
-    @FXML private Button buttonGenerate;
-    @FXML private Button buttonOpenInputFileGenerate;
-    @FXML private Button buttonOpenOutputFile;
-
-    @FXML private TableView<Sample>           tableResult;
-    @FXML private TableColumn<Sample, String> columnAlgorithm;
-    @FXML private TableColumn<Sample, String> columnOfficialHash;
-    @FXML private TableColumn<Sample, String> columnCalculatedHash;
-    @FXML private TableColumn<Sample, String> columnResult;
-
-    @FXML private ProgressBar progressBar;
-
-    private Stage stage;
+    @FXML private Button buttonChecker;
+    @FXML private Button buttonGenerator;
+    @FXML private Button buttonHowToUse;
+    @FXML private Button buttonAbout;
 
     private HostServices getHostServices() {
         return (HostServices) stage.getProperties().get("host.services");
