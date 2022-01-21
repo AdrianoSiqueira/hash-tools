@@ -81,139 +81,19 @@ public class ApplicationController implements Initializable {
         return FXMLLoader.load(url, LanguageManager.getBundle());
     }
 
-    @FXML
-    private void close() {
-        stage.close();
-    }
+    private void openModuleScreen(ActionEvent event) {
+        if (!(event.getSource() instanceof Button button)) return;
 
-    private void configureAlgorithmsCheckBoxes() {
-        checkMD5.setUserData(SHAType.MD5);
-        checkSHA1.setUserData(SHAType.SHA1);
-        checkSHA224.setUserData(SHAType.SHA224);
-        checkSHA256.setUserData(SHAType.SHA256);
-        checkSHA384.setUserData(SHAType.SHA384);
-        checkSHA512.setUserData(SHAType.SHA512);
-    }
-
-    private void configureTabPaneTabWidth() {
-        paneRootContent.widthProperty()
-                       .addListener((observable, oldValue, newValue) -> calculateTabPaneHeaderWidth());
-
-        paneRootContent.getTabs()
-                       .addListener((ListChangeListener<Tab>) c -> calculateTabPaneHeaderWidth());
-    }
-
-    private void configureTableColumns() {
-        columnAlgorithm.setSortType(TableColumn.SortType.ASCENDING);
-        columnAlgorithm.minWidthProperty()
-                       .bind(tableResult.widthProperty().multiply(0.146));
-        columnAlgorithm.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue()
-                     .getAlgorithm()
-                     .getName()
-        ));
-
-        columnOfficialHash.setSortable(false);
-        columnOfficialHash.minWidthProperty()
-                          .bind(tableResult.widthProperty().multiply(0.35));
-        columnOfficialHash.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue()
-                     .getOfficialHash()
-        ));
-
-        columnCalculatedHash.setSortable(false);
-        columnCalculatedHash.minWidthProperty()
-                            .bind(tableResult.widthProperty().multiply(0.35));
-        columnCalculatedHash.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue()
-                     .getCalculatedHash()
-        ));
-
-        columnResult.minWidthProperty()
-                    .bind(tableResult.widthProperty().multiply(0.146));
-        columnResult.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue()
-                     .getResult()
-                     .getText()
-        ));
-
-
-        tableResult.getSortOrder()
-                   .add(columnAlgorithm);
-    }
-
-    private List<SHAType> createGenerationAlgorithmList() {
-        return paneGenerateAlgorithms.getChildren()
-                                     .stream()
-                                     .filter(CheckBox.class::isInstance)
-                                     .map(CheckBox.class::cast)
-                                     .filter(CheckBox::isSelected)
-                                     .map(Node::getUserData)
-                                     .filter(SHAType.class::isInstance)
-                                     .map(SHAType.class::cast)
-                                     .collect(Collectors.toList());
-    }
-
-    @FXML
-    private void openAboutWindow() {
-        new AboutWindow();
-    }
-
-    @FXML
-    private void openFileToCheck() {
-        fieldCheck.setText("/home/adriano/Documents/settings_idea.zip");
-    }
-
-    @FXML
-    private void openFileToGenerate() {
-        fieldGenerate.setText("/home/adriano/Documents/settings_idea.zip");
-    }
-
-    @FXML
-    private void openOfficialFile() {
-        fieldOfficial.setText("/home/adriano/Documents/hashes.txt");
-    }
-
-    @FXML
-    private void openOfflineManual() {
-        new ManualWindow();
-    }
-
-    @FXML
-    private void openOnlineManual() {
         try {
-            WebService.openWebPage(getHostServices(), Links.APPLICATION_ONLINE_DOCUMENTATION.getUrl());
-        } catch (NoInternetConnectionException e) {
-            new AlertBuilder()
-                    .alertType(Alert.AlertType.WARNING)
-                    .title("HashTools")
-                    .headerText(LanguageManager.get("Internet.Connection"))
-                    .contentText(LanguageManager.get("There.is.no.internet.connection.") + " " + LanguageManager.get("Would.you.like.to.open.the.offline.manual.instead?"))
-                    .buttons(ButtonType.YES, ButtonType.NO)
-                    .build()
-                    .showAndWait()
-                    .ifPresent(response -> {
-                        if (response.equals(ButtonType.YES)) {
-                            openOfflineManual();
-                        } else {
-                            Logger.getGlobal()
-                                  .warning(LanguageManager.get("Cannot.open.online.manual.due.to.offline.status."));
-                        }
-                    });
-        } catch (InvalidUrlException e) {
-            new AlertBuilder()
-                    .alertType(Alert.AlertType.ERROR)
-                    .title("HashTools")
-                    .headerText(LanguageManager.get("Invalid.URL"))
-                    .contentText(LanguageManager.get("The.given.URL.is.invalid."))
-                    .build()
-                    .show();
+            Node node = loadFromFxml((URL) button.getUserData());
+            rightPane.getChildren().setAll(node);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
 
-    @FXML
-    private void openOutputFile() {
-        fieldOutput.setText("/home/adriano/Documents/settings_idea.txt");
+        String styleClass = "module-button-highlight";
+        removeStyleClassFromLeftPane(styleClass);
+        button.getStyleClass().add(styleClass);
     }
 
     private void removeStyleClassFromLeftPane(String styleClass) {
