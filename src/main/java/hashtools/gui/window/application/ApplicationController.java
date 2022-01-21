@@ -33,10 +33,6 @@ public class ApplicationController implements Initializable {
     @FXML private Button buttonHowToUse;
     @FXML private Button buttonAbout;
 
-    private void addLeftPaneAction() {
-        leftPane.getChildren()
-                .forEach(n -> n.addEventHandler(ActionEvent.ACTION, this::openModuleScreen));
-    }
 
     private void addUserDataToLeftPaneButtons() {
         buttonChecker.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
@@ -49,6 +45,8 @@ public class ApplicationController implements Initializable {
         return FXMLLoader.load(url, LanguageManager.getBundle());
     }
 
+    // TODO Call this method from FXML
+    @FXML
     private void openModuleScreen(ActionEvent event) {
         if (!(event.getSource() instanceof Button button)) return;
 
@@ -71,7 +69,6 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addLeftPaneAction();
         addUserDataToLeftPaneButtons();
 
         buttonChecker.fire();
