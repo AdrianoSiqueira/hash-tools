@@ -159,12 +159,10 @@ public class ApplicationController implements Initializable {
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        configureTabPaneTabWidth();
-        setResultTabVisible(false);
-        configureTableColumns();
-        configureAlgorithmsCheckBoxes();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        addLeftPaneAction();
+        addUserDataToLeftPaneButtons();
 
-        Platform.runLater(this::setStage);
+        buttonChecker.fire();
     }
 }
