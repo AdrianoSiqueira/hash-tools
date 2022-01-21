@@ -27,7 +27,7 @@
         </rowConstraints>
         <Hyperlink fx:id="linkApplicationUrl" text="github.com/AdrianoSiqueira/HashTools" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <Label fx:id="labelVersion" text="%Version"/>
-        <Label fx:id="labelApplicationUrl" text="%Application.url" GridPane.rowIndex="1"/>
+        <Label fx:id="labelApplicationUrl" text="%Application.URL" GridPane.rowIndex="1"/>
         <Label fx:id="labelVersionNumber" text="2.0.0" GridPane.columnIndex="1"/>
         <Separator fx:id="separator" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2"/>
         <Label fx:id="labelAuthor" text="%Author" GridPane.rowIndex="3"/>
