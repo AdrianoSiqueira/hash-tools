@@ -219,30 +219,9 @@ public class ApplicationController implements Initializable {
         fieldOutput.setText("/home/adriano/Documents/settings_idea.txt");
     }
 
-    @FXML
-    private void runCheckSequence() {
-        String fieldCheckText    = fieldCheck.getText();
-        String fieldOfficialText = fieldOfficial.getText();
-
-        if (fieldCheckText.isBlank() || fieldOfficialText.isBlank()) return;
-
-        new Thread(() -> {
-            setLoadingState(true);
-
-            SampleList list = new CheckerModule(
-                    fieldCheckText,
-                    fieldOfficialText
-            ).call();
-
-            // GUI changes must be made in a JavaFX thread.
-            Platform.runLater(() -> {
-                updateResultTab(list);
-                setLoadingState(false);
-                setResultTabVisible(true);
-                selectResultTab();
-                clearCheckTab();
-            });
-        }).start();
+    private void removeStyleClassFromLeftPane(String styleClass) {
+        leftPane.getChildren()
+                .forEach(n -> n.getStyleClass().remove(styleClass));
     }
 
     @FXML
