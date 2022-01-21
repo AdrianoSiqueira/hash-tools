@@ -19,6 +19,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -29,6 +30,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -73,15 +75,8 @@ public class ApplicationController implements Initializable {
         fieldOfficial.clear();
     }
 
-    private void clearGenerateTab() {
-        fieldGenerate.clear();
-        fieldOutput.clear();
-
-        paneGenerateAlgorithms.getChildren()
-                              .stream()
-                              .filter(CheckBox.class::isInstance)
-                              .map(CheckBox.class::cast)
-                              .forEach(cb -> cb.setSelected(false));
+    private Node loadFromFxml(URL url) throws IOException {
+        return FXMLLoader.load(url, LanguageManager.getBundle());
     }
 
     @FXML
