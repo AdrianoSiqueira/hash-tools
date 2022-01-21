@@ -35,7 +35,11 @@
     -fx-text-fill         : _font_color;
 }
 
-.left-pane > .module-button:hover,
+.left-pane > .module-button:hover {
+    -fx-background-color : linear-gradient(to right, _button_color_1, _button_color_2, _button_color_1);
+    -fx-font-weight      : bold;
+}
+
 .left-pane > .module-button-highlight {
     -fx-background-color : linear-gradient(to right, _button_color_1, _button_color_2, _button_color_1);
     -fx-effect           : dropshadow(gaussian, #f0f0ff, 10, 0, 0, 0);
@@ -53,8 +57,6 @@
 .right-pane {
     -fx-background-color : _right_pane_color;
 }
-
-
 
 
 /*
