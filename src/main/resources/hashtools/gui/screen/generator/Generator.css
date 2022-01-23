@@ -1,0 +1,93 @@
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Regular.ttf");
+}
+
+
+* {
+    _COLOR_1 : #00004d;
+    _COLOR_2 : #0000d0;
+    _COLOR_3 : #dedeff;
+}
+
+
+.pane-root {
+    -fx-alignment        : center;
+    -fx-background-color : white;
+    -fx-hgap             : 20;
+    -fx-max-height       : infinity;
+    -fx-max-width        : infinity;
+    -fx-padding          : 20;
+    -fx-vgap             : 20;
+}
+
+.pane-root > .button {
+    -fx-background-color : _COLOR_1;
+    -fx-font-family      : "Ubuntu";
+    -fx-font-size        : 16;
+    -fx-text-fill        : ladder(_COLOR_1, white 49%, black);
+}
+
+.pane-root > .button:armed {
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_2, _COLOR_1);
+}
+
+.pane-root > .button:hover {
+    -fx-effect : dropshadow(gaussian, _COLOR_2, 10, 0, 0, 0);
+}
+
+.pane-root > .label {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 16;
+    -fx-text-fill   : black;
+}
+
+.pane-root > .pane-algorithms {
+    -fx-alignment          : center;
+    -fx-background-color   : transparent;
+    -fx-grid-lines-visible : false;
+    -fx-hgap               : 10;
+    -fx-vgap               : 10;
+}
+
+.pane-root > .pane-algorithms > .check-box {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 16;
+    -fx-max-width   : infinity;
+    -fx-text-fill   : black;
+}
+
+.pane-root > .pane-algorithms > .check-box > .box {
+    -fx-background-color : white;
+    -fx-border-color     : _COLOR_1;
+}
+
+.pane-root > .pane-algorithms > .check-box:hover > .box {
+    -fx-effect : dropshadow(gaussian, _COLOR_1, 10, 0, 0, 0);
+}
+
+.pane-root > .pane-algorithms > .check-box:selected > .box {
+    -fx-background-color  : white, _COLOR_1;
+    -fx-background-insets : 0, 3;
+}
+
+.pane-root > .pane-algorithms > .check-box:selected > .box > .mark {
+    -fx-background-color : transparent;
+}
+
+.pane-root > .text-field {
+    -fx-background-color  : white;
+    -fx-background-radius : 5;
+    -fx-border-color      : _COLOR_1;
+    -fx-border-radius     : 5;
+    -fx-font-family       : "Ubuntu";
+    -fx-font-size         : 14;
+}
+
+.pane-root > .text-field:focused {
+    -fx-background-color : _COLOR_3;
+}
+
+.pane-root > .text-field:hover {
+    -fx-effect : dropshadow(gaussian, _COLOR_1, 10, 0, 0, 0);
+}
