@@ -5,7 +5,9 @@
 
 
 * {
-    _hyperlink_color : #003a94;
+    _COLOR_1         : #032D5F;
+    _FONT_COLOR      : #000000;
+    _HYPERLINK_COLOR : _COLOR_1;
 }
 
 
@@ -21,7 +23,7 @@
     -fx-font-family : "Ubuntu";
     -fx-font-size   : 16;
     -fx-max-width   : infinity;
-    -fx-text-fill   : black;
+    -fx-text-fill   : _FONT_COLOR;
 }
 
 .pane-root > .left-label {
@@ -35,15 +37,15 @@
     -fx-cursor       : hand;
     -fx-font-family  : "Ubuntu";
     -fx-font-size    : 16;
-    -fx-text-fill    : _hyperlink_color;
+    -fx-text-fill    : _HYPERLINK_COLOR;
 }
 
 .pane-root > .hyperlink:hover {
-    -fx-effect    : dropshadow(gaussian, _hyperlink_color, 1, 0, 1, 1);
+    -fx-effect    : dropshadow(gaussian, _HYPERLINK_COLOR, 1, 0, 1, 1);
     -fx-underline : false;
 }
 
 .pane-root > .separator > .line {
-    -fx-border-color : _hyperlink_color;
+    -fx-border-color : _COLOR_1;
     -fx-border-width : 1;
 }

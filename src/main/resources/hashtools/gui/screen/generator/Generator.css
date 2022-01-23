@@ -5,9 +5,12 @@
 
 
 * {
-    _COLOR_1 : #00004d;
-    _COLOR_2 : #0000d0;
-    _COLOR_3 : #dedeff;
+    _COLOR_1         : #032D5F;
+    _COLOR_2         : #043875;
+    _COLOR_3         : #0752AD;
+    _FONT_COLOR      : #000000;
+    _INPUT_HIGHLIGHT : derive(_COLOR_1, 150%);
+    _SHADOW_COLOR    : _COLOR_1;
 }
 
 
@@ -25,21 +28,21 @@
     -fx-background-color : _COLOR_1;
     -fx-font-family      : "Ubuntu";
     -fx-font-size        : 16;
-    -fx-text-fill        : ladder(_COLOR_1, white 49%, black);
+    -fx-text-fill        : white;
 }
 
 .pane-root > .button:armed {
-    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_2, _COLOR_1);
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_1);
 }
 
 .pane-root > .button:hover {
-    -fx-effect : dropshadow(gaussian, _COLOR_2, 10, 0, 0, 0);
+    -fx-effect : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
 }
 
 .pane-root > .label {
     -fx-font-family : "Ubuntu";
     -fx-font-size   : 16;
-    -fx-text-fill   : black;
+    -fx-text-fill   : _FONT_COLOR;
 }
 
 .pane-root > .pane-algorithms {
@@ -54,7 +57,7 @@
     -fx-font-family : "Ubuntu";
     -fx-font-size   : 16;
     -fx-max-width   : infinity;
-    -fx-text-fill   : black;
+    -fx-text-fill   : _FONT_COLOR;
 }
 
 .pane-root > .pane-algorithms > .check-box > .box {
@@ -63,7 +66,7 @@
 }
 
 .pane-root > .pane-algorithms > .check-box:hover > .box {
-    -fx-effect : dropshadow(gaussian, _COLOR_1, 10, 0, 0, 0);
+    -fx-effect : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
 }
 
 .pane-root > .pane-algorithms > .check-box:selected > .box {
@@ -85,9 +88,9 @@
 }
 
 .pane-root > .text-field:focused {
-    -fx-background-color : _COLOR_3;
+    -fx-background-color : _INPUT_HIGHLIGHT;
 }
 
 .pane-root > .text-field:hover {
-    -fx-effect : dropshadow(gaussian, _COLOR_1, 10, 0, 0, 0);
+    -fx-effect : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
 }

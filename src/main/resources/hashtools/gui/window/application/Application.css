@@ -10,15 +10,18 @@
 
 
 * {
-    _button_color_1   : #20496b;
-    _button_color_2   : #25537a;
-    _font_color       : #ffffff;
-    _left_pane_color  : #1c3f5b;
-    _right_pane_color : #ffffff;
+    _COLOR_1          : #032D5F;
+    _COLOR_2          : #043875;
+    _COLOR_3          : #0752AD;
+    _FONT_COLOR       : #FFFFFF;
+    _LEFT_PANE_COLOR  : _COLOR_1;
+    _RIGHT_PANE_COLOR : #FFFFFF;
+    _SHADOW_COLOR     : #FFFFFF;
 }
 
+
 .left-pane {
-    -fx-background-color : _left_pane_color;
+    -fx-background-color : _LEFT_PANE_COLOR;
     -fx-padding          : 0 0 0 20;
     -fx-spacing          : 20;
 }
@@ -32,17 +35,16 @@
     -fx-font-size         : 18;
     -fx-padding           : 10 20 10 10;
     -fx-pref-width        : 150;
-    -fx-text-fill         : _font_color;
+    -fx-text-fill         : _FONT_COLOR;
 }
 
 .left-pane > .module-button:hover {
-    -fx-background-color : linear-gradient(to right, _button_color_1, _button_color_2, _button_color_1);
-    -fx-font-weight      : bold;
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
 }
 
 .left-pane > .module-button-highlight {
-    -fx-background-color : linear-gradient(to right, _button_color_1, _button_color_2, _button_color_1);
-    -fx-effect           : dropshadow(gaussian, #f0f0ff, 10, 0, 0, 0);
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
+    -fx-effect           : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
     -fx-font-weight      : bold;
 }
 
@@ -51,34 +53,9 @@
 }
 
 .left-pane > .separator > .line {
-    -fx-border-color : _font_color;
+    -fx-border-color : _FONT_COLOR;
 }
 
 .right-pane {
-    -fx-background-color : _right_pane_color;
-}
-
-
-/*
------
-Tips about blue border when node is focused
------
-*/
-
-/* Remove drop down button in TabPane */
-.tab-pane > .tab-header-area > .control-buttons-tab * {
-    -fx-padding : 0;
-}
-
-/* Removes the blue border of focused tab */
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
-    -fx-border-color : transparent;
-}
-
-/* Remove blue border when focused */
-.table-view:focused {
-    -fx-background-color  : transparent, -fx-box-border, -fx-control-inner-background;
-    -fx-background-insets : -1.4, 0, 1;
-    -fx-background-radius : 1.4, 0, 0;
-    -fx-padding           : 1;
+    -fx-background-color : _RIGHT_PANE_COLOR;
 }
