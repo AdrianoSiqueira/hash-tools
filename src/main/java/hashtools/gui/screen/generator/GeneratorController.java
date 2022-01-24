@@ -54,13 +54,11 @@ public class GeneratorController implements Initializable {
     }
 
     private List<SHAType> createAlgorithmListFromCheckBoxes() {
-        return paneAlgorithms.getChildren()
-                             .stream()
-                             .map(CheckBox.class::cast)
-                             .filter(CheckBox::isSelected)
-                             .map(CheckBox::getUserData)
-                             .map(SHAType.class::cast)
-                             .toList();
+        return retrieveSelectedCheckBoxes()
+                .stream()
+                .map(CheckBox::getUserData)
+                .map(SHAType.class::cast)
+                .toList();
     }
 
     @FXML
