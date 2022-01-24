@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class CheckerModule implements Callable<SampleList> {
@@ -77,12 +77,15 @@ public class CheckerModule implements Callable<SampleList> {
      * @return The reliability percentage of the sample list.
      */
     private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleList sampleList) {
+        HashGenerator    hashGenerator    = new HashGenerator();
+        ResultCalculator resultCalculator = new ResultCalculator();
+
         return sampleList.getSamples()
                          .stream()
                          .parallel()
                          .peek(this::setObjectToSample)
-                         .peek(new HashGenerator())
-                         .peek(new ResultCalculator())
+                         .peek(hashGenerator)
+                         .peek(resultCalculator)
                          .map(Sample::getResult)
                          .map(Result::getScore)
                          .reduce(Double::sum)
