@@ -2,14 +2,19 @@ package hashtools.gui.screen.generator;
 
 import aslib.security.SHAType;
 import hashtools.core.module.generator.GeneratorModule;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +37,11 @@ public class GeneratorController implements Initializable {
     @FXML private Button buttonOpenInput;
     @FXML private Button buttonOpenOutput;
     @FXML private Button buttonGenerate;
+
+
+    private Scene  currentScene;
+    private Parent currentRoot;
+
 
     private boolean isNotReadyToRun() {
         boolean inputFieldIsEmpty    = fieldInput.getText().isBlank();
@@ -94,6 +104,22 @@ public class GeneratorController implements Initializable {
                 fieldOutput.getText(),
                 createAlgorithmListFromCheckBoxes()
         ).call();
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void startSplash() {
+        currentScene = paneRoot.getScene();
+        currentRoot = currentScene.getRoot();
+
+        try {
+            currentScene.setRoot(FXMLLoader.load(getClass().getResource("/hashtools/gui/screen/splash/Splash.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void stopSplash() {
+        Platform.runLater(() -> currentScene.setRoot(currentRoot));
     }
 
 
