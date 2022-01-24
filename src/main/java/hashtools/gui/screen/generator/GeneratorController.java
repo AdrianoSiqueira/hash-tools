@@ -88,10 +88,11 @@ public class GeneratorController implements Initializable {
 
         List<SHAType> algorithms = createAlgorithmListFromCheckBoxes();
 
+    private void runGeneratorModule() {
         new GeneratorModule(
                 fieldInput.getText(),
                 fieldOutput.getText(),
-                algorithms
+                createAlgorithmListFromCheckBoxes()
         ).call();
     }
 
