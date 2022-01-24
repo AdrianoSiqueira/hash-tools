@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.0
+ * @version 1.0.1
  * @since 2.0.0
  */
 public class GeneratorModule implements Callable<SampleList> {
@@ -105,6 +105,7 @@ public class GeneratorModule implements Callable<SampleList> {
         SampleList sampleList = new SampleList();
 
         algorithms.stream()
+                  .parallel()
                   .map(new ShaTypeFromObject())
                   .filter(Objects::nonNull)
                   .map(new SampleFromShaType())
