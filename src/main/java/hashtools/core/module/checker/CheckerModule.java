@@ -68,6 +68,30 @@ public class CheckerModule implements Callable<SampleList> {
 
     /**
      * <p>
+     * Runs the checker module and calculates the reliability percentage of the
+     * sample list.
+     * </p>
+     *
+     * @param sampleList Container with the samples to be processed.
+     *
+     * @return The reliability percentage of the sample list.
+     */
+    private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleList sampleList) {
+        return sampleList.getSamples()
+                         .stream()
+                         .parallel()
+                         .peek(this::setObjectToSample)
+                         .peek(new HashGenerator())
+                         .peek(new ResultCalculator())
+                         .map(Sample::getResult)
+                         .map(Result::getScore)
+                         .reduce(Double::sum)
+                         .orElse(0.0)
+               * 100 / sampleList.getMaxPossibleScore();
+    }
+
+    /**
+     * <p>
      * Sets the test object to the sample.
      * </p>
      *
@@ -82,7 +106,6 @@ public class CheckerModule implements Callable<SampleList> {
     private void setObjectToSample(Sample sample) {
         sample.setObject(objectToCheck);
     }
-
 
     /**
      * <p>
@@ -112,17 +135,7 @@ public class CheckerModule implements Callable<SampleList> {
         sampleList.setSamples(samples);
 
         double percentage = sampleList.getMaxPossibleScore() != 0
-                            ? sampleList.getSamples()
-                                        .stream()
-                                        .parallel()
-                                        .peek(this::setObjectToSample)
-                                        .peek(new HashGenerator())
-                                        .peek(new ResultCalculator())
-                                        .map(Sample::getResult)
-                                        .map(Result::getScore)
-                                        .reduce(Double::sum)
-                                        .orElse(0.0)
-                              * 100 / sampleList.getMaxPossibleScore()
+                            ? runCheckerModuleAndRetrieveReliabilityPercentage(sampleList)
                             : 0.0;
 
         sampleList.setReliabilityPercentage(percentage);
