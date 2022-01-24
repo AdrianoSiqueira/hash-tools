@@ -7,6 +7,7 @@ import hashtools.core.util.SampleFromShaType;
 import hashtools.core.util.ShaTypeFromObject;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -17,7 +18,7 @@ import java.util.concurrent.Callable;
  * </p>
  *
  * @author Adriano Siqueira
- * @version 1.0.1
+ * @version 1.0.2
  * @since 2.0.0
  */
 public class GeneratorModule implements Callable<SampleList> {
@@ -100,18 +101,30 @@ public class GeneratorModule implements Callable<SampleList> {
      */
     @Override
     public SampleList call() {
+        if (algorithms.isEmpty()) return null;
+
         this.clearDestination();
 
-        SampleList sampleList = new SampleList();
+        SampleList        sampleList        = new SampleList();
+        ShaTypeFromObject shaTypeFromObject = new ShaTypeFromObject();
+        SampleFromShaType sampleFromShaType = new SampleFromShaType();
+        HashGenerator     hashGenerator     = new HashGenerator();
+        ResultWriter      resultWriter      = new ResultWriter(destination);
+
+        Comparator<Sample> comparator = (o1, o2) -> Comparator.comparing((Sample s) -> s.getAlgorithm().getLength())
+                                                              .compare(o1, o2);
 
         algorithms.stream()
                   .parallel()
-                  .map(new ShaTypeFromObject())
+                  .map(shaTypeFromObject)
                   .filter(Objects::nonNull)
-                  .map(new SampleFromShaType())
+                  .map(sampleFromShaType)
                   .peek(this::setObjectToSample)
-                  .peek(new HashGenerator())
-                  .peek(new ResultWriter(destination))
+                  .peek(hashGenerator)
+                  .toList()
+                  .stream()
+                  .sorted(comparator)
+                  .peek(resultWriter)
                   .forEach(sampleList::add);
 
         return sampleList;
