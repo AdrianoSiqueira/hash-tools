@@ -72,6 +72,15 @@ public class GeneratorController implements Initializable {
         fieldOutput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample-generated.txt");
     }
 
+    private List<CheckBox> retrieveSelectedCheckBoxes() {
+        return paneAlgorithms.getChildren()
+                             .stream()
+                             .filter(CheckBox.class::isInstance)
+                             .map(CheckBox.class::cast)
+                             .filter(CheckBox::isSelected)
+                             .toList();
+    }
+
     @FXML
     private void runGenerationModule(ActionEvent event) {
         if (isNotReadyToRun()) return;
