@@ -34,8 +34,11 @@ public class GeneratorController implements Initializable {
     @FXML private Button buttonGenerate;
 
     private boolean isNotReadyToRun() {
-        return fieldInput.getText().isBlank() ||
-               fieldOutput.getText().isBlank();
+        boolean inputFieldIsEmpty    = fieldInput.getText().isBlank();
+        boolean outputFieldIsEmpty   = fieldOutput.getText().isBlank();
+        boolean noCheckBoxIsSelected = retrieveSelectedCheckBoxes().isEmpty();
+
+        return inputFieldIsEmpty || outputFieldIsEmpty || noCheckBoxIsSelected;
     }
 
     private void addUserDataToPaneAlgorithmsCheckBoxes() {
