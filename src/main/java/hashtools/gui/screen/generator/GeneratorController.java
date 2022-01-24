@@ -94,9 +94,14 @@ public class GeneratorController implements Initializable {
 
     @FXML
     private void runGenerationModule(ActionEvent event) {
-        if (isNotReadyToRun()) return;
+        new Thread(() -> {
+            if (isNotReadyToRun()) return;
 
-        List<SHAType> algorithms = createAlgorithmListFromCheckBoxes();
+            startSplash();
+            runGeneratorModule();
+            stopSplash();
+        }).start();
+    }
 
     private void runGeneratorModule() {
         new GeneratorModule(
