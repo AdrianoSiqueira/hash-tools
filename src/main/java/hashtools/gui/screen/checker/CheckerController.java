@@ -1,5 +1,7 @@
 package hashtools.gui.screen.checker;
 
+import hashtools.core.model.SampleList;
+import hashtools.core.module.checker.CheckerModule;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,6 +72,28 @@ public class CheckerController implements Initializable {
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException ignored) {}
+    }
+
+    private void runCheckerModule() {
+        StringJoiner result = new StringJoiner("-".repeat(150),
+                                               "-".repeat(150),
+                                               "-".repeat(150));
+
+        SampleList sampleList = new CheckerModule(fieldInput.getText(), fieldOfficial.getText()).call();
+        sampleList.getSamples()
+                  .forEach(s -> {
+                      String ls = System.lineSeparator();
+
+                      String content = ls +
+                                       "A: " + s.getAlgorithm().getName() + ls +
+                                       "O: " + s.getOfficialHash() + ls +
+                                       "C: " + s.getCalculatedHash() + ls +
+                                       "R: " + s.getResult().getText() + ls;
+
+                      result.add(content);
+                  });
+
+        labelResult.setText(result.toString());
     }
 
     @FXML
