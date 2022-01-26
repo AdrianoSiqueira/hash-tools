@@ -73,7 +73,13 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void runCheckingModule(ActionEvent event) {
-        writeResult();
+        new Thread(() -> {
+            if (isNotReadyToRun()) return;
+
+            startSplash();
+            runCheckerModule();
+            stopSplash();
+        }).start();
     }
 
     @SuppressWarnings("ConstantConditions")
