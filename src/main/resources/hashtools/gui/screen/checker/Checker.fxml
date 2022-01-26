@@ -11,32 +11,32 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="pane-root" stylesheets="@Checker.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hashtools.gui.screen.checker.CheckerController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="pane-root" stylesheets="@Checker.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.checker.CheckerController">
     <GridPane fx:id="paneForm" styleClass="pane-form">
         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="ALWAYS"/>
         </rowConstraints>
-        <Label text="%Input" />
-        <Label text="%Official" GridPane.rowIndex="1" />
-        <TextField fx:id="fieldInput" GridPane.columnIndex="1" />
-        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" />
-        <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <Button fx:id="buttonCheck" mnemonicParsing="false" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+        <Label text="%Input"/>
+        <Label text="%Official" GridPane.rowIndex="1"/>
+        <TextField fx:id="fieldInput" GridPane.columnIndex="1"/>
+        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile"/>
+        <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOfficialFile"/>
+        <Button fx:id="buttonCheck" mnemonicParsing="false" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" onAction="#runCheckingModule"/>
     </GridPane>
-    <Separator prefWidth="200.0" />
+    <Separator prefWidth="200.0"/>
     <TitledPane fx:id="titledPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%Result.details" VBox.vgrow="ALWAYS">
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <StackPane fx:id="paneResult" styleClass="pane-result">
-                <Label fx:id="labelResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-result" text="-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: MD-5&#10; Official: 904d96a9d2c9393d24c289d8ea79cd47&#10;Calcuated: 904d96a9d2c9393d24c289d8ea79cd47&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-1&#10; Official: 470881e437ae957a49451f8e50ad162d7bc5cda9&#10;Calcuated: 470881e437ae957a49451f8e50ad162d7bc5cda9&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-224&#10; Official: 5ed2a377fd4855e9d6a0fa1a0ad456e9c7453f69e780c3eebceec1ef&#10;Calcuated: 5ed2a377fd4855e9d6a0fa1a0ad456e9c7453f69e780c3eebceec1ef&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-256&#10; Official: d448623bc40f18b241328a046e447bfea4ab260ac753ef20a49f342f5fa6f23f&#10;Calcuated: d448623bc40f18b241328a046e447bfea4ab260ac753ef20a49f342f5fa6f23f&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-384&#10; Official: 4b0151650b54c59f82f23cf966d7104c18317f3bc2426c0b74f7db108251d403f28f225136d506954e65cc3ae6030e1e&#10;Calcuated: 4b0151650b54c59f82f23cf966d7104c18317f3bc2426c0b74f7db108251d403f28f225136d506954e65cc3ae6030e1e&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-512&#10; Official: befb819daf5ad9907814ef693396cfadbec82af978b4c427d0410a4d258f9bfc0e92b244fdc741554f23b86a25218a9938ce77110516c3e4b040eb6643af4771&#10;Calcuated: befb819daf5ad9907814ef693396cfadbec82af978b4c427d0410a4d258f9bfc0e92b244fdc741554f23b86a25218a9938ce77110516c3e4b040eb6643af4771&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------" />
+                <Label fx:id="labelResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-result"
+                       text="-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: MD-5&#10; Official: 904d96a9d2c9393d24c289d8ea79cd47&#10;Calcuated: 904d96a9d2c9393d24c289d8ea79cd47&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-1&#10; Official: 470881e437ae957a49451f8e50ad162d7bc5cda9&#10;Calcuated: 470881e437ae957a49451f8e50ad162d7bc5cda9&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-224&#10; Official: 5ed2a377fd4855e9d6a0fa1a0ad456e9c7453f69e780c3eebceec1ef&#10;Calcuated: 5ed2a377fd4855e9d6a0fa1a0ad456e9c7453f69e780c3eebceec1ef&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-256&#10; Official: d448623bc40f18b241328a046e447bfea4ab260ac753ef20a49f342f5fa6f23f&#10;Calcuated: d448623bc40f18b241328a046e447bfea4ab260ac753ef20a49f342f5fa6f23f&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-384&#10; Official: 4b0151650b54c59f82f23cf966d7104c18317f3bc2426c0b74f7db108251d403f28f225136d506954e65cc3ae6030e1e&#10;Calcuated: 4b0151650b54c59f82f23cf966d7104c18317f3bc2426c0b74f7db108251d403f28f225136d506954e65cc3ae6030e1e&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------&#10;Algorithm: SHA-512&#10; Official: befb819daf5ad9907814ef693396cfadbec82af978b4c427d0410a4d258f9bfc0e92b244fdc741554f23b86a25218a9938ce77110516c3e4b040eb6643af4771&#10;Calcuated: befb819daf5ad9907814ef693396cfadbec82af978b4c427d0410a4d258f9bfc0e92b244fdc741554f23b86a25218a9938ce77110516c3e4b040eb6643af4771&#10;   Status: Safe&#10;-----------------------------------------------------------------------------------------------------------------------------------------------------"/>
             </StackPane>
         </ScrollPane>
     </TitledPane>
