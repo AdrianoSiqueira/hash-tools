@@ -39,7 +39,9 @@ public class CheckerController implements Initializable {
     }
 
     @FXML
-    private void openOfficialFile(ActionEvent event) {}
+    private void openOfficialFile(ActionEvent event) {
+        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.txt");
+    }
 
     @FXML
     private void runCheckingModule(ActionEvent event) {}
