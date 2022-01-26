@@ -48,6 +48,13 @@ public class CheckerController implements Initializable {
     private Scene  currentScene;
     private Parent currentRoot;
 
+    private boolean isNotReadyToRun() {
+        boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
+        boolean fieldOfficialIsEmpty = fieldOfficial.getText().isBlank();
+
+        return fieldInputIsEmpty || fieldOfficialIsEmpty;
+    }
+
     @FXML
     private void openInputFile(ActionEvent event) {
         fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
