@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -44,7 +45,7 @@ public class CheckerController implements Initializable {
 
     @FXML private Label labelResult;
 
-    private Scene currentScene;
+    private Scene  currentScene;
     private Parent currentRoot;
 
     @FXML
@@ -55,6 +56,12 @@ public class CheckerController implements Initializable {
     @FXML
     private void openOfficialFile(ActionEvent event) {
         fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.txt");
+    }
+
+    private void process() {
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ignored) {}
     }
 
     @FXML
@@ -75,7 +82,7 @@ public class CheckerController implements Initializable {
     }
 
     private void stopSplash() {
-        Platform.runLater(()->currentScene.setRoot(currentRoot));
+        Platform.runLater(() -> currentScene.setRoot(currentRoot));
     }
 
     private void writeResult() {
