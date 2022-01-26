@@ -15,6 +15,13 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * <p>
+ * Checker screen controller class.
+ * </p>
+ *
+ * @author Adriano Siqueira
+ */
 public class CheckerController implements Initializable {
 
     @FXML private VBox       paneRoot;
