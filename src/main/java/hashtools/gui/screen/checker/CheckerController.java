@@ -23,19 +23,26 @@ public class CheckerController implements Initializable {
     @FXML private ScrollPane scrollPane;
     @FXML private StackPane  paneResult;
 
-    @FXML private TextField  fieldInput;
-    @FXML private TextField  fieldOfficial;
+    @FXML private TextField fieldInput;
+    @FXML private TextField fieldOfficial;
 
-    @FXML private Button     buttonOpenInput;
-    @FXML private Button     buttonOpenOfficial;
-    @FXML private Button     buttonCheck;
+    @FXML private Button buttonOpenInput;
+    @FXML private Button buttonOpenOfficial;
+    @FXML private Button buttonCheck;
 
-    @FXML private Label      labelResult;
+    @FXML private Label labelResult;
 
 
-    @FXML private void openInputFile(ActionEvent event){}
-    @FXML private void openOfficialFile(ActionEvent event){}
-    @FXML private void runCheckingModule(ActionEvent event){}
+    @FXML
+    private void openInputFile(ActionEvent event) {
+        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
+    }
+
+    @FXML
+    private void openOfficialFile(ActionEvent event) {}
+
+    @FXML
+    private void runCheckingModule(ActionEvent event) {}
 
 
     @Override
