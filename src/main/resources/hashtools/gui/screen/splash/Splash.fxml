@@ -5,6 +5,6 @@
 <?import javafx.scene.layout.StackPane?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.splash.SplashController" stylesheets="@Splash.css" styleClass="pane-root">
     <ImageView fx:id="imageView" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../../image/splash-background-03.gif" backgroundLoading="true"/>
+        <Image url="@../../image/splash-background.gif" backgroundLoading="true"/>
     </ImageView>
 </StackPane>
