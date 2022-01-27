@@ -52,6 +52,13 @@ public class CheckerController implements Initializable {
     private Scene  currentScene;
     private Parent currentRoot;
 
+    private boolean isNotReadyToRun() {
+        boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
+        boolean fieldOfficialIsEmpty = fieldOfficial.getText().isBlank();
+
+        return fieldInputIsEmpty || fieldOfficialIsEmpty;
+    }
+
     private int calculateIdealTabSize(String... strings) {
         return Arrays.stream(strings)
                      .map(String::length)
