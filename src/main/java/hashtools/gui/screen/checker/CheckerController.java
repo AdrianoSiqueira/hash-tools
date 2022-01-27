@@ -103,12 +103,14 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void openInputFile(ActionEvent event) {
-        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
+//        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
+        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/heavy-sample.zip");
     }
 
     @FXML
     private void openOfficialFile(ActionEvent event) {
-        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.txt");
+//        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.txt");
+        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/heavy-sample.txt");
     }
 
     private void runCheckerModule() {
