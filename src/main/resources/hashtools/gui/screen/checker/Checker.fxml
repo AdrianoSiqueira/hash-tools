@@ -33,7 +33,7 @@
         <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" onAction="#openOfficialFile" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#runCheckingModule" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
     </GridPane>
-   <ProgressBar fx:id="progressBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" progress="0.0" />
+   <ProgressBar fx:id="progressBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" />
     <Separator prefWidth="200.0" />
     <TitledPane fx:id="titledPane" expanded="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%Result.details" VBox.vgrow="ALWAYS">
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
