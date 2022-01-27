@@ -71,6 +71,23 @@
     -fx-effect : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
 }
 
+.pane-root > .progress-bar > .track {
+    -fx-background-color  : white;
+    -fx-background-radius : 100;
+    -fx-border-color      : black;
+    -fx-border-radius     : 100;
+}
+
+.pane-root > .progress-bar > .bar {
+    -fx-background-color  : _COLOR_1;
+    -fx-background-insets : 5;
+    -fx-background-radius : 100;
+}
+
+.pane-root > .progress-bar:hover > .bar {
+    -fx-background-color : _COLOR_3;
+}
+
 .pane-root > .separator > .line {
     -fx-border-color : _COLOR_1;
 }
