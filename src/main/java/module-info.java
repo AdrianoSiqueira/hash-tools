@@ -9,11 +9,13 @@ module HashTools {
     exports hashtools.gui.screen.checker;
     exports hashtools.gui.screen.generator;
     exports hashtools.gui.screen.manual;
+    exports hashtools.gui.screen.splash;
     exports hashtools.gui.window.application;
     exports hashtools.gui.window.preloader;
 
     opens hashtools.gui.screen.about;
     opens hashtools.gui.screen.checker;
     opens hashtools.gui.screen.generator;
+    opens hashtools.gui.screen.splash;
     opens hashtools.gui.window.application;
 }
