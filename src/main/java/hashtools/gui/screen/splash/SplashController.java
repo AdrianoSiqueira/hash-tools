@@ -23,9 +23,9 @@ public class SplashController implements Initializable {
 
     private void bindImageViewSizeToPane() {
         imageView.fitHeightProperty()
-                 .bind(paneRoot.heightProperty().multiply(0.75));
+                 .bind(paneRoot.heightProperty().multiply(0.99));
         imageView.fitWidthProperty()
-                 .bind(paneRoot.widthProperty().multiply(0.75));
+                 .bind(paneRoot.widthProperty().multiply(0.99));
     }
 
     private void setInitialImageViewSize() {
