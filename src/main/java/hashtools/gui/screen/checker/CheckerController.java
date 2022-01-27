@@ -1,5 +1,6 @@
 package hashtools.gui.screen.checker;
 
+import hashtools.core.language.LanguageManager;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
 import javafx.application.Platform;
@@ -66,11 +67,37 @@ public class CheckerController implements Initializable {
                      .orElse(0);
     }
 
-    private boolean isNotReadyToRun() {
-        boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
-        boolean fieldOfficialIsEmpty = fieldOfficial.getText().isBlank();
+    private String formatResult(SampleList sampleList) {
+        StringJoiner joiner = new StringJoiner("-".repeat(150),
+                                               "-".repeat(150),
+                                               "-".repeat(150));
 
-        return fieldInputIsEmpty || fieldOfficialIsEmpty;
+        String s1 = LanguageManager.get("Algorithm");
+        String s2 = LanguageManager.get("Calculated");
+        String s3 = LanguageManager.get("Official");
+        String s4 = LanguageManager.get("Result");
+
+        int idealSize = calculateIdealTabSize(s1, s2, s3, s4);
+
+        String algorithm  = String.format("%" + idealSize + "s: ", s1);
+        String calculated = String.format("%" + idealSize + "s: ", s2);
+        String official   = String.format("%" + idealSize + "s: ", s3);
+        String result     = String.format("%" + idealSize + "s: ", s4);
+
+        sampleList.getSamples()
+                  .forEach(s -> {
+                      String ls = System.lineSeparator();
+
+                      String content = ls +
+                                       algorithm + s.getAlgorithm().getName() + ls +
+                                       official + s.getOfficialHash() + ls +
+                                       calculated + s.getCalculatedHash() + ls +
+                                       result + s.getResult().getText() + ls;
+
+                      joiner.add(content);
+                  });
+
+        return joiner.toString();
     }
 
     @FXML
