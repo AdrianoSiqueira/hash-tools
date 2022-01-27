@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -47,7 +48,8 @@ public class CheckerController implements Initializable {
     @FXML private Button buttonOpenOfficial;
     @FXML private Button buttonCheck;
 
-    @FXML private Label labelResult;
+    @FXML private ProgressBar progressBar;
+    @FXML private Label       labelResult;
 
     private Scene  currentScene;
     private Parent currentRoot;
@@ -117,6 +119,8 @@ public class CheckerController implements Initializable {
 
         String result = formatResult(sampleList);
         labelResult.setText(result);
+
+        progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
     }
 
     @FXML
