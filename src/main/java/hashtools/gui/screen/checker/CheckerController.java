@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
@@ -50,6 +51,13 @@ public class CheckerController implements Initializable {
 
     private Scene  currentScene;
     private Parent currentRoot;
+
+    private int calculateIdealTabSize(String... strings) {
+        return Arrays.stream(strings)
+                     .map(String::length)
+                     .reduce(Math::max)
+                     .orElse(0);
+    }
 
     private boolean isNotReadyToRun() {
         boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
