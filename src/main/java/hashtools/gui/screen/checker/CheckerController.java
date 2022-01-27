@@ -117,25 +117,13 @@ public class CheckerController implements Initializable {
     }
 
     private void runCheckerModule() {
-        StringJoiner result = new StringJoiner("-".repeat(150),
-                                               "-".repeat(150),
-                                               "-".repeat(150));
+        SampleList sampleList = new CheckerModule(
+                fieldInput.getText(),
+                fieldOfficial.getText()
+        ).call();
 
-        SampleList sampleList = new CheckerModule(fieldInput.getText(), fieldOfficial.getText()).call();
-        sampleList.getSamples()
-                  .forEach(s -> {
-                      String ls = System.lineSeparator();
-
-                      String content = ls +
-                                       "A: " + s.getAlgorithm().getName() + ls +
-                                       "O: " + s.getOfficialHash() + ls +
-                                       "C: " + s.getCalculatedHash() + ls +
-                                       "R: " + s.getResult().getText() + ls;
-
-                      result.add(content);
-                  });
-
-        labelResult.setText(result.toString());
+        String result = formatResult(sampleList);
+        labelResult.setText(result);
     }
 
     @FXML
