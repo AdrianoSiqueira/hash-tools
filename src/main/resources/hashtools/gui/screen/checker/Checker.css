@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Bold.ttf");
+}
+
+@font-face {
     -fx-font-family : "Ubuntu Mono";
     src             : url("../../font/UbuntuMono-Regular.ttf");
 }
@@ -128,8 +133,16 @@
     -fx-effect            : null;
 }
 
+.pane-root > .titled-pane > .title:hover > .arrow-button > .arrow {
+    -fx-background-insets : -1;
+}
+
 .pane-root > .titled-pane > .title > .text {
     -fx-fill        : _COLOR_1;
     -fx-font-family : "Ubuntu";
     -fx-font-size   : 16;
+}
+
+.pane-root > .titled-pane > .title:hover > .text {
+    -fx-font-weight : bold;
 }
