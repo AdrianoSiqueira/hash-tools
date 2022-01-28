@@ -1,5 +1,7 @@
 package hashtools.gui.screen.checker;
 
+import aslib.filemanager.FileExtension;
+import aslib.filemanager.FileOpener;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
@@ -23,6 +25,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
@@ -103,14 +106,20 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void openInputFile(ActionEvent event) {
-//        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
-        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/heavy-sample.zip");
+        FileOpener fileOpener = new FileOpener();
+        String     title      = LanguageManager.get("Select.input.file");
+
+        Optional.ofNullable(fileOpener.openFile(title, FileExtension.ALL))
+                .ifPresent(f -> fieldInput.setText(f.getAbsolutePath()));
     }
 
     @FXML
     private void openOfficialFile(ActionEvent event) {
-//        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.txt");
-        fieldOfficial.setText("/home/adriano/IdeaProjects/HashTools/temp-files/heavy-sample.txt");
+        FileOpener fileOpener = new FileOpener();
+        String     title      = LanguageManager.get("Select.hash.file");
+
+        Optional.ofNullable(fileOpener.openFile(title, FileExtension.HASH))
+                .ifPresent(f -> fieldOfficial.setText(f.getAbsolutePath()));
     }
 
     private void runCheckerModule() {
