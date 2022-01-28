@@ -1,6 +1,9 @@
 package hashtools.gui.screen.generator;
 
+import aslib.filemanager.FileExtension;
+import aslib.filemanager.FileOpener;
 import aslib.security.SHAType;
+import hashtools.core.language.LanguageManager;
 import hashtools.core.module.generator.GeneratorModule;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -73,14 +77,20 @@ public class GeneratorController implements Initializable {
 
     @FXML
     private void openInputFile(ActionEvent event) {
-        // TODO Call file opener dialog
-        fieldInput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample.zip");
+        FileOpener fileOpener = new FileOpener();
+        String     title      = LanguageManager.get("Select.input.file");
+
+        Optional.ofNullable(fileOpener.openFile(title, FileExtension.ALL))
+                .ifPresent(f -> fieldInput.setText(f.getAbsolutePath()));
     }
 
     @FXML
     private void openOutputFile(ActionEvent event) {
-        // TODO Call file saver dialog
-        fieldOutput.setText("/home/adriano/IdeaProjects/HashTools/temp-files/light-sample-generated.txt");
+        FileOpener fileOpener = new FileOpener();
+        String     title      = LanguageManager.get("Select.where.to.save.hashes");
+
+        Optional.ofNullable(fileOpener.openFileToSave(title, FileExtension.HASH))
+                .ifPresent(f -> fieldOutput.setText(f.getAbsolutePath()));
     }
 
     private List<CheckBox> retrieveSelectedCheckBoxes() {
