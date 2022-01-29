@@ -15,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -76,6 +79,11 @@ public class GeneratorController implements Initializable {
     }
 
     @FXML
+    private void enableDragAndDrop(DragEvent event) {
+        event.acceptTransferModes(TransferMode.ANY);
+    }
+
+    @FXML
     private void openInputFile(ActionEvent event) {
         FileOpener fileOpener = new FileOpener();
         String     title      = LanguageManager.get("Select.input.file");
@@ -91,6 +99,19 @@ public class GeneratorController implements Initializable {
 
         Optional.ofNullable(fileOpener.openFileToSave(title, FileExtension.HASH))
                 .ifPresent(f -> fieldOutput.setText(f.getAbsolutePath()));
+    }
+
+    @FXML
+    private void pasteContentFromDragAndDrop(DragEvent event) {
+        if (!(event.getSource() instanceof TextField field)) return;
+
+        Dragboard dragboard = event.getDragboard();
+
+        String content = dragboard.hasFiles()
+                         ? dragboard.getFiles().get(0).getAbsolutePath()
+                         : dragboard.getString();
+
+        field.setText(content);
     }
 
     private List<CheckBox> retrieveSelectedCheckBoxes() {

@@ -27,8 +27,8 @@
         </rowConstraints>
         <Label text="%Input"/>
         <Label text="%Official" GridPane.rowIndex="1"/>
-        <TextField fx:id="fieldInput" GridPane.columnIndex="1"/>
-        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
+        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
         <Button fx:id="buttonOpenInput" mnemonicParsing="false" onAction="#openInputFile" text="..." GridPane.columnIndex="2"/>
         <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" onAction="#openOfficialFile" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1"/>
         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#runCheckingModule" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2"/>

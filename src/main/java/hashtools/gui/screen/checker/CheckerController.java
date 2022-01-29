@@ -18,6 +18,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -57,6 +60,7 @@ public class CheckerController implements Initializable {
     private Scene  currentScene;
     private Parent currentRoot;
 
+
     private boolean isNotReadyToRun() {
         boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
         boolean fieldOfficialIsEmpty = fieldOfficial.getText().isBlank();
@@ -69,6 +73,11 @@ public class CheckerController implements Initializable {
                      .map(String::length)
                      .reduce(Math::max)
                      .orElse(0);
+    }
+
+    @FXML
+    private void enableDragAndDrop(DragEvent event) {
+        event.acceptTransferModes(TransferMode.ANY);
     }
 
     private String formatResult(SampleList sampleList) {
@@ -120,6 +129,19 @@ public class CheckerController implements Initializable {
 
         Optional.ofNullable(fileOpener.openFile(title, FileExtension.HASH))
                 .ifPresent(f -> fieldOfficial.setText(f.getAbsolutePath()));
+    }
+
+    @FXML
+    private void pasteContentFromDragAndDrop(DragEvent event) {
+        if (!(event.getSource() instanceof TextField field)) return;
+
+        Dragboard dragboard = event.getDragboard();
+
+        String content = dragboard.hasFiles()
+                         ? dragboard.getFiles().get(0).getAbsolutePath()
+                         : dragboard.getString();
+
+        field.setText(content);
     }
 
     private void runCheckerModule() {
