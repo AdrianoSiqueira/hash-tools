@@ -14,9 +14,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 
@@ -81,6 +84,15 @@ public class GeneratorController implements Initializable {
     @FXML
     private void enableDragAndDrop(DragEvent event) {
         event.acceptTransferModes(TransferMode.ANY);
+    }
+
+    @FXML
+    private void moveTooltipWithMouse(MouseEvent event) {
+        if (!(event.getSource() instanceof Control control)) return;
+
+        Tooltip tooltip = control.getTooltip();
+        tooltip.setX(event.getScreenX() + 10);
+        tooltip.setY(event.getScreenY() + 10);
     }
 
     @FXML
