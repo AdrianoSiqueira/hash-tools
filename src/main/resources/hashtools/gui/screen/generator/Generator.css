@@ -94,3 +94,14 @@
 .pane-root > .text-field:hover {
     -fx-effect : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
 }
+
+.tooltip {
+    -fx-background-color  : _COLOR_1;
+    -fx-background-radius : 10;
+    -fx-border-color      : white;
+    -fx-border-radius     : 10;
+    -fx-font              : normal normal 16 "Ubuntu";
+    -fx-show-delay        : 0s;
+    -fx-show-duration     : 3600s;
+    -fx-text-fill         : white;
+}
