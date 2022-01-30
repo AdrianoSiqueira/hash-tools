@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -27,15 +28,38 @@
         </rowConstraints>
         <Label text="%Input"/>
         <Label text="%Official" GridPane.rowIndex="1"/>
-        <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
-        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
-        <Button fx:id="buttonOpenInput" mnemonicParsing="false" onAction="#openInputFile" text="..." GridPane.columnIndex="2"/>
-        <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" onAction="#openOfficialFile" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+            <tooltip>
+                <Tooltip text="%Drop.a.file.or.a.text.here.to.be.checked."/>
+            </tooltip>
+        </TextField>
+        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+            <tooltip>
+                <Tooltip text="%Drop.a.hash.file.or.a.hash.text.here.to.check."/>
+            </tooltip>
+        </TextField>
+        <Button fx:id="buttonOpenInput" mnemonicParsing="false" onAction="#openInputFile" text="..." GridPane.columnIndex="2">
+            <tooltip>
+                <Tooltip text="%Open.file.to.be.checked."/>
+            </tooltip>
+        </Button>
+        <Button fx:id="buttonOpenOfficial" mnemonicParsing="false" onAction="#openOfficialFile" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <tooltip>
+                <Tooltip text="%Open.hash.file."/>
+            </tooltip>
+        </Button>
         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#runCheckingModule" text="%Check" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2"/>
     </GridPane>
-    <ProgressBar fx:id="progressBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0"/>
+    <ProgressBar fx:id="progressBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0">
+        <tooltip>
+            <Tooltip text="%Reliability.level."/>
+        </tooltip>
+    </ProgressBar>
     <Separator prefWidth="200.0"/>
     <TitledPane fx:id="titledPane" expanded="false" maxWidth="1.7976931348623157E308" text="%Result.details" VBox.vgrow="ALWAYS">
+        <tooltip>
+            <Tooltip text="%Show.detailed.results."/>
+        </tooltip>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <StackPane fx:id="paneResult" styleClass="pane-result">
                 <Label fx:id="labelResult" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-result"/>
