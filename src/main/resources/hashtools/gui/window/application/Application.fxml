@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="480.0" prefWidth="853.0" styleClass="pane-root" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.window.application.ApplicationController">
     <VBox fx:id="leftPane" alignment="CENTER" styleClass="left-pane" HBox.hgrow="NEVER">
-        <Button fx:id="buttonChecker" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="Checker"/>
-        <Button fx:id="buttonGenerator" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="Generator"/>
+        <Button fx:id="buttonChecker" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="%Checker"/>
+        <Button fx:id="buttonGenerator" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="%Generator"/>
         <Separator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
-        <Button fx:id="buttonHowToUse" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="How To Use"/>
-        <Button fx:id="buttonAbout" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="About"/>
+        <Button fx:id="buttonHowToUse" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="%How.To.Use"/>
+        <Button fx:id="buttonAbout" onAction="#openModuleScreen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="module-button" text="%About"/>
     </VBox>
     <StackPane fx:id="rightPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="right-pane" HBox.hgrow="ALWAYS"/>
 </HBox>
