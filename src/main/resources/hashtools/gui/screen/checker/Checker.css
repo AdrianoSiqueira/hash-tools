@@ -146,3 +146,14 @@
 .pane-root > .titled-pane > .title:hover > .text {
     -fx-font-weight : bold;
 }
+
+.tooltip {
+    -fx-background-color  : _COLOR_1;
+    -fx-background-radius : 10;
+    -fx-border-color      : white;
+    -fx-border-radius     : 10;
+    -fx-font              : normal normal 16 "Ubuntu";
+    -fx-show-delay        : 0s;
+    -fx-show-duration     : 3600s;
+    -fx-text-fill         : white;
+}
