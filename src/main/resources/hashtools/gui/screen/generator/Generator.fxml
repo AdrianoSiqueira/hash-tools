@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -39,9 +40,25 @@
     <Label text="%Input"/>
     <Label text="%Output" GridPane.rowIndex="1"/>
     <Label text="%Algorithm" GridPane.rowIndex="2"/>
-    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
-    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop"/>
-    <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile"/>
-    <Button fx:id="buttonOpenOutput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOutputFile"/>
+    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+        <tooltip>
+            <Tooltip text="%Drop.a.file.or.a.text.here.to.be.generated."/>
+        </tooltip>
+    </TextField>
+    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+        <tooltip>
+            <Tooltip text="%Drop.the.destination.file.here.to.generate."/>
+        </tooltip>
+    </TextField>
+    <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile">
+        <tooltip>
+            <Tooltip text="%Open.file.to.be.generated."/>
+        </tooltip>
+    </Button>
+    <Button fx:id="buttonOpenOutput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOutputFile">
+        <tooltip>
+            <Tooltip text="%Open.destination.file."/>
+        </tooltip>
+    </Button>
     <Button fx:id="buttonGenerate" mnemonicParsing="false" text="%Generate" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#runGenerationModule"/>
 </GridPane>
