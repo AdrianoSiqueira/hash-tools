@@ -13,13 +13,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -111,6 +114,15 @@ public class CheckerController implements Initializable {
                   });
 
         return joiner.toString();
+    }
+
+    @FXML
+    private void moveTooltipWithMouse(MouseEvent event) {
+        if (!(event.getSource() instanceof Control control)) return;
+
+        Tooltip tooltip = control.getTooltip();
+        tooltip.setX(event.getScreenX() + 10);
+        tooltip.setY(event.getScreenY() + 10);
     }
 
     @FXML
