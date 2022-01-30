@@ -40,22 +40,22 @@
     <Label text="%Input"/>
     <Label text="%Output" GridPane.rowIndex="1"/>
     <Label text="%Algorithm" GridPane.rowIndex="2"/>
-    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.a.file.or.a.text.here.to.be.generated."/>
         </tooltip>
     </TextField>
-    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop">
+    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.the.destination.file.here.to.generate."/>
         </tooltip>
     </TextField>
-    <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile">
+    <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Open.file.to.be.generated."/>
         </tooltip>
     </Button>
-    <Button fx:id="buttonOpenOutput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOutputFile">
+    <Button fx:id="buttonOpenOutput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOutputFile" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Open.destination.file."/>
         </tooltip>
