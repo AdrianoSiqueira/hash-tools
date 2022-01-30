@@ -37,12 +37,14 @@
     -fx-cursor       : hand;
     -fx-font-family  : "Ubuntu";
     -fx-font-size    : 16;
+    -fx-min-width    : 325;
+    -fx-padding      : 0;
     -fx-text-fill    : _HYPERLINK_COLOR;
 }
 
 .pane-root > .hyperlink:hover {
-    -fx-effect    : dropshadow(gaussian, _HYPERLINK_COLOR, 1, 0, 1, 1);
-    -fx-underline : false;
+    -fx-font-weight : bold;
+    -fx-underline   : false;
 }
 
 .pane-root > .separator > .line {
