@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -64,15 +65,12 @@ public class GeneratorController implements Initializable {
     }
 
     private void addUserDataToPaneAlgorithmsCheckBoxes() {
-        paneAlgorithms.getChildren()
-                      .stream()
-                      .filter(CheckBox.class::isInstance)
-                      .map(CheckBox.class::cast)
-                      .forEach(cb -> {
-                          String  name    = cb.getText().replace("-", "");
-                          SHAType shaType = SHAType.valueOf(name);
-                          cb.setUserData(shaType);
-                      });
+        retrievePaneAlgorithmCheckBoxStream()
+                .forEach(cb -> {
+                    String  name    = cb.getText().replace("-", "");
+                    SHAType shaType = SHAType.valueOf(name);
+                    cb.setUserData(shaType);
+                });
     }
 
     @FXML
@@ -101,6 +99,12 @@ public class GeneratorController implements Initializable {
                 .map(CheckBox::getUserData)
                 .map(SHAType.class::cast)
                 .toList();
+    }
+
+    @FXML
+    private void invertAlgorithmsSelection(ActionEvent event) {
+        retrievePaneAlgorithmCheckBoxStream()
+                .forEach(cb -> cb.setSelected(!cb.isSelected()));
     }
 
     @FXML
@@ -143,13 +147,17 @@ public class GeneratorController implements Initializable {
         field.setText(content);
     }
 
-    private List<CheckBox> retrieveSelectedCheckBoxes() {
+    private Stream<CheckBox> retrievePaneAlgorithmCheckBoxStream() {
         return paneAlgorithms.getChildren()
                              .stream()
                              .filter(CheckBox.class::isInstance)
-                             .map(CheckBox.class::cast)
-                             .filter(CheckBox::isSelected)
-                             .toList();
+                             .map(CheckBox.class::cast);
+    }
+
+    private List<CheckBox> retrieveSelectedCheckBoxes() {
+        return retrievePaneAlgorithmCheckBoxStream()
+                .filter(CheckBox::isSelected)
+                .toList();
     }
 
     @FXML
@@ -169,6 +177,18 @@ public class GeneratorController implements Initializable {
                 fieldOutput.getText(),
                 createAlgorithmListFromCheckBoxes()
         ).call();
+    }
+
+    @FXML
+    private void selectAllAlgorithms(ActionEvent event) {
+        retrievePaneAlgorithmCheckBoxStream()
+                .forEach(cb -> cb.setSelected(true));
+    }
+
+    @FXML
+    private void selectNoAlgorithms(ActionEvent event) {
+        retrievePaneAlgorithmCheckBoxStream()
+                .forEach(cb -> cb.setSelected(false));
     }
 
     @SuppressWarnings("ConstantConditions")
