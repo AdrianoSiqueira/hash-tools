@@ -104,11 +104,6 @@ public class GeneratorController implements Initializable {
     }
 
     @FXML
-    private void enableDragAndDrop(DragEvent event) {
-        event.acceptTransferModes(TransferMode.ANY);
-    }
-
-    @FXML
     private void moveTooltipWithMouse(MouseEvent event) {
         if (!(event.getSource() instanceof Control control)) return;
 
