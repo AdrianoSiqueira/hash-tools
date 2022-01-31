@@ -74,15 +74,8 @@ public class CheckerController implements Initializable {
         return fieldInputIsEmpty || fieldOfficialIsEmpty;
     }
 
-    private int calculateIdealTabSize(String... strings) {
-        return Arrays.stream(strings)
-                     .map(String::length)
-                     .reduce(Math::max)
-                     .orElse(0);
-    }
-
     @FXML
-    private void enableDragAndDrop(DragEvent event) {
+    private void analyzeDragContent(DragEvent event) {
         Dragboard      dragboard = event.getDragboard();
         TransferMode[] transferModes;
 
@@ -101,6 +94,13 @@ public class CheckerController implements Initializable {
         }
 
         event.acceptTransferModes(transferModes);
+    }
+
+    private int calculateIdealTabSize(String... strings) {
+        return Arrays.stream(strings)
+                     .map(String::length)
+                     .reduce(Math::max)
+                     .orElse(0);
     }
 
     private String formatResult(SampleList sampleList) {

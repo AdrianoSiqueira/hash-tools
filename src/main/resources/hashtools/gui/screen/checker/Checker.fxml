@@ -28,12 +28,12 @@
         </rowConstraints>
         <Label text="%Input"/>
         <Label text="%Official" GridPane.rowIndex="1"/>
-        <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+        <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
             <tooltip>
                 <Tooltip text="%Drop.a.file.or.a.text.here.to.be.checked."/>
             </tooltip>
         </TextField>
-        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+        <TextField fx:id="fieldOfficial" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
             <tooltip>
                 <Tooltip text="%Drop.a.hash.file.or.a.hash.text.here.to.check."/>
             </tooltip>
