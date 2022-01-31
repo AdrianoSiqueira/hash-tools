@@ -22,7 +22,7 @@
         <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
-    <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" fx:id="paneAlgorithms" gridLinesVisible="true" styleClass="pane-algorithms">
+    <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" fx:id="paneAlgorithms" gridLinesVisible="true" onContextMenuRequested="#showContextMenu" styleClass="pane-algorithms">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
             <ColumnConstraints hgrow="SOMETIMES"/>
@@ -32,7 +32,7 @@
             <RowConstraints vgrow="SOMETIMES"/>
             <RowConstraints vgrow="SOMETIMES"/>
         </rowConstraints>
-        <CheckBox mnemonicParsing="false" text="MD-5">
+        <CheckBox fx:id="checkMD5" mnemonicParsing="false" text="MD-5">
             <contextMenu>
                 <ContextMenu>
                     <items>
