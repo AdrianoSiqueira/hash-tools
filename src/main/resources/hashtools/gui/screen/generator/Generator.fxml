@@ -40,12 +40,12 @@
     <Label text="%Input"/>
     <Label text="%Output" GridPane.rowIndex="1"/>
     <Label text="%Algorithm" GridPane.rowIndex="2"/>
-    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.a.file.or.a.text.here.to.be.generated."/>
         </tooltip>
     </TextField>
-    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#enableDragAndDrop" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.the.destination.file.here.to.generate."/>
         </tooltip>
