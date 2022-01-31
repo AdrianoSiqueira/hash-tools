@@ -5,6 +5,8 @@ import aslib.filemanager.FileOpener;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
+import hashtools.core.service.FileService;
+import hashtools.core.service.HashService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +32,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -80,7 +83,24 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void enableDragAndDrop(DragEvent event) {
-        event.acceptTransferModes(TransferMode.ANY);
+        Dragboard      dragboard = event.getDragboard();
+        TransferMode[] transferModes;
+
+        if (event.getSource() == fieldInput) {
+            transferModes = TransferMode.ANY;
+        } else if (dragboard.hasFiles()) {
+            Path path = dragboard.getFiles().get(0).toPath();
+
+            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+                            ? TransferMode.ANY
+                            : TransferMode.NONE;
+        } else {
+            transferModes = HashService.stringHasValidLength(dragboard.getString())
+                            ? TransferMode.ANY
+                            : TransferMode.NONE;
+        }
+
+        event.acceptTransferModes(transferModes);
     }
 
     private String formatResult(SampleList sampleList) {
