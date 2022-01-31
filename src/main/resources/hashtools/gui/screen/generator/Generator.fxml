@@ -2,13 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="pane-root" stylesheets="@Generator.css" xmlns="http://javafx.com/javafx/17" fx:controller="hashtools.gui.screen.generator.GeneratorController">
+<GridPane fx:controller="hashtools.gui.screen.generator.GeneratorController" fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="pane-root" stylesheets="@Generator.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
         <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS"/>
@@ -20,7 +22,7 @@
         <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
-    <GridPane fx:id="paneAlgorithms" gridLinesVisible="true" styleClass="pane-algorithms" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+    <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" fx:id="paneAlgorithms" gridLinesVisible="true" styleClass="pane-algorithms">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
             <ColumnConstraints hgrow="SOMETIMES"/>
@@ -30,35 +32,45 @@
             <RowConstraints vgrow="SOMETIMES"/>
             <RowConstraints vgrow="SOMETIMES"/>
         </rowConstraints>
-        <CheckBox mnemonicParsing="false" text="MD-5"/>
-        <CheckBox mnemonicParsing="false" text="SHA-256" GridPane.columnIndex="1"/>
-        <CheckBox mnemonicParsing="false" text="SHA-1" GridPane.rowIndex="1"/>
-        <CheckBox mnemonicParsing="false" text="SHA-384" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <CheckBox mnemonicParsing="false" text="SHA-224" GridPane.rowIndex="2"/>
-        <CheckBox mnemonicParsing="false" text="SHA-512" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <CheckBox mnemonicParsing="false" text="MD-5">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem onAction="#selectAllAlgorithms" text="%Select.all"/>
+                        <MenuItem onAction="#selectNoAlgorithms" text="%Select.none"/>
+                        <MenuItem onAction="#invertAlgorithmsSelection" text="%Invert.selection"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </CheckBox>
+        <CheckBox GridPane.rowIndex="1" mnemonicParsing="false" text="SHA-1"/>
+        <CheckBox GridPane.rowIndex="2" mnemonicParsing="false" text="SHA-224"/>
+        <CheckBox GridPane.columnIndex="1" mnemonicParsing="false" text="SHA-256"/>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" mnemonicParsing="false" text="SHA-384"/>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="2" mnemonicParsing="false" text="SHA-512"/>
     </GridPane>
     <Label text="%Input"/>
-    <Label text="%Output" GridPane.rowIndex="1"/>
-    <Label text="%Algorithm" GridPane.rowIndex="2"/>
-    <TextField fx:id="fieldInput" GridPane.columnIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+    <Label GridPane.rowIndex="1" text="%Output"/>
+    <Label GridPane.rowIndex="2" text="%Algorithm"/>
+    <TextField GridPane.columnIndex="1" fx:id="fieldInput" onDragDropped="#pasteContentFromDragAndDrop" onDragOver="#analyzeDragContent" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.a.file.or.a.text.here.to.be.generated."/>
         </tooltip>
     </TextField>
-    <TextField fx:id="fieldOutput" GridPane.columnIndex="1" GridPane.rowIndex="1" onDragOver="#analyzeDragContent" onDragDropped="#pasteContentFromDragAndDrop" onMouseMoved="#moveTooltipWithMouse">
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="fieldOutput" onDragDropped="#pasteContentFromDragAndDrop" onDragOver="#analyzeDragContent" onMouseMoved="#moveTooltipWithMouse">
         <tooltip>
             <Tooltip text="%Drop.the.destination.file.here.to.generate."/>
         </tooltip>
     </TextField>
-    <Button fx:id="buttonOpenInput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" onAction="#openInputFile" onMouseMoved="#moveTooltipWithMouse">
+    <Button GridPane.columnIndex="2" fx:id="buttonOpenInput" mnemonicParsing="false" onAction="#openInputFile" onMouseMoved="#moveTooltipWithMouse" text="...">
         <tooltip>
             <Tooltip text="%Open.file.to.be.generated."/>
         </tooltip>
     </Button>
-    <Button fx:id="buttonOpenOutput" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#openOutputFile" onMouseMoved="#moveTooltipWithMouse">
+    <Button GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="buttonOpenOutput" mnemonicParsing="false" onAction="#openOutputFile" onMouseMoved="#moveTooltipWithMouse" text="...">
         <tooltip>
             <Tooltip text="%Open.destination.file."/>
         </tooltip>
     </Button>
-    <Button fx:id="buttonGenerate" mnemonicParsing="false" text="%Generate" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#runGenerationModule"/>
+    <Button GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="buttonGenerate" mnemonicParsing="false" onAction="#runGenerationModule" text="%Generate"/>
 </GridPane>
