@@ -18,11 +18,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +53,7 @@ public class GeneratorController implements Initializable {
     @FXML private Button buttonOpenOutput;
     @FXML private Button buttonGenerate;
 
+    @FXML private CheckBox checkMD5;
 
     private Scene  currentScene;
     private Parent currentRoot;
@@ -189,6 +192,15 @@ public class GeneratorController implements Initializable {
     private void selectNoAlgorithms(ActionEvent event) {
         retrievePaneAlgorithmCheckBoxStream()
                 .forEach(cb -> cb.setSelected(false));
+    }
+
+    @FXML private void showContextMenu(ContextMenuEvent event){
+        Window window = checkMD5.getScene().getWindow();
+        double anchorX = event.getScreenX();
+        double anchorY = event.getScreenY();
+
+        checkMD5.getContextMenu()
+                .show(window, anchorX, anchorY);
     }
 
     @SuppressWarnings("ConstantConditions")
