@@ -5,6 +5,7 @@ import aslib.filemanager.FileOpener;
 import aslib.security.SHAType;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.module.generator.GeneratorModule;
+import hashtools.core.service.FileService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -71,6 +73,26 @@ public class GeneratorController implements Initializable {
                           SHAType shaType = SHAType.valueOf(name);
                           cb.setUserData(shaType);
                       });
+    }
+
+    @FXML
+    private void analyzeDragContent(DragEvent event) {
+        Dragboard      dragboard = event.getDragboard();
+        TransferMode[] transferModes;
+
+        if (event.getSource() == fieldInput) {
+            transferModes = TransferMode.ANY;
+        } else if (dragboard.hasFiles()) {
+            Path path = dragboard.getFiles().get(0).toPath();
+
+            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+                            ? TransferMode.ANY
+                            : TransferMode.NONE;
+        } else {
+            transferModes = TransferMode.NONE;
+        }
+
+        event.acceptTransferModes(transferModes);
     }
 
     private List<SHAType> createAlgorithmListFromCheckBoxes() {
