@@ -1,6 +1,7 @@
 package hashtools.core.model;
 
 import aslib.security.SHAType;
+import hashtools.core.service.FileService;
 import hashtools.core.util.FilePathDetector;
 
 import java.nio.file.Path;
@@ -14,6 +15,9 @@ import java.nio.file.Path;
  */
 public class Sample {
 
+    private String  input;
+    private boolean usingFile;
+
     private Object  object;
     private boolean usingFileAsObject;
 
@@ -23,14 +27,30 @@ public class Sample {
     private Result  result;
 
 
-    public Sample() {
+    public Object getInput() {
+        return usingFile
+               ? Path.of(input)
+               : input;
     }
 
+    public Sample setInput(String input) {
+        if (input == null) return this;
 
+        this.input = input;
+        this.usingFile = FileService.stringIsFilePath(input);
+        return this;
+    }
+
+    public boolean isUsingFile() {
+        return usingFile;
+    }
+
+    @Deprecated(forRemoval = true)
     public Object getObject() {
         return object;
     }
 
+    @Deprecated(forRemoval = true)
     public Sample setObject(Object object) {
         if (object instanceof Path path) {
             this.object = path;
@@ -46,6 +66,7 @@ public class Sample {
         return this;
     }
 
+    @Deprecated(forRemoval = true)
     public boolean isUsingFileAsObject() {
         return usingFileAsObject;
     }
@@ -90,8 +111,8 @@ public class Sample {
     @Override
     public String toString() {
         return "Sample{" +
-               "object=" + object +
-               ", usingFileAsObject=" + usingFileAsObject +
+               "input=" + input +
+               ", usingFile=" + usingFile +
                ", algorithm=" + algorithm +
                ", officialHash='" + officialHash + '\'' +
                ", calculatedHash='" + calculatedHash + '\'' +
