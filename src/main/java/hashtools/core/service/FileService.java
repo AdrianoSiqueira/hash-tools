@@ -2,6 +2,7 @@ package hashtools.core.service;
 
 import aslib.filemanager.FileExtension;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -21,5 +22,10 @@ public class FileService {
 
         return List.of(fileExtension.getExtensions())
                    .contains(extension);
+    }
+
+    public static boolean stringIsFilePath(String string) {
+        return string != null &&
+               Files.isRegularFile(Path.of(string));
     }
 }
