@@ -67,6 +67,25 @@ public class GeneratorController implements Initializable {
         return inputFieldIsEmpty || outputFieldIsEmpty || noCheckBoxIsSelected;
     }
 
+    private void addContextMenuCssOnScene() {
+        /*
+         * It was necessary to create a dedicated css file for the context menu
+         * because of stylesheet inheritance. It doesn't work when the css is
+         * added directly to FXML, having to add it to the scene.
+         *
+         * Due to the way the generator screen's css was made, if it is added to
+         * the scene it will cause conflict with the main window's css.
+         *
+         * To prevent this, a dedicated file has been created that does not
+         * interfere with screen layout management.
+         */
+        Platform.runLater(() -> {
+            @SuppressWarnings("ConstantConditions")
+            String stylesheet = getClass().getResource("ContextMenu.css").toString();
+            paneRoot.getScene().getStylesheets().add(stylesheet);
+        });
+    }
+
     private void addUserDataToPaneAlgorithmsCheckBoxes() {
         retrievePaneAlgorithmCheckBoxStream()
                 .forEach(cb -> {
@@ -194,8 +213,9 @@ public class GeneratorController implements Initializable {
                 .forEach(cb -> cb.setSelected(false));
     }
 
-    @FXML private void showContextMenu(ContextMenuEvent event){
-        Window window = checkMD5.getScene().getWindow();
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        Window window  = checkMD5.getScene().getWindow();
         double anchorX = event.getScreenX();
         double anchorY = event.getScreenY();
 
@@ -219,9 +239,9 @@ public class GeneratorController implements Initializable {
         Platform.runLater(() -> currentScene.setRoot(currentRoot));
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addUserDataToPaneAlgorithmsCheckBoxes();
+        addContextMenuCssOnScene();
     }
 }
