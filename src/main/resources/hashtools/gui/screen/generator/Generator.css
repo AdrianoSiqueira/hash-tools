@@ -97,6 +97,7 @@
 
 .tooltip {
     -fx-background-color  : _COLOR_1;
+    -fx-background-insets : 1;
     -fx-background-radius : 10;
     -fx-border-color      : white;
     -fx-border-radius     : 10;
