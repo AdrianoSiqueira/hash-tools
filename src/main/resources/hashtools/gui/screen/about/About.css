@@ -3,6 +3,11 @@
     src             : url("../../font/Ubuntu-Regular.ttf");
 }
 
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Bold.ttf");
+}
+
 
 * {
     _COLOR_1         : #032D5F;
@@ -37,14 +42,14 @@
     -fx-cursor       : hand;
     -fx-font-family  : "Ubuntu";
     -fx-font-size    : 16;
-    -fx-min-width    : 325;
+    -fx-min-width    : 307;
     -fx-padding      : 0;
     -fx-text-fill    : _HYPERLINK_COLOR;
+    -fx-underline    : false;
 }
 
 .pane-root > .hyperlink:hover {
     -fx-font-weight : bold;
-    -fx-underline   : false;
 }
 
 .pane-root > .separator > .line {
