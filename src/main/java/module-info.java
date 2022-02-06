@@ -16,6 +16,7 @@ module HashTools {
     opens hashtools.gui.screen.about;
     opens hashtools.gui.screen.checker;
     opens hashtools.gui.screen.generator;
+    opens hashtools.gui.screen.manual;
     opens hashtools.gui.screen.splash;
     opens hashtools.gui.window.application;
 }
