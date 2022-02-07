@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="pane-root" fx:controller="hashtools.gui.screen.about.AboutController" stylesheets="@About.css" xmlns="http://javafx.com/javafx/17">
+<GridPane fx:controller="hashtools.gui.screen.about.AboutController" fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="pane-root" stylesheets="@About.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="SOMETIMES"/>
@@ -19,15 +19,15 @@
         <RowConstraints vgrow="SOMETIMES"/>
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
-    <Label styleClass="left-label" text="%Version"/>
-    <Label styleClass="right-label" text="2.0.0" GridPane.columnIndex="1"/>
-    <Label styleClass="left-label" text="%Application.URL" GridPane.rowIndex="1"/>
-    <Label styleClass="left-label" text="%Author" GridPane.rowIndex="3"/>
-    <Label styleClass="left-label" text="%Github.account" GridPane.rowIndex="4"/>
-    <Label styleClass="left-label" text="%LinkedIn.account" GridPane.rowIndex="5"/>
-    <Label styleClass="right-label" text="Adriano Siqueira" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Separator GridPane.columnSpan="2" GridPane.rowIndex="2"/>
-    <Hyperlink fx:id="hyperlinkApplication" text="github.com/AdrianoSiqueira/HashTools" onAction="#openLink" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Hyperlink fx:id="hyperlinkGithub" text="github.com/AdrianoSiqueira" onAction="#openLink" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-    <Hyperlink fx:id="hyperlinkLinkedin" text="linkedin.com/in/asadrianosiqueira" onAction="#openLink" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="left-label" text="%Version"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="right-label" text="2.0.0"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="left-label" text="%Application.URL"/>
+    <Hyperlink GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#openLink" text="github.com/AdrianoSiqueira/HashTools"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="left-label" text="%Online.manual"/>
+    <Hyperlink GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#openLink" text="github.com/AdrianoSiqueira/HashTools/wiki"/>
+    <Separator GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="left-label" text="%Author"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="right-label" text="Adriano Siqueira"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="left-label" text="%Github.account"/>
+    <Hyperlink GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#openLink" text="github.com/AdrianoSiqueira"/>
 </GridPane>
