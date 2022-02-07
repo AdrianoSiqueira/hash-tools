@@ -16,10 +16,6 @@ public class AboutController implements Initializable {
 
     @FXML private GridPane paneRoot;
 
-    @FXML private Hyperlink hyperlinkApplication;
-    @FXML private Hyperlink hyperlinkGithub;
-    @FXML private Hyperlink hyperlinkLinkedin;
-
     private Stage stage;
 
     private HostServices getHostServices() {
