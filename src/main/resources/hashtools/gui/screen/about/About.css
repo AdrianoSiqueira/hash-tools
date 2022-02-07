@@ -13,12 +13,13 @@
     _COLOR_1         : #032D5F;
     _FONT_COLOR      : #000000;
     _HYPERLINK_COLOR : _COLOR_1;
+    _PANE_COLOR      : #FFFFFF;
 }
 
 
 .pane-root {
     -fx-alignment        : center;
-    -fx-background-color : transparent;
+    -fx-background-color : _PANE_COLOR;
     -fx-hgap             : 20;
     -fx-padding          : 20;
     -fx-vgap             : 20;

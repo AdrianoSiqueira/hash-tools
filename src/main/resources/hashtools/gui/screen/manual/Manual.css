@@ -10,14 +10,15 @@
 
 
 * {
-    _COLOR_1 : #032D5F;
-    _COLOR_2 : #043875;
-    _COLOR_3 : #0752AD;
+    _COLOR_1    : #032D5F;
+    _COLOR_2    : #043875;
+    _COLOR_3    : #0752AD;
+    _PANE_COLOR : #FFFFFF;
 }
 
 
 .pane-root > .scroll-pane .pane-sections {
-    -fx-background-color : white;
+    -fx-background-color : _PANE_COLOR;
     -fx-padding          : 30;
     -fx-spacing          : 30;
 }
@@ -27,7 +28,7 @@
 }
 
 .pane-root > .scroll-pane .pane-sections > .titled-pane > .content > .pane-section-content {
-    -fx-background-color : white;
+    -fx-background-color : _PANE_COLOR;
     -fx-padding          : 10 0;
 }
 

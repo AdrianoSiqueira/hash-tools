@@ -10,13 +10,14 @@
     _COLOR_3         : #0752AD;
     _FONT_COLOR      : #000000;
     _INPUT_HIGHLIGHT : derive(_COLOR_1, 150%);
+    _PANE_COLOR      : #FFFFFF;
     _SHADOW_COLOR    : _COLOR_1;
 }
 
 
 .pane-root {
     -fx-alignment        : center;
-    -fx-background-color : white;
+    -fx-background-color : _PANE_COLOR;
     -fx-hgap             : 20;
     -fx-max-height       : infinity;
     -fx-max-width        : infinity;
@@ -47,8 +48,7 @@
 
 .pane-root > .pane-algorithms {
     -fx-alignment          : center;
-    -fx-background-color   : transparent;
-    -fx-grid-lines-visible : false;
+    -fx-background-color   : _PANE_COLOR;
     -fx-hgap               : 10;
     -fx-vgap               : 10;
 }

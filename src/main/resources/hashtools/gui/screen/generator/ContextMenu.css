@@ -4,11 +4,7 @@
 }
 
 
-* {
-    _COLOR_1 : #032D5F;
-    _COLOR_2 : #043875;
-    _COLOR_3 : #0752AD;
-}
+/* Some colors are inherited from the other CSS in use. */
 
 
 .context-menu {
