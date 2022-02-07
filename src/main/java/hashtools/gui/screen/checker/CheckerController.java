@@ -66,6 +66,8 @@ public class CheckerController implements Initializable {
     private Scene  currentScene;
     private Parent currentRoot;
 
+    private boolean needClearResult;
+
 
     private boolean isNotReadyToRun() {
         boolean fieldInputIsEmpty    = fieldInput.getText().isBlank();
@@ -103,9 +105,16 @@ public class CheckerController implements Initializable {
                      .orElse(0);
     }
 
+    private boolean clearIsNotNecessary() {
+        return !needClearResult;
+    }
+
     private void clearResult() {
+        if (clearIsNotNecessary()) return;
+
         labelResult.setText("");
         progressBar.setProgress(0.0);
+        needClearResult = false;
     }
 
     private String formatResult(SampleList sampleList) {
@@ -222,6 +231,7 @@ public class CheckerController implements Initializable {
         labelResult.setText(result);
 
         progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
+        needClearResult = true;
     }
 
     @Override
