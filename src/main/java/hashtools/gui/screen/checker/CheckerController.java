@@ -103,6 +103,11 @@ public class CheckerController implements Initializable {
                      .orElse(0);
     }
 
+    private void clearResult() {
+        labelResult.setText("");
+        progressBar.setProgress(0.0);
+    }
+
     private String formatResult(SampleList sampleList) {
         StringJoiner joiner = new StringJoiner("-".repeat(150),
                                                "-".repeat(150),
@@ -219,8 +224,8 @@ public class CheckerController implements Initializable {
         progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        clearResult();
     }
 }
