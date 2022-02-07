@@ -1,9 +1,7 @@
 module HashTools {
-    requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
     requires ASLib;
-    requires java.logging;
 
     exports hashtools.gui.screen.about;
     exports hashtools.gui.screen.checker;
