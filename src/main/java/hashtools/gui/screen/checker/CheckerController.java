@@ -182,10 +182,7 @@ public class CheckerController implements Initializable {
                 fieldOfficial.getText()
         ).call();
 
-        String result = formatResult(sampleList);
-        labelResult.setText(result);
-
-        progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
+        writeResult(sampleList);
     }
 
     @FXML
@@ -213,6 +210,13 @@ public class CheckerController implements Initializable {
 
     private void stopSplash() {
         Platform.runLater(() -> currentScene.setRoot(currentRoot));
+    }
+
+    private void writeResult(SampleList sampleList) {
+        String result = formatResult(sampleList);
+        labelResult.setText(result);
+
+        progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
     }
 
 
