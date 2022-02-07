@@ -8,6 +8,7 @@ import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashService;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -115,6 +116,11 @@ public class CheckerController implements Initializable {
         labelResult.setText("");
         progressBar.setProgress(0.0);
         needClearResult = false;
+    }
+
+    @FXML
+    private void clearResultWhenTextFieldContentChange(ObservableValue<String> observable, String oldValue, String newValue) {
+        clearResult();
     }
 
     private String formatResult(SampleList sampleList) {
