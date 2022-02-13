@@ -1,6 +1,5 @@
 package hashtools.core.model;
 
-import aslib.security.SHAType;
 import hashtools.core.util.FilePathDetector;
 
 import java.nio.file.Path;
@@ -17,10 +16,10 @@ public class Sample {
     private Object  object;
     private boolean usingFileAsObject;
 
-    private SHAType algorithm;
-    private String  officialHash;
-    private String  calculatedHash;
-    private Result  result;
+    private HashAlgorithm algorithm;
+    private String        officialHash;
+    private String        calculatedHash;
+    private Result        result;
 
 
     public Sample() {
@@ -50,11 +49,11 @@ public class Sample {
         return usingFileAsObject;
     }
 
-    public SHAType getAlgorithm() {
+    public HashAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public Sample setAlgorithm(SHAType algorithm) {
+    public Sample setAlgorithm(HashAlgorithm algorithm) {
         this.algorithm = algorithm;
         return this;
     }
