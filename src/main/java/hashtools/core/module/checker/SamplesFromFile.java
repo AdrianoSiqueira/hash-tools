@@ -1,15 +1,15 @@
 package hashtools.core.module.checker;
 
-import aslib.filemanager.FileReader;
 import hashtools.core.model.Sample;
 import hashtools.core.util.LineSplitter;
 import hashtools.core.util.SampleFromHash;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -67,11 +67,14 @@ public class SamplesFromFile implements Function<Path, List<Sample>> {
      */
     @Override
     public List<Sample> apply(Path hashFile) {
-        return Optional.ofNullable(hashFile)
-                       .map(path -> new FileReader()
-                               .readLines(path)
-                               .map(this::processLines)
-                               .orElse(new ArrayList<>()))
-                       .orElse(new ArrayList<>());
+        if (hashFile == null) return new ArrayList<>();
+
+        try {
+            List<String> lines = Files.readAllLines(hashFile);
+            return processLines(lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
