@@ -1,9 +1,11 @@
 package hashtools.core.module.generator;
 
-import aslib.filemanager.FileWriter;
 import hashtools.core.model.Sample;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 
 /**
@@ -62,7 +64,10 @@ public class ResultWriter implements Consumer<Sample> {
 
         content.append(System.lineSeparator());
 
-        new FileWriter()
-                .append(content.toString(), destination);
+        try {
+            Files.writeString(destination, content.toString(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
