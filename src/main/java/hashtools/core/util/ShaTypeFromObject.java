@@ -1,18 +1,18 @@
 package hashtools.core.util;
 
-import aslib.security.SHAType;
+import hashtools.core.model.HashAlgorithm;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * <p>Class designed to create an object of type {@link SHAType} from an Object.</p>
+ * <p>Class designed to create an object of type {@link HashAlgorithm} from an Object.</p>
  *
  * @author Adriano Siqueira
  * @version 1.0.0
  * @since 2.0.0
  */
-public class ShaTypeFromObject implements Function<Object, SHAType> {
+public class ShaTypeFromObject implements Function<Object, HashAlgorithm> {
 
     /**
      * <p>Creates an object of type ShaType from an Object.</p>
@@ -31,17 +31,17 @@ public class ShaTypeFromObject implements Function<Object, SHAType> {
      * @since 1.0.0
      */
     @Override
-    public SHAType apply(Object object) {
+    public HashAlgorithm apply(Object object) {
         return Optional.ofNullable(object)
                        .map(o -> {
-                           if (o instanceof SHAType sha)
+                           if (o instanceof HashAlgorithm sha)
                                return sha;
 
                            try {
                                String name = o.toString()
                                               .replaceAll("-", "")
                                               .toUpperCase();
-                               return SHAType.valueOf(name);
+                               return HashAlgorithm.valueOf(name);
                            } catch (IllegalArgumentException ignored) {
                                return null;
                            }
