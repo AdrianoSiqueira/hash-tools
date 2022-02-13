@@ -1,12 +1,14 @@
 package hashtools.core.module.generator;
 
-import aslib.filemanager.FileWriter;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleList;
 import hashtools.core.util.SampleFromShaType;
 import hashtools.core.util.ShaTypeFromObject;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -63,8 +65,11 @@ public class GeneratorModule implements Callable<SampleList> {
      * @since 1.0.0
      */
     private void clearDestination() {
-        FileWriter writer = new FileWriter();
-        writer.write("", destination);
+        try {
+            Files.writeString(destination, "", StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
