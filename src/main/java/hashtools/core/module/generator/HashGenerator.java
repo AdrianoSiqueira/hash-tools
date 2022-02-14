@@ -1,7 +1,7 @@
 package hashtools.core.module.generator;
 
-import aslib.security.HashCalculator;
 import hashtools.core.model.Sample;
+import hashtools.core.service.HashService;
 
 import java.nio.file.Path;
 import java.util.function.Consumer;
@@ -17,9 +17,6 @@ import java.util.function.Consumer;
  * @since 2.0.0
  */
 public class HashGenerator implements Consumer<Sample> {
-
-    private static HashCalculator calculator = new HashCalculator();
-
 
     /**
      * <p>
@@ -37,8 +34,8 @@ public class HashGenerator implements Consumer<Sample> {
     @Override
     public void accept(Sample sample) {
         String hash = sample.isUsingFileAsObject()
-                      ? calculator.calculate(sample.getAlgorithm(), (Path) sample.getObject())
-                      : calculator.calculate(sample.getAlgorithm(), (String) sample.getObject());
+                      ? HashService.generate(sample.getAlgorithm(), (Path) sample.getObject())
+                      : HashService.generate(sample.getAlgorithm(), (String) sample.getObject());
 
         sample.setCalculatedHash(hash);
     }
