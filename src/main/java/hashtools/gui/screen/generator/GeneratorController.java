@@ -1,11 +1,11 @@
 package hashtools.gui.screen.generator;
 
-import aslib.filemanager.FileExtension;
-import aslib.filemanager.FileOpener;
 import aslib.security.SHAType;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.FileExtension;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.FileService;
+import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -140,8 +140,8 @@ public class GeneratorController implements Initializable {
 
     @FXML
     private void openInputFile(ActionEvent event) {
-        FileOpener fileOpener = new FileOpener();
-        String     title      = LanguageManager.get("Select.input.file");
+        FileOpenerDialog fileOpener = new FileOpenerDialog();
+        String           title      = LanguageManager.get("Select.input.file");
 
         Optional.ofNullable(fileOpener.openFile(title, FileExtension.ALL))
                 .ifPresent(f -> fieldInput.setText(f.getAbsolutePath()));
@@ -149,7 +149,7 @@ public class GeneratorController implements Initializable {
 
     @FXML
     private void openOutputFile(ActionEvent event) {
-        FileOpener fileOpener = new FileOpener();
+        FileOpenerDialog fileOpener = new FileOpenerDialog();
         String     title      = LanguageManager.get("Select.where.to.save.hashes");
 
         Optional.ofNullable(fileOpener.openFileToSave(title, FileExtension.HASH))
