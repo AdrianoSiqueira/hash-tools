@@ -1,6 +1,6 @@
 package hashtools.core.service;
 
-import aslib.filemanager.FileExtension;
+import hashtools.core.model.FileExtension;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
