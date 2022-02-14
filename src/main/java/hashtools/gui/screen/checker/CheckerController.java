@@ -6,6 +6,7 @@ import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
+import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -166,8 +167,8 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void openInputFile(ActionEvent event) {
-        FileOpener fileOpener = new FileOpener();
-        String     title      = LanguageManager.get("Select.input.file");
+        FileOpenerDialog fileOpener = new FileOpenerDialog();
+        String           title      = LanguageManager.get("Select.input.file");
 
         Optional.ofNullable(fileOpener.openFile(title, FileExtension.ALL))
                 .ifPresent(f -> fieldInput.setText(f.getAbsolutePath()));
@@ -175,8 +176,8 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void openOfficialFile(ActionEvent event) {
-        FileOpener fileOpener = new FileOpener();
-        String     title      = LanguageManager.get("Select.hash.file");
+        FileOpenerDialog fileOpener = new FileOpenerDialog();
+        String           title      = LanguageManager.get("Select.hash.file");
 
         Optional.ofNullable(fileOpener.openFile(title, FileExtension.HASH))
                 .ifPresent(f -> fieldOfficial.setText(f.getAbsolutePath()));
@@ -238,6 +239,7 @@ public class CheckerController implements Initializable {
         progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
         needClearResult = true;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
