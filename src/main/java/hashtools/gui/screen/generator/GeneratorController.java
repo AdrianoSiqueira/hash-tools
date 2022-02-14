@@ -1,10 +1,11 @@
 package hashtools.gui.screen.generator;
 
-import aslib.security.SHAType;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.FileExtension;
+import hashtools.core.model.HashAlgorithm;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.FileService;
+import hashtools.core.service.HashAlgorithmService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -89,9 +90,9 @@ public class GeneratorController implements Initializable {
     private void addUserDataToPaneAlgorithmsCheckBoxes() {
         retrievePaneAlgorithmCheckBoxStream()
                 .forEach(cb -> {
-                    String  name    = cb.getText().replace("-", "");
-                    SHAType shaType = SHAType.valueOf(name);
-                    cb.setUserData(shaType);
+                    String        name      = cb.getText();
+                    HashAlgorithm algorithm = HashAlgorithmService.getByName(name);
+                    cb.setUserData(algorithm);
                 });
     }
 
@@ -115,11 +116,12 @@ public class GeneratorController implements Initializable {
         event.acceptTransferModes(transferModes);
     }
 
-    private List<SHAType> createAlgorithmListFromCheckBoxes() {
+    private List<HashAlgorithm> createAlgorithmListFromCheckBoxes() {
         return retrieveSelectedCheckBoxes()
                 .stream()
                 .map(CheckBox::getUserData)
-                .map(SHAType.class::cast)
+                .filter(HashAlgorithm.class::isInstance)
+                .map(HashAlgorithm.class::cast)
                 .toList();
     }
 
@@ -150,7 +152,7 @@ public class GeneratorController implements Initializable {
     @FXML
     private void openOutputFile(ActionEvent event) {
         FileOpenerDialog fileOpener = new FileOpenerDialog();
-        String     title      = LanguageManager.get("Select.where.to.save.hashes");
+        String           title      = LanguageManager.get("Select.where.to.save.hashes");
 
         Optional.ofNullable(fileOpener.openFileToSave(title, FileExtension.HASH))
                 .ifPresent(f -> fieldOutput.setText(f.getAbsolutePath()));
