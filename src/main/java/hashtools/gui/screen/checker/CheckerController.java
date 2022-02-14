@@ -1,12 +1,11 @@
 package hashtools.gui.screen.checker;
 
-import aslib.filemanager.FileExtension;
-import aslib.filemanager.FileOpener;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.FileExtension;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.service.FileService;
-import hashtools.core.service.HashService;
+import hashtools.core.service.HashAlgorithmService;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -91,7 +90,7 @@ public class CheckerController implements Initializable {
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         } else {
-            transferModes = HashService.stringHasValidLength(dragboard.getString())
+            transferModes = HashAlgorithmService.stringHasValidLength(dragboard.getString())
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         }
