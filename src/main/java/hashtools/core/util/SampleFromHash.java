@@ -1,7 +1,7 @@
 package hashtools.core.util;
 
-import aslib.security.SHAType;
 import hashtools.core.model.Sample;
+import hashtools.core.service.HashAlgorithmService;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -32,10 +32,10 @@ public class SampleFromHash implements Function<String, Sample> {
     @Override
     public Sample apply(String hash) {
         return Optional.ofNullable(hash)
-                       .flatMap(s -> SHAType.getByLength(s.length())
-                                            .map(algorithm -> new Sample()
-                                                    .setAlgorithm(algorithm)
-                                                    .setOfficialHash(s)))
+                       .flatMap(s -> HashAlgorithmService.searchByLength(s.length())
+                                                         .map(algorithm -> new Sample()
+                                                                 .setAlgorithm(algorithm)
+                                                                 .setOfficialHash(s)))
                        .orElse(null);
     }
 }
