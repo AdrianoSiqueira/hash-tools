@@ -9,18 +9,16 @@ assignees: AdrianoSiqueira
 
 # Feature Request
 
-### Is your feature request related to a problem? Please describe
+---
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+### Feature description
 
-### Describe the solution you'd like
+[ Describe the functionality you would like to be added. ]
 
-A clear and concise description of what you want to happen.
+---
 
-### Describe alternatives you've considered
+### To execute
 
-A clear and concise description of any alternative solutions or features you've considered.
-
-### Additional context
-
-Add any other context or screenshots about the feature request here.
+- Step 1
+- Step 2
+- Step …
