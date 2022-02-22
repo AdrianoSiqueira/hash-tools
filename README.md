@@ -21,7 +21,7 @@ This project is the successor to the [HashChecker](https://github.com/AdrianoSiq
 
 ### How to use
 
-This application does not need to be installed. Just [download](https://github.com/AdrianoSiqueira/HashTools/releases) the package corresponding to the operating system, unzip it somewhere and run the **launcher** inside the **_bin_** folder.
+This application does not need to be installed. Just [download](https://github.com/AdrianoSiqueira/HashTools/releases) the package corresponding to the operating system, unzip it somewhere and run the **hashtools** launcher inside the **_bin_** folder.
 
 ### Highlights:
 
