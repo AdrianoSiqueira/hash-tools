@@ -1,0 +1,61 @@
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Bold.ttf");
+}
+
+
+* {
+    _COLOR_1          : #032D5F;
+    _COLOR_2          : #043875;
+    _COLOR_3          : #0752AD;
+    _FONT_COLOR       : #FFFFFF;
+    _LEFT_PANE_COLOR  : _COLOR_1;
+    _RIGHT_PANE_COLOR : #FFFFFF;
+    _SHADOW_COLOR     : #FFFFFF;
+}
+
+
+.left-pane {
+    -fx-background-color : _LEFT_PANE_COLOR;
+    -fx-padding          : 0 0 0 20;
+    -fx-spacing          : 20;
+}
+
+.left-pane > .module-button {
+    -fx-alignment         : center-right;
+    -fx-background-color  : transparent;
+    -fx-background-insets : 0;
+    -fx-background-radius : 10 0 0 10;
+    -fx-cursor            : hand;
+    -fx-font-size         : 18;
+    -fx-padding           : 10 20 10 10;
+    -fx-pref-width        : 150;
+    -fx-text-fill         : _FONT_COLOR;
+}
+
+.left-pane > .module-button:hover {
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
+}
+
+.left-pane > .module-button-highlight {
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
+    -fx-effect           : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
+    -fx-font-weight      : bold;
+}
+
+.left-pane > .separator {
+    -fx-padding : 0 20 0 0;
+}
+
+.left-pane > .separator > .line {
+    -fx-border-color : _FONT_COLOR;
+}
+
+.right-pane {
+    -fx-background-color : _RIGHT_PANE_COLOR;
+}

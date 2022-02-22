@@ -9,32 +9,36 @@ assignees: AdrianoSiqueira
 
 # Bug Report
 
-### Describe the bug
+---
 
-A clear and concise description of what the bug is.
+### Problem description
 
-### To Reproduce
+[ Describe the application's problematic behavior. ]
 
-Steps to reproduce the behavior:
-
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+---
 
 ### Expected behavior
 
-A clear and concise description of what you expected to happen.
+[ Describe the expected behavior. ]
+
+---
+
+### To reproduce
+
+- Step 1
+- Step 2
+- Step …
+
+---
+
+### Environment details
+
+Operating system: [ e.g.: Windows 10, Ubuntu 21.10, etc ]
+
+Application’s version: [ e.g.: 2.0.0 ]
+
+---
 
 ### Screenshots
 
-If applicable, add screenshots to help explain your problem.
-
-### Desktop (please complete the following information)
-
-- OS: [e.g. windows 10, ubuntu, macOS]
-- App's version: [e.g. 1.0.0]
-
-### Additional context
-
-Add any other context about the problem here.
+[ If possible, please add some screenshot showing the problem. ]

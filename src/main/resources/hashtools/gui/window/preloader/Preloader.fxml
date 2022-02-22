@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" prefWidth="853" prefHeight="480">
+    <cursor>
+        <Cursor fx:constant="WAIT"/>
+    </cursor>
+
+    <ImageView preserveRatio="true" fitHeight="480">
+        <Image url="@../../image/preloader-background.png" backgroundLoading="true"/>
+    </ImageView>
+</StackPane>

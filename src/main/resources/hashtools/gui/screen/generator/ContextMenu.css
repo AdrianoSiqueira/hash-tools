@@ -1,0 +1,36 @@
+@font-face {
+    -fx-font-family : "Ubuntu";
+    src             : url("../../font/Ubuntu-Regular.ttf");
+}
+
+
+/* Some colors are inherited from the other CSS in use. */
+
+
+.context-menu {
+    -fx-background-color  : white;
+    -fx-background-insets : 2;
+    -fx-background-radius : 5;
+    -fx-border-color      : _COLOR_1;
+    -fx-border-radius     : 5;
+    -fx-border-width      : 2;
+    -fx-effect            : dropshadow(gaussian, _COLOR_1, 15, 0, 0, 0);
+}
+
+.context-menu .menu-item {
+    -fx-background-color  : white;
+    -fx-background-radius : 5;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_1);
+}
+
+.context-menu .menu-item > .label {
+    -fx-font      : normal normal 16 "Ubuntu";
+    -fx-text-fill : black;
+}
+
+.context-menu .menu-item:hover > .label {
+    -fx-text-fill : white;
+}
