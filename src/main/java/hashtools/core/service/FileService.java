@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FileService {
 
-    public static boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
+    public boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
         String fileName   = path.getFileName().toString();
         int    indexOfDot = fileName.lastIndexOf(".");
 
@@ -24,7 +24,7 @@ public class FileService {
                    .contains(extension);
     }
 
-    public static boolean stringIsFilePath(String string) {
+    public boolean stringIsFilePath(String string) {
         return string != null &&
                Files.isRegularFile(Path.of(string));
     }

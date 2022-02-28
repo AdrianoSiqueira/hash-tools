@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class HashService {
 
-    public static String generate(HashAlgorithm algorithm, String string) {
+    public String generate(HashAlgorithm algorithm, String string) {
         byte[] stringBytes = string.getBytes();
 
         MessageDigest messageDigest = getMessageDigest(algorithm);
@@ -20,7 +20,7 @@ public class HashService {
         return hexBytesToString(bytes);
     }
 
-    public static String generate(HashAlgorithm algorithm, Path path) {
+    public String generate(HashAlgorithm algorithm, Path path) {
         MessageDigest messageDigest = getMessageDigest(algorithm);
 
         try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(path.toFile()))) {
@@ -38,7 +38,7 @@ public class HashService {
         return hexBytesToString(bytes);
     }
 
-    private static MessageDigest getMessageDigest(HashAlgorithm algorithm) {
+    private MessageDigest getMessageDigest(HashAlgorithm algorithm) {
         try {
             return MessageDigest.getInstance(algorithm.getName());
         } catch (NoSuchAlgorithmException e) {
@@ -46,7 +46,7 @@ public class HashService {
         }
     }
 
-    private static String hexBytesToString(byte[] bytes) {
+    private String hexBytesToString(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
 
         for (byte b : bytes) {
