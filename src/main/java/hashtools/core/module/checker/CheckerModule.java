@@ -4,6 +4,7 @@ import hashtools.core.model.Result;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleList;
 import hashtools.core.module.generator.HashGenerator;
+import hashtools.core.service.SampleService;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -51,7 +52,7 @@ public class CheckerModule implements Callable<SampleList> {
 
     @Override
     public SampleList call() {
-        List<Sample> samples = createListOfSample();
+        List<Sample> samples = new SampleService().createSampleList(officialData);
 
         SampleList sampleList = new SampleList();
         sampleList.setSamples(samples);
