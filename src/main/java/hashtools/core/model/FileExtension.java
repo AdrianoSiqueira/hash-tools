@@ -1,5 +1,6 @@
 package hashtools.core.model;
 
+import hashtools.core.language.LanguageManager;
 import javafx.stage.FileChooser;
 
 import java.util.Optional;
@@ -217,6 +218,6 @@ public enum FileExtension {
      * @return The ExtensionFilter of the enum option.
      */
     public FileChooser.ExtensionFilter getFilter() {
-        return filter;
+        return new FileChooser.ExtensionFilter(LanguageManager.get(description), extensions);
     }
 }
