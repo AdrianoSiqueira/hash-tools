@@ -22,12 +22,6 @@ public class CheckerModule implements Callable<SampleList> {
     }
 
 
-    private List<Sample> createListOfSample() {
-        return new FilePathDetector().test(officialData)
-               ? new SamplesFromFile().apply(Path.of(officialData))
-               : List.of(new SampleFromHash().apply((officialData)));
-    }
-
     private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleList sampleList) {
         HashGenerator    hashGenerator    = new HashGenerator();
         ResultCalculator resultCalculator = new ResultCalculator();
