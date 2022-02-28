@@ -91,7 +91,7 @@ public class GeneratorController implements Initializable {
         retrievePaneAlgorithmCheckBoxStream()
                 .forEach(cb -> {
                     String        name      = cb.getText();
-                    HashAlgorithm algorithm = HashAlgorithmService.getByName(name);
+                    HashAlgorithm algorithm = new HashAlgorithmService().getByName(name);
                     cb.setUserData(algorithm);
                 });
     }
@@ -106,7 +106,7 @@ public class GeneratorController implements Initializable {
         } else if (dragboard.hasFiles()) {
             Path path = dragboard.getFiles().get(0).toPath();
 
-            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+            transferModes = new FileService().pathHasRequiredExtension(path, FileExtension.HASH)
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         } else {

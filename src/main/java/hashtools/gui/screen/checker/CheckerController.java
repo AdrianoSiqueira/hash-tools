@@ -87,11 +87,11 @@ public class CheckerController implements Initializable {
         } else if (dragboard.hasFiles()) {
             Path path = dragboard.getFiles().get(0).toPath();
 
-            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+            transferModes = new FileService().pathHasRequiredExtension(path, FileExtension.HASH)
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         } else {
-            transferModes = HashAlgorithmService.stringHasValidLength(dragboard.getString())
+            transferModes = new HashAlgorithmService().stringHasValidLength(dragboard.getString())
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         }

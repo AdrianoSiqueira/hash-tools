@@ -32,10 +32,10 @@ public class SampleFromHash implements Function<String, Sample> {
     @Override
     public Sample apply(String hash) {
         return Optional.ofNullable(hash)
-                       .flatMap(s -> HashAlgorithmService.searchByLength(s.length())
-                                                         .map(algorithm -> new Sample()
-                                                                 .setAlgorithm(algorithm)
-                                                                 .setOfficialHash(s)))
+                       .flatMap(s -> new HashAlgorithmService().searchByLength(s.length())
+                                                               .map(algorithm -> new Sample()
+                                                                       .setAlgorithm(algorithm)
+                                                                       .setOfficialHash(s)))
                        .orElse(null);
     }
 }
