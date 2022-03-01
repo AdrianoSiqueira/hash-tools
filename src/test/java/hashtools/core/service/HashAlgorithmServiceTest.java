@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HashAlgorithmServiceTest {
-    
+
     private HashAlgorithmService service = new HashAlgorithmService();
-    
-    
+
+
     @Test
     void getByLength_returnResultWhenLengthIsFound() {
         assertEquals(HashAlgorithm.MD5, service.getByLength(32), "'MD5' failed");
@@ -49,7 +49,12 @@ class HashAlgorithmServiceTest {
 
 
     @Test
-    void searchByLength_returnResultWhenLengthIsFound() {
+    void searchByLength_returnEmptyOptionalWhenLengthIsNotFound() {
+        assertTrue(service.searchByLength(0).isEmpty());
+    }
+
+    @Test
+    void searchByLength_returnFilledOptionalWhenLengthIsFound() {
         assertTrue(service.searchByLength(32).isPresent(), "'MD5' failed");
         assertTrue(service.searchByLength(40).isPresent(), "'SHA-1' failed");
         assertTrue(service.searchByLength(56).isPresent(), "'SHA-224' failed");
@@ -58,26 +63,21 @@ class HashAlgorithmServiceTest {
         assertTrue(service.searchByLength(128).isPresent(), "'SHA-512' failed");
     }
 
+
     @Test
-    void searchByLength_throwExceptionWhenLengthIsNotFound() {
-        assertTrue(service.searchByLength(0).isEmpty());
+    void searchByName_returnEmptyOptionalWhenNameIsNotFound() {
+        assertTrue(service.searchByName("").isEmpty(), "'Not found' failed");
+        assertTrue(service.searchByName(null).isEmpty(), "'Null' failed");
     }
 
-
     @Test
-    void searchByName_returnResultWhenNameIsFound() {
+    void searchByName_returnFilledOptionalWhenNameIsFound() {
         assertTrue(service.searchByName("md5").isPresent(), "'MD5' failed");
         assertTrue(service.searchByName("SHA1").isPresent(), "'SHA-1' failed");
         assertTrue(service.searchByName("SHA-224").isPresent(), "'SHA-224' failed");
         assertTrue(service.searchByName("SHA-256").isPresent(), "'SHA-256' failed");
         assertTrue(service.searchByName("SHA-384").isPresent(), "'SHA-384' failed");
         assertTrue(service.searchByName("SHA----512").isPresent(), "'SHA-512' failed");
-    }
-
-    @Test
-    void searchByName_throwExceptionWhenNameIsNotFound() {
-        assertTrue(service.searchByName("").isEmpty(), "'Not found' failed");
-        assertTrue(service.searchByName(null).isEmpty(), "'Null' failed");
     }
 
 
