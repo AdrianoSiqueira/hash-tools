@@ -69,12 +69,10 @@ public class ComandLineModule implements Runnable {
     @Override
     public void run()
     throws IllegalArgumentException {
-        if (arguments[0].equalsIgnoreCase("--check")) {
-            runCheckSequence();
-        } else if (arguments[0].equalsIgnoreCase("--generate")) {
-            runGenerationSequence();
-        } else {
-            throw new IllegalArgumentException(LanguageManager.get("Invalid.execution.module") + ": '" + arguments[0] + "'");
+        switch (arguments[0].toLowerCase()) {
+            case "--check" -> runCheckSequence();
+            case "--generate" -> runGenerationSequence();
+            default -> throw new IllegalArgumentException(LanguageManager.get("Invalid.execution.module") + ": '" + arguments[0] + "'");
         }
     }
 }
