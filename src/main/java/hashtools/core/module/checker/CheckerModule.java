@@ -32,10 +32,9 @@ public class CheckerModule implements Callable<SampleList> {
                          .peek(hashGenerator)
                          .peek(resultCalculator)
                          .map(Sample::getResult)
-                         .map(Result::getScore)
-                         .reduce(Double::sum)
-                         .orElse(0.0)
-               * 100 / sampleList.getMaxPossibleScore();
+                         .filter(result -> result == Result.SAFE)
+                         .count()
+               * 100.0 / sampleList.getSamples().size();
     }
 
     private void setInputDataToSample(Sample sample) {
