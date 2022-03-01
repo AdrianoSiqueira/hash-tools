@@ -2,7 +2,8 @@ package hashtools.gui.screen.checker;
 
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.FileExtension;
-import hashtools.core.model.SampleList;
+import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.SampleContainer;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
@@ -123,11 +124,7 @@ public class CheckerController implements Initializable {
         clearResult();
     }
 
-    private String formatResult(SampleList sampleList) {
-        StringJoiner joiner = new StringJoiner("-".repeat(150),
-                                               "-".repeat(150),
-                                               "-".repeat(150));
-
+    private String formatResult(SampleContainer sampleContainer) {
         String s1 = LanguageManager.get("Algorithm");
         String s2 = LanguageManager.get("Calculated");
         String s3 = LanguageManager.get("Official");
@@ -140,18 +137,18 @@ public class CheckerController implements Initializable {
         String official   = String.format("%" + idealSize + "s: ", s3);
         String result     = String.format("%" + idealSize + "s: ", s4);
 
-        sampleList.getSamples()
-                  .forEach(s -> {
-                      String ls = System.lineSeparator();
+        sampleContainer.getSamples()
+                       .forEach(s -> {
+                           String ls = System.lineSeparator();
 
-                      String content = ls +
-                                       algorithm + s.getAlgorithm().getName() + ls +
-                                       official + s.getOfficialHash() + ls +
-                                       calculated + s.getCalculatedHash() + ls +
-                                       result + s.getResult().getText() + ls;
+                           String content = ls +
+                                            algorithm + s.getAlgorithm().getName() + ls +
+                                            official + s.getOfficialHash() + ls +
+                                            calculated + s.getCalculatedHash() + ls +
+                                            result + s.getResult().getText() + ls;
 
-                      joiner.add(content);
-                  });
+                           joiner.add(content);
+                       });
 
         return joiner.toString();
     }
@@ -197,12 +194,12 @@ public class CheckerController implements Initializable {
     }
 
     private void runCheckerModule() {
-        SampleList sampleList = new CheckerModule(
+        SampleContainer sampleContainer = new CheckerModule(
                 fieldInput.getText(),
                 fieldOfficial.getText()
         ).call();
 
-        writeResult(sampleList);
+        writeResult(sampleContainer);
     }
 
     @FXML
@@ -232,11 +229,11 @@ public class CheckerController implements Initializable {
         Platform.runLater(() -> currentScene.setRoot(currentRoot));
     }
 
-    private void writeResult(SampleList sampleList) {
-        String result = formatResult(sampleList);
+    private void writeResult(SampleContainer sampleContainer) {
+        String result = formatResult(sampleContainer);
         labelResult.setText(result);
 
-        progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
+        progressBar.setProgress(sampleContainer.getReliabilityPercentage() / 100);
         needClearResult = true;
     }
 
