@@ -1,6 +1,7 @@
 package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.Sample;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -10,6 +11,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashService {
+
+    public void generate(Sample sample) {
+        if (sample == null) return;
+
+        String hash = new FileService().stringIsFilePath(sample.getInputData())
+                      ? generate(sample.getAlgorithm(), Path.of(sample.getInputData()))
+                      : generate(sample.getAlgorithm(), sample.getInputData());
+
+        sample.setCalculatedHash(hash);
+    }
 
     public String generate(HashAlgorithm algorithm, String string) {
         byte[] stringBytes = string.getBytes();
