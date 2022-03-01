@@ -27,9 +27,4 @@ public class SampleList {
               .filter(Objects::nonNull)
               .forEach(this.samples::add);
     }
-
-    public void clear() {
-        samples.clear();
-        reliabilityPercentage = 0.0;
-    }
 }
