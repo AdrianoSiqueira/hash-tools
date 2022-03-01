@@ -137,6 +137,10 @@ public class CheckerController implements Initializable {
         String official   = String.format("%" + idealSize + "s: ", s3);
         String result     = String.format("%" + idealSize + "s: ", s4);
 
+        StringJoiner joiner = new StringJoiner("-".repeat(idealSize + HashAlgorithm.SHA512.getLength() + 2),
+                                               "-".repeat(idealSize + HashAlgorithm.SHA512.getLength() + 2),
+                                               "-".repeat(idealSize + HashAlgorithm.SHA512.getLength() + 2));
+
         sampleContainer.getSamples()
                        .forEach(s -> {
                            String ls = System.lineSeparator();
