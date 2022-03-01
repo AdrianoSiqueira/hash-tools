@@ -12,16 +12,11 @@ public class ResultCalculator implements Consumer<Sample> {
     public void accept(Sample sample) {
         Optional.ofNullable(sample)
                 .ifPresent(s -> {
-                    String official   = s.getOfficialHash();
-                    String calculated = s.getCalculatedHash();
+                    Result result = s.getOfficialHash().equalsIgnoreCase(s.getCalculatedHash())
+                                    ? Result.SAFE
+                                    : Result.UNSAFE;
 
-                    if (official.equals(calculated)) {
-                        s.setResult(Result.SAFE);
-                    } else if (official.equalsIgnoreCase(calculated)) {
-                        s.setResult(Result.UNSURE);
-                    } else {
-                        s.setResult(Result.DANGEROUS);
-                    }
+                    s.setResult(result);
                 });
     }
 }
