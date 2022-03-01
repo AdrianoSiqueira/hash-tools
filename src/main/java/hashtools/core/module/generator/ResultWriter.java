@@ -1,6 +1,7 @@
 package hashtools.core.module.generator;
 
 import hashtools.core.model.Sample;
+import hashtools.core.service.FileService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,11 +25,11 @@ public class ResultWriter implements Consumer<Sample> {
                 .append(sample.getCalculatedHash())
                 .append("  ");
 
-        if (sample.isUsingFileAsObject()) {
-            Path path = (Path) sample.getObject();
+        if (new FileService().stringIsFilePath(sample.getInputData())) {
+            Path path = Path.of(sample.getInputData());
             content.append(path.getFileName().toString());
         } else {
-            content.append(sample.getObject());
+            content.append(sample.getInputData());
         }
 
         content.append(System.lineSeparator());
