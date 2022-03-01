@@ -2,14 +2,14 @@ package hashtools.core.module.checker;
 
 import hashtools.core.model.Result;
 import hashtools.core.model.Sample;
-import hashtools.core.model.SampleList;
+import hashtools.core.model.SampleContainer;
 import hashtools.core.module.generator.HashGenerator;
 import hashtools.core.service.SampleService;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class CheckerModule implements Callable<SampleList> {
+public class CheckerModule implements Callable<SampleContainer> {
 
     private final String inputData;
     private final String officialData;
@@ -21,20 +21,20 @@ public class CheckerModule implements Callable<SampleList> {
     }
 
 
-    private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleList sampleList) {
+    private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleContainer sampleContainer) {
         HashGenerator    hashGenerator    = new HashGenerator();
         ResultCalculator resultCalculator = new ResultCalculator();
 
-        return sampleList.getSamples()
-                         .stream()
-                         .parallel()
-                         .peek(this::setInputDataToSample)
-                         .peek(hashGenerator)
-                         .peek(resultCalculator)
-                         .map(Sample::getResult)
-                         .filter(result -> result == Result.SAFE)
-                         .count()
-               * 100.0 / sampleList.getSamples().size();
+        return sampleContainer.getSamples()
+                              .stream()
+                              .parallel()
+                              .peek(this::setInputDataToSample)
+                              .peek(hashGenerator)
+                              .peek(resultCalculator)
+                              .map(Sample::getResult)
+                              .filter(result -> result == Result.SAFE)
+                              .count()
+               * 100.0 / sampleContainer.getSamples().size();
     }
 
     private void setInputDataToSample(Sample sample) {
@@ -43,17 +43,17 @@ public class CheckerModule implements Callable<SampleList> {
 
 
     @Override
-    public SampleList call() {
+    public SampleContainer call() {
         List<Sample> samples = new SampleService().createSampleList(officialData);
 
-        SampleList sampleList = new SampleList();
-        sampleList.setSamples(samples);
+        SampleContainer sampleContainer = new SampleContainer();
+        sampleContainer.setSamples(samples);
 
-        double percentage = !sampleList.getSamples().isEmpty()
-                            ? runCheckerModuleAndRetrieveReliabilityPercentage(sampleList)
+        double percentage = !sampleContainer.getSamples().isEmpty()
+                            ? runCheckerModuleAndRetrieveReliabilityPercentage(sampleContainer)
                             : 0.0;
 
-        sampleList.setReliabilityPercentage(percentage);
-        return sampleList;
+        sampleContainer.setReliabilityPercentage(percentage);
+        return sampleContainer;
     }
 }
