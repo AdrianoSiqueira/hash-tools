@@ -1,6 +1,7 @@
 package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.Sample;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -23,6 +24,17 @@ class HashServiceTest {
         assertEquals("202cb962ac59075b964b07152d234b70", service.generate(HashAlgorithm.MD5, path));
 
         Files.deleteIfExists(path);
+    }
+
+    @Test
+    void generate_sample() {
+        Sample sample = new Sample();
+        sample.setAlgorithm(HashAlgorithm.MD5);
+        sample.setInputData("123");
+
+        service.generate(sample);
+
+        assertEquals("202cb962ac59075b964b07152d234b70", sample.getCalculatedHash());
     }
 
     @Test
