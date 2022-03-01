@@ -1,6 +1,7 @@
 package hashtools.core.module.generator;
 
 import hashtools.core.model.Sample;
+import hashtools.core.service.FileService;
 import hashtools.core.service.HashService;
 
 import java.nio.file.Path;
@@ -12,9 +13,9 @@ public class HashGenerator implements Consumer<Sample> {
     public void accept(Sample sample) {
         HashService service = new HashService();
 
-        String hash = sample.isUsingFileAsObject()
-                      ? service.generate(sample.getAlgorithm(), (Path) sample.getObject())
-                      : service.generate(sample.getAlgorithm(), (String) sample.getObject());
+        String hash = new FileService().stringIsFilePath(sample.getInputData())
+                      ? service.generate(sample.getAlgorithm(), Path.of(sample.getInputData()))
+                      : service.generate(sample.getAlgorithm(), sample.getInputData());
 
         sample.setCalculatedHash(hash);
     }
