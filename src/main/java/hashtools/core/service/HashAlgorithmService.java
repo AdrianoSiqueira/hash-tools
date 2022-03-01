@@ -2,11 +2,23 @@ package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class HashAlgorithmService {
+
+    public List<HashAlgorithm> convertToAlgorithmList(List<String> algorithms) {
+        return Optional.ofNullable(algorithms)
+                       .orElse(Collections.emptyList())
+                       .stream()
+                       .map(this::searchByName)
+                       .filter(Optional::isPresent)
+                       .map(Optional::get)
+                       .toList();
+    }
 
     public HashAlgorithm getByLength(int length)
     throws NoSuchElementException {
