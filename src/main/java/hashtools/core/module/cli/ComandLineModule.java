@@ -8,43 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * <p>
- * Handles command-line execution. All application modules can be executed
- * through this class.
- * </p>
- *
- * @author Adriano Siqueira
- * @version 1.0.2
- * @since 2.0.0
- */
 public class ComandLineModule implements Runnable {
 
     private final String[] arguments;
 
 
-    /**
-     * <p>
-     * Creates an instance of {@link ComandLineModule} class.
-     * </p>
-     *
-     * @param arguments Arguments used to run the application.
-     *
-     * @since 1.0.0
-     */
     public ComandLineModule(String[] arguments) {
         this.arguments = Objects.requireNonNull(arguments);
     }
 
 
-    /**
-     * <p>
-     * Run the check sequence.
-     * </p>
-     *
-     * @throws IllegalArgumentException If there are any errors in the arguments.
-     * @since 1.0.1
-     */
     private void runCheckSequence()
     throws IllegalArgumentException {
         if (arguments.length != 3)
@@ -62,14 +35,6 @@ public class ComandLineModule implements Runnable {
                            "   " + LanguageManager.get("Reliability") + ": " + percentage + " %");
     }
 
-    /**
-     * <p>
-     * Run the generation sequence.
-     * </p>
-     *
-     * @throws IllegalArgumentException If there are any errors in the arguments.
-     * @since 1.0.1
-     */
     private void runGenerationSequence()
     throws IllegalArgumentException {
         if (arguments.length < 4)
@@ -88,14 +53,6 @@ public class ComandLineModule implements Runnable {
     }
 
 
-    /**
-     * <p>
-     * Determines the execution mode by analyzing the given arguments.
-     * </p>
-     *
-     * @throws IllegalArgumentException If there are any errors in the arguments.
-     * @since 1.0.0
-     */
     @Override
     public void run()
     throws IllegalArgumentException {
