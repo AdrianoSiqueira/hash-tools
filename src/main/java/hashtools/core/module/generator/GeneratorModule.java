@@ -3,6 +3,7 @@ package hashtools.core.module.generator;
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleContainer;
+import hashtools.core.service.HashService;
 import hashtools.core.service.SampleService;
 
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class GeneratorModule implements Callable<SampleContainer> {
         this.clearDestination();
 
         SampleContainer sampleContainer = new SampleContainer();
-        HashGenerator   hashGenerator   = new HashGenerator();
+        HashService     hashService     = new HashService();
         ResultWriter    resultWriter    = new ResultWriter(destination);
 
         Comparator<Sample> comparator = (o1, o2) -> Comparator.comparing((Sample s) -> s.getAlgorithm().getLength())
@@ -60,7 +61,7 @@ public class GeneratorModule implements Callable<SampleContainer> {
                   .filter(Optional::isPresent)
                   .map(Optional::get)
                   .peek(this::setInputDataToSample)
-                  .peek(hashGenerator)
+                  .peek(hashService::generate)
                   .toList()
                   .stream()
                   .sorted(comparator)

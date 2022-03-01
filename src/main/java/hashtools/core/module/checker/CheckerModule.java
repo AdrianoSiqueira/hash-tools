@@ -3,7 +3,7 @@ package hashtools.core.module.checker;
 import hashtools.core.model.Result;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleContainer;
-import hashtools.core.module.generator.HashGenerator;
+import hashtools.core.service.HashService;
 import hashtools.core.service.SampleService;
 
 import java.util.List;
@@ -22,14 +22,14 @@ public class CheckerModule implements Callable<SampleContainer> {
 
 
     private double runCheckerModuleAndRetrieveReliabilityPercentage(SampleContainer sampleContainer) {
-        HashGenerator    hashGenerator    = new HashGenerator();
+        HashService      hashService      = new HashService();
         ResultCalculator resultCalculator = new ResultCalculator();
 
         return sampleContainer.getSamples()
                               .stream()
                               .parallel()
                               .peek(this::setInputDataToSample)
-                              .peek(hashGenerator)
+                              .peek(hashService::generate)
                               .peek(resultCalculator)
                               .map(Sample::getResult)
                               .filter(result -> result == Result.SAFE)
