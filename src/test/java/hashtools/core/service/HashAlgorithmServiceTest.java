@@ -3,6 +3,7 @@ package hashtools.core.service;
 import hashtools.core.model.HashAlgorithm;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,6 +14,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HashAlgorithmServiceTest {
 
     private HashAlgorithmService service = new HashAlgorithmService();
+
+    @Test
+    void convertToAlgorithmList_returnEmptyListWhenListIsEmpty() {
+        assertTrue(service.convertToAlgorithmList(List.of()).isEmpty());
+    }
+
+    @Test
+    void convertToAlgorithmList_returnEmptyListWhenListIsNull() {
+        assertTrue(service.convertToAlgorithmList(null).isEmpty());
+    }
+
+    @Test
+    void convertToAlgorithmList_returnFilledListWhenProvidedValidAlgorithms() {
+        assertEquals(3, service.convertToAlgorithmList(List.of("", "MD5", "sha1", "ShA--------256")).size());
+    }
 
 
     @Test
