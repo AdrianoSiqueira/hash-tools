@@ -2,7 +2,7 @@ package hashtools.core.module.generator;
 
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.Sample;
-import hashtools.core.model.SampleList;
+import hashtools.core.model.SampleContainer;
 import hashtools.core.service.SampleService;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class GeneratorModule implements Callable<SampleList> {
+public class GeneratorModule implements Callable<SampleContainer> {
 
     private final String              inputData;
     private final Path                destination;
@@ -42,14 +42,14 @@ public class GeneratorModule implements Callable<SampleList> {
 
 
     @Override
-    public SampleList call() {
+    public SampleContainer call() {
         if (algorithms.isEmpty()) return null;
 
         this.clearDestination();
 
-        SampleList    sampleList    = new SampleList();
-        HashGenerator hashGenerator = new HashGenerator();
-        ResultWriter  resultWriter  = new ResultWriter(destination);
+        SampleContainer sampleContainer = new SampleContainer();
+        HashGenerator   hashGenerator   = new HashGenerator();
+        ResultWriter    resultWriter    = new ResultWriter(destination);
 
         Comparator<Sample> comparator = (o1, o2) -> Comparator.comparing((Sample s) -> s.getAlgorithm().getLength())
                                                               .compare(o1, o2);
@@ -65,8 +65,8 @@ public class GeneratorModule implements Callable<SampleList> {
                   .stream()
                   .sorted(comparator)
                   .peek(resultWriter)
-                  .forEach(sampleList::add);
+                  .forEach(sampleContainer::add);
 
-        return sampleList;
+        return sampleContainer;
     }
 }
