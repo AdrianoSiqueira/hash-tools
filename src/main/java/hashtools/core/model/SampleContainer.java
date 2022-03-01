@@ -10,13 +10,13 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class SampleList {
+public class SampleContainer {
 
     private List<Sample> samples;
     private double       reliabilityPercentage;
 
 
-    public SampleList() {
+    public SampleContainer() {
         this.samples = new ArrayList<>();
         this.reliabilityPercentage = 0.0;
     }
