@@ -1,9 +1,8 @@
 package hashtools.core.module.generator;
 
+import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleList;
-import hashtools.core.util.SampleFromShaType;
-import hashtools.core.util.ShaTypeFromObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,14 +15,14 @@ import java.util.concurrent.Callable;
 
 public class GeneratorModule implements Callable<SampleList> {
 
-    private final Object  inputObject;
-    private final Path    destination;
-    private final List<?> algorithms;
+    private final String              inputData;
+    private final Path                destination;
+    private final List<HashAlgorithm> algorithms;
 
 
-    public GeneratorModule(Object inputObject, Object destination, List<?> algorithms) {
-        this.inputObject = inputObject;
-        this.destination = Path.of(destination.toString());
+    public GeneratorModule(String inputData, String destination, List<HashAlgorithm> algorithms) {
+        this.inputData = inputData;
+        this.destination = Path.of(destination);
         this.algorithms = algorithms;
     }
 
@@ -36,8 +35,8 @@ public class GeneratorModule implements Callable<SampleList> {
         }
     }
 
-    private void setObjectToSample(Sample sample) {
-        sample.setObject(inputObject);
+    private void setInputDataToSample(Sample sample) {
+        sample.setInputData(inputData);
     }
 
 
@@ -61,7 +60,7 @@ public class GeneratorModule implements Callable<SampleList> {
                   .map(shaTypeFromObject)
                   .filter(Objects::nonNull)
                   .map(sampleFromShaType)
-                  .peek(this::setObjectToSample)
+                  .peek(this::setInputDataToSample)
                   .peek(hashGenerator)
                   .toList()
                   .stream()
