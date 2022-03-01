@@ -6,18 +6,17 @@ import hashtools.core.model.SampleList;
 import hashtools.core.module.generator.HashGenerator;
 import hashtools.core.service.SampleService;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class CheckerModule implements Callable<SampleList> {
 
-    private final String objectToCheck;
+    private final String inputData;
     private final String officialData;
 
 
-    public CheckerModule(String objectToCheck, String officialData) {
-        this.objectToCheck = objectToCheck;
+    public CheckerModule(String inputData, String officialData) {
+        this.inputData = inputData;
         this.officialData = officialData;
     }
 
@@ -29,7 +28,7 @@ public class CheckerModule implements Callable<SampleList> {
         return sampleList.getSamples()
                          .stream()
                          .parallel()
-                         .peek(this::setObjectToSample)
+                         .peek(this::setInputDataToSample)
                          .peek(hashGenerator)
                          .peek(resultCalculator)
                          .map(Sample::getResult)
@@ -39,8 +38,8 @@ public class CheckerModule implements Callable<SampleList> {
                * 100 / sampleList.getMaxPossibleScore();
     }
 
-    private void setObjectToSample(Sample sample) {
-        sample.setObject(objectToCheck);
+    private void setInputDataToSample(Sample sample) {
+        sample.setInputData(inputData);
     }
 
 
