@@ -3,6 +3,7 @@ package hashtools.core.module.generator;
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleList;
+import hashtools.core.service.SampleService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 public class GeneratorModule implements Callable<SampleList> {
@@ -46,20 +47,18 @@ public class GeneratorModule implements Callable<SampleList> {
 
         this.clearDestination();
 
-        SampleList        sampleList        = new SampleList();
-        ShaTypeFromObject shaTypeFromObject = new ShaTypeFromObject();
-        SampleFromShaType sampleFromShaType = new SampleFromShaType();
-        HashGenerator     hashGenerator     = new HashGenerator();
-        ResultWriter      resultWriter      = new ResultWriter(destination);
+        SampleList    sampleList    = new SampleList();
+        HashGenerator hashGenerator = new HashGenerator();
+        ResultWriter  resultWriter  = new ResultWriter(destination);
 
         Comparator<Sample> comparator = (o1, o2) -> Comparator.comparing((Sample s) -> s.getAlgorithm().getLength())
                                                               .compare(o1, o2);
 
         algorithms.stream()
                   .parallel()
-                  .map(shaTypeFromObject)
-                  .filter(Objects::nonNull)
-                  .map(sampleFromShaType)
+                  .map(new SampleService()::createSampleFromAlgorithm)
+                  .filter(Optional::isPresent)
+                  .map(Optional::get)
                   .peek(this::setInputDataToSample)
                   .peek(hashGenerator)
                   .toList()
