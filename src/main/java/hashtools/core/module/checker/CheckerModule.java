@@ -49,7 +49,7 @@ public class CheckerModule implements Callable<SampleList> {
         SampleList sampleList = new SampleList();
         sampleList.setSamples(samples);
 
-        double percentage = sampleList.getMaxPossibleScore() != 0
+        double percentage = !sampleList.getSamples().isEmpty()
                             ? runCheckerModuleAndRetrieveReliabilityPercentage(sampleList)
                             : 0.0;
 
