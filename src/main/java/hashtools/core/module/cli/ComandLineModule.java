@@ -1,7 +1,10 @@
 package hashtools.core.module.cli;
 
+import hashtools.core.consumer.CheckerCLISampleContainerConsumer;
+import hashtools.core.consumer.GeneratorCLISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.SampleContainer;
 import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.HashAlgorithmService;
@@ -39,12 +42,13 @@ public class ComandLineModule implements Runnable {
         System.out.println("HashTools" + System.lineSeparator() +
                            ">> " + LanguageManager.get("Running") + ": " + LanguageManager.get("Check.Module."));
 
-        double percentage = new CheckerModule(arguments[1], arguments[2])
-                .call()
-                .getReliabilityPercentage();
+        SampleContainer sampleContainer = new CheckerModule(
+                arguments[1],
+                arguments[2]
+        ).call();
 
-        System.out.println(">> " + LanguageManager.get("Execution.done.") + System.lineSeparator() +
-                           "   " + LanguageManager.get("Reliability") + ": " + percentage + " %");
+        new CheckerCLISampleContainerConsumer().accept(sampleContainer);
+        System.out.println(">> " + LanguageManager.get("Execution.done."));
     }
 
     private void runGenerationSequence()
@@ -56,12 +60,13 @@ public class ComandLineModule implements Runnable {
         System.out.println("HashTools" + System.lineSeparator() +
                            ">> " + LanguageManager.get("Running") + ": " + LanguageManager.get("Generation.Module."));
 
-        new GeneratorModule(
+        SampleContainer sampleContainer = new GeneratorModule(
                 arguments[1],
                 arguments[2],
                 prepareHashAlgorithms()
         ).call();
 
+        new GeneratorCLISampleContainerConsumer().accept(sampleContainer);
         System.out.println(">> " + LanguageManager.get("Execution.done."));
     }
 
