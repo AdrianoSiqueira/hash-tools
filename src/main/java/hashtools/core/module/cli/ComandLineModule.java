@@ -12,8 +12,6 @@ import hashtools.core.service.HashAlgorithmService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 public class ComandLineModule implements Runnable {
 
@@ -26,11 +24,8 @@ public class ComandLineModule implements Runnable {
 
 
     private List<HashAlgorithm> prepareHashAlgorithms() {
-        return Stream.of(Arrays.copyOfRange(arguments, 3, arguments.length))
-                     .map(new HashAlgorithmService()::searchByName)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .toList();
+        return new HashAlgorithmService()
+                .convertToAlgorithmList(Arrays.copyOfRange(arguments, 3, arguments.length));
     }
 
     private void runCheckSequence()
