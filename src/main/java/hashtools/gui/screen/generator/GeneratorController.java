@@ -1,8 +1,10 @@
 package hashtools.gui.screen.generator;
 
+import hashtools.core.consumer.GeneratorGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.SampleContainer;
 import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
@@ -196,11 +198,13 @@ public class GeneratorController implements Initializable {
     }
 
     private void runGeneratorModule() {
-        new GeneratorModule(
+        SampleContainer sampleContainer = new GeneratorModule(
                 fieldInput.getText(),
                 fieldOutput.getText(),
                 createAlgorithmListFromCheckBoxes()
         ).call();
+
+        new GeneratorGUISampleContainerConsumer(Path.of(fieldOutput.getText())).accept(sampleContainer);
     }
 
     @FXML
