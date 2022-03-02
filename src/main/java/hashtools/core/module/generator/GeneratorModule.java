@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -50,10 +49,6 @@ public class GeneratorModule implements Callable<SampleContainer> {
 
         SampleContainer sampleContainer = new SampleContainer();
         HashService     hashService     = new HashService();
-        ResultWriter    resultWriter    = new ResultWriter(destination);
-
-        Comparator<Sample> comparator = (o1, o2) -> Comparator.comparing((Sample s) -> s.getAlgorithm().getLength())
-                                                              .compare(o1, o2);
 
         algorithms.stream()
                   .parallel()
@@ -62,10 +57,6 @@ public class GeneratorModule implements Callable<SampleContainer> {
                   .map(Optional::get)
                   .peek(this::setInputDataToSample)
                   .peek(hashService::generate)
-                  .toList()
-                  .stream()
-                  .sorted(comparator)
-                  .peek(resultWriter)
                   .forEach(sampleContainer::add);
 
         return sampleContainer;
