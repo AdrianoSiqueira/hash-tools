@@ -20,6 +20,10 @@ public class HashAlgorithmService {
                        .toList();
     }
 
+    public List<HashAlgorithm> convertToAlgorithmList(String... algorithms){
+        return convertToAlgorithmList(List.of(algorithms));
+    }
+
     public HashAlgorithm getByLength(int length)
     throws NoSuchElementException {
         return searchByLength(length)
