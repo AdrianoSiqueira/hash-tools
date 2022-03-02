@@ -1,5 +1,6 @@
 package hashtools.gui.screen.checker;
 
+import hashtools.core.consumer.CheckerGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.HashAlgorithm;
@@ -203,7 +204,12 @@ public class CheckerController implements Initializable {
                 fieldOfficial.getText()
         ).call();
 
-        writeResult(sampleContainer);
+        new CheckerGUISampleContainerConsumer(
+                progressBar,
+                labelResult
+        ).accept(sampleContainer);
+
+        needClearResult = true;
     }
 
     @FXML
