@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,6 +55,30 @@ class FileServiceTest {
         Path path = Files.createTempFile(null, null);
 
         assertTrue(service.stringIsFilePath(path.toAbsolutePath().toString()));
+
+        Files.deleteIfExists(path);
+    }
+
+
+    @Test
+    void write_writeContentToAnExistingFile() throws IOException {
+        Path path = Files.createTempFile(null, null);
+
+        new FileService().write("123", path, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+        assertEquals(1, Files.readAllLines(path).size());
+
+        Files.deleteIfExists(path);
+    }
+
+    @Test
+    void write_writeContentToAnNonExistingFile() throws IOException {
+        Path path = Files.createTempFile(null, null);
+        Files.deleteIfExists(path);
+
+        new FileService().write("123", path, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+        assertTrue(Files.isRegularFile(path), "File not created");
 
         Files.deleteIfExists(path);
     }
