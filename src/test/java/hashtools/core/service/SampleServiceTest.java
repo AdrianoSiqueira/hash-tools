@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,6 +29,11 @@ class SampleServiceTest {
 
 
     @Test
+    void createSampleList_returnEmptyListWhenAlgorithmListIsEmpty() {
+        assertTrue(service.createSampleList(List.of()).isEmpty());
+    }
+
+    @Test
     void createSampleList_returnEmptyListWhenFileHasNoValidHashes() throws IOException {
         Path path = Files.createTempFile(null, null);
 
@@ -37,18 +43,13 @@ class SampleServiceTest {
     }
 
     @Test
-    void createSampleList_returnEmptyListWhenFileIsNull() {
-        assertTrue(service.createSampleList(null).isEmpty());
-    }
-
-    @Test
     void createSampleList_returnEmptyListWhenHashIsNotValid() {
         assertTrue(service.createSampleList("").isEmpty());
     }
 
     @Test
-    void createSampleList_returnEmptyListWhenHashIsNull() {
-        assertTrue(service.createSampleList(null).isEmpty());
+    void createSampleList_returnFilledListWhenAlgorithmListIsFilled() {
+        assertEquals(2, service.createSampleList(List.of(HashAlgorithm.MD5, HashAlgorithm.SHA1)).size());
     }
 
     @Test
