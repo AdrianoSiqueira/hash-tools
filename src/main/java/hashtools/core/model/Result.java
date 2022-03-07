@@ -1,18 +1,18 @@
 package hashtools.core.model;
 
-import lombok.Getter;
+import hashtools.core.language.LanguageManager;
+import lombok.RequiredArgsConstructor;
 
-@Getter
+@RequiredArgsConstructor
 public enum Result {
 
     SAFE("Safe"),
     UNSAFE("Unsafe");
 
 
-    private String text;
+    private final String text;
 
-
-    Result(String text) {
-        this.text = text;
+    public String getText() {
+        return LanguageManager.get(text);
     }
 }
