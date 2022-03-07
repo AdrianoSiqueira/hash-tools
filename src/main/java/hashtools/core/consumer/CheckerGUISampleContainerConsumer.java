@@ -17,4 +17,9 @@ public class CheckerGUISampleContainerConsumer implements SampleContainerConsume
         progressBar.setProgress(sampleContainer.getReliabilityPercentage());
         label.setText(formatResult(sampleContainer));
     }
+
+    @Override
+    public String formatResult(SampleContainer sampleContainer) {
+        return new CheckerCLISampleContainerConsumer().formatResult(sampleContainer);
+    }
 }
