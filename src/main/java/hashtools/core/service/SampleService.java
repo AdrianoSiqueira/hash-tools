@@ -28,6 +28,14 @@ public class SampleService {
                : createList(officialData);
     }
 
+    public List<Sample> createSampleList(List<HashAlgorithm> algorithms) {
+        return algorithms.stream()
+                         .map(this::createSampleFromAlgorithm)
+                         .filter(Optional::isPresent)
+                         .map(Optional::get)
+                         .toList();
+    }
+
     private Sample createFromAlgorithmAndOfficialHash(HashAlgorithm algorithm, String hash) {
         Sample sample = new Sample();
         sample.setAlgorithm(algorithm);
