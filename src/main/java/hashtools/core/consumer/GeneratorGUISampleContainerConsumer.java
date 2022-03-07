@@ -3,20 +3,17 @@ package hashtools.core.consumer;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleContainer;
 import hashtools.core.service.FileService;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
+@RequiredArgsConstructor
 public class GeneratorGUISampleContainerConsumer implements SampleContainerConsumer {
 
     private final Path outputFile;
-
-
-    public GeneratorGUISampleContainerConsumer(Path outputFile) {
-        this.outputFile = outputFile;
-    }
 
 
     private String getFileName(Sample sample) {
