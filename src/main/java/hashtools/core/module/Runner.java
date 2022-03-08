@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
 @RequiredArgsConstructor
@@ -68,7 +69,7 @@ public class Runner implements Runnable {
                                                                 .thenApplyAsync(s -> generate(hashService, s), executor);
 
             if (environment.getRunMode() == RunMode.CHECKER) {
-                future.thenApplyAsync(s -> analyse(resultService, s), executor);
+                future = future.thenApplyAsync(s -> analyse(resultService, s), executor);
             }
 
             futures.add(future);
@@ -77,10 +78,13 @@ public class Runner implements Runnable {
         SampleContainer sampleContainer = new SampleContainer();
         sampleContainer.setSamples(samples);
 
-        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
-        allOf.whenComplete((unused, throwable) -> {
-            calculateReliabilityPercentage(resultService, samples, sampleContainer);
-            consume(sampleContainer);
-        });
+        try {
+            CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        calculateReliabilityPercentage(resultService, sampleContainer);
+        consume(sampleContainer);
     }
 }
