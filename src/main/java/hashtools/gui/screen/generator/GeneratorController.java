@@ -2,12 +2,16 @@ package hashtools.gui.screen.generator;
 
 import hashtools.core.consumer.GeneratorGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.HashAlgorithm;
+import hashtools.core.model.RunMode;
 import hashtools.core.model.SampleContainer;
 import hashtools.core.module.generator.GeneratorModule;
+import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
+import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -205,6 +209,29 @@ public class GeneratorController implements Initializable {
         ).call();
 
         new GeneratorGUISampleContainerConsumer(Path.of(fieldOutput.getText())).accept(sampleContainer);
+    }
+
+    @FXML
+    private void runGeneratorModule(ActionEvent event) {
+        Runnable runnable = () -> {
+            if (isNotReadyToRun()) return;
+
+            startSplash();
+
+            Environment environment = new Environment();
+            environment.setRunMode(RunMode.GENERATOR);
+            environment.setInputData(fieldInput.getText());
+            environment.setOutputData(fieldOutput.getText());
+            environment.setAlgorithms(createAlgorithmListFromCheckBoxes());
+            environment.setConsumer(new GeneratorGUISampleContainerConsumer(Path.of(fieldOutput.getText())));
+
+            new Runner(environment).run();
+            stopSplash();
+        };
+
+        ParallelismService.CACHED_THREAD_POOL
+                .getExecutor()
+                .execute(runnable);
     }
 
     @FXML
