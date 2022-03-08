@@ -28,8 +28,8 @@ public class Runner implements Runnable {
         return sample;
     }
 
-    private void calculateReliabilityPercentage(ResultService resultService, List<Sample> samples, SampleContainer sampleContainer) {
-        double percentage = resultService.calculateReliabilityPercentage(samples);
+    private void calculateReliabilityPercentage(ResultService resultService, SampleContainer sampleContainer) {
+        double percentage = resultService.calculateReliabilityPercentage(sampleContainer.getSamples());
         sampleContainer.setReliabilityPercentage(percentage);
     }
 
