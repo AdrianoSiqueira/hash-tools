@@ -1,6 +1,6 @@
 package hashtools.main;
 
-import hashtools.core.module.cli.ComandLineModule;
+import hashtools.core.module.runner.CommandLineInterface;
 import hashtools.core.service.ParallelismService;
 import hashtools.gui.window.application.ApplicationWindow;
 import hashtools.gui.window.preloader.PreloaderWindow;
@@ -17,7 +17,7 @@ public class Main {
 
 
     private static void runInCliMode(String[] args) {
-        new ComandLineModule(args).run();
+        new CommandLineInterface(args).run();
     }
 
     private static void runInGuiMode() {
