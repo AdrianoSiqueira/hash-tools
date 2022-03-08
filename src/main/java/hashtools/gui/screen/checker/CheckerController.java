@@ -2,11 +2,15 @@ package hashtools.gui.screen.checker;
 
 import hashtools.core.consumer.CheckerGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
+import hashtools.core.model.RunMode;
 import hashtools.core.model.SampleContainer;
 import hashtools.core.module.checker.CheckerModule;
+import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
+import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -167,6 +171,28 @@ public class CheckerController implements Initializable {
         ).accept(sampleContainer);
 
         needClearResult = true;
+    }
+
+    @FXML
+    private void runCheckerModule(ActionEvent event) {
+        Runnable runnable = () -> {
+            if (isNotReadyToRun()) return;
+
+            startSplash();
+
+            Environment environment = new Environment();
+            environment.setRunMode(RunMode.CHECKER);
+            environment.setInputData(fieldInput.getText());
+            environment.setOfficialData(fieldOfficial.getText());
+            environment.setConsumer(new CheckerGUISampleContainerConsumer(progressBar, labelResult));
+
+            new Runner(environment).run();
+            stopSplash();
+        };
+
+        ParallelismService.CACHED_THREAD_POOL
+                .getExecutor()
+                .execute(runnable);
     }
 
     @FXML
