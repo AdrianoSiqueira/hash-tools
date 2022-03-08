@@ -12,6 +12,10 @@ public enum ParallelismService {
     INSTANCE(Executors.newFixedThreadPool(
             Runtime.getRuntime().availableProcessors(),
             new DaemonFactory()
+    )),
+
+    CACHED_THREAD_POOL(Executors.newCachedThreadPool(
+            new DaemonFactory()
     ));
 
 
