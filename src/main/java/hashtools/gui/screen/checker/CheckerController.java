@@ -5,8 +5,6 @@ import hashtools.core.language.LanguageManager;
 import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.RunMode;
-import hashtools.core.model.SampleContainer;
-import hashtools.core.module.checker.CheckerModule;
 import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
@@ -159,20 +157,6 @@ public class CheckerController implements Initializable {
         field.setText(content);
     }
 
-    private void runCheckerModule() {
-        SampleContainer sampleContainer = new CheckerModule(
-                fieldInput.getText(),
-                fieldOfficial.getText()
-        ).call();
-
-        new CheckerGUISampleContainerConsumer(
-                progressBar,
-                labelResult
-        ).accept(sampleContainer);
-
-        needClearResult = true;
-    }
-
     @FXML
     private void runCheckerModule(ActionEvent event) {
         Runnable runnable = () -> {
@@ -193,17 +177,6 @@ public class CheckerController implements Initializable {
         ParallelismService.CACHED_THREAD_POOL
                 .getExecutor()
                 .execute(runnable);
-    }
-
-    @FXML
-    private void runCheckingModule(ActionEvent event) {
-        new Thread(() -> {
-            if (isNotReadyToRun()) return;
-
-            startSplash();
-            runCheckerModule();
-            stopSplash();
-        }).start();
     }
 
     @SuppressWarnings("ConstantConditions")
