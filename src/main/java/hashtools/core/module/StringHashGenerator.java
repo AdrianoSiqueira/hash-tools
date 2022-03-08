@@ -1,4 +1,4 @@
-package hashtools.core.module.generator;
+package hashtools.core.module;
 
 import hashtools.core.model.HashAlgorithm;
 

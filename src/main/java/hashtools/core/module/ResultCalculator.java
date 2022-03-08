@@ -1,4 +1,4 @@
-package hashtools.core.module.checker;
+package hashtools.core.module;
 
 import hashtools.core.model.Result;
 import hashtools.core.model.Sample;
