@@ -6,7 +6,6 @@ import hashtools.core.language.LanguageManager;
 import hashtools.core.model.Environment;
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.RunMode;
-import hashtools.core.module.Runner;
 import hashtools.core.service.HashAlgorithmService;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package hashtools.core.module;
+package hashtools.core.module.runner;
 
 import hashtools.core.model.Environment;
 import hashtools.core.model.Result;
