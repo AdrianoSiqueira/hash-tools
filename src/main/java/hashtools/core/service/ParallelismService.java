@@ -9,12 +9,12 @@ import java.util.concurrent.Executors;
 @Getter
 public enum ParallelismService {
 
-    INSTANCE(Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors(),
+    CACHED_THREAD_POOL(Executors.newCachedThreadPool(
             new DaemonFactory()
     )),
 
-    CACHED_THREAD_POOL(Executors.newCachedThreadPool(
+    FIXED_THREAD_POOL(Executors.newFixedThreadPool(
+            Runtime.getRuntime().availableProcessors(),
             new DaemonFactory()
     ));
 
@@ -28,6 +28,6 @@ public enum ParallelismService {
 
 
     public static void shutdown() {
-        INSTANCE.executor.shutdown();
+        FIXED_THREAD_POOL.executor.shutdown();
     }
 }

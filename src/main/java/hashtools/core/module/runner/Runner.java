@@ -52,7 +52,7 @@ public class Runner implements Runnable {
 
     @Override
     public void run() {
-        ExecutorService executor      = ParallelismService.INSTANCE.getExecutor();
+        ExecutorService executor      = ParallelismService.FIXED_THREAD_POOL.getExecutor();
         SampleService   sampleService = new SampleService();
         HashService     hashService   = new HashService();
         ResultService   resultService = new ResultService();
