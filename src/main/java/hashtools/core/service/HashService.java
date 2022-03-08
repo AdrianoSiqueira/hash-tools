@@ -2,8 +2,8 @@ package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.Sample;
-import hashtools.core.module.generator.FileHashGenerator;
-import hashtools.core.module.generator.StringHashGenerator;
+import hashtools.core.module.FileHashGenerator;
+import hashtools.core.module.StringHashGenerator;
 
 import java.nio.file.Path;
 
