@@ -43,6 +43,11 @@ public class Runner implements Runnable {
         return sample;
     }
 
+    private Sample setInputData(String inputData, Sample sample) {
+        sample.setInputData(inputData);
+        return sample;
+    }
+
 
     @Override
     public void run() {
@@ -59,7 +64,7 @@ public class Runner implements Runnable {
         List<CompletableFuture<Sample>> futures = new ArrayList<>();
 
         samples.forEach(sample -> {
-            CompletableFuture<Sample> future = CompletableFuture.completedFuture(sample)
+            CompletableFuture<Sample> future = CompletableFuture.supplyAsync(() -> setInputData(environment.getInputData(), sample), executor)
                                                                 .thenApplyAsync(s -> generate(hashService, s), executor);
 
             if (environment.getRunMode() == RunMode.CHECKER) {
