@@ -6,8 +6,6 @@ import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.HashAlgorithm;
 import hashtools.core.model.RunMode;
-import hashtools.core.model.SampleContainer;
-import hashtools.core.module.generator.GeneratorModule;
 import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
@@ -188,27 +186,6 @@ public class GeneratorController implements Initializable {
         return retrievePaneAlgorithmCheckBoxStream()
                 .filter(CheckBox::isSelected)
                 .toList();
-    }
-
-    @FXML
-    private void runGenerationModule(ActionEvent event) {
-        new Thread(() -> {
-            if (isNotReadyToRun()) return;
-
-            startSplash();
-            runGeneratorModule();
-            stopSplash();
-        }).start();
-    }
-
-    private void runGeneratorModule() {
-        SampleContainer sampleContainer = new GeneratorModule(
-                fieldInput.getText(),
-                fieldOutput.getText(),
-                createAlgorithmListFromCheckBoxes()
-        ).call();
-
-        new GeneratorGUISampleContainerConsumer(Path.of(fieldOutput.getText())).accept(sampleContainer);
     }
 
     @FXML
