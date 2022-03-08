@@ -1,5 +1,6 @@
 package hashtools.core.service;
 
+import hashtools.core.factory.DaemonFactory;
 import lombok.Getter;
 
 import java.util.concurrent.ExecutorService;
@@ -10,11 +11,7 @@ public enum ParallelismService {
 
     INSTANCE(Executors.newFixedThreadPool(
             Runtime.getRuntime().availableProcessors(),
-            r -> {
-                Thread thread = new Thread(r);
-                thread.setDaemon(true);
-                return thread;
-            }
+            new DaemonFactory()
     ));
 
 
