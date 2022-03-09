@@ -1,7 +1,8 @@
 module HashTools {
+    requires static lombok;
+
     requires javafx.fxml;
     requires javafx.controls;
-    requires lombok;
 
     exports hashtools.gui.screen.about;
     exports hashtools.gui.screen.checker;
