@@ -1,14 +1,16 @@
 package hashtools.core.service;
 
 import hashtools.core.model.FileExtension;
+import lombok.SneakyThrows;
 
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.util.List;
 
 public class FileService {
 
-    public static boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
+    public boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
         String fileName   = path.getFileName().toString();
         int    indexOfDot = fileName.lastIndexOf(".");
 
@@ -24,8 +26,13 @@ public class FileService {
                    .contains(extension);
     }
 
-    public static boolean stringIsFilePath(String string) {
+    public boolean stringIsFilePath(String string) {
         return string != null &&
                Files.isRegularFile(Path.of(string));
+    }
+
+    @SneakyThrows
+    public void write(String content, Path path, OpenOption... openOptions) {
+        Files.writeString(path, content, openOptions);
     }
 }

@@ -1,11 +1,15 @@
 package hashtools.gui.screen.generator;
 
+import hashtools.core.consumer.GeneratorGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
 import hashtools.core.model.HashAlgorithm;
-import hashtools.core.module.generator.GeneratorModule;
+import hashtools.core.model.RunMode;
+import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
+import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -91,7 +95,7 @@ public class GeneratorController implements Initializable {
         retrievePaneAlgorithmCheckBoxStream()
                 .forEach(cb -> {
                     String        name      = cb.getText();
-                    HashAlgorithm algorithm = HashAlgorithmService.getByName(name);
+                    HashAlgorithm algorithm = new HashAlgorithmService().getByName(name);
                     cb.setUserData(algorithm);
                 });
     }
@@ -106,7 +110,7 @@ public class GeneratorController implements Initializable {
         } else if (dragboard.hasFiles()) {
             Path path = dragboard.getFiles().get(0).toPath();
 
-            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+            transferModes = new FileService().pathHasRequiredExtension(path, FileExtension.HASH)
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         } else {
@@ -185,22 +189,26 @@ public class GeneratorController implements Initializable {
     }
 
     @FXML
-    private void runGenerationModule(ActionEvent event) {
-        new Thread(() -> {
+    private void runGeneratorModule(ActionEvent event) {
+        Runnable runnable = () -> {
             if (isNotReadyToRun()) return;
 
             startSplash();
-            runGeneratorModule();
-            stopSplash();
-        }).start();
-    }
 
-    private void runGeneratorModule() {
-        new GeneratorModule(
-                fieldInput.getText(),
-                fieldOutput.getText(),
-                createAlgorithmListFromCheckBoxes()
-        ).call();
+            Environment environment = new Environment();
+            environment.setRunMode(RunMode.GENERATOR);
+            environment.setInputData(fieldInput.getText());
+            environment.setOutputData(fieldOutput.getText());
+            environment.setAlgorithms(createAlgorithmListFromCheckBoxes());
+            environment.setConsumer(new GeneratorGUISampleContainerConsumer(Path.of(fieldOutput.getText())));
+
+            new Runner(environment).run();
+            stopSplash();
+        };
+
+        ParallelismService.CACHED_THREAD_POOL
+                .getExecutor()
+                .execute(runnable);
     }
 
     @FXML

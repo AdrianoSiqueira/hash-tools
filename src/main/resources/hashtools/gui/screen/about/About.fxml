@@ -20,7 +20,7 @@
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
     <Label GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="left-label" text="%Version"/>
-    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="right-label" text="2.0.0"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="right-label" text="2.0.1"/>
     <Label GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="left-label" text="%Application.URL"/>
     <Hyperlink GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#openLink" text="github.com/AdrianoSiqueira/HashTools"/>
     <Label GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="left-label" text="%Online.manual"/>

@@ -4,10 +4,10 @@ import hashtools.core.language.LanguageManager;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum Result {
+public enum RunMode {
 
-    SAFE("Safe"),
-    UNSAFE("Unsafe");
+    CHECKER("Checker"),
+    GENERATOR("Generator");
 
 
     private final String text;

@@ -72,5 +72,5 @@
             <Tooltip text="%Open.destination.file."/>
         </tooltip>
     </Button>
-    <Button GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="buttonGenerate" mnemonicParsing="false" onAction="#runGenerationModule" text="%Generate"/>
+    <Button GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="buttonGenerate" mnemonicParsing="false" onAction="#runGeneratorModule" text="%Generate"/>
 </GridPane>

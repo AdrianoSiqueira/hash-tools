@@ -1,11 +1,14 @@
 package hashtools.gui.screen.checker;
 
+import hashtools.core.consumer.CheckerGUISampleContainerConsumer;
 import hashtools.core.language.LanguageManager;
+import hashtools.core.model.Environment;
 import hashtools.core.model.FileExtension;
-import hashtools.core.model.SampleList;
-import hashtools.core.module.checker.CheckerModule;
+import hashtools.core.model.RunMode;
+import hashtools.core.module.runner.Runner;
 import hashtools.core.service.FileService;
 import hashtools.core.service.HashAlgorithmService;
+import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -34,10 +37,8 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 
 /**
  * <p>
@@ -87,23 +88,16 @@ public class CheckerController implements Initializable {
         } else if (dragboard.hasFiles()) {
             Path path = dragboard.getFiles().get(0).toPath();
 
-            transferModes = FileService.pathHasRequiredExtension(path, FileExtension.HASH)
+            transferModes = new FileService().pathHasRequiredExtension(path, FileExtension.HASH)
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         } else {
-            transferModes = HashAlgorithmService.stringHasValidLength(dragboard.getString())
+            transferModes = new HashAlgorithmService().stringHasValidLength(dragboard.getString())
                             ? TransferMode.ANY
                             : TransferMode.NONE;
         }
 
         event.acceptTransferModes(transferModes);
-    }
-
-    private int calculateIdealTabSize(String... strings) {
-        return Arrays.stream(strings)
-                     .map(String::length)
-                     .reduce(Math::max)
-                     .orElse(0);
     }
 
     private boolean clearIsNotNecessary() {
@@ -121,39 +115,6 @@ public class CheckerController implements Initializable {
     @FXML
     private void clearResultWhenTextFieldContentChange(ObservableValue<String> observable, String oldValue, String newValue) {
         clearResult();
-    }
-
-    private String formatResult(SampleList sampleList) {
-        StringJoiner joiner = new StringJoiner("-".repeat(150),
-                                               "-".repeat(150),
-                                               "-".repeat(150));
-
-        String s1 = LanguageManager.get("Algorithm");
-        String s2 = LanguageManager.get("Calculated");
-        String s3 = LanguageManager.get("Official");
-        String s4 = LanguageManager.get("Result");
-
-        int idealSize = calculateIdealTabSize(s1, s2, s3, s4);
-
-        String algorithm  = String.format("%" + idealSize + "s: ", s1);
-        String calculated = String.format("%" + idealSize + "s: ", s2);
-        String official   = String.format("%" + idealSize + "s: ", s3);
-        String result     = String.format("%" + idealSize + "s: ", s4);
-
-        sampleList.getSamples()
-                  .forEach(s -> {
-                      String ls = System.lineSeparator();
-
-                      String content = ls +
-                                       algorithm + s.getAlgorithm().getName() + ls +
-                                       official + s.getOfficialHash() + ls +
-                                       calculated + s.getCalculatedHash() + ls +
-                                       result + s.getResult().getText() + ls;
-
-                      joiner.add(content);
-                  });
-
-        return joiner.toString();
     }
 
     @FXML
@@ -196,24 +157,26 @@ public class CheckerController implements Initializable {
         field.setText(content);
     }
 
-    private void runCheckerModule() {
-        SampleList sampleList = new CheckerModule(
-                fieldInput.getText(),
-                fieldOfficial.getText()
-        ).call();
-
-        writeResult(sampleList);
-    }
-
     @FXML
-    private void runCheckingModule(ActionEvent event) {
-        new Thread(() -> {
+    private void runCheckerModule(ActionEvent event) {
+        Runnable runnable = () -> {
             if (isNotReadyToRun()) return;
 
             startSplash();
-            runCheckerModule();
+
+            Environment environment = new Environment();
+            environment.setRunMode(RunMode.CHECKER);
+            environment.setInputData(fieldInput.getText());
+            environment.setOfficialData(fieldOfficial.getText());
+            environment.setConsumer(new CheckerGUISampleContainerConsumer(progressBar, labelResult));
+
+            new Runner(environment).run();
             stopSplash();
-        }).start();
+        };
+
+        ParallelismService.CACHED_THREAD_POOL
+                .getExecutor()
+                .execute(runnable);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -230,14 +193,6 @@ public class CheckerController implements Initializable {
 
     private void stopSplash() {
         Platform.runLater(() -> currentScene.setRoot(currentRoot));
-    }
-
-    private void writeResult(SampleList sampleList) {
-        String result = formatResult(sampleList);
-        labelResult.setText(result);
-
-        progressBar.setProgress(sampleList.getReliabilityPercentage() / 100);
-        needClearResult = true;
     }
 
 
