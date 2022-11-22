@@ -119,8 +119,9 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void moveTooltipWithMouse(MouseEvent event) {
-        if (!(event.getSource() instanceof Control control)) return;
+        if (!(event.getSource() instanceof Control)) return;
 
+        Control control  = (Control) event.getSource();
         Tooltip tooltip = control.getTooltip();
         tooltip.setX(event.getScreenX() + 10);
         tooltip.setY(event.getScreenY() + 10);
@@ -146,7 +147,7 @@ public class CheckerController implements Initializable {
 
     @FXML
     private void pasteContentFromDragAndDrop(DragEvent event) {
-        if (!(event.getSource() instanceof TextField field)) return;
+        if (!(event.getSource() instanceof TextField)) return;
 
         Dragboard dragboard = event.getDragboard();
 
@@ -154,6 +155,7 @@ public class CheckerController implements Initializable {
                          ? dragboard.getFiles().get(0).getAbsolutePath()
                          : dragboard.getString();
 
+        TextField field = (TextField) event.getSource();
         field.setText(content);
     }
 
