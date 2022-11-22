@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class HashAlgorithmService {
@@ -17,7 +18,7 @@ public class HashAlgorithmService {
                        .map(this::searchByName)
                        .filter(Optional::isPresent)
                        .map(Optional::get)
-                       .toList();
+                       .collect(Collectors.toList());
     }
 
     public List<HashAlgorithm> convertToAlgorithmList(String... algorithms){
