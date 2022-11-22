@@ -37,6 +37,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -126,7 +127,7 @@ public class GeneratorController implements Initializable {
                 .map(CheckBox::getUserData)
                 .filter(HashAlgorithm.class::isInstance)
                 .map(HashAlgorithm.class::cast)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @FXML
@@ -185,7 +186,7 @@ public class GeneratorController implements Initializable {
     private List<CheckBox> retrieveSelectedCheckBoxes() {
         return retrievePaneAlgorithmCheckBoxStream()
                 .filter(CheckBox::isSelected)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @FXML
