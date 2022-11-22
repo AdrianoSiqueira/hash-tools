@@ -20,11 +20,18 @@ public class CommandLineInterface implements Runnable {
 
     @Override
     public void run() {
-        RunMode runMode = switch (arguments[0].toLowerCase()) {
-            case "--check" -> RunMode.CHECKER;
-            case "--generate" -> RunMode.GENERATOR;
-            default -> throw new IllegalArgumentException(LanguageManager.get("Invalid.execution.module") + ": '" + arguments[0] + "'");
-        };
+        RunMode runMode;
+
+        switch (arguments[0].toLowerCase()) {
+            case "--check":
+                runMode = RunMode.CHECKER;
+                break;
+            case "--generate":
+                runMode = RunMode.GENERATOR;
+                break;
+            default:
+                throw new IllegalArgumentException(LanguageManager.get("Invalid.execution.module") + ": '" + arguments[0] + "'");
+        }
 
         if (runMode == RunMode.CHECKER && arguments.length != 3 ||
             runMode == RunMode.GENERATOR && arguments.length < 4) {
