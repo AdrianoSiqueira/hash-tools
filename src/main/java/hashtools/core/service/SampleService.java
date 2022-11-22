@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SampleService {
@@ -33,7 +34,7 @@ public class SampleService {
                          .map(this::createSampleFromAlgorithm)
                          .filter(Optional::isPresent)
                          .map(Optional::get)
-                         .toList();
+                         .collect(Collectors.toList());
     }
 
     private Sample createFromAlgorithmAndOfficialHash(HashAlgorithm algorithm, String hash) {
@@ -66,7 +67,7 @@ public class SampleService {
                     .map(this::createFromHash)
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .toList();
+                    .collect(Collectors.toList());
     }
 
     private List<Sample> createList(String hash) {
