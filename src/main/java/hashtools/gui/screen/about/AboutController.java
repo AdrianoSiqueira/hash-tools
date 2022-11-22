@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AboutController implements Initializable {
@@ -24,9 +25,10 @@ public class AboutController implements Initializable {
 
     @FXML
     private void openLink(ActionEvent event) {
-        if (!(event.getSource() instanceof Hyperlink hyperlink)) return;
+        if (!(event.getSource() instanceof Hyperlink)) return;
 
-        String url = hyperlink.getText();
+        Hyperlink hyperlink = (Hyperlink) event.getSource();
+        String    url       = hyperlink.getText();
         getHostServices().showDocument(url);
     }
 

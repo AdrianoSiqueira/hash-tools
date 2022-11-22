@@ -47,7 +47,9 @@ public class ApplicationController implements Initializable {
 
     @FXML
     private void openModuleScreen(ActionEvent event) {
-        if (!(event.getSource() instanceof Button button)) return;
+        if (!(event.getSource() instanceof Button)) return;
+
+        Button button = (Button) event.getSource();
 
         try {
             Node node = loadFromFxml((URL) button.getUserData());

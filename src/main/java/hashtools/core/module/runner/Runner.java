@@ -57,10 +57,16 @@ public class Runner implements Runnable {
         HashService     hashService   = new HashService();
         ResultService   resultService = new ResultService();
 
-        List<Sample> samples = switch (environment.getRunMode()) {
-            case CHECKER -> sampleService.createSampleList(environment.getOfficialData());
-            case GENERATOR -> sampleService.createSampleList(environment.getAlgorithms());
-        };
+        List<Sample> samples = null;
+
+        switch (environment.getRunMode()) {
+            case CHECKER:
+                samples = sampleService.createSampleList(environment.getOfficialData());
+                break;
+            case GENERATOR:
+                samples = sampleService.createSampleList(environment.getAlgorithms());
+                break;
+        }
 
         List<CompletableFuture<Sample>> futures = new ArrayList<>();
 
