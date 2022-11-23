@@ -2,7 +2,9 @@ package hashtools.core.service;
 
 import hashtools.core.model.Result;
 import hashtools.core.model.Sample;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 
@@ -13,8 +15,60 @@ class ResultServiceTest {
 
     private ResultService service = new ResultService();
 
-    @Test
-    void calculateReliabilityPercentage_calculatePercentageWhenListIsProvided() {
+
+    private static List<Arguments> getExceptionTestsCalculateReliabilityPercentage() {
+        return List.of(
+                Arguments.of(NullPointerException.class, null)
+        );
+    }
+
+    private static List<Arguments> getExceptionTestsCalculateResult() {
+        return List.of(
+                Arguments.of(NullPointerException.class, getSampleNull()),
+                Arguments.of(NullPointerException.class, getSampleNullCalculated())
+        );
+    }
+
+    private static List<Arguments> getResultTestsCalculateReliabilityPercentage() {
+        return List.of(
+                Arguments.of(0, List.of()),
+                Arguments.of(75, getSamples75())
+        );
+    }
+
+    private static List<Arguments> getResultTestsCalculateResult() {
+        return List.of(
+                Arguments.of(Result.SAFE, getSampleSafe()),
+                Arguments.of(Result.UNSAFE, getSampleUnsafe())
+        );
+    }
+
+
+    private static Sample getSampleNull() {
+        return null;
+    }
+
+    private static Sample getSampleNullCalculated() {
+        return new Sample();
+    }
+
+    private static Sample getSampleSafe() {
+        Sample sample = new Sample();
+        sample.setOfficialHash("123");
+        sample.setCalculatedHash("123");
+
+        return sample;
+    }
+
+    private static Sample getSampleUnsafe() {
+        Sample sample = new Sample();
+        sample.setOfficialHash("123");
+        sample.setCalculatedHash("321");
+
+        return sample;
+    }
+
+    private static List<Sample> getSamples75() {
         Sample s1 = new Sample();
         s1.setResult(Result.SAFE);
 
@@ -27,49 +81,32 @@ class ResultServiceTest {
         Sample s4 = new Sample();
         s4.setResult(Result.UNSAFE);
 
-        assertEquals(75, service.calculateReliabilityPercentage(List.of(s1, s2, s3, s4)));
-    }
-
-    @Test
-    void calculateReliabilityPercentage_returnZeroWhenListIsEmpty() {
-        assertEquals(0, service.calculateReliabilityPercentage(List.of()));
-    }
-
-    @Test
-    void calculateReliabilityPercentage_throwsExceptionWhenListIsNull() {
-        assertThrows(NullPointerException.class, () -> service.calculateReliabilityPercentage(null));
+        return List.of(s1, s2, s3, s4);
     }
 
 
-    @Test
-    void calculateResult_returnSafeWhenHashesMatches() {
-        Sample sample = new Sample();
-        sample.setOfficialHash("123");
-        sample.setCalculatedHash("123");
-
-        assertEquals(Result.SAFE, service.calculateResult(sample));
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCalculateReliabilityPercentage")
+    void calculateReliabilityPercentage(double result, List<Sample> samples) {
+        assertEquals(result, service.calculateReliabilityPercentage(samples));
     }
 
-    @Test
-    void calculateResult_returnUnsafeWhenHashesDoesNotMatches() {
-        Sample sample = new Sample();
-        sample.setOfficialHash("123");
-        sample.setCalculatedHash("");
-
-        assertEquals(Result.UNSAFE, service.calculateResult(sample));
+    @ParameterizedTest
+    @MethodSource(value = "getExceptionTestsCalculateReliabilityPercentage")
+    void calculateReliabilityPercentage(Class<? extends Throwable> result, List<Sample> samples) {
+        assertThrows(result, () -> service.calculateReliabilityPercentage(samples));
     }
 
-    @Test
-    void calculateResult_throwsExceptionWhenCalculatedHashIsNull() {
-        Sample s1 = new Sample();
-        s1.setOfficialHash("");
-        s1.setCalculatedHash(null);
 
-        assertThrows(NullPointerException.class, () -> service.calculateResult(s1));
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCalculateResult")
+    void calculateResult(Result result, Sample sample) {
+        assertEquals(result, service.calculateResult(sample));
     }
 
-    @Test
-    void calculateResult_throwsExceptionWhenSampleIsNull() {
-        assertThrows(NullPointerException.class, () -> service.calculateResult(null));
+    @ParameterizedTest
+    @MethodSource(value = "getExceptionTestsCalculateResult")
+    void calculateResult(Class<? extends Throwable> result, Sample sample) {
+        assertThrows(result, () -> service.calculateResult(sample));
     }
 }
