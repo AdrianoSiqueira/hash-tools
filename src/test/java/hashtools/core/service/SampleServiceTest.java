@@ -1,7 +1,9 @@
 package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,61 +11,100 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SampleServiceTest {
 
     private SampleService service = new SampleService();
 
 
-    @Test
-    void createSampleFromAlgorithm_returnEmptyOptionalWhenAlgorithmIsNull() {
-        assertTrue(service.createSampleFromAlgorithm(null).isEmpty());
+    private static Path createEmptyFile() {
+        try {
+            return Files.createTempFile(null, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Test
-    void createSampleFromAlgorithm_returnFilledOptionalWhenAlgorithmIsNotNull() {
-        assertTrue(service.createSampleFromAlgorithm(HashAlgorithm.MD5).isPresent());
+    @SuppressWarnings("ConstantConditions")
+    private static Path createFilledFile() {
+        try {
+            Path file = createEmptyFile();
+            Files.writeString(file, "11111111111111111111111111111111");
+
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
-    @Test
-    void createSampleList_returnEmptyListWhenAlgorithmListIsEmpty() {
-        assertTrue(service.createSampleList(List.of()).isEmpty());
+    private static List<Arguments> getExceptionTestsCreateSampleListAlgorithms() {
+        return List.of(
+                Arguments.of(NullPointerException.class, null)
+        );
     }
 
-    @Test
-    void createSampleList_returnEmptyListWhenFileHasNoValidHashes() throws IOException {
-        Path path = Files.createTempFile(null, null);
-
-        assertTrue(service.createSampleList(path.toAbsolutePath().toString()).isEmpty());
-
-        Files.deleteIfExists(path);
+    private static List<Arguments> getResultTestsCreateSampleFromAlgorithm() {
+        return List.of(
+                Arguments.of(false, null),
+                Arguments.of(true, HashAlgorithm.MD5)
+        );
     }
 
-    @Test
-    void createSampleList_returnEmptyListWhenHashIsNotValid() {
-        assertTrue(service.createSampleList("").isEmpty());
+    private static List<Arguments> getResultTestsCreateSampleListAlgorithms() {
+        return List.of(
+                Arguments.of(true, List.of()),
+                Arguments.of(false, List.of(HashAlgorithm.MD5))
+        );
     }
 
-    @Test
-    void createSampleList_returnFilledListWhenAlgorithmListIsFilled() {
-        assertEquals(2, service.createSampleList(List.of(HashAlgorithm.MD5, HashAlgorithm.SHA1)).size());
+    private static List<Arguments> getResultTestsCreateSampleListFile() {
+        return List.of(
+                Arguments.of(true, createEmptyFile()),
+                Arguments.of(false, createFilledFile())
+        );
     }
 
-    @Test
-    void createSampleList_returnFilledListWhenFileHasValidHashes() throws IOException {
-        Path path = Files.createTempFile(null, null);
-        Files.writeString(path, "11111111111111111111111111111111");
-
-        assertFalse(service.createSampleList(path.toAbsolutePath().toString()).isEmpty());
-
-        Files.deleteIfExists(path);
+    private static List<Arguments> getResultTestsCreateSampleListHash() {
+        return List.of(
+                Arguments.of(true, null),
+                Arguments.of(true, ""),
+                Arguments.of(false, "11111111111111111111111111111111")
+        );
     }
 
-    @Test
-    void createSampleList_returnSingleElementListWhenHashIsValid() {
-        assertEquals(1, service.createSampleList("11111111111111111111111111111111").size());
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCreateSampleFromAlgorithm")
+    void createSampleFromAlgorithm(boolean result, HashAlgorithm algorithm) {
+        assertEquals(result, service.createSampleFromAlgorithm(algorithm).isPresent());
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCreateSampleListHash")
+    void createSampleList(boolean result, String hash) {
+        assertEquals(result, service.createSampleList(hash).isEmpty());
+    }
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCreateSampleListAlgorithms")
+    void createSampleList(boolean result, List<HashAlgorithm> algorithms) {
+        assertEquals(result, service.createSampleList(algorithms).isEmpty());
+    }
+
+    @ParameterizedTest
+    @MethodSource(value = "getExceptionTestsCreateSampleListAlgorithms")
+    void createSampleList(Class<? extends Throwable> result, List<HashAlgorithm> algorithms) {
+        assertThrows(result, () -> service.createSampleList(algorithms));
+    }
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsCreateSampleListFile")
+    void createSampleList(boolean result, Path file) {
+        assertEquals(result, service.createSampleList(file.toAbsolutePath().toString()).isEmpty());
     }
 }

@@ -1,120 +1,159 @@
 package hashtools.core.service;
 
 import hashtools.core.model.HashAlgorithm;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HashAlgorithmServiceTest {
 
     private HashAlgorithmService service = new HashAlgorithmService();
 
 
-    @Test
-    void convertToAlgorithmList_returnEmptyListWhenArrayIsEmpty() {
-        assertTrue(service.convertToAlgorithmList().isEmpty());
+    private static List<Arguments> getExceptionTestsGetByLength() {
+        return List.of(
+                Arguments.of(NoSuchElementException.class, 0)
+        );
     }
 
-    @Test
-    void convertToAlgorithmList_returnEmptyListWhenListIsEmpty() {
-        assertTrue(service.convertToAlgorithmList(List.of()).isEmpty());
+    private static List<Arguments> getExceptionTestsGetByName() {
+        return List.of(
+                Arguments.of(NoSuchElementException.class, ""),
+                Arguments.of(NoSuchElementException.class, null)
+        );
     }
 
-    @Test
-    void convertToAlgorithmList_returnFilledListWhenArrayHasValidAlgorithms() {
-        assertEquals(3, service.convertToAlgorithmList("", "MD5", "sha1", "ShA--------256").size());
+    private static List<Arguments> getResultTestsArrayAlgorithmList() {
+        return List.of(
+                Arguments.of(0, new String[]{}),
+                Arguments.of(3, new String[]{"", "MD5", "sha1", "ShA--------256"})
+        );
     }
 
-    @Test
-    void convertToAlgorithmList_returnFilledListWhenListHasValidAlgorithms() {
-        assertEquals(3, service.convertToAlgorithmList(List.of("", "MD5", "sha1", "ShA--------256")).size());
+    private static List<Arguments> getResultTestsGetByLength() {
+        return List.of(
+                Arguments.of(HashAlgorithm.MD5, 32),
+                Arguments.of(HashAlgorithm.SHA1, 40),
+                Arguments.of(HashAlgorithm.SHA224, 56),
+                Arguments.of(HashAlgorithm.SHA256, 64),
+                Arguments.of(HashAlgorithm.SHA384, 96),
+                Arguments.of(HashAlgorithm.SHA512, 128)
+        );
     }
 
-
-    @Test
-    void getByLength_returnResultWhenLengthIsFound() {
-        assertEquals(HashAlgorithm.MD5, service.getByLength(32), "'MD5' failed");
-        assertEquals(HashAlgorithm.SHA1, service.getByLength(40), "'SHA-1' failed");
-        assertEquals(HashAlgorithm.SHA224, service.getByLength(56), "'SHA-224' failed");
-        assertEquals(HashAlgorithm.SHA256, service.getByLength(64), "'SHA-256' failed");
-        assertEquals(HashAlgorithm.SHA384, service.getByLength(96), "'SHA-384' failed");
-        assertEquals(HashAlgorithm.SHA512, service.getByLength(128), "'SHA-512' failed");
+    private static List<Arguments> getResultTestsGetByName() {
+        return List.of(
+                Arguments.of(HashAlgorithm.MD5, "MD5"),
+                Arguments.of(HashAlgorithm.SHA1, "SHA-1"),
+                Arguments.of(HashAlgorithm.SHA224, "SHA-224"),
+                Arguments.of(HashAlgorithm.SHA256, "SHA-256"),
+                Arguments.of(HashAlgorithm.SHA384, "SHA-384"),
+                Arguments.of(HashAlgorithm.SHA512, "SHA-512")
+        );
     }
 
-    @Test
-    void getByLength_throwExceptionWhenLengthIsNotFound() {
-        assertThrows(NoSuchElementException.class, () -> service.getByLength(0));
+    private static List<Arguments> getResultTestsListAlgorithmList() {
+        return List.of(
+                Arguments.of(0, List.of()),
+                Arguments.of(3, List.of("", "MD5", "sha1", "ShA--------256"))
+        );
     }
 
-
-    @Test
-    void getByName_returnResultWhenNameIsFound() {
-        assertEquals(HashAlgorithm.MD5, service.getByName("md5"), "'MD5' failed");
-        assertEquals(HashAlgorithm.SHA1, service.getByName("SHA1"), "'SHA-1' failed");
-        assertEquals(HashAlgorithm.SHA224, service.getByName("SHA-224"), "'SHA-224' failed");
-        assertEquals(HashAlgorithm.SHA256, service.getByName("SHA-256"), "'SHA-256' failed");
-        assertEquals(HashAlgorithm.SHA384, service.getByName("SHA-384"), "'SHA-384' failed");
-        assertEquals(HashAlgorithm.SHA512, service.getByName("SHA----512"), "'SHA-512' failed");
+    private static List<Arguments> getResultTestsSearchByLength() {
+        return List.of(
+                Arguments.of(false, 0),
+                Arguments.of(true, 32),
+                Arguments.of(true, 40),
+                Arguments.of(true, 56),
+                Arguments.of(true, 64),
+                Arguments.of(true, 96),
+                Arguments.of(true, 128)
+        );
     }
 
-    @Test
-    void getByName_throwExceptionWhenNameIsNotFound() {
-        assertThrows(NoSuchElementException.class, () -> service.getByName(""), "'Not found' failed");
-        assertThrows(NoSuchElementException.class, () -> service.getByName(null), "'Null' failed");
+    private static List<Arguments> getResultTestsSearchByName() {
+        return List.of(
+                Arguments.of(false, ""),
+                Arguments.of(true, "MD5"),
+                Arguments.of(true, "SHA-1"),
+                Arguments.of(true, "SHA-224"),
+                Arguments.of(true, "SHA-256"),
+                Arguments.of(true, "SHA-384"),
+                Arguments.of(true, "SHA-512")
+        );
     }
 
-
-    @Test
-    void searchByLength_returnEmptyOptionalWhenLengthIsNotFound() {
-        assertTrue(service.searchByLength(0).isEmpty());
-    }
-
-    @Test
-    void searchByLength_returnFilledOptionalWhenLengthIsFound() {
-        assertTrue(service.searchByLength(32).isPresent(), "'MD5' failed");
-        assertTrue(service.searchByLength(40).isPresent(), "'SHA-1' failed");
-        assertTrue(service.searchByLength(56).isPresent(), "'SHA-224' failed");
-        assertTrue(service.searchByLength(64).isPresent(), "'SHA-256' failed");
-        assertTrue(service.searchByLength(96).isPresent(), "'SHA-384' failed");
-        assertTrue(service.searchByLength(128).isPresent(), "'SHA-512' failed");
-    }
-
-
-    @Test
-    void searchByName_returnEmptyOptionalWhenNameIsNotFound() {
-        assertTrue(service.searchByName("").isEmpty(), "'Not found' failed");
-        assertTrue(service.searchByName(null).isEmpty(), "'Null' failed");
-    }
-
-    @Test
-    void searchByName_returnFilledOptionalWhenNameIsFound() {
-        assertTrue(service.searchByName("md5").isPresent(), "'MD5' failed");
-        assertTrue(service.searchByName("SHA1").isPresent(), "'SHA-1' failed");
-        assertTrue(service.searchByName("SHA-224").isPresent(), "'SHA-224' failed");
-        assertTrue(service.searchByName("SHA-256").isPresent(), "'SHA-256' failed");
-        assertTrue(service.searchByName("SHA-384").isPresent(), "'SHA-384' failed");
-        assertTrue(service.searchByName("SHA----512").isPresent(), "'SHA-512' failed");
+    private static List<Arguments> getResultTestsStringHasValidLength() {
+        return List.of(
+                Arguments.of(false, null),
+                Arguments.of(false, ""),
+                Arguments.of(true, "11111111111111111111111111111111")
+        );
     }
 
 
-    @Test
-    void stringHasValidLength_returnFalseWhenStringHasNotValidLength() {
-        assertFalse(service.stringHasValidLength(""), "'MD5' failed");
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsArrayAlgorithmList")
+    void convertToAlgorithmList(int size, String[] algorithms) {
+        assertEquals(size, service.convertToAlgorithmList(algorithms).size());
     }
 
-    @Test
-    void stringHasValidLength_returnFalseWhenStringIsNull() {
-        assertFalse(service.stringHasValidLength(null), "'MD5' failed");
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsListAlgorithmList")
+    void convertToAlgorithmList(int size, List<String> algorithms) {
+        assertEquals(size, service.convertToAlgorithmList(algorithms).size());
     }
 
-    @Test
-    void stringHasValidLength_returnTrueWhenStringHasValidLength() {
-        assertTrue(service.stringHasValidLength("11111111111111111111111111111111"), "'MD5' failed");
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsGetByLength")
+    void getByLength(HashAlgorithm result, int length) {
+        assertEquals(result, service.getByLength(length));
+    }
+
+    @ParameterizedTest
+    @MethodSource(value = "getExceptionTestsGetByLength")
+    void getByLength(Class<? extends Throwable> result, int length) {
+        assertThrows(result, () -> service.getByLength(length));
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsGetByName")
+    void getByName(HashAlgorithm result, String name) {
+        assertEquals(result, service.getByName(name));
+    }
+
+    @ParameterizedTest
+    @MethodSource(value = "getExceptionTestsGetByName")
+    void getByName(Class<? extends Throwable> result, String name) {
+        assertThrows(result, () -> service.getByName(name));
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsSearchByLength")
+    void searchByLength(boolean result, int length) {
+        assertEquals(result, service.searchByLength(length).isPresent());
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsSearchByName")
+    void searchByName(boolean result, String name) {
+        assertEquals(result, service.searchByName(name).isPresent());
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getResultTestsStringHasValidLength")
+    void stringHasValidLength(boolean result, String string) {
+        assertEquals(result, service.stringHasValidLength(string));
     }
 }
