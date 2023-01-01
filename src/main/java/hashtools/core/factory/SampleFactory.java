@@ -31,6 +31,12 @@ public class SampleFactory {
     }
 
     public List<Sample> createSamples(Path officialFile) {
+        if (officialFile == null)
+            throw new IllegalArgumentException("Official file cannot be null");
+
+        if (Files.notExists(officialFile))
+            throw new IllegalArgumentException("Official file does not exists");
+
         AlgorithmFactory factory = new AlgorithmFactory();
         List<String>     lines   = new ArrayList<>();
 
