@@ -37,10 +37,10 @@ public class CheckerCLISampleContainerConsumer implements SampleContainerConsume
                            String ls = System.lineSeparator();
 
                            String content = ls +
-                                            algorithm + s.getAlgorithm().getName() + ls +
+                                            algorithm + s.getAlgorithm() + ls +
                                             official + s.getOfficialHash() + ls +
                                             calculated + s.getCalculatedHash() + ls +
-                                            result + s.getResult().getText() + ls;
+                                            result + s.hashesMatches() + ls;
 
                            joiner.add(content);
                        });
