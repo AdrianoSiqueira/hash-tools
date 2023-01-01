@@ -15,6 +15,8 @@ public class SampleFactory {
 
     public List<Sample> createSamples(List<String> algorithms) {
         return algorithms.stream()
+                         .filter(Objects::nonNull)
+                         .filter(algorithm -> !algorithm.isBlank())
                          .map(algorithm -> {
                              Sample sample = new Sample();
                              sample.setAlgorithm(algorithm);
