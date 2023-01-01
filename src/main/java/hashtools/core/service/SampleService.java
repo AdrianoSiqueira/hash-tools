@@ -18,7 +18,7 @@ public class SampleService {
         return Optional.ofNullable(algorithm)
                        .map(a -> {
                            Sample sample = new Sample();
-                           sample.setAlgorithm(a);
+                           sample.setAlgorithm(a.getName());
                            return sample;
                        });
     }
@@ -39,7 +39,7 @@ public class SampleService {
 
     private Sample createFromAlgorithmAndOfficialHash(HashAlgorithm algorithm, String hash) {
         Sample sample = new Sample();
-        sample.setAlgorithm(algorithm);
+        sample.setAlgorithm(algorithm.getName());
         sample.setOfficialHash(hash);
 
         return sample;
