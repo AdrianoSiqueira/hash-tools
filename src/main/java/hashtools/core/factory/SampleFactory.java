@@ -1,6 +1,7 @@
 package hashtools.core.factory;
 
 import hashtools.core.model.Sample;
+import hashtools.core.service.AlgorithmService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,9 +15,10 @@ import java.util.stream.Stream;
 public class SampleFactory {
 
     public List<Sample> createSamples(List<String> algorithms) {
+        AlgorithmService service = new AlgorithmService();
+
         return algorithms.stream()
-                         .filter(Objects::nonNull)
-                         .filter(algorithm -> !algorithm.isBlank())
+                         .filter(service::algorithmIsValid)
                          .map(algorithm -> {
                              Sample sample = new Sample();
                              sample.setAlgorithm(algorithm);
