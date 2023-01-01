@@ -25,7 +25,7 @@ public class Runner implements Runnable {
 
     private Sample analyse(ResultService resultService, Sample sample) {
         Result result = resultService.calculateResult(sample);
-        sample.setResult(result);
+//        sample.setResult(result);
         return sample;
     }
 
@@ -45,7 +45,8 @@ public class Runner implements Runnable {
     }
 
     private Sample setInputData(String inputData, Sample sample) {
-        sample.setInputData(inputData);
+//        sample.setInputData(inputData);
+        sample.setInputText(inputData);
         return sample;
     }
 
