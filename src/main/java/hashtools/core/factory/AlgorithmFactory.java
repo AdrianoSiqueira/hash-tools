@@ -22,7 +22,7 @@ public class AlgorithmFactory {
     }
 
     public String getAlgorithm(String name) {
-        switch (name.replaceAll("[^a-zA-Z0-9]", "")) {
+        switch (name.replaceAll("[^a-zA-Z0-9]", "").toLowerCase()) {
             case "md5":
                 return "MD5";
             case "sha1":
