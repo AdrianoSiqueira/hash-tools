@@ -4,7 +4,8 @@ import java.nio.file.Path;
 
 public class Sample {
 
-    private Object input;
+    private Object  input;
+    private boolean usingInputText;
 
     private String algorithm;
     private String officialHash;
@@ -19,14 +20,14 @@ public class Sample {
     }
 
     public Path getInputFile() {
-        if (!(input instanceof Path))
+        if (usingInputText)
             throw new ClassCastException("Cannot cast input object to path");
 
         return ((Path) input);
     }
 
     public String getInputText() {
-        if (!(input instanceof String))
+        if (!usingInputText)
             throw new ClassCastException("Cannot cast input object to string");
 
         return ((String) input);
@@ -43,6 +44,10 @@ public class Sample {
         return officialHash.equalsIgnoreCase(calculatedHash);
     }
 
+    public boolean isUsingInputText() {
+        return usingInputText;
+    }
+
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
     }
@@ -52,11 +57,13 @@ public class Sample {
     }
 
     public void setInputFile(Path file) {
-        this.input = file;
+        this.input          = file;
+        this.usingInputText = false;
     }
 
     public void setInputText(String text) {
-        this.input = text;
+        this.input          = text;
+        this.usingInputText = true;
     }
 
     public void setOfficialHash(String officialHash) {
