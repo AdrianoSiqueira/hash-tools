@@ -5,8 +5,10 @@ import hashtools.core.model.FileExtension;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@Deprecated
 public class FileExtensionService {
 
+    @Deprecated
     public boolean extensionIsValid(String extension, FileExtension fileExtension) {
         if (fileExtension == null)
             throw new NullPointerException("fileExtension cannot be null");
