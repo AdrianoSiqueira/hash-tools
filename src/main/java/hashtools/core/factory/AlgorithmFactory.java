@@ -17,7 +17,7 @@ public class AlgorithmFactory {
             case 128:
                 return "SHA-512";
             default:
-                throw new IllegalArgumentException("The given size does not fit any algorithm");
+                throw new IllegalArgumentException("The given size does not fit any algorithm: '" + size + "'");
         }
     }
 }
