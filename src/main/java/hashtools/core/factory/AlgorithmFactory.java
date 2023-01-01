@@ -22,6 +22,9 @@ public class AlgorithmFactory {
     }
 
     public String getAlgorithm(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("The name cannot be null");
+
         switch (name.replaceAll("[^a-zA-Z0-9]", "").toLowerCase()) {
             case "md5":
                 return "MD5";
