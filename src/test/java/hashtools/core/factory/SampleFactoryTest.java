@@ -54,7 +54,7 @@ class SampleFactoryTest {
         return List.of(
                 Arguments.of(List.of(), 0),
                 Arguments.of(List.of(""), 0),
-                Arguments.of(List.of("", "MD5", "SHA-1", "HSA-224"), 3)
+                Arguments.of(List.of("", "MD5", "SHA-1", "SHA-224"), 3)
         );
     }
 
