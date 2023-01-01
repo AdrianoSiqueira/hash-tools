@@ -15,6 +15,9 @@ import java.util.stream.Stream;
 public class SampleFactory {
 
     public List<Sample> createSamples(List<String> algorithms) {
+        if (algorithms == null)
+            throw new IllegalArgumentException("Algorithm list cannot be null");
+
         AlgorithmService service = new AlgorithmService();
 
         return algorithms.stream()
@@ -58,7 +61,7 @@ public class SampleFactory {
 
     public List<Sample> createSamples(String officialHash) {
         if (officialHash == null)
-            throw new NullPointerException("Official hash cannot be null");
+            throw new IllegalArgumentException("Official hash cannot be null");
 
         try {
             AlgorithmFactory factory   = new AlgorithmFactory();
