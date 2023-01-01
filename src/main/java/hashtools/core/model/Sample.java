@@ -36,6 +36,13 @@ public class Sample {
         return officialHash;
     }
 
+    public boolean hashesMatches() {
+        if (officialHash == null) return false;
+        if (calculatedHash == null) return false;
+
+        return officialHash.equalsIgnoreCase(calculatedHash);
+    }
+
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
     }
