@@ -16,17 +16,17 @@ class AlgorithmFactoryTest {
 
     private static List<Arguments> getExceptionNameTests() {
         return List.of(
-                Arguments.of(null, IllegalAccessException.class),
-                Arguments.of("", IllegalAccessException.class),
-                Arguments.of("not found", IllegalAccessException.class)
+                Arguments.of(null, IllegalArgumentException.class),
+                Arguments.of("", IllegalArgumentException.class),
+                Arguments.of("not found", IllegalArgumentException.class)
         );
     }
 
     private static List<Arguments> getExceptionSizeTests() {
         return List.of(
-                Arguments.of(-1, IllegalAccessException.class),
-                Arguments.of(0, IllegalAccessException.class),
-                Arguments.of(1, IllegalAccessException.class)
+                Arguments.of(-1, IllegalArgumentException.class),
+                Arguments.of(0, IllegalArgumentException.class),
+                Arguments.of(1, IllegalArgumentException.class)
         );
     }
 
