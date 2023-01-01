@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 public class SampleService {
 
+    @Deprecated
     public Optional<Sample> createSampleFromAlgorithm(HashAlgorithm algorithm) {
         return Optional.ofNullable(algorithm)
                        .map(a -> {
@@ -23,12 +24,14 @@ public class SampleService {
                        });
     }
 
+    @Deprecated
     public List<Sample> createSampleList(String officialData) {
         return new FileService().stringIsFilePath(officialData)
                ? createList(Path.of(officialData))
                : createList(officialData);
     }
 
+    @Deprecated
     public List<Sample> createSampleList(List<HashAlgorithm> algorithms) {
         return algorithms.stream()
                          .map(this::createSampleFromAlgorithm)
