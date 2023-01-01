@@ -55,6 +55,9 @@ public class SampleFactory {
     }
 
     public List<Sample> createSamples(String officialHash) {
+        if (officialHash == null)
+            throw new NullPointerException("Official hash cannot be null");
+
         try {
             AlgorithmFactory factory   = new AlgorithmFactory();
             String           algorithm = factory.getAlgorithm(officialHash.length());
@@ -64,7 +67,7 @@ public class SampleFactory {
             sample.setOfficialHash(officialHash);
 
             return List.of(sample);
-        } catch (NullPointerException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return List.of();
         }
