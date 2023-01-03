@@ -11,8 +11,8 @@ public class ResultService {
         if (samples.isEmpty()) return 0.0;
 
         return samples.stream()
-                      .map(Sample::getResult)
-                      .filter(result -> result == Result.SAFE)
+                      .map(Sample::hashesMatches)
+                      .filter(result -> result)
                       .count()
                * 100.0 / samples.size();
     }

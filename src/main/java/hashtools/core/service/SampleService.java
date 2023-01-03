@@ -14,21 +14,24 @@ import java.util.stream.Stream;
 
 public class SampleService {
 
+    @Deprecated
     public Optional<Sample> createSampleFromAlgorithm(HashAlgorithm algorithm) {
         return Optional.ofNullable(algorithm)
                        .map(a -> {
                            Sample sample = new Sample();
-                           sample.setAlgorithm(a);
+                           sample.setAlgorithm(a.getName());
                            return sample;
                        });
     }
 
+    @Deprecated
     public List<Sample> createSampleList(String officialData) {
         return new FileService().stringIsFilePath(officialData)
                ? createList(Path.of(officialData))
                : createList(officialData);
     }
 
+    @Deprecated
     public List<Sample> createSampleList(List<HashAlgorithm> algorithms) {
         return algorithms.stream()
                          .map(this::createSampleFromAlgorithm)
@@ -39,7 +42,7 @@ public class SampleService {
 
     private Sample createFromAlgorithmAndOfficialHash(HashAlgorithm algorithm, String hash) {
         Sample sample = new Sample();
-        sample.setAlgorithm(algorithm);
+        sample.setAlgorithm(algorithm.getName());
         sample.setOfficialHash(hash);
 
         return sample;

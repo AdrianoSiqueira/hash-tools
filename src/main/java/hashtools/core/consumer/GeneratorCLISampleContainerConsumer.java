@@ -2,18 +2,8 @@ package hashtools.core.consumer;
 
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleContainer;
-import hashtools.core.service.FileService;
-
-import java.nio.file.Path;
 
 public class GeneratorCLISampleContainerConsumer implements SampleContainerConsumer {
-
-    private String getFileName(Sample sample) {
-        return new FileService().stringIsFilePath(sample.getInputData())
-               ? Path.of(sample.getInputData()).getFileName().toString()
-               : sample.getInputData();
-    }
-
 
     @Override
     public void accept(SampleContainer sampleContainer) {
@@ -32,5 +22,11 @@ public class GeneratorCLISampleContainerConsumer implements SampleContainerConsu
                                                  .append(System.lineSeparator()));
 
         return builder.toString();
+    }
+
+    private String getFileName(Sample sample) {
+        return sample.isUsingInputText()
+               ? sample.getInputText()
+               : sample.getInputFile().getFileName().toString();
     }
 }

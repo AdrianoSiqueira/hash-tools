@@ -10,6 +10,20 @@ import java.util.List;
 
 public class FileService {
 
+    public boolean isHashExtension(String extension) {
+        switch (extension) {
+            case "md5":
+            case "sha1":
+            case "sha224":
+            case "sha256":
+            case "sha384":
+            case "sha512":
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
         String fileName   = path.getFileName().toString();
         int    indexOfDot = fileName.lastIndexOf(".");
