@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>adriano.siqueira</groupId>
-    <artifactId>HashTools</artifactId>
+    <artifactId>hash-tools</artifactId>
     <version>2.0.0</version>
 
     <properties>
@@ -65,7 +65,7 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <noManPages>true</noManPages>
                     <stripDebug>true</stripDebug>
-                    <mainClass>HashTools/hashtools.main.Main</mainClass>
+                    <mainClass>hash.tools/hashtools.main.Main</mainClass>
                     <launcher>hashtools-launcher</launcher>
                     <jlinkImageName>${project.build.finalName}</jlinkImageName>
                 </configuration>

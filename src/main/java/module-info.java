@@ -1,4 +1,4 @@
-module HashTools {
+module hash.tools {
     requires static lombok;
 
     requires javafx.fxml;
