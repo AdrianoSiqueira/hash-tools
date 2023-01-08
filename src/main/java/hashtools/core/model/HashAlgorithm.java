@@ -1,5 +1,6 @@
 package hashtools.core.model;
 
+@Deprecated
 public enum HashAlgorithm {
 
     MD5("MD5", 32),

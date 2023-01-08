@@ -3,6 +3,7 @@ package hashtools.core.consumer;
 import hashtools.core.model.Sample;
 import hashtools.core.model.SampleContainer;
 
+@Deprecated
 public class GeneratorCLISampleContainerConsumer implements SampleContainerConsumer {
 
     @Override

@@ -3,6 +3,7 @@ package hashtools.core.model;
 import hashtools.core.language.LanguageManager;
 import lombok.RequiredArgsConstructor;
 
+@Deprecated
 @RequiredArgsConstructor
 public enum Result {
 
