@@ -2,6 +2,7 @@ package hashtools.core.model;
 
 import java.nio.file.Path;
 
+@Deprecated
 public class Sample {
 
     private Object  input;
