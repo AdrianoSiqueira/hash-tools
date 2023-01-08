@@ -6,6 +6,7 @@ import hashtools.core.model.SampleContainer;
 
 import java.util.StringJoiner;
 
+@Deprecated
 public class CheckerCLISampleContainerConsumer implements SampleContainerConsumer {
 
     @Override
