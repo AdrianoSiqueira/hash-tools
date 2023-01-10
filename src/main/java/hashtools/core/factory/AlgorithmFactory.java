@@ -17,13 +17,13 @@ public class AlgorithmFactory {
             case 128:
                 return "SHA-512";
             default:
-                throw new IllegalArgumentException("The given size does not fit any algorithm: '" + size + "'");
+                return null;
         }
     }
 
     public String getAlgorithm(String name) {
         if (name == null)
-            throw new IllegalArgumentException("The name cannot be null");
+            return null;
 
         switch (name.replaceAll("[^a-zA-Z0-9]", "").toLowerCase()) {
             case "md5":
@@ -39,7 +39,7 @@ public class AlgorithmFactory {
             case "sha512":
                 return "SHA-512";
             default:
-                throw new IllegalArgumentException("The given name does not fit any algorithm: '" + name + "'");
+                return null;
         }
     }
 }
