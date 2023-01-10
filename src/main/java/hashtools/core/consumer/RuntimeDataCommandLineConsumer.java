@@ -3,7 +3,7 @@ package hashtools.core.consumer;
 import hashtools.core.factory.RuntimeDataFormatterFactory;
 import hashtools.core.model.RuntimeData;
 
-public class CommandLineConsumer implements RuntimeDataConsumer {
+public class RuntimeDataCommandLineConsumer implements RuntimeDataConsumer {
 
     @Override
     public void consume(RuntimeData runtimeData) {
