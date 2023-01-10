@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-public class FileConsumer implements RuntimeDataConsumer {
+public class RuntimeDataFileConsumer implements RuntimeDataConsumer {
 
     @Override
     public void consume(RuntimeData runtimeData) {
