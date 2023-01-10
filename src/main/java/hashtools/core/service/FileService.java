@@ -1,8 +1,8 @@
 package hashtools.core.service;
 
 import hashtools.core.model.FileExtension;
-import lombok.SneakyThrows;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
@@ -45,8 +45,11 @@ public class FileService {
                Files.isRegularFile(Path.of(string));
     }
 
-    @SneakyThrows
-    public void write(String content, Path path, OpenOption... openOptions) {
-        Files.writeString(path, content, openOptions);
+    public void write(String content, Path destination, OpenOption... openOptions) {
+        try {
+            Files.writeString(destination, content, openOptions);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
