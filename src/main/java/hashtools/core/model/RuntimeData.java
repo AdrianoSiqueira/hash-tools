@@ -1,12 +1,5 @@
 package hashtools.core.model;
 
-import hashtools.core.consumer.CommandLineConsumer;
-import hashtools.core.consumer.FileConsumer;
-import hashtools.core.consumer.RuntimeDataConsumer;
-import hashtools.core.formatter.Formatter;
-import hashtools.core.formatter.RuntimeDataCheckFormatter;
-import hashtools.core.formatter.RuntimeDataGenerateFormatter;
-
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +9,7 @@ import java.util.stream.Stream;
 
 public class RuntimeData {
 
+    private boolean checking;
     private boolean usingInputFile;
     private boolean usingOfficialFile;
     private boolean usingOutputFile;
@@ -29,10 +23,8 @@ public class RuntimeData {
 
     private Map<String, Hash> hashes;
 
-    private RuntimeDataConsumer    consumer;
-    private Formatter<RuntimeData> formatter;
-
     private RuntimeData(
+            boolean checking,
             boolean usingInputFile,
             boolean usingOfficialFile,
             boolean usingOutputFile,
@@ -41,10 +33,9 @@ public class RuntimeData {
             Path inputFile,
             Path officialFile,
             Path outputFile,
-            Map<String, Hash> hashes,
-            RuntimeDataConsumer consumer,
-            Formatter<RuntimeData> formatter
+            Map<String, Hash> hashes
     ) {
+        this.checking          = checking;
         this.usingInputFile    = usingInputFile;
         this.usingOfficialFile = usingOfficialFile;
         this.usingOutputFile   = usingOutputFile;
@@ -54,20 +45,10 @@ public class RuntimeData {
         this.officialFile      = officialFile;
         this.outputFile        = outputFile;
         this.hashes            = hashes;
-        this.consumer          = consumer;
-        this.formatter         = formatter;
     }
 
     public static Builder newBuilder() {
         return new Builder();
-    }
-
-    public final void consume() {
-        consumer.consume(this);
-    }
-
-    public final String format() {
-        return formatter.format(this);
     }
 
     public Map<String, Hash> getHashes() {
@@ -103,6 +84,10 @@ public class RuntimeData {
         return hashes.size() != 0
                ? safeHashes.size() * 100.0 / hashes.size()
                : 0.0;
+    }
+
+    public boolean isChecking() {
+        return checking;
     }
 
     public boolean isUsingInputFile() {
@@ -149,6 +134,7 @@ public class RuntimeData {
 
     public static class Builder {
 
+        private boolean checking;
         private boolean usingInputFile;
         private boolean usingOfficialFile;
         private boolean usingOutputFile;
@@ -162,12 +148,8 @@ public class RuntimeData {
 
         private Map<String, Hash> hashes;
 
-        private RuntimeDataConsumer    consumer;
-        private Formatter<RuntimeData> formatter;
-
         private Builder() {
-            this.hashes   = new HashMap<>(6);
-            this.consumer = new CommandLineConsumer();
+            this.hashes = new HashMap<>(6);
         }
 
         public Builder algorithms(String... algorithms) {
@@ -177,12 +159,13 @@ public class RuntimeData {
         }
 
         public Builder checking() {
-            this.formatter = new RuntimeDataCheckFormatter();
+            this.checking = true;
             return this;
         }
 
         public RuntimeData createRuntimeData() {
             return new RuntimeData(
+                    checking,
                     usingInputFile,
                     usingOfficialFile,
                     usingOutputFile,
@@ -191,14 +174,12 @@ public class RuntimeData {
                     inputFile,
                     officialFile,
                     outputFile,
-                    hashes,
-                    consumer,
-                    formatter
+                    hashes
             );
         }
 
         public Builder generating() {
-            this.formatter = new RuntimeDataGenerateFormatter();
+            this.checking = false;
             return this;
         }
 
@@ -229,7 +210,6 @@ public class RuntimeData {
         public Builder outputFile(Path outputFile) {
             this.outputFile      = outputFile;
             this.usingOutputFile = true;
-            this.consumer        = new FileConsumer();
             return this;
         }
     }

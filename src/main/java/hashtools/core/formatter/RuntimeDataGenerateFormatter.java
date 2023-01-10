@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-public class RuntimeDataGenerateFormatter implements Formatter<RuntimeData> {
+public class RuntimeDataGenerateFormatter implements RuntimeDataFormatter {
 
     @Override
     public String format(RuntimeData runtimeData) {

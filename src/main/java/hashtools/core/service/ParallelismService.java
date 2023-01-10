@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Deprecated
 @Getter
 public enum ParallelismService {
 

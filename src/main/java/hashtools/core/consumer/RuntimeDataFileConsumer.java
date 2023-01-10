@@ -1,5 +1,6 @@
 package hashtools.core.consumer;
 
+import hashtools.core.factory.RuntimeDataFormatterFactory;
 import hashtools.core.model.RuntimeData;
 
 import java.io.IOException;
@@ -7,11 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-public class FileConsumer implements RuntimeDataConsumer {
+public class RuntimeDataFileConsumer implements RuntimeDataConsumer {
 
     @Override
     public void consume(RuntimeData runtimeData) {
-        String content = runtimeData.format();
+        String content = new RuntimeDataFormatterFactory()
+                .getFormatter(runtimeData.isChecking())
+                .format(runtimeData);
 
         writeFile(content, runtimeData.getOutputFile());
     }

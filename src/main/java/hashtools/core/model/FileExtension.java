@@ -2,9 +2,7 @@ package hashtools.core.model;
 
 import hashtools.core.language.LanguageManager;
 import javafx.stage.FileChooser;
-import lombok.Getter;
 
-@Getter
 public enum FileExtension {
 
     ALL("All", "*"),
@@ -17,11 +15,21 @@ public enum FileExtension {
 
     FileExtension(String description, String... extensions) {
         this.description = description;
-        this.extensions = extensions;
+        this.extensions  = extensions;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String[] getExtensions() {
+        return extensions;
+    }
 
     public FileChooser.ExtensionFilter getFilter() {
-        return new FileChooser.ExtensionFilter(LanguageManager.get(description), extensions);
+        return new FileChooser.ExtensionFilter(
+                LanguageManager.get(description),
+                extensions
+        );
     }
 }
