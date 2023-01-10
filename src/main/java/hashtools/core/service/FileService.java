@@ -18,6 +18,7 @@ public class FileService {
             case "sha256":
             case "sha384":
             case "sha512":
+            case "txt":
                 return true;
             default:
                 return false;
