@@ -5,6 +5,7 @@ import hashtools.core.model.Sample;
 
 import java.util.List;
 
+@Deprecated
 public class ResultService {
 
     public double calculateReliabilityPercentage(List<Sample> samples) {
