@@ -12,8 +12,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Deprecated
 public class SampleFactory {
 
+    @Deprecated
     public List<Sample> createSamples(List<String> algorithms) {
         if (algorithms == null)
             throw new IllegalArgumentException("Algorithm list cannot be null");
@@ -30,6 +32,7 @@ public class SampleFactory {
                          .collect(Collectors.toList());
     }
 
+    @Deprecated
     public List<Sample> createSamples(Path officialFile) {
         if (officialFile == null)
             throw new IllegalArgumentException("Official file cannot be null");
@@ -65,6 +68,7 @@ public class SampleFactory {
                     .collect(Collectors.toList());
     }
 
+    @Deprecated
     public List<Sample> createSamples(String officialHash) {
         if (officialHash == null)
             throw new IllegalArgumentException("Official hash cannot be null");
