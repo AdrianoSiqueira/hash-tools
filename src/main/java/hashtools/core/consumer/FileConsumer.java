@@ -1,7 +1,5 @@
 package hashtools.core.consumer;
 
-import hashtools.core.formatter.Formatter;
-import hashtools.core.formatter.RuntimeDataFormatter;
 import hashtools.core.model.RuntimeData;
 
 import java.io.IOException;
@@ -13,8 +11,7 @@ public class FileConsumer implements RuntimeDataConsumer {
 
     @Override
     public void consume(RuntimeData runtimeData) {
-        Formatter<RuntimeData> formatter = new RuntimeDataFormatter();
-        String                 content   = formatter.format(runtimeData);
+        String content = runtimeData.format();
 
         writeFile(content, runtimeData.getOutputFile());
     }

@@ -3,6 +3,9 @@ package hashtools.core.model;
 import hashtools.core.consumer.CommandLineConsumer;
 import hashtools.core.consumer.FileConsumer;
 import hashtools.core.consumer.RuntimeDataConsumer;
+import hashtools.core.formatter.Formatter;
+import hashtools.core.formatter.RuntimeDataCheckFormatter;
+import hashtools.core.formatter.RuntimeDataGenerateFormatter;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -13,7 +16,6 @@ import java.util.stream.Stream;
 
 public class RuntimeData {
 
-    private boolean checking;
     private boolean usingInputFile;
     private boolean usingOfficialFile;
     private boolean usingOutputFile;
@@ -25,11 +27,12 @@ public class RuntimeData {
     private Path officialFile;
     private Path outputFile;
 
-    private Map<String, Hash>   hashes;
-    private RuntimeDataConsumer consumer;
+    private Map<String, Hash> hashes;
+
+    private RuntimeDataConsumer    consumer;
+    private Formatter<RuntimeData> formatter;
 
     private RuntimeData(
-            boolean checking,
             boolean usingInputFile,
             boolean usingOfficialFile,
             boolean usingOutputFile,
@@ -39,9 +42,9 @@ public class RuntimeData {
             Path officialFile,
             Path outputFile,
             Map<String, Hash> hashes,
-            RuntimeDataConsumer consumer
+            RuntimeDataConsumer consumer,
+            Formatter<RuntimeData> formatter
     ) {
-        this.checking          = checking;
         this.usingInputFile    = usingInputFile;
         this.usingOfficialFile = usingOfficialFile;
         this.usingOutputFile   = usingOutputFile;
@@ -52,14 +55,19 @@ public class RuntimeData {
         this.outputFile        = outputFile;
         this.hashes            = hashes;
         this.consumer          = consumer;
+        this.formatter         = formatter;
     }
 
     public static Builder newBuilder() {
         return new Builder();
     }
 
-    public void consume() {
+    public final void consume() {
         consumer.consume(this);
+    }
+
+    public final String format() {
+        return formatter.format(this);
     }
 
     public Map<String, Hash> getHashes() {
@@ -141,7 +149,6 @@ public class RuntimeData {
 
     public static class Builder {
 
-        private boolean checking;
         private boolean usingInputFile;
         private boolean usingOfficialFile;
         private boolean usingOutputFile;
@@ -153,8 +160,10 @@ public class RuntimeData {
         private Path officialFile;
         private Path outputFile;
 
-        private Map<String, Hash>   hashes;
-        private RuntimeDataConsumer consumer;
+        private Map<String, Hash> hashes;
+
+        private RuntimeDataConsumer    consumer;
+        private Formatter<RuntimeData> formatter;
 
         private Builder() {
             this.hashes   = new HashMap<>(6);
@@ -168,13 +177,12 @@ public class RuntimeData {
         }
 
         public Builder checking() {
-            this.checking = true;
+            this.formatter = new RuntimeDataCheckFormatter();
             return this;
         }
 
         public RuntimeData createRuntimeData() {
             return new RuntimeData(
-                    checking,
                     usingInputFile,
                     usingOfficialFile,
                     usingOutputFile,
@@ -184,11 +192,13 @@ public class RuntimeData {
                     officialFile,
                     outputFile,
                     hashes,
-                    consumer);
+                    consumer,
+                    formatter
+            );
         }
 
         public Builder generating() {
-            this.checking = false;
+            this.formatter = new RuntimeDataGenerateFormatter();
             return this;
         }
 
