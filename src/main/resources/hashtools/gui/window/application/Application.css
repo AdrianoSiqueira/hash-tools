@@ -8,54 +8,215 @@
     src             : url("../../font/Ubuntu-Bold.ttf");
 }
 
-
 * {
-    _COLOR_1          : #032D5F;
-    _COLOR_2          : #043875;
-    _COLOR_3          : #0752AD;
-    _FONT_COLOR       : #FFFFFF;
-    _LEFT_PANE_COLOR  : _COLOR_1;
-    _RIGHT_PANE_COLOR : #FFFFFF;
-    _SHADOW_COLOR     : #FFFFFF;
+    BACKGROUND_COLOR  : white;
+    COLOR_1           : #032D5F;
+    COLOR_1_DARK      : derive(COLOR_1, -50%);
+    COLOR_1_LIGHT     : derive(COLOR_1, 125%);
+    PROMPT_TEXT_COLOR : rgba(0, 0, 0, 0.5);
+    TEXT_COLOR        : black;
+    TEXT_COLOR_INVERT : white;
+}
+
+.pane-center {
+    -fx-background-color : BACKGROUND_COLOR;
 }
 
 
-.left-pane {
-    -fx-background-color : _LEFT_PANE_COLOR;
-    -fx-padding          : 0 0 0 20;
-    -fx-spacing          : 20;
-}
-
-.left-pane > .module-button {
-    -fx-alignment         : center-right;
-    -fx-background-color  : transparent;
-    -fx-background-insets : 0;
-    -fx-background-radius : 10 0 0 10;
-    -fx-cursor            : hand;
-    -fx-font-size         : 18;
-    -fx-padding           : 10 20 10 10;
-    -fx-pref-width        : 150;
-    -fx-text-fill         : _FONT_COLOR;
-}
-
-.left-pane > .module-button:hover {
-    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
-}
-
-.left-pane > .module-button-highlight {
-    -fx-background-color : radial-gradient(center 50% 50%, radius 50%, _COLOR_3, _COLOR_2);
-    -fx-effect           : dropshadow(gaussian, _SHADOW_COLOR, 10, 0, 0, 0);
+.pane-center .button {
+    -fx-background-color : COLOR_1;
+    -fx-cursor           : hand;
+    -fx-font-family      : "Ubuntu";
+    -fx-font-size        : 15px;
     -fx-font-weight      : bold;
+    -fx-text-fill        : TEXT_COLOR_INVERT;
 }
 
-.left-pane > .separator {
-    -fx-padding : 0 20 0 0;
+.pane-center .button:hover {
+    -fx-background-color : radial-gradient(center 50% 50%, radius 100%, COLOR_1_LIGHT, COLOR_1 50%);
 }
 
-.left-pane > .separator > .line {
-    -fx-border-color : _FONT_COLOR;
+.pane-center .button:armed {
+    -fx-background-color : linear-gradient(to bottom, COLOR_1 50%, COLOR_1_LIGHT);
 }
 
-.right-pane {
-    -fx-background-color : _RIGHT_PANE_COLOR;
+.pane-center .button:disabled {
+    -fx-background-color : COLOR_1_LIGHT;
+    -fx-opacity          : 1;
+}
+
+
+.pane-center .check-box .box {
+    -fx-background-color  : BACKGROUND_COLOR;
+    -fx-background-radius : 5;
+    -fx-border-color      : TEXT_COLOR;
+    -fx-border-radius     : 5;
+}
+
+.pane-center .check-box:hover .box {
+    -fx-background-color : COLOR_1_LIGHT;
+    -fx-border-color     : COLOR_1;
+}
+
+.pane-center .check-box:selected .box {
+    -fx-background-color  : COLOR_1;
+    -fx-background-insets : 4;
+    -fx-background-radius : 3;
+    -fx-border-color      : COLOR_1;
+}
+
+.pane-center .check-box:selected:hover .box {
+    -fx-background-color  : COLOR_1_LIGHT, COLOR_1;
+    -fx-background-insets : 0, 5;
+    -fx-background-radius : 5, 3;
+}
+
+.pane-center .check-box .box .mark {
+    -fx-background-color : transparent;
+}
+
+.pane-center .check-box .text {
+    -fx-fill        : TEXT_COLOR;
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+}
+
+
+.pane-center .label {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+    -fx-text-fill   : TEXT_COLOR;
+}
+
+
+.pane-center .pane-detail {
+    -fx-background-color : BACKGROUND_COLOR;
+}
+
+.pane-center .pane-detail .content {
+    -fx-background-color : BACKGROUND_COLOR;
+    -fx-border-color     : transparent;
+}
+
+.pane-center .pane-detail .text-area {
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+}
+
+.pane-center .pane-detail .title {
+    -fx-background-color : transparent;
+}
+
+.pane-center .pane-detail .title .arrow {
+    -fx-background-color  : TEXT_COLOR;
+    -fx-background-insets : 0;
+    -fx-effect            : none;
+}
+
+.pane-center .pane-detail .title .text {
+    -fx-fill        : TEXT_COLOR;
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+}
+
+
+.pane-center .progress-bar .bar {
+    -fx-background-color  : linear-gradient(to right, COLOR_1_DARK, COLOR_1, COLOR_1_DARK);
+    -fx-background-insets : 4;
+    -fx-background-radius : 100;
+}
+
+.pane-center .progress-bar .track {
+    -fx-background-color  : BACKGROUND_COLOR;
+    -fx-background-radius : 100;
+    -fx-border-color      : COLOR_1;
+    -fx-border-radius     : 100;
+}
+
+
+.pane-center .text-field {
+    -fx-background-color  : BACKGROUND_COLOR;
+    -fx-background-radius : 5;
+    -fx-border-color      : TEXT_COLOR;
+    -fx-border-radius     : 5;
+    -fx-font-family       : "Ubuntu";
+    -fx-prompt-text-fill  : PROMPT_TEXT_COLOR;
+    -fx-text-fill         : TEXT_COLOR;
+}
+
+.pane-center .text-field:focused {
+    -fx-background-color : COLOR_1_LIGHT;
+    -fx-border-color     : COLOR_1;
+}
+
+
+.pane-left {
+    -fx-background-color : COLOR_1;
+}
+
+
+.pane-left .button {
+    -fx-background-color  : transparent;
+    -fx-background-insets : -5 0;
+    -fx-background-radius : 10 0 0 10;
+    -fx-border-radius     : 10 0 0 10;
+    -fx-font-family       : "Ubuntu";
+    -fx-font-size         : 15px;
+    -fx-text-fill         : TEXT_COLOR_INVERT;
+}
+
+.pane-left .button:hover {
+    -fx-background-color : COLOR_1_DARK;
+}
+
+.pane-left .button-highlight {
+    -fx-background-color : COLOR_1_DARK;
+    -fx-effect           : dropshadow(gaussian, COLOR_1_LIGHT, 10, 0, 0.0, 0.0);
+    -fx-font-family      : "Ubuntu";
+    -fx-font-size        : 15px;
+}
+
+
+.pane-root .menu-bar {
+    -fx-background-color : COLOR_1_DARK;
+}
+
+.pane-root .menu-bar .context-menu {
+    -fx-background-color  : COLOR_1_LIGHT;
+    -fx-background-radius : 5;
+    -fx-border-color      : COLOR_1_DARK;
+    -fx-border-radius     : 5;
+    -fx-border-width      : 3;
+    -fx-padding           : 5;
+}
+
+.pane-root .menu-bar .menu .text {
+    -fx-fill        : TEXT_COLOR_INVERT;
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+}
+
+.pane-root .menu-bar .menu:hover,
+.pane-root .menu-bar .menu:showing {
+    -fx-background-color : COLOR_1_LIGHT;
+    -fx-text-fill        : TEXT_COLOR_INVERT;
+}
+
+.pane-root .menu-bar .menu-item {
+    -fx-background-color  : transparent;
+    -fx-background-radius : 5;
+}
+
+.pane-root .menu-bar .menu-item .text {
+    -fx-fill        : TEXT_COLOR;
+    -fx-font-family : "Ubuntu";
+    -fx-font-size   : 15px;
+}
+
+.pane-root .menu-bar .menu-item:hover {
+    -fx-background-color : COLOR_1;
+}
+
+.pane-root .menu-bar .menu-item:hover .text {
+    -fx-fill : TEXT_COLOR_INVERT;
 }
