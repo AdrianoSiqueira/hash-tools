@@ -3,6 +3,7 @@ package hashtools.gui.window.application;
 import hashtools.core.language.LanguageManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -20,6 +21,15 @@ import java.io.IOException;
  */
 public class ApplicationWindow extends Application {
 
+    @Override
+    public void start(Stage stage) throws IOException {
+        stage.getProperties().put("host.services", getHostServices());
+        stage.setTitle("HashTools");
+        stage.setScene(createScene());
+        stage.getIcons().add(loadAppIcon());
+        stage.show();
+    }
+
     /**
      * <p>
      * Creates the scene for this window.
@@ -35,21 +45,14 @@ public class ApplicationWindow extends Application {
                 LanguageManager.getBundle()
         );
 
-        return new Scene(loader.load());
+        Parent root = loader.load();
+        root.getStylesheets().add(getClass().getResource("Application.css").toString());
+
+        return new Scene(root);
     }
 
     @SuppressWarnings("ConstantConditions")
     private Image loadAppIcon() {
         return new Image(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"));
-    }
-
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        stage.getProperties().put("host.services", getHostServices());
-        stage.setTitle("HashTools");
-        stage.setScene(createScene());
-        stage.getIcons().add(loadAppIcon());
-        stage.show();
     }
 }
