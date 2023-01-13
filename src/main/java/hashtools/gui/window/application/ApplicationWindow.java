@@ -16,6 +16,7 @@ public class ApplicationWindow extends Application {
 
     @Override
     public void start(Stage stage) {
+        stage.getProperties().put("host.services", getHostServices());
         new ApplicationController().start(stage);
     }
 }
