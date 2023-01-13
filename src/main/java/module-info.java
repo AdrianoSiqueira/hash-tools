@@ -3,6 +3,7 @@ module hash.tools {
 
     requires javafx.fxml;
     requires javafx.controls;
+    requires org.slf4j;
 
     exports hashtools.gui.screen.about;
     exports hashtools.gui.screen.checker;
