@@ -1,19 +1,32 @@
 package hashtools.gui.window.application;
 
 import hashtools.core.language.LanguageManager;
-import javafx.event.ActionEvent;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
 /**
  * <p>
@@ -22,56 +35,116 @@ import java.util.ResourceBundle;
  *
  * @author Adriano Siqueira
  */
-public class ApplicationController implements Initializable {
+public class ApplicationController implements Controller {
 
-    @FXML private HBox      paneRoot;
-    @FXML private VBox      leftPane;
-    @FXML private StackPane rightPane;
+    private static final String FXML_PATH       = "Application.fxml";
+    private static final String STYLESHEET_PATH = "Application.css";
 
-    @FXML private Button buttonChecker;
-    @FXML private Button buttonGenerator;
-    @FXML private Button buttonHowToUse;
-    @FXML private Button buttonAbout;
+    private final String buttonHighlightStyleClass = "button-highlight";
 
+    @FXML private BorderPane paneRoot;
+    @FXML private VBox       paneLeft;
+    @FXML private HBox       paneProgress;
+    @FXML private GridPane   paneCenter;
+    @FXML private GridPane   paneAlgorithm;
+    @FXML private TitledPane paneDetail;
 
-    private void addUserDataToLeftPaneButtons() {
-        buttonChecker.setUserData(getClass().getResource("/hashtools/gui/screen/checker/Checker.fxml"));
-        buttonGenerator.setUserData(getClass().getResource("/hashtools/gui/screen/generator/Generator.fxml"));
-        buttonHowToUse.setUserData(getClass().getResource("/hashtools/gui/screen/manual/Manual.fxml"));
-        buttonAbout.setUserData(getClass().getResource("/hashtools/gui/screen/about/About.fxml"));
+    @FXML private MenuBar  menuBar;
+    @FXML private Menu     menuFile;
+    @FXML private Menu     menuHelp;
+    @FXML private MenuItem itemClose;
+    @FXML private MenuItem itemOnlineManual;
+    @FXML private MenuItem itemAbout;
+
+    @FXML private Button buttonCheck;
+    @FXML private Button buttonGenerate;
+    @FXML private Button buttonRun;
+    @FXML private Button buttonOpenInputFile;
+    @FXML private Button buttonOpenOfficialFile;
+
+    @FXML private Label labelInput;
+    @FXML private Label labelOfficial;
+    @FXML private Label labelAlgorithm;
+
+    @FXML private TextField fieldInput;
+    @FXML private TextField fieldOfficial;
+    @FXML private TextArea  areaDetail;
+
+    @FXML private CheckBox checkInputFile;
+    @FXML private CheckBox checkOfficialFile;
+    @FXML private CheckBox checkMd5;
+    @FXML private CheckBox checkSha1;
+    @FXML private CheckBox checkSha224;
+    @FXML private CheckBox checkSha256;
+    @FXML private CheckBox checkSha384;
+    @FXML private CheckBox checkSha512;
+
+    @FXML private ProgressBar progressBar;
+
+    private Stage  stage;
+    private Logger logger;
+
+    @Override
+    public void start(Stage stage) {
+        loadLoggingFeature();
+        loadFxml();
+        configureActions();
+
+        this.stage = stage;
+        stage.setScene(new Scene(paneRoot));
+        stage.show();
     }
 
-    private Node loadFromFxml(URL url) throws IOException {
-        return FXMLLoader.load(url, LanguageManager.getBundle());
+    private void close() {
+        stage.close();
     }
 
-    @FXML
-    private void openModuleScreen(ActionEvent event) {
-        if (!(event.getSource() instanceof Button)) return;
+    private void configureActions() {
+        itemAbout.setOnAction(e -> openAboutDialog());
+        itemClose.setOnAction(e -> close());
+        itemOnlineManual.setOnAction(e -> openOnlineManual());
+    }
 
-        Button button = (Button) event.getSource();
+    private void enableCheckMode() {
+        buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
+        buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
+    }
+
+    private void enableGenerateMode() {
+        buttonCheck.getStyleClass().remove(buttonHighlightStyleClass);
+        buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
+    }
+
+    private void loadFxml() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXML_PATH));
+        loader.setController(this);
+        loader.setResources(LanguageManager.getBundle());
 
         try {
-            Node node = loadFromFxml((URL) button.getUserData());
-            rightPane.getChildren().setAll(node);
+            Parent root = loader.load();
+
+            loadStylesheet().ifPresent(root.getStylesheets()::add);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        String styleClass = "module-button-highlight";
-        removeStyleClassFromLeftPane(styleClass);
-        button.getStyleClass().add(styleClass);
     }
 
-    private void removeStyleClassFromLeftPane(String styleClass) {
-        leftPane.getChildren()
-                .forEach(n -> n.getStyleClass().remove(styleClass));
+    private void loadLoggingFeature() {
+        logger = LoggerFactory.getLogger(getClass());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        addUserDataToLeftPaneButtons();
+    private Optional<String> loadStylesheet() {
+        return Optional.ofNullable(getClass().getResource(STYLESHEET_PATH))
+                       .map(URL::toString);
+    }
 
-        buttonChecker.fire();
+    private void openAboutDialog() {
+        logger.info("In the future the about dialog will open.");
+    }
+
+    private void openOnlineManual() {
+        HostServices hostServices = (HostServices) stage.getProperties().get("host.services");
+        hostServices.showDocument("https://github.com/AdrianoSiqueira/hash-tools/wiki");
     }
 }
