@@ -1,6 +1,7 @@
 package hashtools.gui.window.application;
 
 import hashtools.core.language.LanguageManager;
+import hashtools.core.service.WebService;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,9 +85,10 @@ public class ApplicationController implements Controller {
 
     @FXML private ProgressBar progressBar;
 
-    private Stage        stage;
-    private HostServices hostServices;
-    private Logger       logger;
+    private Stage  stage;
+    private Logger logger;
+
+    private WebService webService;
 
     @Override
     public void start(Stage stage) {
@@ -95,7 +97,7 @@ public class ApplicationController implements Controller {
         configureActions();
 
         configureStage(stage);
-        configureHostServices();
+        configureWebService();
     }
 
     private void close() {
@@ -108,14 +110,14 @@ public class ApplicationController implements Controller {
         itemOnlineManual.setOnAction(e -> openOnlineManual());
     }
 
-    private void configureHostServices() {
-        this.hostServices = (HostServices) stage.getProperties().get("host.services");
-    }
-
     private void configureStage(Stage stage) {
         this.stage = stage;
         stage.setScene(new Scene(paneRoot));
         stage.show();
+    }
+
+    private void configureWebService() {
+        this.webService = new WebService((HostServices) stage.getProperties().get("host.services"));
     }
 
     private void enableCheckMode() {
@@ -157,6 +159,6 @@ public class ApplicationController implements Controller {
     }
 
     private void openOnlineManual() {
-        hostServices.showDocument("https://github.com/AdrianoSiqueira/hash-tools/wiki");
+        webService.openWebPage("https://github.com/AdrianoSiqueira/hash-tools/wiki");
     }
 }
