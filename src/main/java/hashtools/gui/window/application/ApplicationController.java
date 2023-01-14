@@ -84,8 +84,9 @@ public class ApplicationController implements Controller {
 
     @FXML private ProgressBar progressBar;
 
-    private Stage  stage;
-    private Logger logger;
+    private Stage        stage;
+    private HostServices hostServices;
+    private Logger       logger;
 
     @Override
     public void start(Stage stage) {
@@ -94,12 +95,7 @@ public class ApplicationController implements Controller {
         configureActions();
 
         configureStage(stage);
-    }
-
-    private void configureStage(Stage stage) {
-        this.stage = stage;
-        stage.setScene(new Scene(paneRoot));
-        stage.show();
+        configureHostServices();
     }
 
     private void close() {
@@ -110,6 +106,16 @@ public class ApplicationController implements Controller {
         itemAbout.setOnAction(e -> openAboutDialog());
         itemClose.setOnAction(e -> close());
         itemOnlineManual.setOnAction(e -> openOnlineManual());
+    }
+
+    private void configureHostServices() {
+        this.hostServices = (HostServices) stage.getProperties().get("host.services");
+    }
+
+    private void configureStage(Stage stage) {
+        this.stage = stage;
+        stage.setScene(new Scene(paneRoot));
+        stage.show();
     }
 
     private void enableCheckMode() {
@@ -151,7 +157,6 @@ public class ApplicationController implements Controller {
     }
 
     private void openOnlineManual() {
-        HostServices hostServices = (HostServices) stage.getProperties().get("host.services");
         hostServices.showDocument("https://github.com/AdrianoSiqueira/hash-tools/wiki");
     }
 }
