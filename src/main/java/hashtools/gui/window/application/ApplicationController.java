@@ -61,13 +61,16 @@ public class ApplicationController implements Controller {
     @FXML private Button buttonRun;
     @FXML private Button buttonOpenInputFile;
     @FXML private Button buttonOpenOfficialFile;
+    @FXML private Button buttonOpenOutputFile;
 
     @FXML private Label labelInput;
     @FXML private Label labelOfficial;
+    @FXML private Label labelOutput;
     @FXML private Label labelAlgorithm;
 
     @FXML private TextField fieldInput;
     @FXML private TextField fieldOfficial;
+    @FXML private TextField fieldOutput;
     @FXML private TextArea  areaDetail;
 
     @FXML private CheckBox checkInputFile;
