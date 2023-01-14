@@ -93,6 +93,10 @@ public class ApplicationController implements Controller {
         loadFxml();
         configureActions();
 
+        configureStage(stage);
+    }
+
+    private void configureStage(Stage stage) {
         this.stage = stage;
         stage.setScene(new Scene(paneRoot));
         stage.show();
