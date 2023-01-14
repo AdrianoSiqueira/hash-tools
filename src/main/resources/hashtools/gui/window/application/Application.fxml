@@ -11,12 +11,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <BorderPane fx:id="paneRoot" prefHeight="480.0" prefWidth="853.0" styleClass="pane-root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <MenuBar BorderPane.alignment="CENTER" fx:id="menuBar">
@@ -51,6 +46,7 @@
             <rowConstraints>
                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
+                <RowConstraints valignment="CENTER" vgrow="NEVER"/>
                 <RowConstraints valignment="TOP" vgrow="NEVER"/>
                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
                 <RowConstraints valignment="TOP" vgrow="ALWAYS"/>
@@ -69,8 +65,12 @@
             <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkOfficialFile" mnemonicParsing="false" text="File"/>
             <Button GridPane.columnIndex="3" GridPane.rowIndex="1" disable="true" fx:id="buttonOpenOfficialFile" mnemonicParsing="false" text="Open"/>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="labelAlgorithm" text="Algorithms"/>
-            <GridPane GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" fx:id="paneAlgorithm" hgap="10.0" styleClass="pane-algorithm" vgap="10.0">
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="labelOutput" text="Output"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="fieldOutput"/>
+            <Button GridPane.columnIndex="3" GridPane.rowIndex="2" fx:id="buttonOpenOutputFile" mnemonicParsing="false" text="Open"/>
+
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="Algorithms"/>
+            <GridPane GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="10.0" styleClass="pane-algorithm" vgap="10.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES"/>
                     <ColumnConstraints hgrow="SOMETIMES"/>
@@ -88,12 +88,12 @@
                 <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkSha512" maxWidth="1E9" mnemonicParsing="false" text="SHA-512"/>
             </GridPane>
 
-            <HBox GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="3" alignment="CENTER" fx:id="paneProgress" spacing="10.0" styleClass="pane-progress">
+            <HBox GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="4" alignment="CENTER" fx:id="paneProgress" spacing="10.0" styleClass="pane-progress">
                 <ProgressBar HBox.hgrow="ALWAYS" fx:id="progressBar" maxWidth="1E9" progress="0.0"/>
                 <Button fx:id="buttonRun" mnemonicParsing="false" text="Run"/>
             </HBox>
 
-            <TitledPane GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="4" fx:id="paneDetail" maxHeight="1E9" maxWidth="1E9" styleClass="pane-detail" text="Details">
+            <TitledPane GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="5" fx:id="paneDetail" maxHeight="1E9" maxWidth="1E9" styleClass="pane-detail" text="Details">
                 <TextArea editable="false" fx:id="areaDetail" promptText="When done, the details will show here"/>
             </TitledPane>
         </GridPane>
