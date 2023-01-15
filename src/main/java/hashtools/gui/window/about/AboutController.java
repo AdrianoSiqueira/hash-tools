@@ -60,6 +60,7 @@ public class AboutController extends AbstractController {
     public void launch(Stage stage) {
         loadLogger(this);
         loadFxml(this);
+        loadFavIcon(stage, "/hashtools/gui/image/application-icon.png");
         loadWebService(stage);
 
         configureActions();
