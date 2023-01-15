@@ -10,6 +10,10 @@ public class WebService {
         this.service = service;
     }
 
+    public HostServices getHostServices() {
+        return service;
+    }
+
     public void openWebPage(String url) {
         service.showDocument(url);
     }
