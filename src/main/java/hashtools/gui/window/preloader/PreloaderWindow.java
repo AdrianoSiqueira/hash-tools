@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +61,15 @@ public class PreloaderWindow extends Preloader {
         Optional.ofNullable(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"))
                 .map(Image::new)
                 .ifPresent(stage.getIcons()::add);
+    }
+
+    private Parent loadFxml(URL url) {
+        try {
+            return FXMLLoader.load(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
