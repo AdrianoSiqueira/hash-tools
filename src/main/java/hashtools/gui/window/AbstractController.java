@@ -5,6 +5,7 @@ import hashtools.core.service.WebService;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,12 @@ public abstract class AbstractController {
     }
 
     public abstract void launch(Stage stage);
+
+    protected void loadFavIcon(Stage stage, String url) {
+        Optional.ofNullable(getClass().getResourceAsStream(url))
+                .map(Image::new)
+                .ifPresent(stage.getIcons()::add);
+    }
 
     protected void loadFxml(AbstractController abstractController) {
         if (fxmlPath == null) {
