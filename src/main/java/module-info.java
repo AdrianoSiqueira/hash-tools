@@ -10,6 +10,7 @@ module hash.tools {
     exports hashtools.gui.screen.generator;
     exports hashtools.gui.screen.manual;
     exports hashtools.gui.screen.splash;
+    exports hashtools.gui.window.about;
     exports hashtools.gui.window.application;
     exports hashtools.gui.window.preloader;
 
@@ -18,5 +19,6 @@ module hash.tools {
     opens hashtools.gui.screen.generator;
     opens hashtools.gui.screen.manual;
     opens hashtools.gui.screen.splash;
+    opens hashtools.gui.window.about;
     opens hashtools.gui.window.application;
 }
