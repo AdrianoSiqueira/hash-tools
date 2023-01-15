@@ -1,11 +1,8 @@
 package hashtools.gui.window.application;
 
-import hashtools.core.language.LanguageManager;
-import hashtools.core.service.WebService;
-import javafx.application.HostServices;
+import hashtools.gui.window.AbstractController;
+import hashtools.gui.window.about.AboutController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -22,12 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
 
 /**
  * <p>
@@ -36,68 +27,93 @@ import java.util.Optional;
  *
  * @author Adriano Siqueira
  */
-public class ApplicationController implements Controller {
-
-    private static final String FXML_PATH       = "Application.fxml";
-    private static final String STYLESHEET_PATH = "Application.css";
+@SuppressWarnings("unused")
+public class ApplicationController extends AbstractController {
 
     private final String buttonHighlightStyleClass = "button-highlight";
 
-    @FXML private BorderPane paneRoot;
-    @FXML private VBox       paneLeft;
-    @FXML private HBox       paneProgress;
-    @FXML private GridPane   paneCenter;
-    @FXML private GridPane   paneAlgorithm;
-    @FXML private TitledPane paneDetail;
+    @FXML
+    private BorderPane paneRoot;
+    @FXML
+    private VBox       paneLeft;
+    @FXML
+    private HBox       paneProgress;
+    @FXML
+    private GridPane   paneCenter;
+    @FXML
+    private GridPane   paneAlgorithm;
+    @FXML
+    private TitledPane paneDetail;
 
-    @FXML private MenuBar  menuBar;
-    @FXML private Menu     menuFile;
-    @FXML private Menu     menuHelp;
-    @FXML private MenuItem itemClose;
-    @FXML private MenuItem itemOnlineManual;
-    @FXML private MenuItem itemAbout;
+    @FXML
+    private MenuBar  menuBar;
+    @FXML
+    private Menu     menuFile;
+    @FXML
+    private Menu     menuHelp;
+    @FXML
+    private MenuItem itemClose;
+    @FXML
+    private MenuItem itemOnlineManual;
+    @FXML
+    private MenuItem itemAbout;
 
-    @FXML private Button buttonCheck;
-    @FXML private Button buttonGenerate;
-    @FXML private Button buttonRun;
-    @FXML private Button buttonOpenInputFile;
-    @FXML private Button buttonOpenOfficialFile;
-    @FXML private Button buttonOpenOutputFile;
+    @FXML
+    private Button buttonCheck;
+    @FXML
+    private Button buttonGenerate;
+    @FXML
+    private Button buttonRun;
+    @FXML
+    private Button buttonOpenInputFile;
+    @FXML
+    private Button buttonOpenOfficialFile;
+    @FXML
+    private Button buttonOpenOutputFile;
 
-    @FXML private Label labelInput;
-    @FXML private Label labelOfficial;
-    @FXML private Label labelOutput;
-    @FXML private Label labelAlgorithm;
+    @FXML
+    private Label labelInput;
+    @FXML
+    private Label labelOfficial;
+    @FXML
+    private Label labelOutput;
+    @FXML
+    private Label labelAlgorithm;
 
-    @FXML private TextField fieldInput;
-    @FXML private TextField fieldOfficial;
-    @FXML private TextField fieldOutput;
-    @FXML private TextArea  areaDetail;
+    @FXML
+    private TextField fieldInput;
+    @FXML
+    private TextField fieldOfficial;
+    @FXML
+    private TextField fieldOutput;
+    @FXML
+    private TextArea  areaDetail;
 
-    @FXML private CheckBox checkInputFile;
-    @FXML private CheckBox checkOfficialFile;
-    @FXML private CheckBox checkMd5;
-    @FXML private CheckBox checkSha1;
-    @FXML private CheckBox checkSha224;
-    @FXML private CheckBox checkSha256;
-    @FXML private CheckBox checkSha384;
-    @FXML private CheckBox checkSha512;
+    @FXML
+    private CheckBox checkInputFile;
+    @FXML
+    private CheckBox checkOfficialFile;
+    @FXML
+    private CheckBox checkMd5;
+    @FXML
+    private CheckBox checkSha1;
+    @FXML
+    private CheckBox checkSha224;
+    @FXML
+    private CheckBox checkSha256;
+    @FXML
+    private CheckBox checkSha384;
+    @FXML
+    private CheckBox checkSha512;
 
-    @FXML private ProgressBar progressBar;
+    @FXML
+    private ProgressBar progressBar;
 
-    private Stage  stage;
-    private Logger logger;
+    private Stage stage;
 
-    private WebService webService;
-
-    @Override
-    public void start(Stage stage) {
-        loadLoggingFeature();
-        loadFxml();
-        configureActions();
-
-        configureStage(stage);
-        configureWebService();
+    public ApplicationController() {
+        super.fxmlPath       = "Application.fxml";
+        super.stylesheetPath = "Application.css";
     }
 
     private void close() {
@@ -116,10 +132,6 @@ public class ApplicationController implements Controller {
         stage.show();
     }
 
-    private void configureWebService() {
-        this.webService = new WebService((HostServices) stage.getProperties().get("host.services"));
-    }
-
     private void enableCheckMode() {
         buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
         buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
@@ -130,32 +142,21 @@ public class ApplicationController implements Controller {
         buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
     }
 
-    private void loadFxml() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(FXML_PATH));
-        loader.setController(this);
-        loader.setResources(LanguageManager.getBundle());
+    @Override
+    public void launch(Stage stage) {
+        loadLogger(this);
+        loadFxml(this);
+        loadWebService(stage);
 
-        try {
-            Parent root = loader.load();
-
-            loadStylesheet().ifPresent(root.getStylesheets()::add);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadLoggingFeature() {
-        logger = LoggerFactory.getLogger(getClass());
-    }
-
-    private Optional<String> loadStylesheet() {
-        return Optional.ofNullable(getClass().getResource(STYLESHEET_PATH))
-                       .map(URL::toString);
+        configureActions();
+        configureStage(stage);
     }
 
     private void openAboutDialog() {
-        logger.info("In the future the about dialog will open.");
+        Stage stage = new Stage();
+        stage.getProperties().put("host.services", webService.getHostServices());
+
+        new AboutController().launch(stage);
     }
 
     private void openOnlineManual() {
