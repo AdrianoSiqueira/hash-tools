@@ -37,6 +37,13 @@ public class PreloaderWindow extends Preloader {
         }).start();
     }
 
+    private void configureStage(Stage stage) throws IOException {
+        this.stage = stage;
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(createScene());
+        stage.show();
+    }
+
     @SuppressWarnings("ConstantConditions")
     private Scene createScene() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Preloader.fxml"));
@@ -58,10 +65,6 @@ public class PreloaderWindow extends Preloader {
     @Override
     public void start(Stage stage) throws Exception {
         loadFavIcon(stage);
-
-        this.stage = stage;
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(createScene());
-        stage.show();
+        configureStage(stage);
     }
 }
