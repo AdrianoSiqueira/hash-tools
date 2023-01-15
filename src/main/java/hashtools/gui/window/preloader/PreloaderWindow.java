@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,23 +44,24 @@ public class PreloaderWindow extends Preloader {
         return new Scene(root);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    private Image loadAppIcon() {
-        return new Image(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"));
-    }
-
-
     @Override
     public void handleStateChangeNotification(StateChangeNotification info) {
         if (info.getType() == StateChangeNotification.Type.BEFORE_START) closeAfterDelay();
     }
 
+    private void loadFavIcon(Stage stage) {
+        Optional.ofNullable(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"))
+                .map(Image::new)
+                .ifPresent(stage.getIcons()::add);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
+        loadFavIcon(stage);
+
         this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(createScene());
-        stage.getIcons().add(loadAppIcon());
         stage.show();
     }
 }
