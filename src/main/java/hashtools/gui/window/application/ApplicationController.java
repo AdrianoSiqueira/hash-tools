@@ -126,6 +126,7 @@ public class ApplicationController extends AbstractController {
         itemOnlineManual.setOnAction(e -> openOnlineManual());
         buttonCheck.setOnAction(e -> enableCheckMode());
         buttonGenerate.setOnAction(e -> enableGenerateMode());
+        buttonRun.setOnAction(e -> run());
     }
 
     private void configureStage(Stage stage) {
@@ -165,4 +166,6 @@ public class ApplicationController extends AbstractController {
     private void openOnlineManual() {
         webService.openWebPage("https://github.com/AdrianoSiqueira/hash-tools/wiki");
     }
+
+    private void run() {}
 }
