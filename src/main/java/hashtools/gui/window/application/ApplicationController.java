@@ -124,6 +124,8 @@ public class ApplicationController extends AbstractController {
         itemAbout.setOnAction(e -> openAboutDialog());
         itemClose.setOnAction(e -> close());
         itemOnlineManual.setOnAction(e -> openOnlineManual());
+        buttonCheck.setOnAction(e -> enableCheckMode());
+        buttonGenerate.setOnAction(e -> enableGenerateMode());
     }
 
     private void configureStage(Stage stage) {
