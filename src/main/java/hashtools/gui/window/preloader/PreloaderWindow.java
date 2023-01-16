@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,30 +38,43 @@ public class PreloaderWindow extends Preloader {
         }).start();
     }
 
-    @SuppressWarnings("ConstantConditions")
-    private Scene createScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Preloader.fxml"));
-
-        return new Scene(root);
+    private void configureStage(Stage stage) {
+        this.stage = stage;
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(createScene());
+        stage.show();
     }
 
-    @SuppressWarnings("ConstantConditions")
-    private Image loadAppIcon() {
-        return new Image(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"));
+    private Scene createScene() {
+        return Optional.ofNullable(getClass().getResource("Preloader.fxml"))
+                       .map(this::loadFxml)
+                       .map(Scene::new)
+                       .orElse(null);
     }
-
 
     @Override
     public void handleStateChangeNotification(StateChangeNotification info) {
         if (info.getType() == StateChangeNotification.Type.BEFORE_START) closeAfterDelay();
     }
 
+    private void loadFavIcon(Stage stage) {
+        Optional.ofNullable(getClass().getResourceAsStream("/hashtools/gui/image/application-icon.png"))
+                .map(Image::new)
+                .ifPresent(stage.getIcons()::add);
+    }
+
+    private Parent loadFxml(URL url) {
+        try {
+            return FXMLLoader.load(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(createScene());
-        stage.getIcons().add(loadAppIcon());
-        stage.show();
+    public void start(Stage stage) {
+        loadFavIcon(stage);
+        configureStage(stage);
     }
 }
