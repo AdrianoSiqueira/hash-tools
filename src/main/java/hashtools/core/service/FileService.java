@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 public class FileService {
 
     public List<String> readLines(Path file) {
+        if (file == null)
+            return List.of();
+
         try {
             return Files.readAllLines(file);
         } catch (IOException e) {
@@ -28,6 +31,9 @@ public class FileService {
     }
 
     public void replaceContent(String content, Path file) {
+        if (content == null) return;
+        if (file == null) return;
+
         try {
             Files.writeString(
                     file,
