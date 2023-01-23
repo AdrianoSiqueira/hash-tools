@@ -1,6 +1,6 @@
 package hashtools.core.service;
 
-import hashtools.core.factory.DaemonFactory;
+import hashtools.core.factory.thread.DaemonFactory;
 import lombok.Getter;
 
 import java.util.concurrent.ExecutorService;
