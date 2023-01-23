@@ -1,5 +1,6 @@
 package hashtools.core.factory;
 
+import hashtools.core.factory.thread.DaemonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
