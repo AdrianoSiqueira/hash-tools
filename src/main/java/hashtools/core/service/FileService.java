@@ -1,54 +1,40 @@
 package hashtools.core.service;
 
-import hashtools.core.model.FileExtension;
-
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileService {
 
-    public boolean isHashExtension(String extension) {
-        switch (extension) {
-            case "md5":
-            case "sha1":
-            case "sha224":
-            case "sha256":
-            case "sha384":
-            case "sha512":
-            case "txt":
-                return true;
-            default:
-                return false;
+    public List<String> readLines(Path file) {
+        try {
+            return Files.readAllLines(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return List.of();
         }
     }
 
-    public boolean pathHasRequiredExtension(Path path, FileExtension fileExtension) {
-        String fileName   = path.getFileName().toString();
-        int    indexOfDot = fileName.lastIndexOf(".");
-
-        boolean fileHasNoExtension = indexOfDot < 1;
-        boolean allFilesAllowed    = fileExtension == FileExtension.ALL;
-
-        if (fileHasNoExtension) return allFilesAllowed;
-        else if (allFilesAllowed) return true;
-
-        String extension = "*" + fileName.substring(indexOfDot);
-
-        return List.of(fileExtension.getExtensions())
-                   .contains(extension);
+    public List<String> readOfficialFile(Path file) {
+        return readLines(file)
+                .stream()
+                .map(line -> line.split(" "))
+                .flatMap(Stream::of)
+                .collect(Collectors.toList());
     }
 
-    public boolean stringIsFilePath(String string) {
-        return string != null &&
-               Files.isRegularFile(Path.of(string));
-    }
-
-    public void write(String content, Path destination, OpenOption... openOptions) {
+    public void replaceContent(String content, Path file) {
         try {
-            Files.writeString(destination, content, openOptions);
+            Files.writeString(
+                    file,
+                    content,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
