@@ -17,6 +17,9 @@ public class ArgumentDataFactory implements DataFactory {
     public Data create() {
         Data data = new Data();
 
+        if (arguments == null)
+            return data;
+
         arguments.forEach(argument -> {
             if (argument.startsWith("--check-file")) {
                 data.setChecking();
