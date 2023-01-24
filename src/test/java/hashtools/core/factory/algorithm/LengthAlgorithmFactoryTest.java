@@ -1,6 +1,5 @@
 package hashtools.core.factory.algorithm;
 
-import javafx.fxml.FXML;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
