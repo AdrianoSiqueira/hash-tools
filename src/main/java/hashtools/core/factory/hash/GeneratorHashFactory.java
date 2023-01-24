@@ -17,6 +17,9 @@ public class GeneratorHashFactory implements HashFactory {
 
     @Override
     public List<Hash> create() {
+        if (algorithmNames == null)
+            return null;
+
         return algorithmNames.stream()
                              .map(this::getHash)
                              .filter(Objects::nonNull)
