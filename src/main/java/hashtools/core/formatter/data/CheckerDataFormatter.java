@@ -17,7 +17,7 @@ public class CheckerDataFormatter extends DataFormatter {
         if (data == null)
             return null;
 
-        List<String> headers   = new ArrayList<>(List.of("Input", "Official", "Generated", "Result"));
+        List<String> headers   = new ArrayList<>(List.of("Algorithm", "Official", "Generated", "Result"));
         int          padding   = getHigherLength(headers);
         String       delimiter = "-".repeat(padding + 130) + "\n";
         StringJoiner result    = new StringJoiner(delimiter, delimiter, delimiter);
