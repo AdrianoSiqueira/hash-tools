@@ -14,6 +14,9 @@ public class CheckerDataFormatter extends DataFormatter {
 
     @Override
     public String format(Data data) {
+        if (data == null)
+            return null;
+
         List<String> headers   = new ArrayList<>(List.of("Input", "Official", "Generated", "Result"));
         int          padding   = getHigherLength(headers);
         String       delimiter = "-".repeat(padding + 130) + "\n";
