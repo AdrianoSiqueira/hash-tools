@@ -13,6 +13,7 @@ import hashtools.core.service.FileService;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Data {
 
@@ -35,6 +36,23 @@ public class Data {
         officialHashes = new ArrayList<>();
         consumers      = new ArrayList<>();
         hashes         = new ArrayList<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+
+        Data data = (Data) o;
+
+        return usingInputFile == data.usingInputFile &&
+               data.safetyPercentage == safetyPercentage &&
+               Objects.equals(inputText, data.inputText) &&
+               Objects.equals(inputFile, data.inputFile) &&
+               Objects.equals(algorithmNames, data.algorithmNames) &&
+               Objects.equals(officialHashes, data.officialHashes) &&
+               Objects.equals(hashes, data.hashes);
     }
 
     public List<DataConsumer> getConsumers() {
@@ -63,6 +81,19 @@ public class Data {
 
     public double getSafetyPercentage() {
         return safetyPercentage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                inputText,
+                inputFile,
+                usingInputFile,
+                safetyPercentage,
+                algorithmNames,
+                officialHashes,
+                hashes
+        );
     }
 
     public boolean isUsingInputFile() {
