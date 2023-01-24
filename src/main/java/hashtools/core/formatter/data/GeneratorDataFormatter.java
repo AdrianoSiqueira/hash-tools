@@ -8,6 +8,9 @@ public class GeneratorDataFormatter extends DataFormatter {
 
     @Override
     public String format(Data data) {
+        if (data == null)
+            return null;
+
         String name = data.isUsingInputFile()
                       ? data.getInputFile().getFileName().toString()
                       : data.getInputText();
