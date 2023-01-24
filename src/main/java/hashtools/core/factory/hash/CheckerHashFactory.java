@@ -17,6 +17,9 @@ public class CheckerHashFactory implements HashFactory {
 
     @Override
     public List<Hash> create() {
+        if (officialHashes == null)
+            return null;
+
         return officialHashes.stream()
                              .map(this::getHash)
                              .filter(Objects::nonNull)
