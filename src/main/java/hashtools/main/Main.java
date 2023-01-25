@@ -1,29 +1,20 @@
 package hashtools.main;
 
-import hashtools.core.module.runner.CommandLineInterface;
+import hashtools.core.runner.CLIRunner;
+import hashtools.core.runner.GUIRunner;
+import hashtools.core.runner.Runner;
 import hashtools.core.service.ParallelismService;
-import hashtools.gui.window.application.ApplicationWindow;
-import hashtools.gui.window.preloader.PreloaderWindow;
-import javafx.application.Application;
 
 public class Main {
 
     public static void main(String[] args) {
         scheduleParallelismServiceShutdown();
 
-        if (args.length == 0) runInGuiMode();
-        else runInCliMode(args);
-    }
+        Runner runner = (args.length == 0)
+                        ? new GUIRunner()
+                        : new CLIRunner(args);
 
-
-    private static void runInCliMode(String[] args) {
-        new CommandLineInterface(args).run();
-    }
-
-    private static void runInGuiMode() {
-        System.setProperty("javafx.preloader", PreloaderWindow.class.getCanonicalName());
-
-        Application.launch(ApplicationWindow.class);
+        runner.run();
     }
 
     private static void scheduleParallelismServiceShutdown() {

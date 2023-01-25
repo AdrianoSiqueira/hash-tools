@@ -1,85 +1,104 @@
 package hashtools.core.service;
 
-import hashtools.core.model.FileExtension;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileServiceTest {
 
+    private static Path nullFile;
+    private static Path nonExistentFile;
+    private static Path emptyFile;
+    private static Path filledFile;
+
     private FileService service = new FileService();
 
+    @BeforeAll
+    static void createFile()
+    throws IOException {
+        nullFile  = null;
+        emptyFile = Files.createTempFile(null, null);
 
-    @Test
-    void pathHasRequiredExtension_returnFalseWhenPathHasNotRequiredExtension() {
-        String tempDir = System.getProperty("java.io.tmpdir");
+        filledFile = Files.createTempFile(null, null);
+        Files.writeString(filledFile, "A A");
 
-        assertFalse(service.pathHasRequiredExtension(Path.of(tempDir, "file.jpg"), FileExtension.HASH), "'HASH' failed");
+        nonExistentFile = Files.createTempFile(null, null);
+        Files.deleteIfExists(nonExistentFile);
     }
 
-    @Test
-    void pathHasRequiredExtension_returnTrueWhenPathHasRequiredExtension() {
-        assertTrue(service.pathHasRequiredExtension(Path.of("file.jpg"), FileExtension.ALL), "'ALL' failed");
-        assertTrue(service.pathHasRequiredExtension(Path.of("file"), FileExtension.ALL), "'ALL (without extension)' failed");
-        assertTrue(service.pathHasRequiredExtension(Path.of("file.txt"), FileExtension.HASH), "'HASH' failed");
+    public static List<Arguments> getContentTests() {
+        return List.of(
+                Arguments.of(nullFile, null, List.of()),
+                Arguments.of(nullFile, "", List.of()),
+                Arguments.of(nullFile, "A", List.of()),
+                Arguments.of(nonExistentFile, null, List.of()),
+                Arguments.of(nonExistentFile, "", List.of()),
+                Arguments.of(nonExistentFile, "A", List.of("A")),
+                Arguments.of(emptyFile, null, List.of()),
+                Arguments.of(emptyFile, "", List.of()),
+                Arguments.of(emptyFile, "A", List.of("A")),
+                Arguments.of(filledFile, null, List.of("A A")),
+                Arguments.of(filledFile, "", List.of()),
+                Arguments.of(filledFile, "A", List.of("A"))
+        );
     }
 
-    @Test
-    void pathHasRequiredExtension_throwsWhenSomeDataIsNull() {
-        assertThrows(NullPointerException.class, () -> service.pathHasRequiredExtension(null, null), "Both failed");
-        assertThrows(NullPointerException.class, () -> service.pathHasRequiredExtension(null, FileExtension.ALL), "Path failed");
-        assertThrows(NullPointerException.class, () -> service.pathHasRequiredExtension(Path.of("a.txt"), null), "FileExtension failed");
+    public static List<Arguments> getLineTests() {
+        return List.of(
+                Arguments.of(nullFile, List.of()),
+                Arguments.of(nonExistentFile, List.of()),
+                Arguments.of(emptyFile, List.of()),
+                Arguments.of(filledFile, List.of("A A"))
+        );
     }
 
-
-    @Test
-    void stringIsFilePath_returnFalseWhenStringDoesNotMatchAFilePath() {
-        assertFalse(service.stringIsFilePath(""));
+    public static List<Arguments> getOfficialTests() {
+        return List.of(
+                Arguments.of(nullFile, List.of()),
+                Arguments.of(nonExistentFile, List.of()),
+                Arguments.of(emptyFile, List.of()),
+                Arguments.of(filledFile, List.of("A", "A"))
+        );
     }
 
-    @Test
-    void stringIsFilePath_returnFalseWhenStringIsNull() {
-        assertFalse(service.stringIsFilePath(null));
+    @AfterAll
+    static void removeFile()
+    throws IOException {
+        Files.deleteIfExists(nonExistentFile);
+        Files.deleteIfExists(emptyFile);
+        Files.deleteIfExists(filledFile);
     }
 
-    @Test
-    void stringIsFilePath_returnTrueWhenStringMatchesAFilePath() throws IOException {
-        Path path = Files.createTempFile(null, null);
-
-        assertTrue(service.stringIsFilePath(path.toAbsolutePath().toString()));
-
-        Files.deleteIfExists(path);
+    @ParameterizedTest
+    @MethodSource(value = "getLineTests")
+    @DisplayName(value = "Reads the lines of the file")
+    void readLines(Path file, List<String> expected) {
+        assertEquals(expected, service.readLines(file));
     }
 
-
-    @Test
-    void write_writeContentToAnExistingFile() throws IOException {
-        Path path = Files.createTempFile(null, null);
-
-        new FileService().write("123", path, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-
-        assertEquals(1, Files.readAllLines(path).size());
-
-        Files.deleteIfExists(path);
+    @ParameterizedTest
+    @MethodSource(value = "getOfficialTests")
+    @DisplayName(value = "Reads the words of the file")
+    void readOfficialFile(Path file, List<String> expected) {
+        assertEquals(expected, service.readOfficialFile(file));
     }
 
-    @Test
-    void write_writeContentToAnNonExistingFile() throws IOException {
-        Path path = Files.createTempFile(null, null);
-        Files.deleteIfExists(path);
+    @ParameterizedTest
+    @MethodSource(value = "getContentTests")
+    @DisplayName(value = "Replaces content in the file")
+    void replaceContent(Path file, String content, List<String> expected) {
+        service.replaceContent(content, file);
 
-        new FileService().write("123", path, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-
-        assertTrue(Files.isRegularFile(path), "File not created");
-
-        Files.deleteIfExists(path);
+        assertEquals(expected, service.readLines(file));
     }
 }

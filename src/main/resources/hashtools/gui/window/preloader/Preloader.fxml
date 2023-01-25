@@ -4,12 +4,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" prefWidth="853" prefHeight="480">
+<StackPane prefHeight="480" prefWidth="853" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <cursor>
         <Cursor fx:constant="WAIT"/>
     </cursor>
 
-    <ImageView preserveRatio="true" fitHeight="480">
-        <Image url="@../../image/preloader-background.png" backgroundLoading="true"/>
+    <ImageView fitHeight="480" preserveRatio="true">
+        <Image backgroundLoading="true" url="@../../image/preloader-background.png"/>
     </ImageView>
 </StackPane>
