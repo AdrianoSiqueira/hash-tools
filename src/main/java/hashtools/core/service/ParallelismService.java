@@ -1,34 +1,28 @@
 package hashtools.core.service;
 
 import hashtools.core.factory.thread.DaemonFactory;
-import lombok.Getter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Deprecated
-@Getter
 public enum ParallelismService {
 
-    CACHED_THREAD_POOL(Executors.newCachedThreadPool(
-            new DaemonFactory()
-    )),
-
-    FIXED_THREAD_POOL(Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors(),
-            new DaemonFactory()
-    ));
-
+    INSTANCE;
 
     private final ExecutorService executor;
 
-
-    ParallelismService(ExecutorService executor) {
-        this.executor = executor;
+    ParallelismService() {
+        this.executor = Executors.newFixedThreadPool(
+                Runtime.getRuntime().availableProcessors(),
+                new DaemonFactory()
+        );
     }
 
-
     public static void shutdown() {
-        FIXED_THREAD_POOL.executor.shutdown();
+        INSTANCE.getExecutor().shutdown();
+    }
+
+    public ExecutorService getExecutor() {
+        return executor;
     }
 }
