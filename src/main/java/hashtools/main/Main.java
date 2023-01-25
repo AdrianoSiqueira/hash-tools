@@ -8,6 +8,8 @@ import hashtools.core.service.ParallelismService;
 public class Main {
 
     public static void main(String[] args) {
+        scheduleParallelismServiceShutdown();
+
         Runner runner = (args.length == 0)
                         ? new GUIRunner()
                         : new CLIRunner(args);
