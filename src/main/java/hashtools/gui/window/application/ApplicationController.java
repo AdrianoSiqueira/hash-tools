@@ -289,12 +289,16 @@ public class ApplicationController extends AbstractController {
 
     private void openInputFile() {
         File file = fileOpenerDialog.openFile("Select the file to check", FileExtension.ALL);
-        fieldInput.setText(file.getAbsolutePath());
+
+        if (file != null)
+            fieldInput.setText(file.getAbsolutePath());
     }
 
     private void openOfficialFile() {
         File file = fileOpenerDialog.openFile("Select the file with official hashes", FileExtension.HASH);
-        fieldOfficial.setText(file.getAbsolutePath());
+
+        if (file != null)
+            fieldOfficial.setText(file.getAbsolutePath());
     }
 
     private void openOnlineManual() {
@@ -303,7 +307,9 @@ public class ApplicationController extends AbstractController {
 
     private void openOutputFile() {
         File file = fileOpenerDialog.openFile("Select the output file", FileExtension.ALL);
-        fieldOutput.setText(file.getAbsolutePath());
+
+        if (file != null)
+            fieldOutput.setText(file.getAbsolutePath());
     }
 
     private void run() {
