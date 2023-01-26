@@ -1,7 +1,12 @@
 package hashtools.gui.window.application;
 
+import hashtools.core.model.Data;
+import hashtools.core.model.FileExtension;
+import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +24,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.nio.file.Path;
 
 /**
  * <p>
@@ -171,6 +179,35 @@ public class ApplicationController extends AbstractController {
         this.stage = stage;
         stage.setScene(new Scene(paneRoot));
         stage.show();
+    }
+
+    private Data createData() {
+        Data data = new Data();
+
+        if (isInCheckRunningMode()) {
+            data.setChecking();
+
+            if (isUsingOfficialFile()) {
+                data.setOfficialFile(getOfficialFile());
+            } else {
+                data.setOfficialHash(getOfficialHash());
+            }
+        } else {
+            data.setGenerating();
+            data.setAlgorithms(getSelectedAlgorithms());
+        }
+
+        if (isUsingInputFile()) {
+            data.setInputFile(getInputFile());
+        } else {
+            data.setInputText(getInputText());
+        }
+
+        if (hasOutputFile()) {
+            data.setOutputFile(getOutputFile());
+        }
+
+        return data;
     }
 
     private void enableCheckMode() {
