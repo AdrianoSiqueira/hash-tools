@@ -156,6 +156,8 @@ public class ApplicationController extends AbstractController {
 
         configureActions();
         configureStage(stage);
+
+        buttonCheck.fire();
     }
 
     private void openAboutDialog() {
