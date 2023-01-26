@@ -209,7 +209,11 @@ public class ApplicationController extends AbstractController {
             data.setOutputFile(getOutputFile());
         }
 
-        data.setConsumers(new GUIDataConsumer(areaDetail));
+        data.setConsumers(
+                new GUIDataConsumer(areaDetail),
+                new GUIDataConsumer(progressBar)
+        );
+
         return data;
     }
 
