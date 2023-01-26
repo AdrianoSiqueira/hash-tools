@@ -272,6 +272,7 @@ public class ApplicationController extends AbstractController {
         loadWebService(stage);
 
         configureActions();
+        configureRunningMode();
         configureStage(stage);
 
         buttonCheck.fire();
