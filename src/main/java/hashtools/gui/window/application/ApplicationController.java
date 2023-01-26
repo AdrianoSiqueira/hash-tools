@@ -171,5 +171,9 @@ public class ApplicationController extends AbstractController {
         webService.openWebPage("https://github.com/AdrianoSiqueira/hash-tools/wiki");
     }
 
-    private void run() {}
+    private void run() {
+        Data data = createData();
+
+        new CoreRunner(data).run();
+    }
 }
