@@ -139,15 +139,57 @@ public class ApplicationController extends AbstractController {
     }
 
     private void enableCheckMode() {
-        buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
-        buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
-        paneAlgorithm.setDisable(true);
+        checking.set(true);
     }
 
     private void enableGenerateMode() {
-        buttonCheck.getStyleClass().remove(buttonHighlightStyleClass);
-        buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
-        paneAlgorithm.setDisable(false);
+        checking.set(false);
+    }
+
+    private Path getInputFile() {
+        return Path.of(fieldInput.getText());
+    }
+
+    private String getInputText() {
+        return fieldInput.getText();
+    }
+
+    private Path getOfficialFile() {
+        return Path.of(fieldOfficial.getText());
+    }
+
+    private String getOfficialHash() {
+        return fieldOfficial.getText();
+    }
+
+    private Path getOutputFile() {
+        return Path.of(fieldOutput.getText());
+    }
+
+    private String[] getSelectedAlgorithms() {
+        return paneAlgorithm.getChildren()
+                            .stream()
+                            .filter(CheckBox.class::isInstance)
+                            .map(CheckBox.class::cast)
+                            .filter(CheckBox::isSelected)
+                            .map(CheckBox::getText)
+                            .toArray(String[]::new);
+    }
+
+    private boolean hasOutputFile() {
+        return !fieldOutput.getText().isBlank();
+    }
+
+    private boolean isInCheckRunningMode() {
+        return checking.get();
+    }
+
+    private boolean isUsingInputFile() {
+        return checkInputFile.isSelected();
+    }
+
+    private boolean isUsingOfficialFile() {
+        return checkOfficialFile.isSelected();
     }
 
     @Override
