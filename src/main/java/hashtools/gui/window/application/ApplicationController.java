@@ -138,11 +138,13 @@ public class ApplicationController extends AbstractController {
     private void enableCheckMode() {
         buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
         buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
+        paneAlgorithm.setDisable(true);
     }
 
     private void enableGenerateMode() {
         buttonCheck.getStyleClass().remove(buttonHighlightStyleClass);
         buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
+        paneAlgorithm.setDisable(false);
     }
 
     @Override
