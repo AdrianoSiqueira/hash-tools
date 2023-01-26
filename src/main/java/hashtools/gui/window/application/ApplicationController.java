@@ -170,8 +170,23 @@ public class ApplicationController extends AbstractController {
         new AboutController().launch(stage);
     }
 
+    private void openInputFile() {
+        File file = fileOpenerDialog.openFile("Select the file to check", FileExtension.ALL);
+        fieldInput.setText(file.getAbsolutePath());
+    }
+
+    private void openOfficialFile() {
+        File file = fileOpenerDialog.openFile("Select the file with official hashes", FileExtension.HASH);
+        fieldOfficial.setText(file.getAbsolutePath());
+    }
+
     private void openOnlineManual() {
         webService.openWebPage("https://github.com/AdrianoSiqueira/hash-tools/wiki");
+    }
+
+    private void openOutputFile() {
+        File file = fileOpenerDialog.openFile("Select the output file", FileExtension.ALL);
+        fieldOutput.setText(file.getAbsolutePath());
     }
 
     private void run() {
