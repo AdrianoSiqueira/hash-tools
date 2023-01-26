@@ -44,7 +44,6 @@ public class ApplicationController extends AbstractController {
     private final String           buttonHighlightStyleClass;
     private final BooleanProperty  checking;
     private final FileOpenerDialog fileOpenerDialog;
-    private final LanguageService  languageService;
 
     @FXML
     private BorderPane paneRoot;
@@ -126,13 +125,13 @@ public class ApplicationController extends AbstractController {
     private Stage stage;
 
     public ApplicationController() {
-        super.fxmlPath       = "Application.fxml";
-        super.stylesheetPath = "Application.css";
+        super.fxmlPath        = "Application.fxml";
+        super.stylesheetPath  = "Application.css";
+        super.languageService = new LanguageService();
 
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
         this.fileOpenerDialog          = new FileOpenerDialog();
-        this.languageService           = new LanguageService();
     }
 
     private void close() {
