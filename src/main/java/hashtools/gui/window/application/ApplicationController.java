@@ -4,6 +4,7 @@ import hashtools.core.consumer.data.GUIDataConsumer;
 import hashtools.core.model.Data;
 import hashtools.core.model.FileExtension;
 import hashtools.core.runner.CoreRunner;
+import hashtools.core.service.LanguageService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
@@ -43,6 +44,7 @@ public class ApplicationController extends AbstractController {
     private final String           buttonHighlightStyleClass;
     private final BooleanProperty  checking;
     private final FileOpenerDialog fileOpenerDialog;
+    private final LanguageService  languageService;
 
     @FXML
     private BorderPane paneRoot;
@@ -130,6 +132,7 @@ public class ApplicationController extends AbstractController {
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
         this.fileOpenerDialog          = new FileOpenerDialog();
+        this.languageService           = new LanguageService();
     }
 
     private void close() {
@@ -293,13 +296,19 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openInputFile() {
-        fileOpenerDialog.openFile("Select the file to check", FileExtension.ALL)
+        String title = checking.get()
+                       ? languageService.get("Select.the.file.to.check")
+                       : languageService.get("Select.the.file.to.generate");
+
+        fileOpenerDialog.openFile(title, FileExtension.ALL)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldInput::setText);
     }
 
     private void openOfficialFile() {
-        fileOpenerDialog.openFile("Select the file with official hashes", FileExtension.HASH)
+        String title = languageService.get("Select.the.file.with.official.hashes");
+
+        fileOpenerDialog.openFile(title, FileExtension.HASH)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldOfficial::setText);
     }
@@ -309,7 +318,9 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openOutputFile() {
-        fileOpenerDialog.openFileToSave("Select the output file", FileExtension.ALL)
+        String title = languageService.get("Select.the.output.file");
+
+        fileOpenerDialog.openFileToSave(title, FileExtension.ALL)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldOutput::setText);
     }
