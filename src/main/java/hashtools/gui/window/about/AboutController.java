@@ -1,5 +1,6 @@
 package hashtools.gui.window.about;
 
+import hashtools.core.service.LanguageService;
 import hashtools.gui.window.AbstractController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -41,8 +42,9 @@ public class AboutController extends AbstractController {
     private Separator separator;
 
     public AboutController() {
-        super.fxmlPath       = "About.fxml";
-        super.stylesheetPath = "About.css";
+        super.fxmlPath        = "About.fxml";
+        super.stylesheetPath  = "About.css";
+        super.languageService = new LanguageService();
     }
 
     private void configureActions() {

@@ -1,12 +1,19 @@
 package hashtools.core.formatter.data;
 
 import hashtools.core.model.Data;
+import hashtools.core.service.LanguageService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class CheckerDataFormatter extends DataFormatter {
+
+    private LanguageService languageService;
+
+    public CheckerDataFormatter() {
+        languageService = new LanguageService();
+    }
 
     private void applyPadding(int padding, List<String> headers) {
         headers.replaceAll(s -> String.format("%" + padding + "s: ", s));
@@ -17,7 +24,13 @@ public class CheckerDataFormatter extends DataFormatter {
         if (data == null)
             return null;
 
-        List<String> headers   = new ArrayList<>(List.of("Algorithm", "Official", "Generated", "Result"));
+        List<String> headers = new ArrayList<>(List.of(
+                languageService.get("Algorithm"),
+                languageService.get("Official"),
+                languageService.get("Generated"),
+                languageService.get("Result")
+        ));
+
         int          padding   = getHigherLength(headers);
         String       delimiter = "-".repeat(padding + 130) + "\n";
         StringJoiner result    = new StringJoiner(delimiter, delimiter, delimiter);
@@ -28,13 +41,14 @@ public class CheckerDataFormatter extends DataFormatter {
             String content = headers.get(0) + hash.getAlgorithm() + '\n' +
                              headers.get(1) + hash.getOfficial() + '\n' +
                              headers.get(2) + hash.getGenerated() + '\n' +
-                             headers.get(3) + (hash.matches() ? "Safe" : "Unsafe") + '\n';
+                             headers.get(3) + (hash.matches() ? languageService.get("Safe") : languageService.get("Unsafe")) + '\n';
 
             result.add(content);
         });
 
         String percentageContent = String.format(
-                "Safety Percentage: %.2f %%",
+                "%s: %.2f %%",
+                languageService.get("Safety.Percentage"),
                 data.getSafetyPercentage()
         );
 

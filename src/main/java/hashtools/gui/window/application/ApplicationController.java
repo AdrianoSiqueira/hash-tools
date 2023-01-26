@@ -4,6 +4,7 @@ import hashtools.core.consumer.data.GUIDataConsumer;
 import hashtools.core.model.Data;
 import hashtools.core.model.FileExtension;
 import hashtools.core.runner.CoreRunner;
+import hashtools.core.service.LanguageService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
@@ -124,8 +125,9 @@ public class ApplicationController extends AbstractController {
     private Stage stage;
 
     public ApplicationController() {
-        super.fxmlPath       = "Application.fxml";
-        super.stylesheetPath = "Application.css";
+        super.fxmlPath        = "Application.fxml";
+        super.stylesheetPath  = "Application.css";
+        super.languageService = new LanguageService();
 
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
@@ -147,8 +149,23 @@ public class ApplicationController extends AbstractController {
         buttonOpenOfficialFile.setOnAction(e -> openOfficialFile());
         buttonOpenOutputFile.setOnAction(e -> openOutputFile());
 
-        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenInputFile.setDisable(!newValue));
-        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenOfficialFile.setDisable(!newValue));
+        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            String text = newValue
+                          ? languageService.get("File")
+                          : languageService.get("Text");
+
+            labelInput.setText(text);
+            buttonOpenInputFile.setDisable(!newValue);
+        });
+
+        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            String text = newValue
+                          ? languageService.get("Hash.file")
+                          : languageService.get("Hash");
+
+            labelOfficial.setText(text);
+            buttonOpenOfficialFile.setDisable(!newValue);
+        });
     }
 
     private void configureRunningMode() {
@@ -293,13 +310,19 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openInputFile() {
-        fileOpenerDialog.openFile("Select the file to check", FileExtension.ALL)
+        String title = checking.get()
+                       ? languageService.get("Select.the.file.to.check")
+                       : languageService.get("Select.the.file.to.generate");
+
+        fileOpenerDialog.openFile(title, FileExtension.ALL)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldInput::setText);
     }
 
     private void openOfficialFile() {
-        fileOpenerDialog.openFile("Select the file with official hashes", FileExtension.HASH)
+        String title = languageService.get("Select.the.file.with.official.hashes");
+
+        fileOpenerDialog.openFile(title, FileExtension.HASH)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldOfficial::setText);
     }
@@ -309,7 +332,9 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openOutputFile() {
-        fileOpenerDialog.openFileToSave("Select the output file", FileExtension.ALL)
+        String title = languageService.get("Select.the.output.file");
+
+        fileOpenerDialog.openFileToSave(title, FileExtension.ALL)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldOutput::setText);
     }
