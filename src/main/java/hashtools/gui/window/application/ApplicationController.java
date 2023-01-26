@@ -3,6 +3,7 @@ package hashtools.gui.window.application;
 import hashtools.core.consumer.data.GUIDataConsumer;
 import hashtools.core.model.Data;
 import hashtools.core.model.FileExtension;
+import hashtools.core.runner.CoreRunner;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
@@ -311,8 +312,6 @@ public class ApplicationController extends AbstractController {
 
     private void run() {
         Data data = createData();
-        System.out.println(data);
-
-//        new CoreRunner(data).run();
+        new CoreRunner(data).run();
     }
 }
