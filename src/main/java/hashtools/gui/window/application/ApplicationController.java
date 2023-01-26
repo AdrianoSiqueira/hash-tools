@@ -150,8 +150,23 @@ public class ApplicationController extends AbstractController {
         buttonOpenOfficialFile.setOnAction(e -> openOfficialFile());
         buttonOpenOutputFile.setOnAction(e -> openOutputFile());
 
-        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenInputFile.setDisable(!newValue));
-        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenOfficialFile.setDisable(!newValue));
+        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            String text = newValue
+                          ? languageService.get("File")
+                          : languageService.get("Text");
+
+            labelInput.setText(text);
+            buttonOpenInputFile.setDisable(!newValue);
+        });
+
+        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            String text = newValue
+                          ? languageService.get("Hash.file")
+                          : languageService.get("Hash");
+
+            labelOfficial.setText(text);
+            buttonOpenOfficialFile.setDisable(!newValue);
+        });
     }
 
     private void configureRunningMode() {
