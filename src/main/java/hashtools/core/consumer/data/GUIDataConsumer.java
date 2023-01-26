@@ -5,6 +5,8 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextInputControl;
 
+import java.util.Optional;
+
 public class GUIDataConsumer implements DataConsumer {
 
     private final Labeled          labeled;
@@ -34,13 +36,13 @@ public class GUIDataConsumer implements DataConsumer {
         String result = data.getFormatter()
                             .format(data);
 
-        if (labeled != null)
-            labeled.setText(result);
+        Optional.ofNullable(labeled)
+                .ifPresent(l -> l.setText(result));
 
-        if (textInputControl != null)
-            textInputControl.setText(result);
+        Optional.ofNullable(textInputControl)
+                .ifPresent(t -> t.setText(result));
 
-        if (progressBar != null)
-            progressBar.setProgress(data.getSafetyPercentage() / 100.0);
+        Optional.ofNullable(progressBar)
+                .ifPresent(p -> p.setProgress(data.getSafetyPercentage() / 100.0));
     }
 }
