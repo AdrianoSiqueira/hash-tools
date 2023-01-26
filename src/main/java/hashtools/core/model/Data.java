@@ -148,4 +148,20 @@ public class Data {
     public void setSafetyPercentage(double safetyPercentage) {
         this.safetyPercentage = safetyPercentage;
     }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+               "inputText='" + inputText + '\'' +
+               ", inputFile=" + inputFile +
+               ", usingInputFile=" + usingInputFile +
+               ", safetyPercentage=" + safetyPercentage +
+               ", formatter=" + formatter +
+               ", factory=" + factory +
+               ", algorithmNames=" + algorithmNames +
+               ", officialHashes=" + officialHashes +
+               ", hashes=" + hashes +
+               ", consumers=" + consumers +
+               '}';
+    }
 }
