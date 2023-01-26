@@ -304,7 +304,7 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openOutputFile() {
-        fileOpenerDialog.openFile("Select the output file", FileExtension.ALL)
+        fileOpenerDialog.openFileToSave("Select the output file", FileExtension.ALL)
                         .map(File::getAbsolutePath)
                         .ifPresent(fieldOutput::setText);
     }
