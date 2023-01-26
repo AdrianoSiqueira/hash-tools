@@ -1,6 +1,6 @@
 package hashtools.gui.window;
 
-import hashtools.core.language.LanguageManager;
+import hashtools.core.service.LanguageService;
 import hashtools.core.service.WebService;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +19,9 @@ public abstract class AbstractController {
     protected String fxmlPath;
     protected String stylesheetPath;
 
-    protected WebService webService;
-    protected Logger     logger;
+    protected WebService      webService;
+    protected Logger          logger;
+    protected LanguageService languageService;
 
     private void addStylesheetIfPresent(Parent root) {
         Optional.ofNullable(stylesheetPath)
@@ -45,7 +46,7 @@ public abstract class AbstractController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlPath));
         loader.setController(abstractController);
-        loader.setResources(LanguageManager.getBundle());
+        loader.setResources(languageService.getResourceBundle());
 
         try {
             Parent root = loader.load();
