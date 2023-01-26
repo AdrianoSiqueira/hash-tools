@@ -4,19 +4,18 @@ import java.util.ResourceBundle;
 
 public class LanguageService {
 
-    private static final String DEFAULT_NAME = "hashtools.core.language.Language";
-
-    public ResourceBundle bundle;
+    private static final String         BASE_NAME = "hashtools.core.language.Language";
+    public               ResourceBundle resourceBundle;
 
     public LanguageService() {
-        this.bundle = ResourceBundle.getBundle(DEFAULT_NAME);
-    }
-
-    public LanguageService(ResourceBundle bundle) {
-        this.bundle = bundle;
+        this.resourceBundle = ResourceBundle.getBundle(BASE_NAME);
     }
 
     public String get(String key) {
-        return bundle.getString(key);
+        return resourceBundle.getString(key);
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
     }
 }
