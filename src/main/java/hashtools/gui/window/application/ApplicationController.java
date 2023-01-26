@@ -141,6 +141,32 @@ public class ApplicationController extends AbstractController {
         checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenOfficialFile.setDisable(!newValue));
     }
 
+    private void configureRunningMode() {
+        checking.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // checking
+                buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
+                buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
+
+                fieldOfficial.setDisable(false);
+                checkOfficialFile.setDisable(false);
+                buttonOpenOfficialFile.setDisable(!checkOfficialFile.isSelected());
+
+                paneAlgorithm.setDisable(true);
+            } else {
+                // generating
+                buttonCheck.getStyleClass().remove(buttonHighlightStyleClass);
+                buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
+
+                fieldOfficial.setDisable(true);
+                checkOfficialFile.setDisable(true);
+                buttonOpenOfficialFile.setDisable(true);
+
+                paneAlgorithm.setDisable(false);
+            }
+        });
+    }
+
     private void configureStage(Stage stage) {
         this.stage = stage;
         stage.setScene(new Scene(paneRoot));
