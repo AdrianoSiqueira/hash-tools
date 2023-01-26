@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
  * @version 2.1.0
  * @since 1.0.0
  */
+@Deprecated
 public class LanguageManager {
 
     private static final String         NAME   = "hashtools.core.language.Language";
