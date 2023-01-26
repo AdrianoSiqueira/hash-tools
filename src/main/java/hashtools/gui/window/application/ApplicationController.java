@@ -275,7 +275,7 @@ public class ApplicationController extends AbstractController {
         configureRunningMode();
         configureStage(stage);
 
-        buttonCheck.fire();
+        enableCheckMode();
     }
 
     private void openAboutDialog() {
