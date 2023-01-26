@@ -127,6 +127,9 @@ public class ApplicationController extends AbstractController {
         buttonCheck.setOnAction(e -> enableCheckMode());
         buttonGenerate.setOnAction(e -> enableGenerateMode());
         buttonRun.setOnAction(e -> run());
+
+        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenInputFile.setDisable(!newValue));
+        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> buttonOpenOfficialFile.setDisable(!newValue));
     }
 
     private void configureStage(Stage stage) {
