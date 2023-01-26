@@ -30,7 +30,9 @@ import javafx.stage.Stage;
 @SuppressWarnings("unused")
 public class ApplicationController extends AbstractController {
 
-    private final String buttonHighlightStyleClass = "button-highlight";
+    private final String           buttonHighlightStyleClass;
+    private final BooleanProperty  checking;
+    private final FileOpenerDialog fileOpenerDialog;
 
     @FXML
     private BorderPane paneRoot;
@@ -114,6 +116,10 @@ public class ApplicationController extends AbstractController {
     public ApplicationController() {
         super.fxmlPath       = "Application.fxml";
         super.stylesheetPath = "Application.css";
+
+        this.buttonHighlightStyleClass = "button-highlight";
+        this.checking                  = new SimpleBooleanProperty(false);
+        this.fileOpenerDialog          = new FileOpenerDialog();
     }
 
     private void close() {
