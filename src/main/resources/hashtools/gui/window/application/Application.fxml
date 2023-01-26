@@ -15,12 +15,12 @@
 <BorderPane fx:id="paneRoot" prefHeight="480.0" prefWidth="853.0" styleClass="pane-root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <MenuBar BorderPane.alignment="CENTER" fx:id="menuBar">
-            <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
-                <MenuItem fx:id="itemClose" mnemonicParsing="false" text="Close"/>
+            <Menu fx:id="menuFile" mnemonicParsing="false" text="%File">
+                <MenuItem fx:id="itemClose" mnemonicParsing="false" text="%Close"/>
             </Menu>
-            <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
-                <MenuItem fx:id="itemOnlineManual" mnemonicParsing="false" text="Online Manual"/>
-                <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="About"/>
+            <Menu fx:id="menuHelp" mnemonicParsing="false" text="%Help">
+                <MenuItem fx:id="itemOnlineManual" mnemonicParsing="false" text="%Online.manual"/>
+                <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="%About"/>
             </Menu>
         </MenuBar>
     </top>
@@ -30,8 +30,8 @@
             <padding>
                 <Insets left="10.0" top="30.0"/>
             </padding>
-            <Button fx:id="buttonCheck" maxWidth="1E9" mnemonicParsing="false" text="Check"/>
-            <Button fx:id="buttonGenerate" maxWidth="1E9" mnemonicParsing="false" text="Generate"/>
+            <Button fx:id="buttonCheck" maxWidth="1E9" mnemonicParsing="false" text="%Check"/>
+            <Button fx:id="buttonGenerate" maxWidth="1E9" mnemonicParsing="false" text="%Generate"/>
         </VBox>
     </left>
 
@@ -55,21 +55,21 @@
                 <Insets topRightBottomLeft="10"/>
             </padding>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="labelInput" text="Input"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="labelInput" text="%Text"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="fieldInput"/>
-            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkInputFile" mnemonicParsing="false" text="File"/>
-            <Button GridPane.columnIndex="3" GridPane.rowIndex="0" disable="true" fx:id="buttonOpenInputFile" mnemonicParsing="false" text="Open"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkInputFile" mnemonicParsing="false" text="%File"/>
+            <Button GridPane.columnIndex="3" GridPane.rowIndex="0" disable="true" fx:id="buttonOpenInputFile" mnemonicParsing="false" text="%Open"/>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="labelOfficial" text="Official"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="labelOfficial" text="%Hash"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="fieldOfficial"/>
-            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkOfficialFile" mnemonicParsing="false" text="File"/>
-            <Button GridPane.columnIndex="3" GridPane.rowIndex="1" disable="true" fx:id="buttonOpenOfficialFile" mnemonicParsing="false" text="Open"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkOfficialFile" mnemonicParsing="false" text="%File"/>
+            <Button GridPane.columnIndex="3" GridPane.rowIndex="1" disable="true" fx:id="buttonOpenOfficialFile" mnemonicParsing="false" text="%Open"/>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="labelOutput" text="Output"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="labelOutput" text="%Output"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="fieldOutput"/>
-            <Button GridPane.columnIndex="3" GridPane.rowIndex="2" fx:id="buttonOpenOutputFile" mnemonicParsing="false" text="Open"/>
+            <Button GridPane.columnIndex="3" GridPane.rowIndex="2" fx:id="buttonOpenOutputFile" mnemonicParsing="false" text="%Open"/>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="Algorithms"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="%Algorithms"/>
             <GridPane GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="10.0" styleClass="pane-algorithm" vgap="10.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES"/>
@@ -90,11 +90,11 @@
 
             <HBox GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="4" alignment="CENTER" fx:id="paneProgress" spacing="10.0" styleClass="pane-progress">
                 <ProgressBar HBox.hgrow="ALWAYS" fx:id="progressBar" maxWidth="1E9" progress="0.0"/>
-                <Button fx:id="buttonRun" mnemonicParsing="false" text="Run"/>
+                <Button fx:id="buttonRun" mnemonicParsing="false" text="%Run"/>
             </HBox>
 
-            <TitledPane GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="5" fx:id="paneDetail" maxHeight="1E9" maxWidth="1E9" styleClass="pane-detail" text="Details">
-                <TextArea editable="false" fx:id="areaDetail" promptText="When done, the details will show here"/>
+            <TitledPane GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="5" fx:id="paneDetail" maxHeight="1E9" maxWidth="1E9" styleClass="pane-detail" text="%Show.detailed.results">
+                <TextArea editable="false" fx:id="areaDetail" promptText="%When.done,.the.details.will.show.here"/>
             </TitledPane>
         </GridPane>
     </center>
