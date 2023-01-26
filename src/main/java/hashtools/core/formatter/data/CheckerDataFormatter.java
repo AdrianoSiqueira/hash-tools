@@ -1,12 +1,19 @@
 package hashtools.core.formatter.data;
 
 import hashtools.core.model.Data;
+import hashtools.core.service.LanguageService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class CheckerDataFormatter extends DataFormatter {
+
+    private LanguageService languageService;
+
+    public CheckerDataFormatter() {
+        languageService = new LanguageService();
+    }
 
     private void applyPadding(int padding, List<String> headers) {
         headers.replaceAll(s -> String.format("%" + padding + "s: ", s));
