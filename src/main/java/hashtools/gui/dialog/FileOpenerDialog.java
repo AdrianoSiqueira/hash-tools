@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p> Handles all operations involving opening files and directories. </p>
@@ -50,7 +51,7 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFile(String title, FileExtension... extensions) {
+    public Optional<File> openFile(String title, FileExtension... extensions) {
         return openFile(title, null, extensions);
     }
 
@@ -68,12 +69,12 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFile(String title, File initialDirectory, FileExtension... extensions) {
+    public Optional<File> openFile(String title, File initialDirectory, FileExtension... extensions) {
         FileChooser chooser = getFileChooser(title, initialDirectory, extensions);
         File        file    = chooser.showOpenDialog(stage);
 
         stage.close();
-        return file;
+        return Optional.ofNullable(file);
     }
 
     /**
@@ -88,7 +89,7 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFileToSave(String title, FileExtension... extensions) {
+    public Optional<File> openFileToSave(String title, FileExtension... extensions) {
         return openFileToSave(title, null, extensions);
     }
 
@@ -106,12 +107,12 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFileToSave(String title, File initialDirectory, FileExtension... extensions) {
+    public Optional<File> openFileToSave(String title, File initialDirectory, FileExtension... extensions) {
         FileChooser chooser = getFileChooser(title, initialDirectory, extensions);
         File        file    = chooser.showSaveDialog(stage);
 
         stage.close();
-        return file;
+        return Optional.ofNullable(file);
     }
 
     /**
@@ -163,7 +164,7 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFolder(String title) {
+    public Optional<File> openFolder(String title) {
         return openFolder(title, null);
     }
 
@@ -180,7 +181,7 @@ public class FileOpenerDialog {
      *
      * @since 2.0.0
      */
-    public File openFolder(String title, File initialDirectory) {
+    public Optional<File> openFolder(String title, File initialDirectory) {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle(title);
         chooser.setInitialDirectory(
@@ -191,7 +192,7 @@ public class FileOpenerDialog {
         File file = chooser.showDialog(stage);
 
         stage.close();
-        return file;
+        return Optional.ofNullable(file);
     }
 
     /**
