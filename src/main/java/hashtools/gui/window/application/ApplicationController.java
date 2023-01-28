@@ -8,6 +8,7 @@ import hashtools.core.service.LanguageService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -135,7 +136,7 @@ public class ApplicationController extends AbstractController {
     }
 
     private void close() {
-        stage.close();
+        Platform.runLater(() -> stage.close());
     }
 
     private void configureActions() {
@@ -303,10 +304,12 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openAboutDialog() {
-        Stage stage = new Stage();
-        stage.getProperties().put("host.services", webService.getHostServices());
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            stage.getProperties().put("host.services", webService.getHostServices());
 
-        new AboutController().launch(stage);
+            new AboutController().launch(stage);
+        });
     }
 
     private void openInputFile() {
@@ -314,17 +317,17 @@ public class ApplicationController extends AbstractController {
                        ? languageService.get("Select.the.file.to.check")
                        : languageService.get("Select.the.file.to.generate");
 
-        fileOpenerDialog.openFile(title, FileExtension.ALL)
-                        .map(File::getAbsolutePath)
-                        .ifPresent(fieldInput::setText);
+        Platform.runLater(() -> fileOpenerDialog.openFile(title, FileExtension.ALL)
+                                                .map(File::getAbsolutePath)
+                                                .ifPresent(fieldInput::setText));
     }
 
     private void openOfficialFile() {
         String title = languageService.get("Select.the.file.with.official.hashes");
 
-        fileOpenerDialog.openFile(title, FileExtension.HASH)
-                        .map(File::getAbsolutePath)
-                        .ifPresent(fieldOfficial::setText);
+        Platform.runLater(() -> fileOpenerDialog.openFile(title, FileExtension.HASH)
+                                                .map(File::getAbsolutePath)
+                                                .ifPresent(fieldOfficial::setText));
     }
 
     private void openOnlineManual() {
@@ -334,9 +337,9 @@ public class ApplicationController extends AbstractController {
     private void openOutputFile() {
         String title = languageService.get("Select.the.output.file");
 
-        fileOpenerDialog.openFileToSave(title, FileExtension.ALL)
-                        .map(File::getAbsolutePath)
-                        .ifPresent(fieldOutput::setText);
+        Platform.runLater(() -> fileOpenerDialog.openFileToSave(title, FileExtension.ALL)
+                                                .map(File::getAbsolutePath)
+                                                .ifPresent(fieldOutput::setText));
     }
 
     private void run() {
