@@ -343,4 +343,22 @@ public class ApplicationController extends AbstractController {
         Data data = createData();
         new CoreRunner(data).run();
     }
+
+    private void toggleInputFileMode(Boolean usingInputFile) {
+        String text = usingInputFile
+                      ? languageService.get("File")
+                      : languageService.get("Text");
+
+        Platform.runLater(() -> labelInput.setText(text));
+        buttonOpenInputFile.setDisable(!usingInputFile);
+    }
+
+    private void toggleOfficialFileMode(Boolean usingOfficialFile) {
+        String text = usingOfficialFile
+                      ? languageService.get("Hash.file")
+                      : languageService.get("Hash");
+
+        Platform.runLater(() -> labelOfficial.setText(text));
+        buttonOpenOfficialFile.setDisable(!usingOfficialFile);
+    }
 }
