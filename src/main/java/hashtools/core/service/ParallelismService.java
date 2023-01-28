@@ -9,20 +9,27 @@ public enum ParallelismService {
 
     INSTANCE;
 
-    private final ExecutorService executor;
+    private final ExecutorService fixedThreadPool;
+    private final ExecutorService cachedThreadPool;
 
     ParallelismService() {
-        this.executor = Executors.newFixedThreadPool(
+        this.fixedThreadPool = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors(),
                 new DaemonFactory()
         );
+
+        this.cachedThreadPool = Executors.newCachedThreadPool(new DaemonFactory());
     }
 
     public static void shutdown() {
-        INSTANCE.getExecutor().shutdown();
+        INSTANCE.getFixedThreadPool().shutdownNow();
     }
 
-    public ExecutorService getExecutor() {
-        return executor;
+    public ExecutorService getCachedThreadPool() {
+        return cachedThreadPool;
+    }
+
+    public ExecutorService getFixedThreadPool() {
+        return fixedThreadPool;
     }
 }
