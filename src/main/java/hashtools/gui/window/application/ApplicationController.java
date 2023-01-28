@@ -5,6 +5,7 @@ import hashtools.core.model.Data;
 import hashtools.core.model.FileExtension;
 import hashtools.core.runner.CoreRunner;
 import hashtools.core.service.LanguageService;
+import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
@@ -31,6 +32,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p>
@@ -45,6 +47,7 @@ public class ApplicationController extends AbstractController {
     private final String           buttonHighlightStyleClass;
     private final BooleanProperty  checking;
     private final FileOpenerDialog fileOpenerDialog;
+    private final ExecutorService  executor;
 
     @FXML
     private BorderPane paneRoot;
@@ -133,6 +136,7 @@ public class ApplicationController extends AbstractController {
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
         this.fileOpenerDialog          = new FileOpenerDialog();
+        this.executor                  = ParallelismService.INSTANCE.getCachedThreadPool();
     }
 
     private void close() {
@@ -140,33 +144,21 @@ public class ApplicationController extends AbstractController {
     }
 
     private void configureActions() {
-        itemAbout.setOnAction(e -> openAboutDialog());
-        itemClose.setOnAction(e -> close());
-        itemOnlineManual.setOnAction(e -> openOnlineManual());
-        buttonCheck.setOnAction(e -> enableCheckMode());
-        buttonGenerate.setOnAction(e -> enableGenerateMode());
-        buttonRun.setOnAction(e -> run());
-        buttonOpenInputFile.setOnAction(e -> openInputFile());
-        buttonOpenOfficialFile.setOnAction(e -> openOfficialFile());
-        buttonOpenOutputFile.setOnAction(e -> openOutputFile());
+        itemAbout.setOnAction(e -> executor.execute(this::openAboutDialog));
+        itemClose.setOnAction(e -> executor.execute(this::close));
+        itemOnlineManual.setOnAction(e -> executor.execute(this::openOnlineManual));
+        buttonCheck.setOnAction(e -> executor.execute(this::enableCheckMode));
+        buttonGenerate.setOnAction(e -> executor.execute(this::enableGenerateMode));
+        buttonRun.setOnAction(e -> executor.execute(this::run));
+        buttonOpenInputFile.setOnAction(e -> executor.execute(this::openInputFile));
+        buttonOpenOfficialFile.setOnAction(e -> executor.execute(this::openOfficialFile));
+        buttonOpenOutputFile.setOnAction(e -> executor.execute(this::openOutputFile));
 
-        checkInputFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            String text = newValue
-                          ? languageService.get("File")
-                          : languageService.get("Text");
+        checkInputFile.selectedProperty()
+                      .addListener((observable, oldValue, newValue) -> executor.execute(() -> toggleInputFileMode(newValue)));
 
-            labelInput.setText(text);
-            buttonOpenInputFile.setDisable(!newValue);
-        });
-
-        checkOfficialFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            String text = newValue
-                          ? languageService.get("Hash.file")
-                          : languageService.get("Hash");
-
-            labelOfficial.setText(text);
-            buttonOpenOfficialFile.setDisable(!newValue);
-        });
+        checkOfficialFile.selectedProperty()
+                         .addListener((observable, oldValue, newValue) -> executor.execute(() -> toggleOfficialFileMode(newValue)));
     }
 
     private void configureRunningMode() {
