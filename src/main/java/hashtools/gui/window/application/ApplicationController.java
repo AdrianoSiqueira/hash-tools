@@ -155,16 +155,15 @@ public class ApplicationController extends AbstractController {
         buttonOpenOutputFile.setOnAction(e -> executor.execute(this::openOutputFile));
 
         checkInputFile.selectedProperty()
-                      .addListener((observable, oldValue, newValue) -> executor.execute(() -> toggleInputFileMode(newValue)));
+                      .addListener((observable, oldValue, usingInputFile) -> executor.execute(() -> toggleInputFileMode(usingInputFile)));
 
         checkOfficialFile.selectedProperty()
-                         .addListener((observable, oldValue, newValue) -> executor.execute(() -> toggleOfficialFileMode(newValue)));
+                         .addListener((observable, oldValue, usingOfficialFile) -> executor.execute(() -> toggleOfficialFileMode(usingOfficialFile)));
     }
 
     private void configureRunningMode() {
-        checking.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                // checking
+        checking.addListener((observable, oldValue, inCheckerMode) -> {
+            if (inCheckerMode) {
                 buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
                 buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
 
@@ -174,7 +173,6 @@ public class ApplicationController extends AbstractController {
 
                 paneAlgorithm.setDisable(true);
             } else {
-                // generating
                 buttonCheck.getStyleClass().remove(buttonHighlightStyleClass);
                 buttonGenerate.getStyleClass().add(buttonHighlightStyleClass);
 
