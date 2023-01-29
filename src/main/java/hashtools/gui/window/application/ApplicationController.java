@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -335,6 +336,20 @@ public class ApplicationController extends AbstractController {
     private void run() {
         Data data = createData();
         new CoreRunner(data).run();
+    }
+
+    private void startSplash() {
+        Platform.runLater(() -> {
+            paneRoot.getChildren().forEach(node -> node.setDisable(true));
+            paneRoot.setCursor(Cursor.WAIT);
+        });
+    }
+
+    private void stopSplash() {
+        Platform.runLater(() -> {
+            paneRoot.getChildren().forEach(node -> node.setDisable(false));
+            paneRoot.setCursor(Cursor.DEFAULT);
+        });
     }
 
     private void toggleInputFileMode() {
