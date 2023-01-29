@@ -155,10 +155,10 @@ public class ApplicationController extends AbstractController {
         buttonOpenOutputFile.setOnAction(e -> executor.execute(this::openOutputFile));
 
         checkInputFile.selectedProperty()
-                      .addListener((observable, oldValue, usingInputFile) -> executor.execute(() -> toggleInputFileMode(usingInputFile)));
+                      .addListener((observable, oldValue, newValue) -> executor.execute(this::toggleInputFileMode));
 
         checkOfficialFile.selectedProperty()
-                         .addListener((observable, oldValue, usingOfficialFile) -> executor.execute(() -> toggleOfficialFileMode(usingOfficialFile)));
+                         .addListener((observable, oldValue, newValue) -> executor.execute(this::toggleOfficialFileMode));
     }
 
     private void configureRunningMode() {
@@ -303,7 +303,7 @@ public class ApplicationController extends AbstractController {
     }
 
     private void openInputFile() {
-        String title = checking.get()
+        String title = isInCheckRunningMode()
                        ? languageService.get("Select.the.file.to.check")
                        : languageService.get("Select.the.file.to.generate");
 
@@ -337,21 +337,21 @@ public class ApplicationController extends AbstractController {
         new CoreRunner(data).run();
     }
 
-    private void toggleInputFileMode(Boolean usingInputFile) {
-        String text = usingInputFile
+    private void toggleInputFileMode() {
+        String text = isUsingInputFile()
                       ? languageService.get("File")
                       : languageService.get("Text");
 
         Platform.runLater(() -> labelInput.setText(text));
-        buttonOpenInputFile.setDisable(!usingInputFile);
+        buttonOpenInputFile.setDisable(!isUsingInputFile());
     }
 
-    private void toggleOfficialFileMode(Boolean usingOfficialFile) {
-        String text = usingOfficialFile
+    private void toggleOfficialFileMode() {
+        String text = isUsingOfficialFile()
                       ? languageService.get("Hash.file")
                       : languageService.get("Hash");
 
         Platform.runLater(() -> labelOfficial.setText(text));
-        buttonOpenOfficialFile.setDisable(!usingOfficialFile);
+        buttonOpenOfficialFile.setDisable(!isUsingOfficialFile());
     }
 }
