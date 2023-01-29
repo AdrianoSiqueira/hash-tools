@@ -162,7 +162,7 @@ public class ApplicationController extends AbstractController {
     }
 
     private void configureRunningMode() {
-        checking.addListener((observable, oldValue, inCheckerMode) -> {
+        checking.addListener((observable, oldValue, inCheckerMode) -> Platform.runLater(() -> {
             if (inCheckerMode) {
                 buttonCheck.getStyleClass().add(buttonHighlightStyleClass);
                 buttonGenerate.getStyleClass().remove(buttonHighlightStyleClass);
@@ -182,7 +182,7 @@ public class ApplicationController extends AbstractController {
 
                 paneAlgorithm.setDisable(false);
             }
-        });
+        }));
     }
 
     private void configureStage(Stage stage) {
