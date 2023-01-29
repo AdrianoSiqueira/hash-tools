@@ -334,8 +334,12 @@ public class ApplicationController extends AbstractController {
     }
 
     private void run() {
+        executor.execute(this::startSplash);
+
         Data data = createData();
         new CoreRunner(data).run();
+
+        executor.execute(this::stopSplash);
     }
 
     private void startSplash() {
