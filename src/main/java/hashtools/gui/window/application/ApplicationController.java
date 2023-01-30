@@ -137,7 +137,7 @@ public class ApplicationController extends AbstractController {
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
         this.fileOpenerDialog          = new FileOpenerDialog();
-        this.executor                  = ParallelismService.INSTANCE.getCachedThreadPool();
+        this.executor                  = ParallelismService.CACHED_THREAD_POOL.getExecutor();
     }
 
     private void close() {
