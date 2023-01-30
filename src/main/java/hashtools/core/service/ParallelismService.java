@@ -7,29 +7,27 @@ import java.util.concurrent.Executors;
 
 public enum ParallelismService {
 
-    INSTANCE;
+    CACHED_THREAD_POOL(Executors.newCachedThreadPool(
+            new DaemonFactory())
+    ),
 
-    private final ExecutorService fixedThreadPool;
-    private final ExecutorService cachedThreadPool;
+    WORK_STEALING_THREAD_POOL(Executors.newFixedThreadPool(
+            Runtime.getRuntime().availableProcessors(),
+            new DaemonFactory()
+    ));
 
-    ParallelismService() {
-        this.fixedThreadPool = Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors(),
-                new DaemonFactory()
-        );
+    private final ExecutorService executor;
 
-        this.cachedThreadPool = Executors.newCachedThreadPool(new DaemonFactory());
+    ParallelismService(ExecutorService executor) {
+        this.executor = executor;
     }
 
     public static void shutdown() {
-        INSTANCE.getFixedThreadPool().shutdownNow();
+        CACHED_THREAD_POOL.executor.shutdownNow();
+        WORK_STEALING_THREAD_POOL.executor.shutdown();
     }
 
-    public ExecutorService getCachedThreadPool() {
-        return cachedThreadPool;
-    }
-
-    public ExecutorService getFixedThreadPool() {
-        return fixedThreadPool;
+    public ExecutorService getExecutor() {
+        return executor;
     }
 }

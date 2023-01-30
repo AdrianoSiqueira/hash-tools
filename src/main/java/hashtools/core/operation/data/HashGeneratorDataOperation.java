@@ -31,7 +31,7 @@ public class HashGeneratorDataOperation implements DataOperation {
     public void perform(Data data) {
         List<Hash> hashes = data.getHashes();
 
-        ExecutorService            executor = ParallelismService.INSTANCE.getFixedThreadPool();
+        ExecutorService            executor = ParallelismService.WORK_STEALING_THREAD_POOL.getExecutor();
         List<CompletableFuture<?>> futures  = new ArrayList<>();
 
         hashes.forEach(hash -> futures.add(CompletableFuture.runAsync(
