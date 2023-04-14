@@ -2,18 +2,22 @@ package hashtools.core.formatter.data;
 
 import hashtools.core.model.Data;
 import hashtools.core.model.Hash;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CheckerDataFormatterTest {
 
-    private DataFormatter formatter = new CheckerDataFormatter();
+    private static Locale        oldLocale;
+    private        DataFormatter formatter = new CheckerDataFormatter();
 
     private static Data getData() {
         Hash hash = new Hash();
@@ -41,6 +45,17 @@ class CheckerDataFormatterTest {
                 Arguments.of(null, null),
                 Arguments.of(getData(), getExpected())
         );
+    }
+
+    @AfterAll
+    static void restoreLocale() {
+        Locale.setDefault(oldLocale);
+    }
+
+    @BeforeAll
+    static void setLocale() {
+        oldLocale = Locale.getDefault();
+        Locale.setDefault(new Locale("en", "US"));
     }
 
     @ParameterizedTest
