@@ -1,11 +1,11 @@
 package hashtools.gui.window.application;
 
 import hashtools.core.consumer.data.GUIDataConsumer;
+import hashtools.core.factory.thread.DaemonThreadPoolFactory;
 import hashtools.core.model.Data;
 import hashtools.core.model.FileExtension;
 import hashtools.core.runner.CoreRunner;
 import hashtools.core.service.LanguageService;
-import hashtools.core.service.ParallelismService;
 import hashtools.gui.dialog.FileOpenerDialog;
 import hashtools.gui.window.AbstractController;
 import hashtools.gui.window.about.AboutController;
@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <p>
@@ -137,7 +138,10 @@ public class ApplicationController extends AbstractController {
         this.buttonHighlightStyleClass = "button-highlight";
         this.checking                  = new SimpleBooleanProperty(false);
         this.fileOpenerDialog          = new FileOpenerDialog();
-        this.executor                  = ParallelismService.CACHED_THREAD_POOL.getExecutor();
+
+        this.executor = Executors.newCachedThreadPool(
+                new DaemonThreadPoolFactory(getClass().getSimpleName())
+        );
     }
 
     private void close() {
