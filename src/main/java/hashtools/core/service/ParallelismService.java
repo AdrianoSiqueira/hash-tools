@@ -5,6 +5,7 @@ import hashtools.core.factory.thread.DaemonFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Deprecated(forRemoval = true)
 public enum ParallelismService {
 
     CACHED_THREAD_POOL(Executors.newCachedThreadPool(
