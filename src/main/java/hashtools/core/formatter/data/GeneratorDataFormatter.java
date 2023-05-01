@@ -4,6 +4,12 @@ import hashtools.core.model.Data;
 
 import java.util.StringJoiner;
 
+/**
+ * <p>
+ * Formats the {@link Data} for the checker module. Only the generated
+ * hash checksum and the input data will be included.
+ * </p>
+ */
 public class GeneratorDataFormatter extends DataFormatter {
 
     @Override
