@@ -1,8 +1,13 @@
 package hashtools.core.model;
 
 import hashtools.core.service.LanguageService;
-import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * <p>
+ * Used to create the {@link ExtensionFilter} of the dialog in the gui.
+ * </p>
+ */
 public enum FileExtension {
 
     ALL("All", "*"),
@@ -28,8 +33,8 @@ public enum FileExtension {
         return extensions;
     }
 
-    public FileChooser.ExtensionFilter getFilter() {
-        return new FileChooser.ExtensionFilter(
+    public ExtensionFilter getFilter() {
+        return new ExtensionFilter(
                 languageService.get(description),
                 extensions
         );
