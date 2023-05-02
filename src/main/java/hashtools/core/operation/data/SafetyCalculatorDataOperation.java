@@ -5,6 +5,12 @@ import hashtools.core.model.Hash;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Calculates the safety percentage of the input data, comparing
+ * the official hash checksums with the generated ones.
+ * </p>
+ */
 public class SafetyCalculatorDataOperation implements DataOperation {
 
     @Override
