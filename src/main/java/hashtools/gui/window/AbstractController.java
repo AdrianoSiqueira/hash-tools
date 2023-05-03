@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
+/**
+ * <p>
+ * Interface for the controller classes.
+ * </p>
+ */
 public abstract class AbstractController {
 
     protected String fxmlPath;

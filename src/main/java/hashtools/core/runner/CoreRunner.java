@@ -7,6 +7,11 @@ import hashtools.core.operation.data.HashGeneratorDataOperation;
 import hashtools.core.operation.data.HashesLoaderDataOperation;
 import hashtools.core.operation.data.SafetyCalculatorDataOperation;
 
+/**
+ * <p>
+ * Handles the application execution, processing the {@link Data} object.
+ * </p>
+ */
 public class CoreRunner implements Runner {
 
     private final Data data;

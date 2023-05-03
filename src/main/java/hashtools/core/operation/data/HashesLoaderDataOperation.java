@@ -5,6 +5,12 @@ import hashtools.core.model.Hash;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Creates the {@link Hash} list from the official data within
+ * the {@link Data} object.
+ * </p>
+ */
 public class HashesLoaderDataOperation implements DataOperation {
 
     @Override

@@ -5,10 +5,23 @@ import hashtools.core.service.FileService;
 
 import java.nio.file.Path;
 
+/**
+ * <p>
+ * Consumes the {@link Data} object writing its formatted content to the
+ * given file.
+ * </p>
+ */
 public class FileDataConsumer implements DataConsumer {
 
     private final Path outputFile;
 
+    /**
+     * <p>
+     * Creates an instance of {@link FileDataConsumer}.
+     * </p>
+     *
+     * @param outputFile Where to write the content.
+     */
     public FileDataConsumer(Path outputFile) {
         this.outputFile = outputFile;
     }

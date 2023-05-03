@@ -10,6 +10,11 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * <p>
+ * Controller class for the 'About' window.
+ * </p>
+ */
 @SuppressWarnings("unused")
 public class AboutController extends AbstractController {
 

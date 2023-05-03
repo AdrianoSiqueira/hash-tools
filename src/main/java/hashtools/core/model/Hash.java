@@ -2,6 +2,12 @@ package hashtools.core.model;
 
 import java.util.Objects;
 
+/**
+ * <p>
+ * Encapsulates the algorithm and both the official and generated hash
+ * checksums together.
+ * </p>
+ */
 public class Hash {
 
     private String algorithm;
@@ -39,6 +45,14 @@ public class Hash {
         return Objects.hash(algorithm);
     }
 
+    /**
+     * <p>
+     * Checks whether the hash checksums matches. The checking is case
+     * insensitive and returns false if some checksum is null.
+     * </p>
+     *
+     * @return True if both checksums are not null and equals.
+     */
     public boolean matches() {
         if (official == null) return false;
         if (generated == null) return false;

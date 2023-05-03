@@ -7,14 +7,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * <p>
+ * Formats the {@link Data} for the checker module. All the data will
+ * be included. This class implements the {@link LanguageService}
+ * providing localized result.
+ * </p>
+ */
 public class CheckerDataFormatter extends DataFormatter {
 
     private LanguageService languageService;
 
+    /**
+     * <p>
+     * Creates an instance of {@link CheckerDataFormatter} initializing
+     * the {@link LanguageService}.
+     * </p>
+     */
     public CheckerDataFormatter() {
         languageService = new LanguageService();
     }
 
+    /**
+     * <p>
+     * Applies the padding to all headers.
+     * </p>
+     *
+     * @param padding Padding to apply.
+     * @param headers Where to apply the padding.
+     */
     private void applyPadding(int padding, List<String> headers) {
         headers.replaceAll(s -> String.format("%" + padding + "s: ", s));
     }
@@ -55,6 +76,16 @@ public class CheckerDataFormatter extends DataFormatter {
         return result.toString().concat(percentageContent);
     }
 
+    /**
+     * <p>
+     * Gets the higher length of the strings. It is used to determine
+     * the padding that will be applied to the headers.
+     * </p>
+     *
+     * @param strings Used to determine the higher length.
+     *
+     * @return The higher length.
+     */
     private int getHigherLength(List<String> strings) {
         return strings.stream()
                       .map(String::length)
