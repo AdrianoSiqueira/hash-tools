@@ -1,6 +1,4 @@
 module hash.tools {
-    requires static lombok;
-
     requires javafx.fxml;
     requires javafx.controls;
     requires org.slf4j;
