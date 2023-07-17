@@ -2,54 +2,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>adriano.siqueira</groupId>
+    <groupId>io.github.adrianosiqueira</groupId>
     <artifactId>hash-tools</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 
     <name>HashTools</name>
-    <description>Simple utility to check and generate hash checksums from both files and texts.</description>
+    <description>Application for checking and generating hashing checksums, and for file comparisons.</description>
+    <url>https://github.com/AdrianoSiqueira/hash-tools</url>
+
+    <developers>
+        <developer>
+            <name>Adriano Siqueira</name>
+            <url>https://github.com/AdrianoSiqueira</url>
+        </developer>
+    </developers>
 
     <properties>
         <encoding>UTF-8</encoding>
-        <maven.compiler.source>${version.java}</maven.compiler.source>
-        <maven.compiler.target>${version.java}</maven.compiler.target>
-        <version.lombok>1.18.24</version.lombok>
-        <version.java>11</version.java>
-        <version.javafx>19</version.javafx>
-        <version.junit>5.9.0</version.junit>
+        <java.version>11</java.version>
+        <javafx.version>19.0.2.1</javafx.version>
+        <junit.version>5.9.3</junit.version>
+        <logback.version>1.4.8</logback.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${version.javafx}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${version.javafx}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${version.lombok}</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${version.junit}</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.6</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 
@@ -58,16 +51,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${version.lombok}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
+                <version>3.11.0</version>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
