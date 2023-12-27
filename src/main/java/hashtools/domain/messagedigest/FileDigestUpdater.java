@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 
 @AllArgsConstructor
-public class FileUpdater implements Updater {
+public class FileDigestUpdater implements DigestUpdater {
 
     private static final int BUFFER_SIZE = 2048;
 

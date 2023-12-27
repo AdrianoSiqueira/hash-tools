@@ -1,9 +1,9 @@
 package hashtools.utility;
 
 import hashtools.domain.Algorithm;
-import hashtools.domain.messagedigest.FileUpdater;
-import hashtools.domain.messagedigest.StringUpdater;
-import hashtools.domain.messagedigest.Updater;
+import hashtools.domain.messagedigest.FileDigestUpdater;
+import hashtools.domain.messagedigest.StringDigestUpdater;
+import hashtools.domain.messagedigest.DigestUpdater;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,14 +35,14 @@ class ChecksumGeneratorTest {
     private static Stream<Arguments> getExceptionTests() {
         return Stream
             .<Arguments>builder()
-            .add(Arguments.of(new FileUpdater(nonExistentFile), RuntimeException.class))
-            .add(Arguments.of(new FileUpdater(nullFile), NullPointerException.class))
+            .add(Arguments.of(new FileDigestUpdater(nonExistentFile), RuntimeException.class))
+            .add(Arguments.of(new FileDigestUpdater(nullFile), NullPointerException.class))
             .build();
     }
 
     private static Stream<Arguments> getResultTests() {
-        Updater fileUpdater   = new FileUpdater(existentFile);
-        Updater stringUpdater = new StringUpdater(inputString);
+        DigestUpdater fileDigestUpdater   = new FileDigestUpdater(existentFile);
+        DigestUpdater stringDigestUpdater = new StringDigestUpdater(inputString);
 
         String md5    = "d41d8cd98f00b204e9800998ecf8427e";
         String sha1   = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
@@ -53,18 +53,18 @@ class ChecksumGeneratorTest {
 
         return Stream
             .<Arguments>builder()
-            .add(Arguments.of(Algorithm.MD5, fileUpdater, md5))
-            .add(Arguments.of(Algorithm.MD5, stringUpdater, md5))
-            .add(Arguments.of(Algorithm.SHA1, fileUpdater, sha1))
-            .add(Arguments.of(Algorithm.SHA1, stringUpdater, sha1))
-            .add(Arguments.of(Algorithm.SHA224, fileUpdater, sha224))
-            .add(Arguments.of(Algorithm.SHA224, stringUpdater, sha224))
-            .add(Arguments.of(Algorithm.SHA256, fileUpdater, sha256))
-            .add(Arguments.of(Algorithm.SHA256, stringUpdater, sha256))
-            .add(Arguments.of(Algorithm.SHA384, fileUpdater, sha384))
-            .add(Arguments.of(Algorithm.SHA384, stringUpdater, sha384))
-            .add(Arguments.of(Algorithm.SHA512, fileUpdater, sha512))
-            .add(Arguments.of(Algorithm.SHA512, stringUpdater, sha512))
+            .add(Arguments.of(Algorithm.MD5, fileDigestUpdater, md5))
+            .add(Arguments.of(Algorithm.MD5, stringDigestUpdater, md5))
+            .add(Arguments.of(Algorithm.SHA1, fileDigestUpdater, sha1))
+            .add(Arguments.of(Algorithm.SHA1, stringDigestUpdater, sha1))
+            .add(Arguments.of(Algorithm.SHA224, fileDigestUpdater, sha224))
+            .add(Arguments.of(Algorithm.SHA224, stringDigestUpdater, sha224))
+            .add(Arguments.of(Algorithm.SHA256, fileDigestUpdater, sha256))
+            .add(Arguments.of(Algorithm.SHA256, stringDigestUpdater, sha256))
+            .add(Arguments.of(Algorithm.SHA384, fileDigestUpdater, sha384))
+            .add(Arguments.of(Algorithm.SHA384, stringDigestUpdater, sha384))
+            .add(Arguments.of(Algorithm.SHA512, fileDigestUpdater, sha512))
+            .add(Arguments.of(Algorithm.SHA512, stringDigestUpdater, sha512))
             .build();
     }
 
@@ -81,13 +81,13 @@ class ChecksumGeneratorTest {
 
     @ParameterizedTest
     @MethodSource(value = "getExceptionTests")
-    void generate(Updater updater, Class<Throwable> output) {
-        assertThrows(output, () -> service.generate(Algorithm.MD5, updater));
+    void generate(DigestUpdater digestUpdater, Class<Throwable> output) {
+        assertThrows(output, () -> service.generate(Algorithm.MD5, digestUpdater));
     }
 
     @ParameterizedTest
     @MethodSource(value = "getResultTests")
-    void generate(Algorithm algorithm, Updater updater, String output) {
-        assertEquals(output, service.generate(algorithm, updater));
+    void generate(Algorithm algorithm, DigestUpdater digestUpdater, String output) {
+        assertEquals(output, service.generate(algorithm, digestUpdater));
     }
 }

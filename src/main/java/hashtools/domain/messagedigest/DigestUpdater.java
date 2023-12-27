@@ -2,7 +2,7 @@ package hashtools.domain.messagedigest;
 
 import java.security.MessageDigest;
 
-public interface Updater {
+public interface DigestUpdater {
 
     void update(MessageDigest messageDigest);
 }

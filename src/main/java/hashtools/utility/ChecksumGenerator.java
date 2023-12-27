@@ -1,7 +1,7 @@
 package hashtools.utility;
 
 import hashtools.domain.Algorithm;
-import hashtools.domain.messagedigest.Updater;
+import hashtools.domain.messagedigest.DigestUpdater;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,9 +19,9 @@ public class ChecksumGenerator {
             .toLowerCase();
     }
 
-    public String generate(Algorithm algorithm, Updater updater) {
+    public String generate(Algorithm algorithm, DigestUpdater digestUpdater) {
         MessageDigest messageDigest = getMessageDigest(algorithm);
-        updater.update(messageDigest);
+        digestUpdater.update(messageDigest);
 
         byte[] bytes = messageDigest.digest();
         return decode(bytes);
