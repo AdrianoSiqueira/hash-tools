@@ -6,21 +6,21 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-class UpdaterFactoryTest {
+class DigestUpdaterFactoryTest {
 
     @Test
     void createFile() {
         assertInstanceOf(
-            FileUpdater.class,
-            UpdaterFactory.create(Path.of(""))
+            FileDigestUpdater.class,
+            DigestUpdaterFactory.create(Path.of(""))
         );
     }
 
     @Test
     void createString() {
         assertInstanceOf(
-            StringUpdater.class,
-            UpdaterFactory.create("")
+            StringDigestUpdater.class,
+            DigestUpdaterFactory.create("")
         );
     }
 }
