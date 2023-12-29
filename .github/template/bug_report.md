@@ -1,3 +1,8 @@
+---
+name: Bug Report
+about: Report an issue to help us improve.
+---
+
 ### What the app should do?
 <!-- Describe the expected behavior of the application -->
 
