@@ -4,14 +4,16 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Checksum;
 import hashtools.domain.ChecksumPair;
+import hashtools.threadpool.ThreadPoolManager;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class CheckerService implements Service<CheckerRequest, CheckerResponse> {
 
-    private static double calculateIntegrityPercentage(List<ChecksumPair> checksumPairs) {
+    private double calculateIntegrityPercentage(List<ChecksumPair> checksumPairs) {
         if (checksumPairs.isEmpty()) {
             return 0.0;
         }
@@ -23,35 +25,45 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
                * 100.0 / checksumPairs.size();
     }
 
-    private static List<ChecksumPair> generateChecksumPairs(CheckerRequest request, List<Checksum> officialChecksums) {
-        ChecksumGenerator  generator     = new ChecksumGenerator();
-        List<ChecksumPair> checksumPairs = new ArrayList<>();
+    private List<ChecksumPair> generateChecksumPairs(CheckerRequest request) {
+        ChecksumGenerator  generator         = new ChecksumGenerator();
+        List<ChecksumPair> checksumPairs     = new ArrayList<>();
+        List<Checksum>     officialChecksums = getOfficialChecksums(request);
+
+        ExecutorService executor = ThreadPoolManager.newDaemon(
+            getClass().getSimpleName()
+        );
 
         for (Checksum checksum : officialChecksums) {
-            String generated = generator.generate(
-                checksum.getAlgorithm(),
-                request.getDigestUpdater()
-            );
+            executor.execute(() -> {
+                String generated = generator.generate(
+                    checksum.getAlgorithm(),
+                    request.getDigestUpdater()
+                );
 
-            ChecksumPair checksumPair = ChecksumPair
-                .builder()
-                .algorithm(checksum.getAlgorithm())
-                .checksum1(checksum.getChecksum())
-                .checksum2(generated)
-                .build();
+                ChecksumPair checksumPair = ChecksumPair
+                    .builder()
+                    .algorithm(checksum.getAlgorithm())
+                    .checksum1(checksum.getChecksum())
+                    .checksum2(generated)
+                    .build();
 
-            checksumPairs.add(checksumPair);
+                checksumPairs.add(checksumPair);
+            });
         }
+
+        ThreadPoolManager.terminate(executor);
+
         return checksumPairs;
     }
 
-    private static String getIdentification(CheckerRequest request) {
+    private String getIdentification(CheckerRequest request) {
         return request
             .getIdentifiable()
             .identify();
     }
 
-    private static List<Checksum> getOfficialChecksums(CheckerRequest request) {
+    private List<Checksum> getOfficialChecksums(CheckerRequest request) {
         return request
             .getOfficialDataGetter()
             .get();
@@ -59,8 +71,7 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
 
     @Override
     public CheckerResponse run(CheckerRequest request) {
-        List<Checksum>     officialChecksums   = getOfficialChecksums(request);
-        List<ChecksumPair> checksumPairs       = generateChecksumPairs(request, officialChecksums);
+        List<ChecksumPair> checksumPairs       = generateChecksumPairs(request);
         double             integrityPercentage = calculateIntegrityPercentage(checksumPairs);
         String             identification      = getIdentification(request);
 

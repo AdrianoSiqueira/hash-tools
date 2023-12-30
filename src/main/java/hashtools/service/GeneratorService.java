@@ -4,39 +4,49 @@ import hashtools.domain.Algorithm;
 import hashtools.domain.Checksum;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
+import hashtools.threadpool.ThreadPoolManager;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class GeneratorService implements Service<GeneratorRequest, GeneratorResponse> {
-
-    private static String getIdentification(GeneratorRequest request) {
-        return request
-            .getIdentifiable()
-            .identify();
-    }
 
     private List<Checksum> generateChecksums(GeneratorRequest request) {
         ChecksumGenerator generator = new ChecksumGenerator();
         List<Checksum>    checksums = new ArrayList<>();
 
+        ExecutorService executor = ThreadPoolManager.newDaemon(
+            getClass().getSimpleName()
+        );
+
         for (Algorithm algorithm : request.getAlgorithms()) {
-            String generated = generator.generate(
-                algorithm,
-                request.getDigestUpdater()
-            );
+            executor.execute(() -> {
+                String generated = generator.generate(
+                    algorithm,
+                    request.getDigestUpdater()
+                );
 
-            Checksum checksum = Checksum
-                .builder()
-                .algorithm(algorithm)
-                .checksum(generated)
-                .build();
+                Checksum checksum = Checksum
+                    .builder()
+                    .algorithm(algorithm)
+                    .checksum(generated)
+                    .build();
 
-            checksums.add(checksum);
+                checksums.add(checksum);
+            });
         }
 
+        ThreadPoolManager.terminate(executor);
+
         return checksums;
+    }
+
+    private String getIdentification(GeneratorRequest request) {
+        return request
+            .getIdentifiable()
+            .identify();
     }
 
     @Override
