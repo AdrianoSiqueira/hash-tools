@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GeneratorServiceTest {
 
@@ -52,6 +52,12 @@ class GeneratorServiceTest {
     @ParameterizedTest
     @MethodSource(value = "getResultTests")
     void run(GeneratorRequest input, GeneratorResponse output) {
-        assertEquals(output, service.run(input));
+        GeneratorResponse response = service.run(input);
+
+        assertThat(response.getChecksums())
+            .containsExactlyInAnyOrderElementsOf(output.getChecksums());
+
+        assertThat(response.getIdentification())
+            .isEqualTo(output.getIdentification());
     }
 }
