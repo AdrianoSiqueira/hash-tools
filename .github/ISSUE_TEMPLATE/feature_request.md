@@ -1,24 +1,10 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: enhancement
-assignees: AdrianoSiqueira
-
+name: Feature Request
+about: Tell us about some feature or behavior you would like to see.
 ---
 
-# Feature Request
+### What would you like the application to do?
+<!-- Describe the desired feature or behavior -->
 
----
-
-### Feature description
-
-[ Describe the functionality you would like to be added. ]
-
----
-
-### To execute
-
-- Step 1
-- Step 2
-- Step …
+### Have you seen this feature or behavior anywhere?
+<!-- If so, link to a video showing this feature in action -->

@@ -1,44 +1,19 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: bug
-assignees: AdrianoSiqueira
-
+name: Bug Report
+about: Report an issue to help us improve.
 ---
 
-# Bug Report
+### What the app should do?
+<!-- Describe the expected behavior of the application -->
 
----
+### What the app is doing instead?
+<!-- Describe the current behavior of the application -->
 
-### Problem description
+### There is some screenshot?
+<!-- Put some screenshot if available. It can be a link to video too -->
 
-[ Describe the application's problematic behavior. ]
+### Which operating system are you using?
+<!-- Windows 11, Ubuntu 23.10, etc -->
 
----
-
-### Expected behavior
-
-[ Describe the expected behavior. ]
-
----
-
-### To reproduce
-
-- Step 1
-- Step 2
-- Step …
-
----
-
-### Environment details
-
-Operating system: [ e.g.: Windows 10, Ubuntu 21.10, etc ]
-
-Application’s version: [ e.g.: 2.0.0 ]
-
----
-
-### Screenshots
-
-[ If possible, please add some screenshot showing the problem. ]
+### Which app's version are you using?
+<!-- 2.0.0, 3.0.0, etc -->
