@@ -17,7 +17,7 @@ public class ThreadPoolManager {
         return create(name, true);
     }
 
-    public static ExecutorService newUser(String name) {
+    public static ExecutorService newDefault(String name) {
         return create(name, false);
     }
 
