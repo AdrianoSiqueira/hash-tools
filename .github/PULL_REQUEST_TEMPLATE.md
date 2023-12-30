@@ -1,8 +1,3 @@
----
-name: Pull Request
-about: Help us by getting your hands dirty.
----
-
 ### What has changed?
 <!-- Summarize the changes that were made -->
 
