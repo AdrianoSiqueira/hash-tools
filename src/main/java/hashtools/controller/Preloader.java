@@ -59,9 +59,6 @@ public class Preloader extends javafx.application.Preloader {
 
     @Override
     public void start(Stage stage) {
-        this.stage = stage;
-        stage.initStyle(StageStyle.UNDECORATED);
-
         /*
          * Attempts to create a scene loading the fxml
          * file. If it fails the scene will be blank.
@@ -70,8 +67,11 @@ public class Preloader extends javafx.application.Preloader {
                 .map(clazz -> clazz.getResource(FXML_PATH))
                 .map(this::loadFxml)
                 .map(Scene::new)
-                .ifPresent(this.stage::setScene);
+                .ifPresent(stage::setScene);
 
+        this.stage = stage;
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.centerOnScreen();
         stage.show();
     }
 }
