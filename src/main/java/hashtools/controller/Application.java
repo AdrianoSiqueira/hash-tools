@@ -1,5 +1,6 @@
 package hashtools.controller;
 
+import hashtools.language.Language;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -76,6 +77,7 @@ public class Application extends javafx.application.Application {
     private Pane loadFxml(URL url) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
+        loader.setResources(Language.INSTANCE.getBundle());
 
         try {
             return loader.load();
