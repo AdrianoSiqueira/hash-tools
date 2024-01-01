@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane fx:id="paneRoot" fx:controller="hashtools.controller.Application" hgap="20" prefHeight="480" prefWidth="853" vgap="20" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints hgrow="NEVER"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER"/>
+        <RowConstraints vgrow="NEVER"/>
+        <RowConstraints vgrow="NEVER"/>
+        <RowConstraints valignment="TOP" vgrow="NEVER"/>
+        <RowConstraints vgrow="ALWAYS"/>
+        <RowConstraints vgrow="NEVER"/>
+    </rowConstraints>
+
+    <padding>
+        <Insets topRightBottomLeft="20"/>
+    </padding>
+
+    <HBox GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" alignment="CENTER" fx:id="paneRunMode" spacing="20">
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="Check"/>
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="Compare"/>
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="Generate"/>
+    </HBox>
+
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="Input"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="field1"/>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="Use file"/>
+
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="Official"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="field2"/>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="Use file"/>
+
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="Algorithms"/>
+    <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+        </rowConstraints>
+
+        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkMd5" maxWidth="1E6" text="MD5"/>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkSha1" maxWidth="1E6" text="SHA-1"/>
+        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkSha224" maxWidth="1E6" text="SHA-224"/>
+
+        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="checkSha256" maxWidth="1E6" text="SHA-256"/>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="checkSha384" maxWidth="1E6" text="SHA-384"/>
+        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
+    </GridPane>
+
+    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6"/>
+
+    <StackPane GridPane.columnSpan="3" GridPane.rowIndex="5" alignment="CENTER_RIGHT" fx:id="paneRun">
+        <Button fx:id="buttonRun" text="Run"/>
+    </StackPane>
+</GridPane>
