@@ -18,7 +18,7 @@ import static javafx.application.Preloader.StateChangeNotification.Type.BEFORE_S
 @Slf4j
 public class Preloader extends javafx.application.Preloader {
 
-    private static final String FXML_PATH = "";
+    private static final String FXML_PATH = "/hashtools/fxml/preloader.fxml";
 
     private Stage stage;
 
