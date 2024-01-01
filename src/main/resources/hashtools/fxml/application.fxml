@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="paneRoot" fx:controller="hashtools.controller.Application" hgap="20" prefHeight="480" prefWidth="853" vgap="20" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="hashtools.controller.Application" fx:id="paneRoot" hgap="20" prefHeight="480" prefWidth="853" vgap="20" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
         <ColumnConstraints hgrow="ALWAYS"/>
@@ -23,20 +23,20 @@
     </padding>
 
     <HBox GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" alignment="CENTER" fx:id="paneRunMode" spacing="20">
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="Check"/>
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="Compare"/>
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="Generate"/>
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="%hashtools.fxml.application.button_check"/>
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="%hashtools.fxml.application.button_compare"/>
+        <Button HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate"/>
     </HBox>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="Input"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="%hashtools.fxml.application.label_1.text"/>
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="field1"/>
-    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="Use file"/>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="%hashtools.fxml.application.check_file"/>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="Official"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="%hashtools.fxml.application.label_2.checksum"/>
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="field2"/>
-    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="Use file"/>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="%hashtools.fxml.application.check_file"/>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="Algorithms"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="%hashtools.fxml.application.label_algorithms"/>
     <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="20" vgap="20">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
@@ -60,6 +60,6 @@
     <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6"/>
 
     <StackPane GridPane.columnSpan="3" GridPane.rowIndex="5" alignment="CENTER_RIGHT" fx:id="paneRun">
-        <Button fx:id="buttonRun" text="Run"/>
+        <Button fx:id="buttonRun" text="%hashtools.fxml.application.button_run"/>
     </StackPane>
 </GridPane>
