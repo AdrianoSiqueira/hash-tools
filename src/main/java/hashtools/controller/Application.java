@@ -3,6 +3,7 @@ package hashtools.controller;
 import hashtools.language.Language;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -19,9 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 @Slf4j
-public class Application extends javafx.application.Application {
+public class Application extends javafx.application.Application implements Initializable {
 
     private static final String TITLE     = "HashTools";
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
@@ -144,6 +146,11 @@ public class Application extends javafx.application.Application {
         field2.setDisable(true);
 
         areaStatus.clear();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        enableCheckerMode();
     }
 
     private Pane loadFxml(URL url) {
