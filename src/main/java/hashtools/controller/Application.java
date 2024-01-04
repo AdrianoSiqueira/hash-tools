@@ -82,15 +82,21 @@ public class Application extends javafx.application.Application {
         buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
         buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
 
-        // This will reset the labels 1 and 2
         checkUseFile1.setSelected(false);
-        checkUseFile2.setSelected(false);
+        checkUseFile1.setDisable(false);
 
-        // Disables pane algorithm because the selection is automatic
+        checkUseFile2.setSelected(false);
+        checkUseFile2.setDisable(false);
+
+        // Algorithm selection is automatic
         paneAlgorithm.setDisable(true);
 
         field1.clear();
+        field1.setDisable(false);
+
         field2.clear();
+        field2.setDisable(false);
+
         areaStatus.clear();
     }
 
@@ -99,15 +105,21 @@ public class Application extends javafx.application.Application {
         buttonCompare.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
         buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
 
-        // This will reset the labels 1 and 2
         checkUseFile1.setSelected(true);
-        checkUseFile2.setSelected(true);
+        checkUseFile1.setDisable(true);
 
-        // Disables pane algorithm because the selection is automatic
+        checkUseFile2.setSelected(true);
+        checkUseFile2.setDisable(true);
+
+        // Algorithm selection is automatic
         paneAlgorithm.setDisable(true);
 
         field1.clear();
+        field1.setDisable(false);
+
         field2.clear();
+        field2.setDisable(false);
+
         areaStatus.clear();
     }
 
@@ -116,15 +128,21 @@ public class Application extends javafx.application.Application {
         buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
         buttonGenerate.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
 
-        // This will reset the labels 1 and 2
         checkUseFile1.setSelected(false);
-        checkUseFile2.setSelected(false);
+        checkUseFile1.setDisable(false);
 
-        // Disables pane algorithm because the selection is automatic
+        checkUseFile2.setSelected(false);
+        checkUseFile2.setDisable(true);
+
+        // Algorithm selection is manual
         paneAlgorithm.setDisable(false);
 
         field1.clear();
+        field1.setDisable(false);
+
         field2.clear();
+        field2.setDisable(true);
+
         areaStatus.clear();
     }
 
