@@ -93,6 +93,23 @@ public class Application extends javafx.application.Application {
         field2.clear();
         areaStatus.clear();
     }
+
+    private void enableComparatorMode() {
+        buttonCheck.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonCompare.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+
+        // This will reset the labels 1 and 2
+        checkUseFile1.setSelected(true);
+        checkUseFile2.setSelected(true);
+
+        // Disables pane algorithm because the selection is automatic
+        paneAlgorithm.setDisable(true);
+
+        field1.clear();
+        field2.clear();
+        areaStatus.clear();
+    }
     private Pane loadFxml(URL url) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
