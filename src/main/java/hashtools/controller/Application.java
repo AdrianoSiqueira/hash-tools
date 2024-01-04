@@ -110,6 +110,24 @@ public class Application extends javafx.application.Application {
         field2.clear();
         areaStatus.clear();
     }
+
+    private void enableGeneratorMode() {
+        buttonCheck.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonGenerate.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
+
+        // This will reset the labels 1 and 2
+        checkUseFile1.setSelected(false);
+        checkUseFile2.setSelected(false);
+
+        // Disables pane algorithm because the selection is automatic
+        paneAlgorithm.setDisable(false);
+
+        field1.clear();
+        field2.clear();
+        areaStatus.clear();
+    }
+
     private Pane loadFxml(URL url) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
