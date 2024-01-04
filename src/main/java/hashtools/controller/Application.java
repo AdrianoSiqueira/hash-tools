@@ -22,8 +22,11 @@ import java.util.Optional;
 
 @Slf4j
 public class Application extends javafx.application.Application {
+
     private static final String TITLE     = "HashTools";
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
+
+    private static final String BUTTON_RUN_MODE_STYLE_CLASS = "button-run-mode-selected";
 
     @FXML
     private GridPane  paneRoot;
@@ -74,6 +77,22 @@ public class Application extends javafx.application.Application {
     @FXML
     private CheckBox checkSha512;
 
+    private void enableCheckerMode() {
+        buttonCheck.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+
+        // This will reset the labels 1 and 2
+        checkUseFile1.setSelected(false);
+        checkUseFile2.setSelected(false);
+
+        // Disables pane algorithm because the selection is automatic
+        paneAlgorithm.setDisable(true);
+
+        field1.clear();
+        field2.clear();
+        areaStatus.clear();
+    }
     private Pane loadFxml(URL url) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);

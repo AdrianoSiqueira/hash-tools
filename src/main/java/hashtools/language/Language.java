@@ -19,4 +19,8 @@ public enum Language {
             Locale.getDefault()
         );
     }
+
+    public String get(String key) {
+        return bundle.getString(key);
+    }
 }
