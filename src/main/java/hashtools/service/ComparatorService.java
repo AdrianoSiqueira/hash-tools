@@ -17,21 +17,17 @@ public class ComparatorService implements Service<ComparatorRequest, ComparatorR
         ChecksumGenerator generator = new ChecksumGenerator();
         String[]          generated = new String[]{"", ""};
 
-        ExecutorService executor = ThreadPoolManager.newDaemon(
-            getClass().getSimpleName()
-        );
+        try (ExecutorService executor = ThreadPoolManager.newDaemon(getClass().getSimpleName())) {
+            executor.execute(() -> generated[0] = generator.generate(
+                ALGORITHM,
+                request.getDigestUpdater1()
+            ));
 
-        executor.execute(() -> generated[0] = generator.generate(
-            ALGORITHM,
-            request.getDigestUpdater1()
-        ));
-
-        executor.execute(() -> generated[1] = generator.generate(
-            ALGORITHM,
-            request.getDigestUpdater2()
-        ));
-
-        ThreadPoolManager.terminate(executor);
+            executor.execute(() -> generated[1] = generator.generate(
+                ALGORITHM,
+                request.getDigestUpdater2()
+            ));
+        }
 
         return ChecksumPair
             .builder()

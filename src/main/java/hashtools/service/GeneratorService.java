@@ -17,28 +17,24 @@ public class GeneratorService implements Service<GeneratorRequest, GeneratorResp
         ChecksumGenerator generator = new ChecksumGenerator();
         List<Checksum>    checksums = new ArrayList<>();
 
-        ExecutorService executor = ThreadPoolManager.newDaemon(
-            getClass().getSimpleName()
-        );
+        try (ExecutorService executor = ThreadPoolManager.newDaemon(getClass().getSimpleName())) {
+            for (Algorithm algorithm : request.getAlgorithms()) {
+                executor.execute(() -> {
+                    String generated = generator.generate(
+                        algorithm,
+                        request.getDigestUpdater()
+                    );
 
-        for (Algorithm algorithm : request.getAlgorithms()) {
-            executor.execute(() -> {
-                String generated = generator.generate(
-                    algorithm,
-                    request.getDigestUpdater()
-                );
+                    Checksum checksum = Checksum
+                        .builder()
+                        .algorithm(algorithm)
+                        .checksum(generated)
+                        .build();
 
-                Checksum checksum = Checksum
-                    .builder()
-                    .algorithm(algorithm)
-                    .checksum(generated)
-                    .build();
-
-                checksums.add(checksum);
-            });
+                    checksums.add(checksum);
+                });
+            }
         }
-
-        ThreadPoolManager.terminate(executor);
 
         return checksums;
     }

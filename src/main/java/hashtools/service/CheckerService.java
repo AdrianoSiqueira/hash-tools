@@ -30,29 +30,25 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
         List<ChecksumPair> checksumPairs     = new ArrayList<>();
         List<Checksum>     officialChecksums = getOfficialChecksums(request);
 
-        ExecutorService executor = ThreadPoolManager.newDaemon(
-            getClass().getSimpleName()
-        );
+        try (ExecutorService executor = ThreadPoolManager.newDaemon(getClass().getSimpleName())) {
+            for (Checksum checksum : officialChecksums) {
+                executor.execute(() -> {
+                    String generated = generator.generate(
+                        checksum.getAlgorithm(),
+                        request.getDigestUpdater()
+                    );
 
-        for (Checksum checksum : officialChecksums) {
-            executor.execute(() -> {
-                String generated = generator.generate(
-                    checksum.getAlgorithm(),
-                    request.getDigestUpdater()
-                );
+                    ChecksumPair checksumPair = ChecksumPair
+                        .builder()
+                        .algorithm(checksum.getAlgorithm())
+                        .checksum1(checksum.getChecksum())
+                        .checksum2(generated)
+                        .build();
 
-                ChecksumPair checksumPair = ChecksumPair
-                    .builder()
-                    .algorithm(checksum.getAlgorithm())
-                    .checksum1(checksum.getChecksum())
-                    .checksum2(generated)
-                    .build();
-
-                checksumPairs.add(checksumPair);
-            });
+                    checksumPairs.add(checksumPair);
+                });
+            }
         }
-
-        ThreadPoolManager.terminate(executor);
 
         return checksumPairs;
     }
