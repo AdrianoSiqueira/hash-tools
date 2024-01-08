@@ -39,7 +39,15 @@ public class ThreadPoolManager {
         return create(name, true);
     }
 
+    public static ExecutorService newDaemon() {
+        return create(getCallerName(), true);
+    }
+
     public static ExecutorService newDefault(String name) {
         return create(name, false);
+    }
+
+    public static ExecutorService newDefault() {
+        return create(getCallerName(), false);
     }
 }
