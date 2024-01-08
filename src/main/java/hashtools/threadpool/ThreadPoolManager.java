@@ -21,6 +21,7 @@ public class ThreadPoolManager {
         return create(name, false);
     }
 
+    @Deprecated
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void terminate(ExecutorService executor) {
         try {
