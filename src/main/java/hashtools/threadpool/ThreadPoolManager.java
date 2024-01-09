@@ -13,13 +13,75 @@ public class ThreadPoolManager {
         );
     }
 
+    /**
+     * <p style="text-align:justify">
+     * Retrieves the name of the class that called it. It access he call
+     * stack and gets the last class before this method call. The JVM
+     * stores internal calls in that stack too, making the last class be
+     * itself. Such behavior is reproduced in the following scenario:
+     * </p>
+     *
+     * <pre>{@code
+     * public class WithoutFilter {
+     *
+     *     private static class Class1 {
+     *         public static void run() {
+     *             Class2.run();
+     *         }
+     *     }
+     *
+     *     private static class Class2 {
+     *         public static void run() {
+     *             Class2.getCaller();
+     *         }
+     *
+     *         public static String getCaller() {
+     *             // ...
+     *         }
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p style="text-align:justify">
+     * As the method is called within the same class, the last caller
+     * class is itself. To prevent this behavior, the method removes
+     * itself from the call stack, making the following scenario return
+     * the right result.
+     * </p>
+     *
+     * <pre>{@code
+     * public class WithFilter {
+     *
+     *     private static class Class1 {
+     *         public static void run() {
+     *             Class2.run();
+     *         }
+     *     }
+     *
+     *     private static class Class2 {
+     *         public static void run() {
+     *             Class3.run();
+     *         }
+     *     }
+     *
+     *     private static class Class3 {
+     *         public static void run() {
+     *             Class3.getCaller();
+     *         }
+     *
+     *         public static String getCaller() {
+     *             // ...
+     *         }
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p style="text-align:justify">
+     * In this scenario, the method will report the <code>Class2</code>
+     * as the caller class.
+     * </p>
+     */
     private static String getCallerName() {
-        /*
-         * This predicate removes this class from the caller
-         * stream, allowing to get the imediate caller class
-         * even if this method is called internally multiple
-         * times.
-         */
         Predicate<Class<?>> removeThisClass = clazz -> !clazz
             .getName()
             .equals(ThreadPoolManager.class.getName());
