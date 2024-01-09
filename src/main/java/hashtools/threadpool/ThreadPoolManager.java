@@ -82,7 +82,7 @@ public class ThreadPoolManager {
      * </p>
      */
     private static String getCallerName() {
-        Predicate<Class<?>> removeThisClass = clazz -> !clazz
+        Predicate<Class<?>> removeItself = clazz -> !clazz
             .getName()
             .equals(ThreadPoolManager.class.getName());
 
@@ -90,7 +90,7 @@ public class ThreadPoolManager {
             .getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
             .walk(stream -> stream
                 .map(StackWalker.StackFrame::getDeclaringClass)
-                .filter(removeThisClass)
+                .filter(removeItself)
                 .limit(1)
                 .findFirst()
                 .map(Class::getSimpleName)
