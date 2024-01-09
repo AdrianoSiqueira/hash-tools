@@ -14,7 +14,7 @@ public class ChecksumGenerator {
         return IntStream
             .range(0, bytes.length)
             .mapToObj(i -> bytes[i])
-            .map(b -> String.format("%02x", b))
+            .map("%02x"::formatted)
             .collect(Collectors.joining())
             .toLowerCase();
     }
