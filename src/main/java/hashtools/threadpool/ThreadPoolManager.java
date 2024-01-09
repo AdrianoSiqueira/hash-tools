@@ -15,7 +15,7 @@ public class ThreadPoolManager {
 
     /**
      * <p style="text-align:justify">
-     * Retrieves the name of the class that called it. It access he call
+     * Retrieves the name of the class that called it. It access the call
      * stack and gets the last class before this method call. The JVM
      * stores internal calls in that stack too, making the last class be
      * itself. Such behavior is reproduced in the following scenario:
