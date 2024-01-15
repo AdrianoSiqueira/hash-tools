@@ -4,7 +4,7 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Checksum;
 import hashtools.domain.ChecksumPair;
-import hashtools.threadpool.ThreadPoolManager;
+import hashtools.threadpool.ThreadPoolFactory;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
         List<ChecksumPair> checksumPairs     = new ArrayList<>();
         List<Checksum>     officialChecksums = getOfficialChecksums(request);
 
-        try (ExecutorService executor = ThreadPoolManager.newDaemon(getClass().getSimpleName())) {
+        try (ExecutorService executor = ThreadPoolFactory.DAEMON.create()) {
             for (Checksum checksum : officialChecksums) {
                 executor.execute(() -> {
                     String generated = generator.generate(

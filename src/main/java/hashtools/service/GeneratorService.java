@@ -4,7 +4,7 @@ import hashtools.domain.Algorithm;
 import hashtools.domain.Checksum;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
-import hashtools.threadpool.ThreadPoolManager;
+import hashtools.threadpool.ThreadPoolFactory;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class GeneratorService implements Service<GeneratorRequest, GeneratorResp
         ChecksumGenerator generator = new ChecksumGenerator();
         List<Checksum>    checksums = new ArrayList<>();
 
-        try (ExecutorService executor = ThreadPoolManager.newDaemon(getClass().getSimpleName())) {
+        try (ExecutorService executor = ThreadPoolFactory.DAEMON.create()) {
             for (Algorithm algorithm : request.getAlgorithms()) {
                 executor.execute(() -> {
                     String generated = generator.generate(
