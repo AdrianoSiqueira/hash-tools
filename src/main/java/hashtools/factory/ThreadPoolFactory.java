@@ -1,4 +1,4 @@
-package hashtools.threadpool;
+package hashtools.factory;
 
 import lombok.RequiredArgsConstructor;
 

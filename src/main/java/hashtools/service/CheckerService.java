@@ -4,7 +4,7 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Checksum;
 import hashtools.domain.ChecksumPair;
-import hashtools.threadpool.ThreadPoolFactory;
+import hashtools.factory.ThreadPoolFactory;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
