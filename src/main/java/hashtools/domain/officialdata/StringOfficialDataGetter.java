@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 public class StringOfficialDataGetter implements OfficialDataGetter {
@@ -24,11 +23,8 @@ public class StringOfficialDataGetter implements OfficialDataGetter {
 
     @Override
     public List<Checksum> get() {
-        Algorithm algorithm = new AlgorithmFinder()
-            .find(string.length());
-
-        return Optional
-            .ofNullable(algorithm)
+        return new AlgorithmFinder()
+            .find(string.length())
             .map(this::createChecksum)
             .map(List::of)
             .orElse(Collections.emptyList());

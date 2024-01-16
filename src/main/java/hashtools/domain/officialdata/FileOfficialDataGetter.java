@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class FileOfficialDataGetter implements OfficialDataGetter {
@@ -31,11 +30,9 @@ public class FileOfficialDataGetter implements OfficialDataGetter {
     }
 
     private Checksum createChecksum(String string) {
-        Algorithm algorithm = finder.find(string.length());
-
-        return Optional
-            .ofNullable(algorithm)
-            .map(a -> createChecksum(a, string))
+        return finder
+            .find(string.length())
+            .map(algorithm -> createChecksum(algorithm, string))
             .orElse(null);
     }
 

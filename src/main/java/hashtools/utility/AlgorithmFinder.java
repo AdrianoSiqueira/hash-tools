@@ -2,15 +2,12 @@ package hashtools.utility;
 
 import hashtools.domain.Algorithm;
 
-import java.util.function.Predicate;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class AlgorithmFinder {
 
-    public Algorithm find(int length) {
-        Predicate<Algorithm> lengthMatches = algorithm -> algorithm
-            .getLength() == length;
-
+    public Optional<Algorithm> find(int length) {
         return Stream
             .of(Algorithm.values())
             .filter(lengthMatches)
@@ -18,12 +15,7 @@ public class AlgorithmFinder {
             .orElse(null);
     }
 
-    public Algorithm find(String name) {
-        Predicate<Algorithm> nameMatches = algorithm -> algorithm
-            .getName()
-            .replace("-", "")
-            .equalsIgnoreCase(name);
-
+    public Optional<Algorithm> find(String name) {
         return Stream
             .of(Algorithm.values())
             .filter(nameMatches)
