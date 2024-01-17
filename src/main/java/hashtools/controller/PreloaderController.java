@@ -1,6 +1,7 @@
 package hashtools.controller;
 
 import javafx.application.Platform;
+import javafx.application.Preloader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static javafx.application.Preloader.StateChangeNotification.Type.BEFORE_START;
 
 @Slf4j
-public class Preloader extends javafx.application.Preloader implements Controller {
+public class PreloaderController extends Preloader implements Controller {
 
     private static final String FXML_PATH = "/hashtools/fxml/preloader.fxml";
 

@@ -4,7 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane fx:controller="hashtools.controller.Preloader" prefHeight="480.0" prefWidth="853.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<StackPane fx:controller="hashtools.controller.PreloaderController" prefHeight="480.0" prefWidth="853.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <cursor>
         <Cursor fx:constant="WAIT"/>
     </cursor>

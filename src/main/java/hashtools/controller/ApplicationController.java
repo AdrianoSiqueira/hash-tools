@@ -1,5 +1,6 @@
 package hashtools.controller;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Slf4j
-public class Application extends javafx.application.Application implements Initializable, Controller {
+public class ApplicationController extends Application implements Initializable, Controller {
 
     private static final String TITLE     = "HashTools";
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
