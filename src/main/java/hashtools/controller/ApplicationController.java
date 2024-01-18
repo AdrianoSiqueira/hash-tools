@@ -8,6 +8,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -35,11 +37,14 @@ public class ApplicationController extends Application implements Initializable,
     private StackPane paneRun;
 
     @FXML
-    private Button buttonCheck;
+    private ToggleGroup  groupRunMode;
     @FXML
-    private Button buttonCompare;
+    private ToggleButton buttonCheck;
     @FXML
-    private Button buttonGenerate;
+    private ToggleButton buttonCompare;
+    @FXML
+    private ToggleButton buttonGenerate;
+
     @FXML
     private Button buttonRun;
 
@@ -146,6 +151,12 @@ public class ApplicationController extends Application implements Initializable,
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         enableCheckerMode();
+
+        groupRunMode.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                oldValue.setSelected(true);
+            }
+        });
     }
 
     @Override

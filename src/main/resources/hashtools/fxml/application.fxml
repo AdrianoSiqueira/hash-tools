@@ -23,9 +23,13 @@
     </padding>
 
     <HBox GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" alignment="CENTER" fx:id="paneRunMode" spacing="20">
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="%hashtools.fxml.application.button_check"/>
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="%hashtools.fxml.application.button_compare"/>
-        <Button HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate"/>
+        <fx:define>
+            <ToggleGroup fx:id="groupRunMode"/>
+        </fx:define>
+
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" selected="true" text="%hashtools.fxml.application.button_check" toggleGroup="$groupRunMode"/>
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="%hashtools.fxml.application.button_compare" toggleGroup="$groupRunMode"/>
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode"/>
     </HBox>
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="%hashtools.fxml.application.label_1.text"/>
