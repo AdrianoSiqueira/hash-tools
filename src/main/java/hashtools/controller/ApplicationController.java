@@ -25,8 +25,6 @@ public class ApplicationController extends Application implements Initializable,
     private static final String TITLE     = "HashTools";
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
 
-    private static final String BUTTON_RUN_MODE_STYLE_CLASS = "button-run-mode-selected";
-
     @FXML
     private GridPane  paneRoot;
     @FXML
@@ -80,9 +78,7 @@ public class ApplicationController extends Application implements Initializable,
     private CheckBox checkSha512;
 
     private void enableCheckerMode() {
-        buttonCheck.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonCheck.setSelected(true);
 
         checkUseFile1.setSelected(false);
         checkUseFile1.setDisable(false);
@@ -103,9 +99,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void enableComparatorMode() {
-        buttonCheck.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonCompare.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonGenerate.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonCompare.setSelected(true);
 
         checkUseFile1.setSelected(true);
         checkUseFile1.setDisable(true);
@@ -126,9 +120,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void enableGeneratorMode() {
-        buttonCheck.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonCompare.getStyleClass().remove(BUTTON_RUN_MODE_STYLE_CLASS);
-        buttonGenerate.getStyleClass().add(BUTTON_RUN_MODE_STYLE_CLASS);
+        buttonGenerate.setSelected(true);
 
         checkUseFile1.setSelected(false);
         checkUseFile1.setDisable(false);
