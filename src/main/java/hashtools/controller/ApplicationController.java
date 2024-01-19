@@ -144,6 +144,10 @@ public class ApplicationController extends Application implements Initializable,
     public void initialize(URL location, ResourceBundle resources) {
         enableCheckerMode();
 
+        buttonCheck.setOnAction(event -> enableCheckerMode());
+        buttonGenerate.setOnAction(event -> enableGeneratorMode());
+        buttonCompare.setOnAction(event -> enableComparatorMode());
+
         groupRunMode.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 oldValue.setSelected(true);
