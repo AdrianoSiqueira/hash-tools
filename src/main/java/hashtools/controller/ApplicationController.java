@@ -161,5 +161,7 @@ public class ApplicationController extends Application implements Initializable,
         stage.setScene(createScene(FXML_PATH));
         stage.centerOnScreen();
         stage.show();
+
+        notifyPreloader(new PreloaderController.CloseNotification());
     }
 }
