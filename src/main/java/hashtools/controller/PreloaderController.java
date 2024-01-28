@@ -48,4 +48,8 @@ public class PreloaderController extends Preloader implements Controller {
         stage.centerOnScreen();
         stage.show();
     }
+
+
+    public static final class CloseNotification implements PreloaderNotification {
+    }
 }
