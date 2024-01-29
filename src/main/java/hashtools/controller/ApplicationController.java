@@ -154,8 +154,11 @@ public class ApplicationController extends Application implements Initializable,
                 oldValue.setSelected(true);
             }
         });
+
         field1.setOnContextMenuRequested(Event::consume);
+        field1.editableProperty().bind(checkUseFile1.selectedProperty().not());
         field2.setOnContextMenuRequested(Event::consume);
+        field2.editableProperty().bind(checkUseFile2.selectedProperty().not());
         areaStatus.setOnContextMenuRequested(Event::consume);
     }
 
