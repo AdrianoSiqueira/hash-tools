@@ -1,6 +1,7 @@
 package hashtools.controller;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -153,6 +154,9 @@ public class ApplicationController extends Application implements Initializable,
                 oldValue.setSelected(true);
             }
         });
+        field1.setOnContextMenuRequested(Event::consume);
+        field2.setOnContextMenuRequested(Event::consume);
+        areaStatus.setOnContextMenuRequested(Event::consume);
     }
 
     @Override
