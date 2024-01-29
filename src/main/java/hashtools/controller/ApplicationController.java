@@ -1,5 +1,6 @@
 package hashtools.controller;
 
+import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,13 +12,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -157,9 +161,31 @@ public class ApplicationController extends Application implements Initializable,
 
         field1.setOnContextMenuRequested(Event::consume);
         field1.editableProperty().bind(checkUseFile1.selectedProperty().not());
+        field1.setOnMouseClicked(event -> {
+            if (event.getButton() != MouseButton.SECONDARY) return;
+            if (!checkUseFile1.isSelected()) return;
+
+            new FileManager()
+                .openFile("Select a file to open",
+                          new FileChooser.ExtensionFilter("All", "*"))
+                .map(Path::toAbsolutePath)
+                .map(Path::toString)
+                .ifPresent(field1::setText);
+        });
 
         field2.setOnContextMenuRequested(Event::consume);
         field2.editableProperty().bind(checkUseFile2.selectedProperty().not());
+        field2.setOnMouseClicked(event -> {
+            if (event.getButton() != MouseButton.SECONDARY) return;
+            if (!checkUseFile2.isSelected()) return;
+
+            new FileManager()
+                .openFile("Select a file to open",
+                          new FileChooser.ExtensionFilter("All", "*"))
+                .map(Path::toAbsolutePath)
+                .map(Path::toString)
+                .ifPresent(field2::setText);
+        });
 
         areaStatus.setOnContextMenuRequested(Event::consume);
     }
