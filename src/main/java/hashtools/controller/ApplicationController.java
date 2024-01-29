@@ -12,7 +12,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -20,8 +22,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Slf4j
@@ -172,6 +177,12 @@ public class ApplicationController extends Application implements Initializable,
                 .map(Path::toString)
                 .ifPresent(field1::setText);
         });
+        field1.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
+        field1.setOnDragDropped(event -> processDragAndDrop(
+            event.getDragboard(),
+            field1,
+            checkUseFile1
+        ));
 
         field2.setOnContextMenuRequested(Event::consume);
         field2.editableProperty().bind(checkUseFile2.selectedProperty().not());
@@ -186,8 +197,41 @@ public class ApplicationController extends Application implements Initializable,
                 .map(Path::toString)
                 .ifPresent(field2::setText);
         });
+        field2.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
+        field2.setOnDragDropped(event -> processDragAndDrop(
+            event.getDragboard(),
+            field2,
+            checkUseFile2
+        ));
 
         areaStatus.setOnContextMenuRequested(Event::consume);
+    }
+
+    private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
+        /*
+         * The file content is only processed when the checkbox
+         * IS SELECTED. On the other way, the string is only
+         * processed when checkbox IS NOT SELECTED.
+         *
+         * The implementation uses an Optional to prevent the
+         * replacement of old content.
+         */
+
+        if (dragboard.hasFiles()) {
+            if (checkBox.isSelected()) {
+                Optional
+                    .ofNullable(dragboard.getFiles())
+                    .filter(list -> !list.isEmpty())
+                    .map(List::getFirst)
+                    .filter(File::isFile)
+                    .map(File::getAbsolutePath)
+                    .ifPresent(field::setText);
+            }
+        } else if (!checkBox.isSelected()) {
+            Optional
+                .ofNullable(dragboard.getString())
+                .ifPresent(field::setText);
+        }
     }
 
     @Override
