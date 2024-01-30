@@ -226,6 +226,15 @@ public class ApplicationController extends Application implements Initializable,
         ).ifPresent(field1::setText);
     }
 
+    private void openHashFile(MouseEvent event) {
+        openFile(
+            event.getButton(),
+            "Select a hash file",
+            new FileChooser.ExtensionFilter("Hash", "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512", "*.txt"),
+            new FileChooser.ExtensionFilter("All", "*")
+        ).ifPresent(field2::setText);
+    }
+
     private void openSecondFileToCompare(MouseEvent event) {
         openFile(
             event.getButton(),
