@@ -108,6 +108,8 @@ public class ApplicationController extends Application implements Initializable,
         field2.setDisable(false);
 
         areaStatus.clear();
+
+        setFileOpeningHandler();
     }
 
     private void enableComparatorMode() {
@@ -129,6 +131,8 @@ public class ApplicationController extends Application implements Initializable,
         field2.setDisable(false);
 
         areaStatus.clear();
+
+        setFileOpeningHandler();
     }
 
     private void enableDragAndDrop(DragEvent event) {
@@ -154,6 +158,8 @@ public class ApplicationController extends Application implements Initializable,
         field2.setDisable(true);
 
         areaStatus.clear();
+
+        setFileOpeningHandler();
     }
 
     @Override
@@ -169,6 +175,9 @@ public class ApplicationController extends Application implements Initializable,
                 oldValue.setSelected(true);
             }
         });
+
+        checkUseFile1.setOnAction(event -> setFileOpeningHandler());
+        checkUseFile2.setOnAction(event -> setFileOpeningHandler());
 
         field1.setOnContextMenuRequested(Event::consume);
         field1.editableProperty().bind(checkUseFile1.selectedProperty().not());
@@ -267,6 +276,19 @@ public class ApplicationController extends Application implements Initializable,
             Optional
                 .ofNullable(dragboard.getString())
                 .ifPresent(field::setText);
+        }
+    }
+
+    private void setFileOpeningHandler() {
+        if (buttonCheck.isSelected()) {
+            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToCheck : null);
+            field2.setOnMouseClicked(checkUseFile2.isSelected() ? this::openHashFile : null);
+        } else if (buttonCompare.isSelected()) {
+            field1.setOnMouseClicked(this::openFirstFileToCompare);
+            field2.setOnMouseClicked(this::openSecondFileToCompare);
+        } else if (buttonGenerate.isSelected()) {
+            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : null);
+            field2.setOnMouseClicked(null);
         }
     }
 
