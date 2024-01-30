@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
@@ -129,6 +130,10 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.clear();
     }
 
+    private void enableDragAndDrop(DragEvent event) {
+        event.acceptTransferModes(TransferMode.ANY);
+    }
+
     private void enableGeneratorMode() {
         buttonGenerate.setSelected(true);
 
@@ -166,18 +171,7 @@ public class ApplicationController extends Application implements Initializable,
 
         field1.setOnContextMenuRequested(Event::consume);
         field1.editableProperty().bind(checkUseFile1.selectedProperty().not());
-        field1.setOnMouseClicked(event -> {
-            if (event.getButton() != MouseButton.SECONDARY) return;
-            if (!checkUseFile1.isSelected()) return;
-
-            new FileManager()
-                .openFile("Select a file to open",
-                          new FileChooser.ExtensionFilter("All", "*"))
-                .map(Path::toAbsolutePath)
-                .map(Path::toString)
-                .ifPresent(field1::setText);
-        });
-        field1.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
+        field1.setOnDragOver(this::enableDragAndDrop);
         field1.setOnDragDropped(event -> processDragAndDrop(
             event.getDragboard(),
             field1,
@@ -186,18 +180,7 @@ public class ApplicationController extends Application implements Initializable,
 
         field2.setOnContextMenuRequested(Event::consume);
         field2.editableProperty().bind(checkUseFile2.selectedProperty().not());
-        field2.setOnMouseClicked(event -> {
-            if (event.getButton() != MouseButton.SECONDARY) return;
-            if (!checkUseFile2.isSelected()) return;
-
-            new FileManager()
-                .openFile("Select a file to open",
-                          new FileChooser.ExtensionFilter("All", "*"))
-                .map(Path::toAbsolutePath)
-                .map(Path::toString)
-                .ifPresent(field2::setText);
-        });
-        field2.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
+        field2.setOnDragOver(this::enableDragAndDrop);
         field2.setOnDragDropped(event -> processDragAndDrop(
             event.getDragboard(),
             field2,
