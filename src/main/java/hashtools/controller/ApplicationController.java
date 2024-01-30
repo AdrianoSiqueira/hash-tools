@@ -218,6 +218,14 @@ public class ApplicationController extends Application implements Initializable,
         ).ifPresent(field1::setText);
     }
 
+    private void openFirstFileToCompare(MouseEvent event) {
+        openFile(
+            event.getButton(),
+            "Select the first file to compare",
+            new FileChooser.ExtensionFilter("All", "*")
+        ).ifPresent(field1::setText);
+    }
+
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
         /*
          * The file content is only processed when the checkbox
