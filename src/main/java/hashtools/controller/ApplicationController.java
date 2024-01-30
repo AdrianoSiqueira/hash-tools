@@ -190,6 +190,17 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.setOnContextMenuRequested(Event::consume);
     }
 
+    private Optional<String> openFile(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
+        if (button != MouseButton.SECONDARY) {
+            return Optional.empty();
+        }
+
+        return new FileManager()
+            .openFile(title, extensionFilters)
+            .map(Path::toAbsolutePath)
+            .map(Path::toString);
+    }
+
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
         /*
          * The file content is only processed when the checkbox
