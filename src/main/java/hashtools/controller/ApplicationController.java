@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.Clipboard;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -252,6 +253,17 @@ public class ApplicationController extends Application implements Initializable,
         ).ifPresent(field2::setText);
     }
 
+    private void pasteClipboardContent(MouseEvent event) {
+        if (event.getButton() != MouseButton.SECONDARY) return;
+        if (!(event.getSource() instanceof TextField field)) return;
+
+        String content = Clipboard
+            .getSystemClipboard()
+            .getString();
+
+        field.setText(content);
+    }
+
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
         /*
          * The file content is only processed when the checkbox
@@ -281,13 +293,13 @@ public class ApplicationController extends Application implements Initializable,
 
     private void setFileOpeningHandler() {
         if (buttonCheck.isSelected()) {
-            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToCheck : null);
-            field2.setOnMouseClicked(checkUseFile2.isSelected() ? this::openHashFile : null);
+            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToCheck : this::pasteClipboardContent);
+            field2.setOnMouseClicked(checkUseFile2.isSelected() ? this::openHashFile : this::pasteClipboardContent);
         } else if (buttonCompare.isSelected()) {
             field1.setOnMouseClicked(this::openFirstFileToCompare);
             field2.setOnMouseClicked(this::openSecondFileToCompare);
         } else if (buttonGenerate.isSelected()) {
-            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : null);
+            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : this::pasteClipboardContent);
             field2.setOnMouseClicked(null);
         }
     }
