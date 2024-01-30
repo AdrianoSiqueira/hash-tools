@@ -15,6 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -199,6 +200,14 @@ public class ApplicationController extends Application implements Initializable,
             .openFile(title, extensionFilters)
             .map(Path::toAbsolutePath)
             .map(Path::toString);
+    }
+
+    private void openFileToCheck(MouseEvent event) {
+        openFile(
+            event.getButton(),
+            "Select a file to check",
+            new FileChooser.ExtensionFilter("All", "*")
+        ).ifPresent(field1::setText);
     }
 
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
