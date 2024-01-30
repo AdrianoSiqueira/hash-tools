@@ -210,6 +210,14 @@ public class ApplicationController extends Application implements Initializable,
         ).ifPresent(field1::setText);
     }
 
+    private void openFileToGenerate(MouseEvent event) {
+        openFile(
+            event.getButton(),
+            "Select a file to generate",
+            new FileChooser.ExtensionFilter("All", "*")
+        ).ifPresent(field1::setText);
+    }
+
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
         /*
          * The file content is only processed when the checkbox
