@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -89,6 +90,25 @@ public class ApplicationController extends Application implements Initializable,
     private CheckBox checkSha384;
     @FXML
     private CheckBox checkSha512;
+
+    private ContextMenu paneAlgorithmContextMenu;
+
+    private ContextMenu createPaneAlgorithmContextMenu() {
+        MenuItem selectAll = new MenuItem("Select all");
+        selectAll.setOnAction(event -> selectAllAlgorithms());
+
+        MenuItem selectNone = new MenuItem("Select none");
+        selectNone.setOnAction(event -> selectNoAlgorithms());
+
+        MenuItem invertSelection = new MenuItem("Invert selection");
+        invertSelection.setOnAction(event -> invertAlgorithmsSelection());
+
+        return new ContextMenu(
+            selectAll,
+            selectNone,
+            invertSelection
+        );
+    }
 
     private void enableCheckerMode() {
         buttonCheck.setSelected(true);
@@ -199,6 +219,8 @@ public class ApplicationController extends Application implements Initializable,
         ));
 
         areaStatus.setOnContextMenuRequested(Event::consume);
+
+        paneAlgorithmContextMenu = createPaneAlgorithmContextMenu();
     }
 
     private void invertAlgorithmsSelection() {
