@@ -201,6 +201,15 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.setOnContextMenuRequested(Event::consume);
     }
 
+    private void invertAlgorithmsSelection() {
+        paneAlgorithm
+            .getChildren()
+            .stream()
+            .filter(CheckBox.class::isInstance)
+            .map(CheckBox.class::cast)
+            .forEach(checkBox -> checkBox.setSelected(!checkBox.isSelected()));
+    }
+
     private Optional<String> openFile(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
         if (button != MouseButton.SECONDARY) {
             return Optional.empty();
@@ -289,6 +298,24 @@ public class ApplicationController extends Application implements Initializable,
                 .ofNullable(dragboard.getString())
                 .ifPresent(field::setText);
         }
+    }
+
+    private void selectAllAlgorithms() {
+        paneAlgorithm
+            .getChildren()
+            .stream()
+            .filter(CheckBox.class::isInstance)
+            .map(CheckBox.class::cast)
+            .forEach(checkBox -> checkBox.setSelected(true));
+    }
+
+    private void selectNoAlgorithms() {
+        paneAlgorithm
+            .getChildren()
+            .stream()
+            .filter(CheckBox.class::isInstance)
+            .map(CheckBox.class::cast)
+            .forEach(checkBox -> checkBox.setSelected(false));
     }
 
     private void setFileOpeningHandler() {
