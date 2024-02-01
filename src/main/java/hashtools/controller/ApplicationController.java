@@ -9,11 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.Clipboard;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -221,6 +223,15 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.setOnContextMenuRequested(Event::consume);
 
         paneAlgorithmContextMenu = createPaneAlgorithmContextMenu();
+
+        paneAlgorithm.setOnMouseClicked(this::showPaneAlgorithmContextMenu);
+
+        paneAlgorithm
+            .getChildren()
+            .stream()
+            .filter(CheckBox.class::isInstance)
+            .map(CheckBox.class::cast)
+            .forEach(checkBox -> checkBox.setOnContextMenuRequested(this::showPaneAlgorithmContextMenu));
     }
 
     private void invertAlgorithmsSelection() {
@@ -351,6 +362,27 @@ public class ApplicationController extends Application implements Initializable,
             field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : this::pasteClipboardContent);
             field2.setOnMouseClicked(null);
         }
+    }
+
+    private void showPaneAlgorithmContextMenu(MouseEvent event) {
+        if (event.getButton() != MouseButton.SECONDARY) {
+            paneAlgorithmContextMenu.hide();
+            return;
+        }
+
+        paneAlgorithmContextMenu.show(
+            paneAlgorithm,
+            event.getScreenX(),
+            event.getScreenY()
+        );
+    }
+
+    private void showPaneAlgorithmContextMenu(ContextMenuEvent event) {
+        paneAlgorithmContextMenu.show(
+            paneAlgorithm,
+            event.getScreenX(),
+            event.getScreenY()
+        );
     }
 
     @Override
