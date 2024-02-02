@@ -93,24 +93,14 @@ public class ApplicationController extends Application implements Initializable,
     @FXML
     private CheckBox checkSha512;
 
+    @FXML
     private ContextMenu paneAlgorithmContextMenu;
-
-    private ContextMenu createPaneAlgorithmContextMenu() {
-        MenuItem selectAll = new MenuItem("Select all");
-        selectAll.setOnAction(event -> selectAllAlgorithms());
-
-        MenuItem selectNone = new MenuItem("Select none");
-        selectNone.setOnAction(event -> selectNoAlgorithms());
-
-        MenuItem invertSelection = new MenuItem("Invert selection");
-        invertSelection.setOnAction(event -> invertAlgorithmsSelection());
-
-        return new ContextMenu(
-            selectAll,
-            selectNone,
-            invertSelection
-        );
-    }
+    @FXML
+    private MenuItem    itemSelectAll;
+    @FXML
+    private MenuItem    itemSelectNone;
+    @FXML
+    private MenuItem    itemInvertSelection;
 
     private void enableCheckerMode() {
         buttonCheck.setSelected(true);
@@ -222,7 +212,9 @@ public class ApplicationController extends Application implements Initializable,
 
         areaStatus.setOnContextMenuRequested(Event::consume);
 
-        paneAlgorithmContextMenu = createPaneAlgorithmContextMenu();
+        itemSelectAll.setOnAction(event -> selectAllAlgorithms());
+        itemSelectNone.setOnAction(event -> selectNoAlgorithms());
+        itemInvertSelection.setOnAction(event -> invertAlgorithmsSelection());
 
         paneAlgorithm.setOnMouseClicked(this::showPaneAlgorithmContextMenu);
 

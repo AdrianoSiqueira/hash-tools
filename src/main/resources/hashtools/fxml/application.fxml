@@ -42,6 +42,16 @@
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="%hashtools.fxml.application.label_algorithms"/>
     <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="20" vgap="20">
+        <fx:define>
+            <ContextMenu fx:id="paneAlgorithmContextMenu">
+                <items>
+                    <MenuItem fx:id="itemSelectAll" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_all"/>
+                    <MenuItem fx:id="itemSelectNone" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_none"/>
+                    <MenuItem fx:id="itemInvertSelection" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_invert_selection"/>
+                </items>
+            </ContextMenu>
+        </fx:define>
+
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
             <ColumnConstraints hgrow="SOMETIMES"/>
