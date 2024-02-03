@@ -102,6 +102,8 @@ public class ApplicationController extends Application implements Initializable,
     @FXML
     private MenuItem    itemInvertSelection;
 
+    private ResourceBundle language;
+
     private void enableCheckerMode() {
         buttonCheck.setSelected(true);
 
@@ -177,6 +179,7 @@ public class ApplicationController extends Application implements Initializable,
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.language = resources;
         enableCheckerMode();
 
         buttonCheck.setOnAction(event -> enableCheckerMode());
