@@ -252,41 +252,41 @@ public class ApplicationController extends Application implements Initializable,
     private void openFileToCheck(MouseEvent event) {
         openFile(
             event.getButton(),
-            "Select a file to check",
-            new FileChooser.ExtensionFilter("All", "*")
+            language.getString("hashtools.controller.application_controller.open_file_to_check_dialog"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
         ).ifPresent(field1::setText);
     }
 
     private void openFileToGenerate(MouseEvent event) {
         openFile(
             event.getButton(),
-            "Select a file to generate",
-            new FileChooser.ExtensionFilter("All", "*")
+            language.getString("hashtools.controller.application_controller.open_file_to_generate_dialog"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
         ).ifPresent(field1::setText);
     }
 
     private void openFirstFileToCompare(MouseEvent event) {
         openFile(
             event.getButton(),
-            "Select the first file to compare",
-            new FileChooser.ExtensionFilter("All", "*")
+            language.getString("hashtools.controller.application_controller.open_first_file_to_compare_dialog"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
         ).ifPresent(field1::setText);
     }
 
     private void openHashFile(MouseEvent event) {
         openFile(
             event.getButton(),
-            "Select a hash file",
-            new FileChooser.ExtensionFilter("Hash", "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512", "*.txt"),
-            new FileChooser.ExtensionFilter("All", "*")
+            language.getString("hashtools.controller.application_controller.open_hash_file_dialog"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.hash"), "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512", "*.txt"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
         ).ifPresent(field2::setText);
     }
 
     private void openSecondFileToCompare(MouseEvent event) {
         openFile(
             event.getButton(),
-            "Select the second file to compare",
-            new FileChooser.ExtensionFilter("All", "*")
+            language.getString("hashtools.controller.application_controller.open_second_file_to_compare_dialog"),
+            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
         ).ifPresent(field2::setText);
     }
 
