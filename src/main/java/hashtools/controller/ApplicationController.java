@@ -125,6 +125,7 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.clear();
 
         setFileOpeningHandler();
+        setLabelsText();
     }
 
     private void enableComparatorMode() {
@@ -148,6 +149,7 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.clear();
 
         setFileOpeningHandler();
+        setLabelsText();
     }
 
     private void enableDragAndDrop(DragEvent event) {
@@ -175,6 +177,7 @@ public class ApplicationController extends Application implements Initializable,
         areaStatus.clear();
 
         setFileOpeningHandler();
+        setLabelsText();
     }
 
     @Override
@@ -192,8 +195,15 @@ public class ApplicationController extends Application implements Initializable,
             }
         });
 
-        checkUseFile1.setOnAction(event -> setFileOpeningHandler());
-        checkUseFile2.setOnAction(event -> setFileOpeningHandler());
+        checkUseFile1.setOnAction(event -> {
+            setFileOpeningHandler();
+            setLabelsText();
+        });
+
+        checkUseFile2.setOnAction(event -> {
+            setFileOpeningHandler();
+            setLabelsText();
+        });
 
         field1.setOnContextMenuRequested(Event::consume);
         field1.editableProperty().bind(checkUseFile1.selectedProperty().not());
@@ -356,6 +366,34 @@ public class ApplicationController extends Application implements Initializable,
         } else if (buttonGenerate.isSelected()) {
             field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : this::pasteClipboardContent);
             field2.setOnMouseClicked(null);
+        }
+    }
+
+    private void setLabelsText() {
+        if (buttonCheck.isSelected()) {
+            label1.setText(language.getString(
+                checkUseFile1.isSelected()
+                ? "hashtools.fxml.application.label_1.check_file"
+                : "hashtools.fxml.application.label_1.check_text"
+            ));
+            label2.setText(language.getString(
+                checkUseFile2.isSelected()
+                ? "hashtools.fxml.application.label_2.check_file"
+                : "hashtools.fxml.application.label_2.check_text"
+            ));
+        } else if (buttonCompare.isSelected()) {
+            label1.setText(language.getString(
+                "hashtools.fxml.application.label_1.compare_file"
+            ));
+            label2.setText(language.getString(
+                "hashtools.fxml.application.label_2.compare_file"
+            ));
+        } else if (buttonGenerate.isSelected()) {
+            label1.setText(language.getString(
+                checkUseFile1.isSelected()
+                ? "hashtools.fxml.application.label_1.generate_file"
+                : "hashtools.fxml.application.label_1.generate_text"
+            ));
         }
     }
 

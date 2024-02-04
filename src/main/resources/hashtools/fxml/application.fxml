@@ -32,11 +32,11 @@
         <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode"/>
     </HBox>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="%hashtools.fxml.application.label_1.text"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="%hashtools.fxml.application.label_1.check_text"/>
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="field1"/>
     <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="%hashtools.fxml.application.check_file"/>
 
-    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="%hashtools.fxml.application.label_2.checksum"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="%hashtools.fxml.application.label_2.check_text"/>
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="field2"/>
     <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="%hashtools.fxml.application.check_file"/>
 
