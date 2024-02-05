@@ -358,13 +358,25 @@ public class ApplicationController extends Application implements Initializable,
 
     private void setFileOpeningHandler() {
         if (buttonCheck.isSelected()) {
-            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToCheck : this::pasteClipboardContent);
-            field2.setOnMouseClicked(checkUseFile2.isSelected() ? this::openHashFile : this::pasteClipboardContent);
+            field1.setOnMouseClicked(
+                checkUseFile1.isSelected()
+                ? this::openFileToCheck
+                : this::pasteClipboardContent
+            );
+            field2.setOnMouseClicked(
+                checkUseFile2.isSelected()
+                ? this::openHashFile
+                : this::pasteClipboardContent
+            );
         } else if (buttonCompare.isSelected()) {
             field1.setOnMouseClicked(this::openFirstFileToCompare);
             field2.setOnMouseClicked(this::openSecondFileToCompare);
         } else if (buttonGenerate.isSelected()) {
-            field1.setOnMouseClicked(checkUseFile1.isSelected() ? this::openFileToGenerate : this::pasteClipboardContent);
+            field1.setOnMouseClicked(
+                checkUseFile1.isSelected()
+                ? this::openFileToGenerate
+                : this::pasteClipboardContent
+            );
             field2.setOnMouseClicked(null);
         }
     }
