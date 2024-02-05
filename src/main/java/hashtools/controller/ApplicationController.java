@@ -1,5 +1,6 @@
 package hashtools.controller;
 
+import hashtools.domain.ExtensionFilter;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -263,7 +264,7 @@ public class ApplicationController extends Application implements Initializable,
         openFile(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_file_to_check_dialog"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
+            ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
     }
 
@@ -271,7 +272,7 @@ public class ApplicationController extends Application implements Initializable,
         openFile(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_file_to_generate_dialog"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
+            ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
     }
 
@@ -279,7 +280,7 @@ public class ApplicationController extends Application implements Initializable,
         openFile(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_first_file_to_compare_dialog"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
+            ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
     }
 
@@ -287,8 +288,8 @@ public class ApplicationController extends Application implements Initializable,
         openFile(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_hash_file_dialog"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.hash"), "*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512", "*.txt"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
+            ExtensionFilter.HASH.get(language),
+            ExtensionFilter.ALL.get(language)
         ).ifPresent(field2::setText);
     }
 
@@ -296,7 +297,7 @@ public class ApplicationController extends Application implements Initializable,
         openFile(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_second_file_to_compare_dialog"),
-            new FileChooser.ExtensionFilter(language.getString("hashtools.controller.application_controller.dialog.all"), "*")
+            ExtensionFilter.ALL.get(language)
         ).ifPresent(field2::setText);
     }
 
