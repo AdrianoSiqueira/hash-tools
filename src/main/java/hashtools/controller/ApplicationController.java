@@ -293,6 +293,13 @@ public class ApplicationController extends Application implements Initializable,
         ).ifPresent(field2::setText);
     }
 
+    private void openOutputFile(MouseEvent event) {
+        saveFile(
+            event.getButton(),
+            language.getString("hashtools.controller.application_controller.open_output_file_dialog")
+        ).ifPresent(field2::setText);
+    }
+
     private void openSecondFileToCompare(MouseEvent event) {
         openFile(
             event.getButton(),
@@ -337,6 +344,16 @@ public class ApplicationController extends Application implements Initializable,
                 .ofNullable(dragboard.getString())
                 .ifPresent(field::setText);
         }
+    }
+
+    private Optional<String> saveFile(MouseButton button, String title) {
+        return Optional
+            .of(button)
+            .filter(b -> b == MouseButton.SECONDARY)
+            .map(b -> new FileManager())
+            .flatMap(manager -> manager.saveFile(title))
+            .map(Path::toAbsolutePath)
+            .map(Path::toString);
     }
 
     private void selectAllAlgorithms() {
