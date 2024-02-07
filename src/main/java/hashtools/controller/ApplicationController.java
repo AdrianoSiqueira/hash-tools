@@ -252,12 +252,11 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private Optional<String> openFile(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
-        if (button != MouseButton.SECONDARY) {
-            return Optional.empty();
-        }
-
-        return new FileManager()
-            .openFile(title, extensionFilters)
+        return Optional
+            .of(button)
+            .filter(b -> b == MouseButton.SECONDARY)
+            .map(b -> new FileManager())
+            .flatMap(manager -> manager.openFile(title, extensionFilters))
             .map(Path::toAbsolutePath)
             .map(Path::toString);
     }
