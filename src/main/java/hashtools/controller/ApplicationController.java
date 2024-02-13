@@ -210,8 +210,14 @@ public class ApplicationController extends Application implements Initializable,
         enableCheckerMode();
 
         buttonCheck.setOnAction(event -> enableCheckerMode());
+        buttonCheck.getProperties().put(SERVICE_RUNNABLE, getCheckerRunnable());
+
         buttonGenerate.setOnAction(event -> enableGeneratorMode());
+        buttonGenerate.getProperties().put(SERVICE_RUNNABLE, getGeneratorRunnable());
+
         buttonCompare.setOnAction(event -> enableComparatorMode());
+        buttonCompare.getProperties().put(SERVICE_RUNNABLE, getComparatorRunnable());
+
 
         groupRunMode.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
