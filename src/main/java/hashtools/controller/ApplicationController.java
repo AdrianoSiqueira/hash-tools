@@ -39,8 +39,9 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ApplicationController extends Application implements Initializable, Controller {
 
-    private static final String TITLE     = "HashTools";
-    private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
+    private static final String TITLE            = "HashTools";
+    private static final String FXML_PATH        = "/hashtools/fxml/application.fxml";
+    private static final String SERVICE_RUNNABLE = "service_runnable";
 
     @FXML
     private GridPane  paneRoot;
