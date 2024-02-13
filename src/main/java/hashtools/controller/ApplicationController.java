@@ -1,6 +1,7 @@
 package hashtools.controller;
 
 import hashtools.domain.ExtensionFilter;
+import hashtools.domain.exception.PropertyException;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.Clipboard;
@@ -346,6 +348,20 @@ public class ApplicationController extends Application implements Initializable,
                 .ofNullable(dragboard.getString())
                 .ifPresent(field::setText);
         }
+    }
+
+    private void runService() {
+        new Thread(
+            () -> Optional
+                .ofNullable(groupRunMode.getSelectedToggle())
+                .map(Toggle::getProperties)
+                .map(properties -> properties.get(SERVICE_RUNNABLE))
+                .filter(Runnable.class::isInstance)
+                .map(Runnable.class::cast)
+                .orElseThrow(() -> new PropertyException("There is a problem with the button run mode properties"))
+                .run(),
+            "Runner Thread"
+        ).start();
     }
 
     private Optional<String> saveFile(MouseButton button, String title) {
