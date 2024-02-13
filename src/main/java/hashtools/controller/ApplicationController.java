@@ -186,6 +186,24 @@ public class ApplicationController extends Application implements Initializable,
         setLabelsText();
     }
 
+    private Runnable getCheckerRunnable() {
+        return () -> {
+            log.debug("Running the checker service");
+        };
+    }
+
+    private Runnable getComparatorRunnable() {
+        return () -> {
+            log.debug("Running the comparator service");
+        };
+    }
+
+    private Runnable getGeneratorRunnable() {
+        return () -> {
+            log.debug("Running the generator service");
+        };
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.language = resources;
