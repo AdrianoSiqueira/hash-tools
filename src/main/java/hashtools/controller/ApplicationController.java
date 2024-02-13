@@ -218,6 +218,7 @@ public class ApplicationController extends Application implements Initializable,
         buttonCompare.setOnAction(event -> enableComparatorMode());
         buttonCompare.getProperties().put(SERVICE_RUNNABLE, getComparatorRunnable());
 
+        buttonRun.setOnAction(event -> runService());
 
         groupRunMode.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
