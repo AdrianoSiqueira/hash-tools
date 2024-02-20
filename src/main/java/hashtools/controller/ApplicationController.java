@@ -186,37 +186,19 @@ public class ApplicationController extends Application implements Initializable,
         setLabelsText();
     }
 
-    private Runnable getCheckerRunnable() {
-        return () -> {
-            log.debug("Running the checker service");
-        };
-    }
-
-    private Runnable getComparatorRunnable() {
-        return () -> {
-            log.debug("Running the comparator service");
-        };
-    }
-
-    private Runnable getGeneratorRunnable() {
-        return () -> {
-            log.debug("Running the generator service");
-        };
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.language = resources;
         enableCheckerMode();
 
         buttonCheck.setOnAction(event -> enableCheckerMode());
-        buttonCheck.getProperties().put(SERVICE_RUNNABLE, getCheckerRunnable());
+        buttonCheck.getProperties().put(SERVICE_RUNNABLE, new CheckerRunnable());
 
         buttonGenerate.setOnAction(event -> enableGeneratorMode());
-        buttonGenerate.getProperties().put(SERVICE_RUNNABLE, getGeneratorRunnable());
+        buttonGenerate.getProperties().put(SERVICE_RUNNABLE, new GeneratorRunnable());
 
         buttonCompare.setOnAction(event -> enableComparatorMode());
-        buttonCompare.getProperties().put(SERVICE_RUNNABLE, getComparatorRunnable());
+        buttonCompare.getProperties().put(SERVICE_RUNNABLE, new ComparatorRunnable());
 
         buttonRun.setOnAction(event -> runService());
 
@@ -502,5 +484,27 @@ public class ApplicationController extends Application implements Initializable,
         stage.show();
 
         notifyPreloader(new PreloaderController.CloseNotification());
+    }
+
+
+    private class CheckerRunnable implements Runnable {
+        @Override
+        public void run() {
+            log.debug("Running the checker service");
+        }
+    }
+
+    private class ComparatorRunnable implements Runnable {
+        @Override
+        public void run() {
+            log.debug("Running the comparator service");
+        }
+    }
+
+    private class GeneratorRunnable implements Runnable {
+        @Override
+        public void run() {
+            log.debug("Running the generator service");
+        }
     }
 }
