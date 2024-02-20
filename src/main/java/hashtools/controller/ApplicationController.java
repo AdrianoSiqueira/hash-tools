@@ -403,13 +403,13 @@ public class ApplicationController extends Application implements Initializable,
         if (buttonCheck.isSelected()) {
             field1.setOnMouseClicked(
                 checkUseFile1.isSelected()
-                ? this::openFileToCheck
-                : this::pasteClipboardContent
+                    ? this::openFileToCheck
+                    : this::pasteClipboardContent
             );
             field2.setOnMouseClicked(
                 checkUseFile2.isSelected()
-                ? this::openHashFile
-                : this::pasteClipboardContent
+                    ? this::openHashFile
+                    : this::pasteClipboardContent
             );
         } else if (buttonCompare.isSelected()) {
             field1.setOnMouseClicked(this::openFirstFileToCompare);
@@ -417,8 +417,8 @@ public class ApplicationController extends Application implements Initializable,
         } else if (buttonGenerate.isSelected()) {
             field1.setOnMouseClicked(
                 checkUseFile1.isSelected()
-                ? this::openFileToGenerate
-                : this::pasteClipboardContent
+                    ? this::openFileToGenerate
+                    : this::pasteClipboardContent
             );
             field2.setOnMouseClicked(this::openOutputFile);
         }
@@ -428,13 +428,13 @@ public class ApplicationController extends Application implements Initializable,
         if (buttonCheck.isSelected()) {
             label1.setText(language.getString(
                 checkUseFile1.isSelected()
-                ? "hashtools.fxml.application.label_1.check_file"
-                : "hashtools.fxml.application.label_1.check_text"
+                    ? "hashtools.fxml.application.label_1.check_file"
+                    : "hashtools.fxml.application.label_1.check_text"
             ));
             label2.setText(language.getString(
                 checkUseFile2.isSelected()
-                ? "hashtools.fxml.application.label_2.check_file"
-                : "hashtools.fxml.application.label_2.check_text"
+                    ? "hashtools.fxml.application.label_2.check_file"
+                    : "hashtools.fxml.application.label_2.check_text"
             ));
         } else if (buttonCompare.isSelected()) {
             label1.setText(language.getString(
@@ -446,8 +446,8 @@ public class ApplicationController extends Application implements Initializable,
         } else if (buttonGenerate.isSelected()) {
             label1.setText(language.getString(
                 checkUseFile1.isSelected()
-                ? "hashtools.fxml.application.label_1.generate_file"
-                : "hashtools.fxml.application.label_1.generate_text"
+                    ? "hashtools.fxml.application.label_1.generate_file"
+                    : "hashtools.fxml.application.label_1.generate_text"
             ));
             label2.setText(language.getString(
                 "hashtools.fxml.application.label_2.output_file"
