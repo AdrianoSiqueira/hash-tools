@@ -1,8 +1,11 @@
 package hashtools.controller;
 
+import hashtools.domain.Algorithm;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ExtensionFilter;
+import hashtools.domain.GeneratorRequest;
+import hashtools.domain.GeneratorResponse;
 import hashtools.domain.exception.PropertyException;
 import hashtools.domain.identification.Identifiable;
 import hashtools.domain.identification.IdentifiableFactory;
@@ -11,7 +14,10 @@ import hashtools.domain.messagedigest.DigestUpdaterFactory;
 import hashtools.domain.officialdata.OfficialDataGetter;
 import hashtools.domain.officialdata.OfficialDataGetterFactory;
 import hashtools.formatter.CheckerResponseFormatter;
+import hashtools.formatter.GeneratorResponseFormatter;
 import hashtools.service.CheckerService;
+import hashtools.service.GeneratorService;
+import hashtools.utility.AlgorithmFinder;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -539,7 +545,40 @@ public class ApplicationController extends Application implements Initializable,
     private class GeneratorRunnable implements Runnable {
         @Override
         public void run() {
-            log.debug("Running the generator service");
+            DigestUpdater digestUpdater = checkUseFile1.isSelected()
+                ? DigestUpdaterFactory.create(Path.of(field1.getText()))
+                : DigestUpdaterFactory.create(field1.getText());
+
+            Identifiable identifiable = checkUseFile1.isSelected()
+                ? IdentifiableFactory.create(Path.of(field1.getText()))
+                : IdentifiableFactory.create(field1.getText());
+
+            List<Algorithm> algorithms = paneAlgorithm
+                .getChildren()
+                .stream()
+                .filter(CheckBox.class::isInstance)
+                .map(CheckBox.class::cast)
+                .filter(CheckBox::isSelected)
+                .map(CheckBox::getText)
+                .map(new AlgorithmFinder()::find)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
+
+            GeneratorRequest request = GeneratorRequest
+                .builder()
+                .identifiable(identifiable)
+                .digestUpdater(digestUpdater)
+                .algorithms(algorithms)
+                .build();
+
+            GeneratorResponse response = new GeneratorService()
+                .run(request);
+
+            String formattedContent = new GeneratorResponseFormatter()
+                .format(response);
+
+            areaStatus.setText(formattedContent);
         }
     }
 }
