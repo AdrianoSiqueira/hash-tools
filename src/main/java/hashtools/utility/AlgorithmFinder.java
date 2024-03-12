@@ -15,12 +15,15 @@ public class AlgorithmFinder {
     }
 
     public Optional<Algorithm> find(String name) {
+        String searchName = name
+            .replace("-", "");
+
         return Stream
             .of(Algorithm.values())
             .filter(algorithm -> algorithm
                 .getName()
                 .replace("-", "")
-                .equalsIgnoreCase(name))
+                .equalsIgnoreCase(searchName))
             .findFirst();
     }
 }
