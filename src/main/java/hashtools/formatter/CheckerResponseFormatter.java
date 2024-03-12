@@ -83,7 +83,7 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
             .stream()
             .map(this::formatChecksumPair)
             .collect(Collectors.joining(
-                separator,
+                separator.concat("\n"),
                 separator.concat("\n"),
                 separator
             ));
