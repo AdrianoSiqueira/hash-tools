@@ -1,7 +1,17 @@
 package hashtools.controller;
 
+import hashtools.domain.CheckerRequest;
+import hashtools.domain.CheckerResponse;
 import hashtools.domain.ExtensionFilter;
 import hashtools.domain.exception.PropertyException;
+import hashtools.domain.identification.Identifiable;
+import hashtools.domain.identification.IdentifiableFactory;
+import hashtools.domain.messagedigest.DigestUpdater;
+import hashtools.domain.messagedigest.DigestUpdaterFactory;
+import hashtools.domain.officialdata.OfficialDataGetter;
+import hashtools.domain.officialdata.OfficialDataGetterFactory;
+import hashtools.formatter.CheckerResponseFormatter;
+import hashtools.service.CheckerService;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -41,21 +51,21 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ApplicationController extends Application implements Initializable, Controller {
 
-    private static final String TITLE            = "HashTools";
-    private static final String FXML_PATH        = "/hashtools/fxml/application.fxml";
+    private static final String TITLE = "HashTools";
+    private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
     private static final String SERVICE_RUNNABLE = "service_runnable";
 
     @FXML
-    private GridPane  paneRoot;
+    private GridPane paneRoot;
     @FXML
-    private HBox      paneRunMode;
+    private HBox paneRunMode;
     @FXML
-    private GridPane  paneAlgorithm;
+    private GridPane paneAlgorithm;
     @FXML
     private StackPane paneRun;
 
     @FXML
-    private ToggleGroup  groupRunMode;
+    private ToggleGroup groupRunMode;
     @FXML
     private ToggleButton buttonCheck;
     @FXML
@@ -78,7 +88,7 @@ public class ApplicationController extends Application implements Initializable,
     @FXML
     private TextField field2;
     @FXML
-    private TextArea  areaStatus;
+    private TextArea areaStatus;
 
     @FXML
     private CheckBox checkUseFile1;
@@ -100,11 +110,11 @@ public class ApplicationController extends Application implements Initializable,
     @FXML
     private ContextMenu paneAlgorithmContextMenu;
     @FXML
-    private MenuItem    itemSelectAll;
+    private MenuItem itemSelectAll;
     @FXML
-    private MenuItem    itemSelectNone;
+    private MenuItem itemSelectNone;
     @FXML
-    private MenuItem    itemInvertSelection;
+    private MenuItem itemInvertSelection;
 
     private ResourceBundle language;
 
@@ -490,7 +500,32 @@ public class ApplicationController extends Application implements Initializable,
     private class CheckerRunnable implements Runnable {
         @Override
         public void run() {
-            log.debug("Running the checker service");
+            DigestUpdater digestUpdater = checkUseFile1.isSelected()
+                ? DigestUpdaterFactory.create(Path.of(field1.getText()))
+                : DigestUpdaterFactory.create(field1.getText());
+
+            Identifiable identifiable = checkUseFile1.isSelected()
+                ? IdentifiableFactory.create(Path.of(field1.getText()))
+                : IdentifiableFactory.create(field1.getText());
+
+            OfficialDataGetter officialDataGetter = checkUseFile2.isSelected()
+                ? OfficialDataGetterFactory.create(Path.of(field2.getText()))
+                : OfficialDataGetterFactory.create(field2.getText());
+
+            CheckerRequest request = CheckerRequest
+                .builder()
+                .digestUpdater(digestUpdater)
+                .identifiable(identifiable)
+                .officialDataGetter(officialDataGetter)
+                .build();
+
+            CheckerResponse response = new CheckerService()
+                .run(request);
+
+            String formattedContent = new CheckerResponseFormatter()
+                .format(response);
+
+            areaStatus.setText(formattedContent);
         }
     }
 
