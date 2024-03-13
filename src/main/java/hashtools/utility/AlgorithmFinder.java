@@ -15,8 +15,10 @@ public class AlgorithmFinder {
     }
 
     public Optional<Algorithm> find(String name) {
-        String searchName = name
-            .replace("-", "");
+        String searchName = Optional
+            .ofNullable(name)
+            .map(s -> s.replace("-", ""))
+            .orElse(null);
 
         return Stream
             .of(Algorithm.values())
