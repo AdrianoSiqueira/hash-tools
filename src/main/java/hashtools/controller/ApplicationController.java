@@ -147,7 +147,6 @@ public class ApplicationController extends Application implements Initializable,
         field1.setDisable(false);
 
         field2.clear();
-        field2.disableProperty().unbind();
         field2.setDisable(false);
 
         areaStatus.clear();
@@ -172,7 +171,6 @@ public class ApplicationController extends Application implements Initializable,
         field1.setDisable(false);
 
         field2.clear();
-        field2.disableProperty().unbind();
         field2.setDisable(false);
 
         areaStatus.clear();
@@ -192,7 +190,7 @@ public class ApplicationController extends Application implements Initializable,
         checkUseFile1.setDisable(false);
 
         checkUseFile2.setSelected(false);
-        checkUseFile2.setDisable(false);
+        checkUseFile2.setDisable(true);
 
         // Algorithm selection is manual
         paneAlgorithm.setDisable(false);
@@ -201,7 +199,7 @@ public class ApplicationController extends Application implements Initializable,
         field1.setDisable(false);
 
         field2.clear();
-        field2.disableProperty().bind(checkUseFile2.selectedProperty().not());
+        field2.setDisable(true);
 
         areaStatus.clear();
 
@@ -438,7 +436,6 @@ public class ApplicationController extends Application implements Initializable,
                     ? this::openFileToGenerate
                     : this::pasteClipboardContent
             );
-            field2.setOnMouseClicked(this::openOutputFile);
         }
     }
 
