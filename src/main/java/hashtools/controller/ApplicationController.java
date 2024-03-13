@@ -52,8 +52,11 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -257,6 +260,7 @@ public class ApplicationController extends Application implements Initializable,
         ));
 
         areaStatus.setOnContextMenuRequested(Event::consume);
+        areaStatus.setOnMouseClicked(this::openOutputFile);
 
         itemSelectAll.setOnAction(event -> selectAllAlgorithms());
         itemSelectNone.setOnAction(event -> selectNoAlgorithms());
@@ -318,7 +322,8 @@ public class ApplicationController extends Application implements Initializable,
         showSaveFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_output_file_dialog")
-        ).ifPresent(field2::setText);
+        ).map(Path::of)
+         .ifPresent(this::saveOutputFile);
     }
 
     private void openSecondFileToCompare(MouseEvent event) {
