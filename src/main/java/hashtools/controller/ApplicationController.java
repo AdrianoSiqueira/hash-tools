@@ -3,6 +3,8 @@ package hashtools.controller;
 import hashtools.domain.Algorithm;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
+import hashtools.domain.ComparatorRequest;
+import hashtools.domain.ComparatorResponse;
 import hashtools.domain.ExtensionFilter;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
@@ -14,8 +16,10 @@ import hashtools.domain.messagedigest.DigestUpdaterFactory;
 import hashtools.domain.officialdata.OfficialDataGetter;
 import hashtools.domain.officialdata.OfficialDataGetterFactory;
 import hashtools.formatter.CheckerResponseFormatter;
+import hashtools.formatter.ComparatorResponseFormatter;
 import hashtools.formatter.GeneratorResponseFormatter;
 import hashtools.service.CheckerService;
+import hashtools.service.ComparatorService;
 import hashtools.service.GeneratorService;
 import hashtools.utility.AlgorithmFinder;
 import hashtools.utility.FileManager;
@@ -538,7 +542,22 @@ public class ApplicationController extends Application implements Initializable,
     private class ComparatorRunnable implements Runnable {
         @Override
         public void run() {
-            log.debug("Running the comparator service");
+            DigestUpdater digestUpdater1 = DigestUpdaterFactory.create(Path.of(field1.getText()));
+            DigestUpdater digestUpdater2 = DigestUpdaterFactory.create(Path.of(field2.getText()));
+
+            ComparatorRequest request = ComparatorRequest
+                .builder()
+                .digestUpdater1(digestUpdater1)
+                .digestUpdater2(digestUpdater2)
+                .build();
+
+            ComparatorResponse response = new ComparatorService()
+                .run(request);
+
+            String formattedContent = new ComparatorResponseFormatter()
+                .format(response);
+
+            areaStatus.setText(formattedContent);
         }
     }
 
