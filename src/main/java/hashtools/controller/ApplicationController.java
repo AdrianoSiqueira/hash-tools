@@ -315,7 +315,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openOutputFile(MouseEvent event) {
-        saveFile(
+        showSaveFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_output_file_dialog")
         ).ifPresent(field2::setText);
@@ -381,14 +381,6 @@ public class ApplicationController extends Application implements Initializable,
         ).start();
     }
 
-    private Optional<String> saveFile(MouseButton button, String title) {
-        return Optional
-            .of(button)
-            .filter(b -> b == MouseButton.SECONDARY)
-            .map(b -> new FileManager())
-            .flatMap(manager -> manager.saveFile(title))
-            .map(Path::toAbsolutePath)
-            .map(Path::toString);
     }
 
     private void selectAllAlgorithms() {
@@ -494,6 +486,16 @@ public class ApplicationController extends Application implements Initializable,
             event.getScreenX(),
             event.getScreenY()
         );
+    }
+
+    private Optional<String> showSaveFileDialog(MouseButton button, String title) {
+        return Optional
+            .of(button)
+            .filter(b -> b == MouseButton.SECONDARY)
+            .map(b -> new FileManager())
+            .flatMap(manager -> manager.saveFile(title))
+            .map(Path::toAbsolutePath)
+            .map(Path::toString);
     }
 
     @Override
