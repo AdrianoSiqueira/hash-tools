@@ -281,18 +281,8 @@ public class ApplicationController extends Application implements Initializable,
             .forEach(checkBox -> checkBox.setSelected(!checkBox.isSelected()));
     }
 
-    private Optional<String> openFile(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
-        return Optional
-            .of(button)
-            .filter(b -> b == MouseButton.SECONDARY)
-            .map(b -> new FileManager())
-            .flatMap(manager -> manager.openFile(title, extensionFilters))
-            .map(Path::toAbsolutePath)
-            .map(Path::toString);
-    }
-
     private void openFileToCheck(MouseEvent event) {
-        openFile(
+        showOpenFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_file_to_check_dialog"),
             ExtensionFilter.ALL.get(language)
@@ -300,7 +290,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openFileToGenerate(MouseEvent event) {
-        openFile(
+        showOpenFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_file_to_generate_dialog"),
             ExtensionFilter.ALL.get(language)
@@ -308,7 +298,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openFirstFileToCompare(MouseEvent event) {
-        openFile(
+        showOpenFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_first_file_to_compare_dialog"),
             ExtensionFilter.ALL.get(language)
@@ -316,7 +306,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openHashFile(MouseEvent event) {
-        openFile(
+        showOpenFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_hash_file_dialog"),
             ExtensionFilter.HASH.get(language),
@@ -332,7 +322,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openSecondFileToCompare(MouseEvent event) {
-        openFile(
+        showOpenFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_second_file_to_compare_dialog"),
             ExtensionFilter.ALL.get(language)
@@ -473,6 +463,16 @@ public class ApplicationController extends Application implements Initializable,
                 "hashtools.fxml.application.label_2.output_file"
             ));
         }
+    }
+
+    private Optional<String> showOpenFileDialog(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
+        return Optional
+            .of(button)
+            .filter(b -> b == MouseButton.SECONDARY)
+            .map(b -> new FileManager())
+            .flatMap(manager -> manager.openFile(title, extensionFilters))
+            .map(Path::toAbsolutePath)
+            .map(Path::toString);
     }
 
     private void showPaneAlgorithmContextMenu(MouseEvent event) {
