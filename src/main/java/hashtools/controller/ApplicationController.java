@@ -381,6 +381,17 @@ public class ApplicationController extends Application implements Initializable,
         ).start();
     }
 
+    private void saveOutputFile(Path file) {
+        try {
+            Files.writeString(
+                file,
+                areaStatus.getText(),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void selectAllAlgorithms() {
