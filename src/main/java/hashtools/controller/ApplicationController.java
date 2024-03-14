@@ -522,6 +522,13 @@ public class ApplicationController extends Application implements Initializable,
     }
 
 
+    private interface ModuleRunnable {
+
+        boolean isNotReadyToRun();
+
+        void run();
+    }
+
     private class CheckerRunnable implements Runnable {
         @Override
         public void run() {
