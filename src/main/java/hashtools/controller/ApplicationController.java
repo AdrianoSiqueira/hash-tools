@@ -376,8 +376,8 @@ public class ApplicationController extends Application implements Initializable,
                 .ofNullable(groupRunMode.getSelectedToggle())
                 .map(Toggle::getProperties)
                 .map(properties -> properties.get(SERVICE_RUNNABLE))
-                .filter(Runnable.class::isInstance)
-                .map(Runnable.class::cast)
+                .filter(ModuleRunnable.class::isInstance)
+                .map(ModuleRunnable.class::cast)
                 .orElseThrow(() -> new PropertyException("There is a problem with the button run mode properties"))
                 .run(),
             "Runner Thread"
