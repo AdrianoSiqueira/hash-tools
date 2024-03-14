@@ -529,9 +529,19 @@ public class ApplicationController extends Application implements Initializable,
         void run();
     }
 
-    private class CheckerRunnable implements Runnable {
+    private class CheckerRunnable implements ModuleRunnable {
+
+        @Override
+        public boolean isNotReadyToRun() {
+            return field2.getText().isBlank();
+        }
+
         @Override
         public void run() {
+            if (isNotReadyToRun()) {
+                return;
+            }
+
             DigestUpdater digestUpdater = checkUseFile1.isSelected()
                 ? DigestUpdaterFactory.create(Path.of(field1.getText()))
                 : DigestUpdaterFactory.create(field1.getText());
@@ -561,9 +571,20 @@ public class ApplicationController extends Application implements Initializable,
         }
     }
 
-    private class ComparatorRunnable implements Runnable {
+    private class ComparatorRunnable implements ModuleRunnable {
+
+        @Override
+        public boolean isNotReadyToRun() {
+            return field1.getText().isBlank() ||
+                   field2.getText().isBlank();
+        }
+
         @Override
         public void run() {
+            if (isNotReadyToRun()) {
+                return;
+            }
+
             DigestUpdater digestUpdater1 = DigestUpdaterFactory.create(Path.of(field1.getText()));
             DigestUpdater digestUpdater2 = DigestUpdaterFactory.create(Path.of(field2.getText()));
 
@@ -583,9 +604,19 @@ public class ApplicationController extends Application implements Initializable,
         }
     }
 
-    private class GeneratorRunnable implements Runnable {
+    private class GeneratorRunnable implements ModuleRunnable {
+
+        @Override
+        public boolean isNotReadyToRun() {
+            return false;
+        }
+
         @Override
         public void run() {
+            if (isNotReadyToRun()) {
+                return;
+            }
+
             DigestUpdater digestUpdater = checkUseFile1.isSelected()
                 ? DigestUpdaterFactory.create(Path.of(field1.getText()))
                 : DigestUpdaterFactory.create(field1.getText());
