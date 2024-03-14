@@ -378,7 +378,7 @@ public class ApplicationController extends Application implements Initializable,
                 .map(properties -> properties.get(SERVICE_RUNNABLE))
                 .filter(ModuleRunnable.class::isInstance)
                 .map(ModuleRunnable.class::cast)
-                .orElseThrow(() -> new PropertyException("There is a problem with the button run mode properties"))
+                .orElseThrow(() -> new PropertyException("Button run mode property does not have the runnable reference"))
                 .run(),
             "Runner Thread"
         ).start();
