@@ -130,6 +130,7 @@ public class ApplicationController extends Application implements Initializable,
     private MenuItem itemInvertSelection;
 
     private ResourceBundle language;
+    private boolean isRunning;
 
     private void enableCheckerMode() {
         buttonCheck.setSelected(true);
@@ -372,14 +373,23 @@ public class ApplicationController extends Application implements Initializable,
 
     private void runService() {
         new Thread(
-            () -> Optional
-                .ofNullable(groupRunMode.getSelectedToggle())
-                .map(Toggle::getProperties)
-                .map(properties -> properties.get(SERVICE_RUNNABLE))
-                .filter(ModuleRunnable.class::isInstance)
-                .map(ModuleRunnable.class::cast)
-                .orElseThrow(() -> new PropertyException("Button run mode property does not have the runnable reference"))
-                .run(),
+            () -> {
+                // Discard new running attempts when already running.
+                if (isRunning) return;
+
+                isRunning = true;
+
+                Optional
+                    .ofNullable(groupRunMode.getSelectedToggle())
+                    .map(Toggle::getProperties)
+                    .map(properties -> properties.get(SERVICE_RUNNABLE))
+                    .filter(ModuleRunnable.class::isInstance)
+                    .map(ModuleRunnable.class::cast)
+                    .orElseThrow(() -> new PropertyException("Button run mode property does not have the runnable reference"))
+                    .run();
+
+                isRunning = false;
+            },
             "Runner Thread"
         ).start();
     }
