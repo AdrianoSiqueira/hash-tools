@@ -62,12 +62,16 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 @Slf4j
 public class ApplicationController extends Application implements Initializable, Controller {
 
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
     private static final String SERVICE_RUNNABLE = "service_runnable";
+
+    private static final Predicate<MouseEvent> FROM_RIGHT_CLICK = event -> event.getButton() == MouseButton.SECONDARY;
+    private static final Predicate<MouseEvent> NOT_FROM_RIGHT_CLICK = FROM_RIGHT_CLICK.negate();
 
     @FXML
     private GridPane paneRoot;
@@ -353,7 +357,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void pasteClipboardContent(MouseEvent event) {
-        if (event.getButton() != MouseButton.SECONDARY) return;
+        if (NOT_FROM_RIGHT_CLICK.test(event)) return;
         if (!(event.getSource() instanceof TextField field)) return;
 
         String content = Clipboard
@@ -505,7 +509,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void showPaneAlgorithmContextMenu(MouseEvent event) {
-        if (event.getButton() != MouseButton.SECONDARY) {
+        if (NOT_FROM_RIGHT_CLICK.test(event)) {
             paneAlgorithmContextMenu.hide();
             return;
         }
