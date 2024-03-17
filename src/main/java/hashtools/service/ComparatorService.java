@@ -4,10 +4,12 @@ import hashtools.domain.Algorithm;
 import hashtools.domain.ChecksumPair;
 import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
-import hashtools.factory.ThreadPoolFactory;
+import hashtools.domain.Environment;
+import hashtools.threadpool.DaemonThreadFactory;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ComparatorService implements Service<ComparatorRequest, ComparatorResponse> {
 
@@ -15,9 +17,9 @@ public class ComparatorService implements Service<ComparatorRequest, ComparatorR
 
     private ChecksumPair generateChecksums(ComparatorRequest request) {
         ChecksumGenerator generator = new ChecksumGenerator();
-        String[]          generated = new String[]{"", ""};
+        String[] generated = new String[]{"", ""};
 
-        try (ExecutorService executor = ThreadPoolFactory.DAEMON.create()) {
+        try (ExecutorService executor = Executors.newFixedThreadPool(Environment.Hardware.CPU, new DaemonThreadFactory("ComparatorServicePool"))) {
             executor.execute(() -> generated[0] = generator.generate(
                 ALGORITHM,
                 request.getDigestUpdater1()

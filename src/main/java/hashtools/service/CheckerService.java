@@ -4,12 +4,14 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Checksum;
 import hashtools.domain.ChecksumPair;
-import hashtools.factory.ThreadPoolFactory;
+import hashtools.domain.Environment;
+import hashtools.threadpool.DaemonThreadFactory;
 import hashtools.utility.ChecksumGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CheckerService implements Service<CheckerRequest, CheckerResponse> {
 
@@ -26,11 +28,11 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
     }
 
     private List<ChecksumPair> generateChecksumPairs(CheckerRequest request) {
-        ChecksumGenerator  generator         = new ChecksumGenerator();
-        List<ChecksumPair> checksumPairs     = new ArrayList<>();
-        List<Checksum>     officialChecksums = getOfficialChecksums(request);
+        ChecksumGenerator generator = new ChecksumGenerator();
+        List<ChecksumPair> checksumPairs = new ArrayList<>();
+        List<Checksum> officialChecksums = getOfficialChecksums(request);
 
-        try (ExecutorService executor = ThreadPoolFactory.DAEMON.create()) {
+        try (ExecutorService executor = Executors.newFixedThreadPool(Environment.Hardware.CPU, new DaemonThreadFactory("CheckerServicePool"))) {
             for (Checksum checksum : officialChecksums) {
                 executor.execute(() -> {
                     String generated = generator.generate(
@@ -67,9 +69,9 @@ public class CheckerService implements Service<CheckerRequest, CheckerResponse> 
 
     @Override
     public CheckerResponse run(CheckerRequest request) {
-        List<ChecksumPair> checksumPairs       = generateChecksumPairs(request);
-        double             integrityPercentage = calculateIntegrityPercentage(checksumPairs);
-        String             identification      = getIdentification(request);
+        List<ChecksumPair> checksumPairs = generateChecksumPairs(request);
+        double integrityPercentage = calculateIntegrityPercentage(checksumPairs);
+        String identification = getIdentification(request);
 
         return CheckerResponse
             .builder()
