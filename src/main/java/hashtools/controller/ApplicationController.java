@@ -5,6 +5,7 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
+import hashtools.domain.Environment;
 import hashtools.domain.ExtensionFilter;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
@@ -21,7 +22,6 @@ import hashtools.formatter.GeneratorResponseFormatter;
 import hashtools.service.CheckerService;
 import hashtools.service.ComparatorService;
 import hashtools.service.GeneratorService;
-import hashtools.threadpool.DaemonThreadFactory;
 import hashtools.utility.AlgorithmFinder;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
@@ -61,8 +61,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 public class ApplicationController extends Application implements Initializable, Controller {
@@ -133,7 +131,6 @@ public class ApplicationController extends Application implements Initializable,
     private MenuItem itemInvertSelection;
 
     private ResourceBundle language;
-    private ExecutorService uiThreadPool;
     private boolean isRunning;
 
     private void enableCheckerMode() {
@@ -218,7 +215,6 @@ public class ApplicationController extends Application implements Initializable,
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.language = resources;
-        this.uiThreadPool = Executors.newCachedThreadPool(new DaemonThreadFactory("UIThreadPool"));
         enableCheckerMode();
 
         buttonCheck.setOnAction(event -> enableCheckerMode());
@@ -384,7 +380,7 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void runService() {
-        uiThreadPool.execute(() -> {
+        Environment.Software.THREAD_POOL.execute(() -> {
             // Discard new running attempts when already running.
             if (isRunning) return;
 
