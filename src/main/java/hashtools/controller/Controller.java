@@ -1,8 +1,8 @@
 package hashtools.controller;
 
+import hashtools.domain.Environment;
 import hashtools.domain.exception.FileNotFoundException;
 import hashtools.domain.exception.NullParameterException;
-import hashtools.language.Language;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -16,7 +16,7 @@ public interface Controller {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlPath));
-        loader.setResources(Language.INSTANCE.getBundle());
+        loader.setResources(Environment.Software.LANGUAGE);
 
         try {
             Pane pane = loader.load();

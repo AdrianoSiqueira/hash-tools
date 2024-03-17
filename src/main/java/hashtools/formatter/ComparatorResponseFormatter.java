@@ -1,7 +1,7 @@
 package hashtools.formatter;
 
 import hashtools.domain.ComparatorResponse;
-import hashtools.language.Language;
+import hashtools.domain.Environment;
 
 import java.util.ResourceBundle;
 
@@ -9,9 +9,7 @@ public class ComparatorResponseFormatter implements Formatter<ComparatorResponse
 
     @Override
     public String format(ComparatorResponse response) {
-        ResourceBundle language = Language
-            .INSTANCE
-            .getBundle();
+        ResourceBundle language = Environment.Software.LANGUAGE;
 
         String status = response.isMatches()
             ? language.getString("hashtools.formatter.comparator_response_formatter.equal")

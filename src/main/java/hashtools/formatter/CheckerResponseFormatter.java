@@ -2,7 +2,7 @@ package hashtools.formatter;
 
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ChecksumPair;
-import hashtools.language.Language;
+import hashtools.domain.Environment;
 
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -31,9 +31,7 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     @Override
     public String format(CheckerResponse response) {
-        language = Language
-            .INSTANCE
-            .getBundle();
+        language = Environment.Software.LANGUAGE;
 
         return formatResponse(response);
     }
