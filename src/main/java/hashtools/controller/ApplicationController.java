@@ -326,6 +326,10 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openOutputFile(MouseEvent event) {
+        if (isRunning) {
+            return;
+        }
+
         showSaveFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_output_file_dialog")
