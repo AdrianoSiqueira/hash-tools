@@ -28,6 +28,7 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
@@ -131,6 +132,14 @@ public class ApplicationController extends Application implements Initializable,
 
     private ResourceBundle language;
     private boolean isRunning;
+
+    private void disableUI() {
+        paneRoot
+            .getChildren()
+            .forEach(node -> node.setMouseTransparent(true));
+
+        paneRoot.setCursor(Cursor.WAIT);
+    }
 
     private void enableCheckerMode() {
         buttonCheck.setSelected(true);
