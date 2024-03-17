@@ -131,7 +131,6 @@ public class ApplicationController extends Application implements Initializable,
     private MenuItem itemInvertSelection;
 
     private ResourceBundle language;
-    private boolean isRunning;
 
     private void disableUI() {
         paneRoot
@@ -218,6 +217,14 @@ public class ApplicationController extends Application implements Initializable,
         setFileOpeningHandler();
         setLabelsText();
         selectAllAlgorithms();
+    }
+
+    private void enableUI() {
+        paneRoot
+            .getChildren()
+            .forEach(node -> node.setMouseTransparent(false));
+
+        paneRoot.setCursor(Cursor.DEFAULT);
     }
 
     @Override
