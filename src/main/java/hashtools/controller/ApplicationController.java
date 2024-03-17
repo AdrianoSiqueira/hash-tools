@@ -158,6 +158,7 @@ public class ApplicationController extends Application implements Initializable,
 
         setFileOpeningHandler();
         setLabelsText();
+        selectNoAlgorithms();
     }
 
     private void enableComparatorMode() {
@@ -182,6 +183,7 @@ public class ApplicationController extends Application implements Initializable,
 
         setFileOpeningHandler();
         setLabelsText();
+        selectNoAlgorithms();
     }
 
     private void enableDragAndDrop(DragEvent event) {
@@ -210,6 +212,7 @@ public class ApplicationController extends Application implements Initializable,
 
         setFileOpeningHandler();
         setLabelsText();
+        selectAllAlgorithms();
     }
 
     @Override
