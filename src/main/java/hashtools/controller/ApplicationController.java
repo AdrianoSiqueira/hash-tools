@@ -337,10 +337,6 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void openOutputFile(MouseEvent event) {
-        if (isRunning) {
-            return;
-        }
-
         showSaveFileDialog(
             event.getButton(),
             language.getString("hashtools.controller.application_controller.open_output_file_dialog")
@@ -396,10 +392,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void runService() {
         Environment.Software.THREAD_POOL.execute(() -> {
-            // Discard new running attempts when already running.
-            if (isRunning) return;
-
-            isRunning = true;
+            disableUI();
             areaStatus.clear();
 
             Optional
@@ -411,7 +404,7 @@ public class ApplicationController extends Application implements Initializable,
                 .orElseThrow(() -> new PropertyException("Button run mode property does not have the runnable reference"))
                 .run();
 
-            isRunning = false;
+            enableUI();
         });
     }
 
