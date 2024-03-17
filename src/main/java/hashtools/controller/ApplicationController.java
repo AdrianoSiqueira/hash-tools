@@ -385,6 +385,7 @@ public class ApplicationController extends Application implements Initializable,
             if (isRunning) return;
 
             isRunning = true;
+            areaStatus.clear();
 
             Optional
                 .ofNullable(groupRunMode.getSelectedToggle())
