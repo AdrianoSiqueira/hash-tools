@@ -65,7 +65,6 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ApplicationController extends Application implements Initializable, Controller {
 
-    private static final String TITLE = "HashTools";
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
     private static final String SERVICE_RUNNABLE = "service_runnable";
 
@@ -529,7 +528,13 @@ public class ApplicationController extends Application implements Initializable,
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle(TITLE);
+        String title = String.format(
+            "%s v%s",
+            Environment.Software.NAME,
+            Environment.Software.VERSION
+        );
+
+        stage.setTitle(title);
         stage.setScene(createScene(FXML_PATH));
         stage.centerOnScreen();
         stage.show();
