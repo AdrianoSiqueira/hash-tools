@@ -309,7 +309,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openFileToCheck(MouseEvent event) {
         showOpenFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_file_to_check_dialog"),
             ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
@@ -317,7 +317,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openFileToGenerate(MouseEvent event) {
         showOpenFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_file_to_generate_dialog"),
             ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
@@ -325,7 +325,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openFirstFileToCompare(MouseEvent event) {
         showOpenFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_first_file_to_compare_dialog"),
             ExtensionFilter.ALL.get(language)
         ).ifPresent(field1::setText);
@@ -333,7 +333,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openHashFile(MouseEvent event) {
         showOpenFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_hash_file_dialog"),
             ExtensionFilter.HASH.get(language),
             ExtensionFilter.ALL.get(language)
@@ -342,7 +342,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openOutputFile(MouseEvent event) {
         showSaveFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_output_file_dialog")
         ).map(Path::of)
          .ifPresent(this::saveOutputFile);
@@ -350,7 +350,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private void openSecondFileToCompare(MouseEvent event) {
         showOpenFileDialog(
-            event.getButton(),
+            event,
             language.getString("hashtools.controller.application_controller.open_second_file_to_compare_dialog"),
             ExtensionFilter.ALL.get(language)
         ).ifPresent(field2::setText);
@@ -498,10 +498,10 @@ public class ApplicationController extends Application implements Initializable,
         }
     }
 
-    private Optional<String> showOpenFileDialog(MouseButton button, String title, FileChooser.ExtensionFilter... extensionFilters) {
+    private Optional<String> showOpenFileDialog(MouseEvent event, String title, FileChooser.ExtensionFilter... extensionFilters) {
         return Optional
-            .of(button)
-            .filter(b -> b == MouseButton.SECONDARY)
+            .of(event)
+            .filter(FROM_RIGHT_CLICK)
             .map(b -> new FileManager())
             .flatMap(manager -> manager.openFile(title, extensionFilters))
             .map(Path::toAbsolutePath)
@@ -529,10 +529,10 @@ public class ApplicationController extends Application implements Initializable,
         );
     }
 
-    private Optional<String> showSaveFileDialog(MouseButton button, String title) {
+    private Optional<String> showSaveFileDialog(MouseEvent event, String title) {
         return Optional
-            .of(button)
-            .filter(b -> b == MouseButton.SECONDARY)
+            .of(event)
+            .filter(FROM_RIGHT_CLICK)
             .map(b -> new FileManager())
             .flatMap(manager -> manager.saveFile(title))
             .map(Path::toAbsolutePath)
