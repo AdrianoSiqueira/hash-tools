@@ -72,6 +72,7 @@ public class ApplicationController extends Application implements Initializable,
 
     private static final Predicate<MouseEvent> FROM_RIGHT_CLICK = event -> event.getButton() == MouseButton.SECONDARY;
     private static final Predicate<MouseEvent> NOT_FROM_RIGHT_CLICK = FROM_RIGHT_CLICK.negate();
+    private static final Predicate<Event> NOT_FROM_TEXT_FIELD = event -> !(event.getSource() instanceof TextField);
 
     @FXML
     private GridPane paneRoot;
@@ -357,14 +358,17 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private void pasteClipboardContent(MouseEvent event) {
-        if (NOT_FROM_RIGHT_CLICK.test(event)) return;
-        if (!(event.getSource() instanceof TextField field)) return;
+        if (NOT_FROM_RIGHT_CLICK.test(event) ||
+            NOT_FROM_TEXT_FIELD.test(event)) {
+            return;
+        }
 
         String content = Clipboard
             .getSystemClipboard()
             .getString();
 
-        field.setText(content);
+        ((TextField) event.getSource())
+            .setText(content);
     }
 
     private void processDragAndDrop(Dragboard dragboard, TextField field, CheckBox checkBox) {
