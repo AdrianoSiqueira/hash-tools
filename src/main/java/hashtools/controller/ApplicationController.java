@@ -381,17 +381,17 @@ public class ApplicationController extends Application implements Initializable,
          * replacement of old content.
          */
 
-        if (dragboard.hasFiles()) {
-            if (checkBox.isSelected()) {
-                Optional
-                    .ofNullable(dragboard.getFiles())
-                    .filter(list -> !list.isEmpty())
-                    .map(List::getFirst)
-                    .filter(File::isFile)
-                    .map(File::getAbsolutePath)
-                    .ifPresent(field::setText);
-            }
-        } else if (!checkBox.isSelected()) {
+        if (dragboard.hasFiles() && checkBox.isSelected()) {
+            Optional
+                .ofNullable(dragboard.getFiles())
+                .filter(list -> !list.isEmpty())
+                .map(List::getFirst)
+                .filter(File::isFile)
+                .map(File::getAbsolutePath)
+                .ifPresent(field::setText);
+        }
+
+        if (!dragboard.hasFiles() && !checkBox.isSelected()) {
             Optional
                 .ofNullable(dragboard.getString())
                 .ifPresent(field::setText);
