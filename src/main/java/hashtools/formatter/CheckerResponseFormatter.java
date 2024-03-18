@@ -31,7 +31,32 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     @Override
     public String format(CheckerResponse response) {
-        return formatResponse(response);
+        String separator = "-"
+            .repeat(50);
+
+        String formattedChecksums = response
+            .getChecksumPairs()
+            .stream()
+            .map(this::formatChecksumPair)
+            .collect(Collectors.joining(
+                separator.concat("\n"),
+                separator.concat("\n"),
+                separator
+            ));
+
+
+        String layout = """
+                        %s
+                        %s
+                        %s: %s%%
+                        """;
+
+        return layout.formatted(
+            response.getIdentification(),
+            formattedChecksums,
+            language.getString("hashtools.formatter.checker_response_formatter.integrity"),
+            response.getIntegrityPercentage()
+        );
     }
 
     private String formatChecksumPair(ChecksumPair pair) {
@@ -62,35 +87,6 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
             pair.getChecksum2(),
             headers[3],
             pair.matches()
-        );
-    }
-
-    private String formatResponse(CheckerResponse response) {
-        String separator = "-"
-            .repeat(50);
-
-        String formattedChecksums = response
-            .getChecksumPairs()
-            .stream()
-            .map(this::formatChecksumPair)
-            .collect(Collectors.joining(
-                separator.concat("\n"),
-                separator.concat("\n"),
-                separator
-            ));
-
-
-        String layout = """
-                        %s
-                        %s
-                        %s: %s%%
-                        """;
-
-        return layout.formatted(
-            response.getIdentification(),
-            formattedChecksums,
-            language.getString("hashtools.formatter.checker_response_formatter.integrity"),
-            response.getIntegrityPercentage()
         );
     }
 }
