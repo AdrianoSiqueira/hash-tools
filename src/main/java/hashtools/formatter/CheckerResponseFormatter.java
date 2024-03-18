@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
-    private ResourceBundle language;
+    private ResourceBundle language = Environment.Software.LANGUAGE;
 
     private String[] applyPadding(int padding, String[] strings) {
         return Stream
@@ -31,19 +31,10 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     @Override
     public String format(CheckerResponse response) {
-        language = Environment.Software.LANGUAGE;
-
         return formatResponse(response);
     }
 
     private String formatChecksumPair(ChecksumPair pair) {
-        String layout = """
-                        %s: %s
-                        %s: %s
-                        %s: %s
-                        %s: %s
-                        """;
-
         String[] headers = {
             language.getString("hashtools.formatter.checker_response_formatter.algorithm"),
             language.getString("hashtools.formatter.checker_response_formatter.official"),
@@ -53,6 +44,14 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
         int padding = calculatePadding(headers);
         headers = applyPadding(padding, headers);
+
+
+        String layout = """
+                        %s: %s
+                        %s: %s
+                        %s: %s
+                        %s: %s
+                        """;
 
         return layout.formatted(
             headers[0],
@@ -67,12 +66,6 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
     }
 
     private String formatResponse(CheckerResponse response) {
-        String layout = """
-                        %s
-                        %s
-                        %s: %s%%
-                        """;
-
         String separator = "-"
             .repeat(50);
 
@@ -85,6 +78,13 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
                 separator.concat("\n"),
                 separator
             ));
+
+
+        String layout = """
+                        %s
+                        %s
+                        %s: %s%%
+                        """;
 
         return layout.formatted(
             response.getIdentification(),

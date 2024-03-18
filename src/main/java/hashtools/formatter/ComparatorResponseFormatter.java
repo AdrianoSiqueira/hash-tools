@@ -15,6 +15,7 @@ public class ComparatorResponseFormatter implements Formatter<ComparatorResponse
             ? language.getString("hashtools.formatter.comparator_response_formatter.equal")
             : language.getString("hashtools.formatter.comparator_response_formatter.different");
 
+
         String layout = """
                         %s: %s
                         %s: %s
