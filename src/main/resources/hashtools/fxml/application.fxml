@@ -27,18 +27,46 @@
             <ToggleGroup fx:id="groupRunMode"/>
         </fx:define>
 
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="%hashtools.fxml.application.button_check" toggleGroup="$groupRunMode"/>
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="%hashtools.fxml.application.button_compare" toggleGroup="$groupRunMode"/>
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode"/>
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="%hashtools.fxml.application.button_check" toggleGroup="$groupRunMode">
+            <tooltip>
+                <Tooltip text="%hashtools.fxml.application.tooltip.button_check"/>
+            </tooltip>
+        </ToggleButton>
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" text="%hashtools.fxml.application.button_compare" toggleGroup="$groupRunMode">
+            <tooltip>
+                <Tooltip text="%hashtools.fxml.application.tooltip.button_compare"/>
+            </tooltip>
+        </ToggleButton>
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode">
+            <tooltip>
+                <Tooltip text="%hashtools.fxml.application.tooltip.button_generate"/>
+            </tooltip>
+        </ToggleButton>
     </HBox>
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="label1" text="%hashtools.fxml.application.label_1.check_text"/>
-    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="field1"/>
-    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="%hashtools.fxml.application.check_file"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="field1">
+        <tooltip>
+            <Tooltip/>
+        </tooltip>
+    </TextField>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkUseFile1" text="%hashtools.fxml.application.check_file">
+        <tooltip>
+            <Tooltip text="%hashtools.fxml.application.tooltip.check_file"/>
+        </tooltip>
+    </CheckBox>
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="label2" text="%hashtools.fxml.application.label_2.check_text"/>
-    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="field2"/>
-    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="%hashtools.fxml.application.check_file"/>
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="field2">
+        <tooltip>
+            <Tooltip/>
+        </tooltip>
+    </TextField>
+    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="checkUseFile2" text="%hashtools.fxml.application.check_file">
+        <tooltip>
+            <Tooltip text="%hashtools.fxml.application.tooltip.check_file"/>
+        </tooltip>
+    </CheckBox>
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="%hashtools.fxml.application.label_algorithms"/>
     <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="20" vgap="20">
@@ -71,9 +99,17 @@
         <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
     </GridPane>
 
-    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6"/>
+    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6">
+        <tooltip>
+            <Tooltip text="%hashtools.fxml.application.tooltip.area_status"/>
+        </tooltip>
+    </TextArea>
 
     <StackPane GridPane.columnSpan="3" GridPane.rowIndex="5" alignment="CENTER_RIGHT" fx:id="paneRun">
-        <Button fx:id="buttonRun" text="%hashtools.fxml.application.button_run"/>
+        <Button fx:id="buttonRun" text="%hashtools.fxml.application.button_run">
+            <tooltip>
+                <Tooltip text="%hashtools.fxml.application.tooltip.button_run"/>
+            </tooltip>
+        </Button>
     </StackPane>
 </GridPane>
