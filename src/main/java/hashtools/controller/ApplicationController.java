@@ -168,6 +168,7 @@ public class ApplicationController extends Application implements Initializable,
         setFileOpeningHandler();
         setLabelsText();
         selectNoAlgorithms();
+        setDynamicTooltips();
     }
 
     private void enableComparatorMode() {
@@ -193,6 +194,7 @@ public class ApplicationController extends Application implements Initializable,
         setFileOpeningHandler();
         setLabelsText();
         selectNoAlgorithms();
+        setDynamicTooltips();
     }
 
     private void enableDragAndDrop(DragEvent event) {
@@ -222,6 +224,7 @@ public class ApplicationController extends Application implements Initializable,
         setFileOpeningHandler();
         setLabelsText();
         selectAllAlgorithms();
+        setDynamicTooltips();
     }
 
     private void enableUI() {
@@ -257,11 +260,13 @@ public class ApplicationController extends Application implements Initializable,
         checkUseFile1.setOnAction(event -> {
             setFileOpeningHandler();
             setLabelsText();
+            setDynamicTooltips();
         });
 
         checkUseFile2.setOnAction(event -> {
             setFileOpeningHandler();
             setLabelsText();
+            setDynamicTooltips();
         });
 
         field1.setOnContextMenuRequested(Event::consume);
@@ -445,6 +450,19 @@ public class ApplicationController extends Application implements Initializable,
             .filter(CheckBox.class::isInstance)
             .map(CheckBox.class::cast)
             .forEach(checkBox -> checkBox.setSelected(false));
+    }
+
+    private void setDynamicTooltips() {
+        field1.getTooltip().setText(language.getString(
+            checkUseFile1.isSelected()
+                ? "hashtools.controller.application_controller.tooltip.field.open_file"
+                : "hashtools.controller.application_controller.tooltip.field.paste_from_clipboard"
+        ));
+        field2.getTooltip().setText(language.getString(
+            checkUseFile2.isSelected()
+                ? "hashtools.controller.application_controller.tooltip.field.open_file"
+                : "hashtools.controller.application_controller.tooltip.field.paste_from_clipboard"
+        ));
     }
 
     private void setFileOpeningHandler() {
