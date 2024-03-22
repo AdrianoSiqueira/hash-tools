@@ -14,14 +14,13 @@ public abstract class AbstractThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable runnable) {
-        String name = String.format(
-            "%s_%s",
-            group.getName(),
-            group.activeCount()
-        );
-
-        Thread thread = new Thread(group, runnable, name);
-        thread.setDaemon(isDaemon);
-        return thread;
+        return Thread
+            .ofPlatform()
+            .group(group)
+            .name("%s_%s".formatted(
+                group.getName(),
+                group.activeCount()))
+            .daemon(isDaemon)
+            .unstarted(runnable);
     }
 }
