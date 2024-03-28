@@ -52,6 +52,10 @@
     -fx-effect: none;
 }
 
+.label {
+    -fx-text-fill: black;
+}
+
 .pane-root {
     -fx-background-color: white;
 }
