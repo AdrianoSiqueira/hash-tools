@@ -16,6 +16,24 @@
     -fx-effect: none;
 }
 
+.button-compare {
+    -fx-background-color: rgba(240, 120, 0, 0.1);
+    -fx-background-radius: 5px;
+    -fx-border-color: rgb(240, 120, 0);
+    -fx-border-radius: 5px;
+    -fx-text-fill: rgb(240, 120, 0);
+}
+
+.button-compare:hover {
+    -fx-effect: dropshadow(gaussian, rgb(240, 120, 0), 20, 0.0, 0.0, 0.0);
+}
+
+.button-compare:selected {
+    -fx-background-color: rgb(240, 120, 0);
+    -fx-text-fill: white;
+    -fx-effect: none;
+}
+
 .pane-root {
     -fx-background-color: white;
 }
