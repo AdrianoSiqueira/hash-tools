@@ -36,7 +36,7 @@
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_compare"/>
             </tooltip>
         </ToggleButton>
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode">
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" styleClass="button-generate" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode">
             <tooltip>
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_generate"/>
             </tooltip>
