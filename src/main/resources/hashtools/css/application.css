@@ -80,6 +80,20 @@
     -fx-background-color: white;
 }
 
+.text-area {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-text-fill: black;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: default;
+}
+
 .text-field {
     -fx-background-color: white;
     -fx-background-radius: 5px;
