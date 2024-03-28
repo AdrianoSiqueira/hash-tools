@@ -52,6 +52,26 @@
     -fx-effect: none;
 }
 
+.check-box {
+    -fx-text-fill: black;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-background-radius: 3px;
+    -fx-border-color: black;
+    -fx-border-radius: 3px;
+}
+
+.check-box:hover .box,
+.check-box:selected .box {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.check-box:selected .mark {
+    -fx-background-color: black;
+}
+
 .label {
     -fx-text-fill: black;
 }
