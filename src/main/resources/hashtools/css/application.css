@@ -79,3 +79,16 @@
 .pane-root {
     -fx-background-color: white;
 }
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-text-fill: black;
+}
+
+.text-field:focused,
+.text-field:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
