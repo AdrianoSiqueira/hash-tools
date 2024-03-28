@@ -23,7 +23,7 @@
     </padding>
 
     <HBox GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" alignment="CENTER" fx:id="paneRunMode" spacing="20">
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" text="%hashtools.fxml.application.button_check">
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" styleClass="button-check" text="%hashtools.fxml.application.button_check">
             <toggleGroup>
                 <ToggleGroup fx:id="groupRunMode"/>
             </toggleGroup>
