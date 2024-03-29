@@ -81,13 +81,17 @@
     -fx-border-radius: 3px;
 }
 
-.check-box:hover .box,
+.check-box:hover .box {
+    -fx-background-color: rgb(255, 190, 190);
+}
+
 .check-box:selected .box {
-    -fx-background-color: rgb(230, 230, 230);
+    -fx-background-color: rgb(255, 190, 190);
+    -fx-border-color: red;
 }
 
 .check-box:selected .mark {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .label {
