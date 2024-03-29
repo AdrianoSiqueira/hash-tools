@@ -23,16 +23,12 @@
     -fx-cursor: default;
 }
 
-.button,
-.toggle-button {
-    -fx-font: 14px "Noto Sans Display";
-}
-
 .button-check {
     -fx-background-color: rgb(230, 255, 255);
     -fx-background-radius: 5px;
     -fx-border-color: rgb(0, 150, 150);
     -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: rgb(0, 150, 150);
 }
 
@@ -52,6 +48,7 @@
     -fx-background-radius: 5px;
     -fx-border-color: rgb(240, 120, 0);
     -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: rgb(240, 120, 0);
 }
 
@@ -71,6 +68,7 @@
     -fx-background-radius: 5px;
     -fx-border-color: rgb(0, 0, 255);
     -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: rgb(0, 0, 255);
 }
 
@@ -90,6 +88,7 @@
     -fx-background-radius: 5px;
     -fx-border-color: rgb(0, 150, 0);
     -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: rgb(0, 150, 0);
 }
 
