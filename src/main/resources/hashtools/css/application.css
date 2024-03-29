@@ -94,6 +94,19 @@
     -fx-background-color: white;
 }
 
+.context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 10, 0.0, 0.0, 0.0);
+    -fx-padding: 5;
+}
+
+.context-menu .menu-item:focused,
+.context-menu .menu-item:hover {
+    -fx-background-color: rgb(255, 190, 190);
+    -fx-background-radius: 5px;
+}
+
 .label {
     -fx-text-fill: black;
 }
