@@ -6,6 +6,7 @@
     -fx-text-fill: rgb(0, 150, 150);
 }
 
+.button-check:focused,
 .button-check:hover {
     -fx-effect: dropshadow(gaussian, rgb(0, 150, 150), 10, 0.0, 0.0, 0.0);
 }
@@ -24,6 +25,7 @@
     -fx-text-fill: rgb(240, 120, 0);
 }
 
+.button-compare:focused,
 .button-compare:hover {
     -fx-effect: dropshadow(gaussian, rgb(240, 120, 0), 10, 0.0, 0.0, 0.0);
 }
@@ -42,6 +44,7 @@
     -fx-text-fill: rgb(0, 0, 255);
 }
 
+.button-generate:focused,
 .button-generate:hover {
     -fx-effect: dropshadow(gaussian, rgb(0, 0, 255), 10, 0.0, 0.0, 0.0);
 }
@@ -60,6 +63,7 @@
     -fx-text-fill: rgb(0, 150, 0);
 }
 
+.button-run:focused,
 .button-run:hover {
     -fx-effect: dropshadow(gaussian, rgb(0, 150, 0), 10, 0.0, 0.0, 0.0);
 }
@@ -81,6 +85,7 @@
     -fx-border-radius: 3px;
 }
 
+.check-box:focused .box,
 .check-box:hover .box {
     -fx-background-color: rgb(255, 190, 190);
 }
