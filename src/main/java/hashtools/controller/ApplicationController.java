@@ -40,7 +40,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.Clipboard;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -295,13 +294,6 @@ public class ApplicationController extends Application implements Initializable,
         itemInvertSelection.setOnAction(event -> invertAlgorithmsSelection());
 
         paneAlgorithm.setOnMouseClicked(this::showPaneAlgorithmContextMenu);
-
-        paneAlgorithm
-            .getChildren()
-            .stream()
-            .filter(CheckBox.class::isInstance)
-            .map(CheckBox.class::cast)
-            .forEach(checkBox -> checkBox.setOnContextMenuRequested(this::showPaneAlgorithmContextMenu));
     }
 
     private void invertAlgorithmsSelection() {
@@ -536,14 +528,6 @@ public class ApplicationController extends Application implements Initializable,
             return;
         }
 
-        paneAlgorithmContextMenu.show(
-            paneAlgorithm,
-            event.getScreenX(),
-            event.getScreenY()
-        );
-    }
-
-    private void showPaneAlgorithmContextMenu(ContextMenuEvent event) {
         paneAlgorithmContextMenu.show(
             paneAlgorithm,
             event.getScreenX(),
