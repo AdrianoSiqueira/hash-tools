@@ -69,16 +69,6 @@
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="labelAlgorithm" text="%hashtools.fxml.application.label_algorithms"/>
     <GridPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" fx:id="paneAlgorithm" hgap="20" vgap="20">
-        <fx:define>
-            <ContextMenu fx:id="paneAlgorithmContextMenu">
-                <items>
-                    <MenuItem fx:id="itemSelectAll" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_all"/>
-                    <MenuItem fx:id="itemSelectNone" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_none"/>
-                    <MenuItem fx:id="itemInvertSelection" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_invert_selection"/>
-                </items>
-            </ContextMenu>
-        </fx:define>
-
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
             <ColumnConstraints hgrow="SOMETIMES"/>
@@ -89,13 +79,22 @@
             <RowConstraints vgrow="NEVER"/>
         </rowConstraints>
 
-        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkMd5" maxWidth="1E6" text="MD5"/>
-        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkSha1" maxWidth="1E6" text="SHA-1"/>
-        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkSha224" maxWidth="1E6" text="SHA-224"/>
-
-        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="checkSha256" maxWidth="1E6" text="SHA-256"/>
-        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="checkSha384" maxWidth="1E6" text="SHA-384"/>
-        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
+        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkMd5" maxWidth="1E6" text="MD5">
+            <contextMenu>
+                <ContextMenu fx:id="paneAlgorithmContextMenu">
+                    <items>
+                        <MenuItem fx:id="itemSelectAll" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_all"/>
+                        <MenuItem fx:id="itemSelectNone" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_none"/>
+                        <MenuItem fx:id="itemInvertSelection" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_invert_selection"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </CheckBox>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha1" maxWidth="1E6" text="SHA-1"/>
+        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha224" maxWidth="1E6" text="SHA-224"/>
+        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha256" maxWidth="1E6" text="SHA-256"/>
+        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha384" maxWidth="1E6" text="SHA-384"/>
+        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
     </GridPane>
 
     <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6">
