@@ -84,6 +84,31 @@
                     <jlinkImageName>${project.build.finalName}</jlinkImageName>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-app-icon</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/bin</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.outputDirectory}/hashtools/image</directory>
+                                    <includes>
+                                        <include>application-icon.png</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
