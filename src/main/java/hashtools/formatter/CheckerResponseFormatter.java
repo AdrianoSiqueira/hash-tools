@@ -71,6 +71,13 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
         headers = applyPadding(padding, headers);
 
 
+        String result = language.getString(
+            pair.matches()
+                ? "hashtools.formatter.checker_response_formatter.equal"
+                : "hashtools.formatter.checker_response_formatter.different"
+        );
+
+
         String layout = """
                         %s: %s
                         %s: %s
@@ -86,7 +93,7 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
             headers[2],
             pair.getChecksum2(),
             headers[3],
-            pair.matches()
+            result
         );
     }
 }
