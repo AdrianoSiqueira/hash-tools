@@ -149,7 +149,7 @@
 }
 
 .pane-algorithm-context-menu .menu-item .label {
-    -fx-font: 30px "Noto Sans Display";
+    -fx-font: 14px "Noto Sans Display";
 }
 
 .pane-root {
