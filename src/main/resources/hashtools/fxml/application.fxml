@@ -23,7 +23,7 @@
     </padding>
 
     <HBox GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" alignment="CENTER" fx:id="paneRunMode" spacing="20">
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" prefWidth="100" styleClass="button-check" text="%hashtools.fxml.application.button_check">
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCheck" minWidth="100" styleClass="button-check" text="%hashtools.fxml.application.button_check">
             <toggleGroup>
                 <ToggleGroup fx:id="groupRunMode"/>
             </toggleGroup>
@@ -31,12 +31,12 @@
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_check"/>
             </tooltip>
         </ToggleButton>
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCompare" prefWidth="100" styleClass="button-compare" text="%hashtools.fxml.application.button_compare" toggleGroup="$groupRunMode">
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonCompare" minWidth="100" styleClass="button-compare" text="%hashtools.fxml.application.button_compare" toggleGroup="$groupRunMode">
             <tooltip>
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_compare"/>
             </tooltip>
         </ToggleButton>
-        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" prefWidth="100" styleClass="button-generate" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode">
+        <ToggleButton HBox.hgrow="SOMETIMES" fx:id="buttonGenerate" minWidth="100" styleClass="button-generate" text="%hashtools.fxml.application.button_generate" toggleGroup="$groupRunMode">
             <tooltip>
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_generate"/>
             </tooltip>
