@@ -97,7 +97,7 @@
         <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
     </GridPane>
 
-    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6">
+    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" focusTraversable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6">
         <tooltip>
             <Tooltip text="%hashtools.fxml.application.tooltip.area_status"/>
         </tooltip>
