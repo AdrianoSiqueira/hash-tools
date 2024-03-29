@@ -105,7 +105,7 @@
     </TextArea>
 
     <StackPane GridPane.columnSpan="3" GridPane.rowIndex="5" alignment="CENTER_RIGHT" fx:id="paneRun">
-        <Button fx:id="buttonRun" text="%hashtools.fxml.application.button_run">
+        <Button fx:id="buttonRun" styleClass="button-run" text="%hashtools.fxml.application.button_run">
             <tooltip>
                 <Tooltip text="%hashtools.fxml.application.tooltip.button_run"/>
             </tooltip>

@@ -52,6 +52,24 @@
     -fx-effect: none;
 }
 
+.button-run {
+    -fx-background-color: rgb(230, 255, 230);
+    -fx-background-radius: 5px;
+    -fx-border-color: rgb(0, 150, 0);
+    -fx-border-radius: 5px;
+    -fx-text-fill: rgb(0, 150, 0);
+}
+
+.button-run:hover {
+    -fx-effect: dropshadow(gaussian, rgb(0, 150, 0), 10, 0.0, 0.0, 0.0);
+}
+
+.button-run:armed {
+    -fx-background-color: rgb(0, 150, 0);
+    -fx-text-fill: white;
+    -fx-effect: none;
+}
+
 .check-box {
     -fx-text-fill: black;
 }
