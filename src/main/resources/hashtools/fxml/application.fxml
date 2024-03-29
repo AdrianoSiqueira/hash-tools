@@ -81,7 +81,7 @@
 
         <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkMd5" maxWidth="1E6" text="MD5">
             <contextMenu>
-                <ContextMenu fx:id="paneAlgorithmContextMenu">
+                <ContextMenu fx:id="paneAlgorithmContextMenu" styleClass="pane-algorithm-context-menu">
                     <items>
                         <MenuItem fx:id="itemSelectAll" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_all"/>
                         <MenuItem fx:id="itemSelectNone" text="%hashtools.fxml.application.pane_algorithm_context_menu.item_select_none"/>
@@ -97,7 +97,7 @@
         <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" contextMenu="$paneAlgorithmContextMenu" fx:id="checkSha512" maxWidth="1E6" text="SHA-512"/>
     </GridPane>
 
-    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" focusTraversable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6">
+    <TextArea GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" editable="false" focusTraversable="false" fx:id="areaStatus" maxHeight="1E6" maxWidth="1E6" styleClass="area-status">
         <tooltip>
             <Tooltip text="%hashtools.fxml.application.tooltip.area_status"/>
         </tooltip>
