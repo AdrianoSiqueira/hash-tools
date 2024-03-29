@@ -8,6 +8,26 @@
     src: url("../font/NotoSansMono-Regular.ttf");
 }
 
+.area-status {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Mono";
+    -fx-text-fill: black;
+}
+
+.area-status .content {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: default;
+}
+
+.button,
+.toggle-button {
+    -fx-font: 14px "Noto Sans Display";
+}
+
 .button-check {
     -fx-background-color: rgb(230, 255, 255);
     -fx-background-radius: 5px;
@@ -85,6 +105,7 @@
 }
 
 .check-box {
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: black;
 }
 
@@ -109,39 +130,30 @@
     -fx-background-color: white;
 }
 
-.context-menu {
+.label {
+    -fx-font: 14px "Noto Sans Display";
+    -fx-text-fill: black;
+}
+
+.pane-algorithm-context-menu {
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian, rgb(255, 0, 0), 10, 0.0, 0.0, 0.0);
     -fx-padding: 5;
 }
 
-.context-menu .menu-item:focused,
-.context-menu .menu-item:hover {
+.pane-algorithm-context-menu .menu-item:focused,
+.pane-algorithm-context-menu .menu-item:hover {
     -fx-background-color: rgb(255, 190, 190);
     -fx-background-radius: 5px;
 }
 
-.label {
-    -fx-text-fill: black;
+.pane-algorithm-context-menu .menu-item .label {
+    -fx-font: 30px "Noto Sans Display";
 }
 
 .pane-root {
     -fx-background-color: white;
-}
-
-.text-area {
-    -fx-background-color: white;
-    -fx-background-radius: 5px;
-    -fx-border-color: black;
-    -fx-border-radius: 5px;
-    -fx-text-fill: black;
-}
-
-.text-area .content {
-    -fx-background-color: white;
-    -fx-background-radius: 5px;
-    -fx-cursor: default;
 }
 
 .text-field {
@@ -149,6 +161,7 @@
     -fx-background-radius: 5px;
     -fx-border-color: black;
     -fx-border-radius: 5px;
+    -fx-font: 14px "Noto Sans Mono";
     -fx-text-fill: black;
 }
 
@@ -160,6 +173,7 @@
 .tooltip {
     -fx-background-color: rgba(0, 0, 0, 0.7);
     -fx-background-radius: 10px;
+    -fx-font: 14px "Noto Sans Display";
     -fx-text-fill: white;
     -fx-show-delay: 0ms;
     -fx-show-duration: indefinite;
