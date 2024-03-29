@@ -1,5 +1,5 @@
 .button-check {
-    -fx-background-color: rgba(0, 150, 0, 0.1);
+    -fx-background-color: rgb(230, 255, 230);
     -fx-background-radius: 5px;
     -fx-border-color: rgb(0, 150, 0);
     -fx-border-radius: 5px;
@@ -7,7 +7,7 @@
 }
 
 .button-check:hover {
-    -fx-effect: dropshadow(gaussian, rgb(0, 150, 0), 20, 0.0, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgb(0, 150, 0), 10, 0.0, 0.0, 0.0);
 }
 
 .button-check:selected {
@@ -17,7 +17,7 @@
 }
 
 .button-compare {
-    -fx-background-color: rgba(240, 120, 0, 0.1);
+    -fx-background-color: rgb(255, 240, 230);
     -fx-background-radius: 5px;
     -fx-border-color: rgb(240, 120, 0);
     -fx-border-radius: 5px;
@@ -25,7 +25,7 @@
 }
 
 .button-compare:hover {
-    -fx-effect: dropshadow(gaussian, rgb(240, 120, 0), 20, 0.0, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgb(240, 120, 0), 10, 0.0, 0.0, 0.0);
 }
 
 .button-compare:selected {
@@ -35,7 +35,7 @@
 }
 
 .button-generate {
-    -fx-background-color: rgba(0, 0, 255, 0.1);
+    -fx-background-color: rgb(225, 225, 255);
     -fx-background-radius: 5px;
     -fx-border-color: rgb(0, 0, 255);
     -fx-border-radius: 5px;
@@ -43,7 +43,7 @@
 }
 
 .button-generate:hover {
-    -fx-effect: dropshadow(gaussian, rgb(0, 0, 255), 20, 0.0, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 255), 10, 0.0, 0.0, 0.0);
 }
 
 .button-generate:selected {
@@ -83,7 +83,7 @@
 
 .check-box:hover .box,
 .check-box:selected .box {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-color: rgb(230, 230, 230);
 }
 
 .check-box:selected .mark {
@@ -122,7 +122,7 @@
 
 .text-field:focused,
 .text-field:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-color: rgb(240, 240, 240);
 }
 
 .tooltip {
