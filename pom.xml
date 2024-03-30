@@ -83,6 +83,15 @@
                     <launcher>hashtools</launcher>
                     <jlinkImageName>${project.build.finalName}</jlinkImageName>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-jlink-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jlink</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,7 +100,7 @@
                 <executions>
                     <execution>
                         <id>copy-app-icon</id>
-                        <phase>generate-sources</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
