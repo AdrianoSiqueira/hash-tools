@@ -39,6 +39,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -67,6 +68,7 @@ import java.util.function.Predicate;
 public class ApplicationController extends Application implements Initializable, Controller {
 
     private static final String FXML_PATH = "/hashtools/fxml/application.fxml";
+    private static final String ICON_PATH = "/hashtools/image/application-icon.png";
     private static final String SERVICE_RUNNABLE = "service_runnable";
 
     private static final Predicate<MouseEvent> FROM_RIGHT_CLICK = event -> event.getButton() == MouseButton.SECONDARY;
@@ -552,6 +554,11 @@ public class ApplicationController extends Application implements Initializable,
             Environment.Software.NAME,
             Environment.Software.VERSION
         );
+
+        Optional
+            .ofNullable(getClass().getResourceAsStream(ICON_PATH))
+            .map(Image::new)
+            .ifPresent(stage.getIcons()::add);
 
         stage.setTitle(title);
         stage.setScene(createScene(FXML_PATH));
