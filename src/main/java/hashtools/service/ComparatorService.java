@@ -1,10 +1,10 @@
 package hashtools.service;
 
-import hashtools.domain.Algorithm;
 import hashtools.domain.ChecksumPair;
 import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
 import hashtools.domain.Environment;
+import hashtools.domain.algorithm.Algorithm;
 import hashtools.threadpool.DaemonThreadFactory;
 import hashtools.utility.ChecksumGenerator;
 

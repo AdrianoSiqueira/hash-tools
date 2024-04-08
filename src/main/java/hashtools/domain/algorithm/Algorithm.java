@@ -1,4 +1,4 @@
-package hashtools.domain;
+package hashtools.domain.algorithm;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package hashtools.utility;
 
-import hashtools.domain.Algorithm;
+import hashtools.domain.algorithm.Algorithm;
 import hashtools.domain.messagedigest.DigestUpdater;
 
 import java.security.MessageDigest;

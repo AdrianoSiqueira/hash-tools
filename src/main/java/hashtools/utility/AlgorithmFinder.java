@@ -1,6 +1,6 @@
 package hashtools.utility;
 
-import hashtools.domain.Algorithm;
+import hashtools.domain.algorithm.Algorithm;
 
 import java.util.Optional;
 import java.util.stream.Stream;

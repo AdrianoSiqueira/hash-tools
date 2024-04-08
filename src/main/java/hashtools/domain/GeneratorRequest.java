@@ -1,5 +1,6 @@
 package hashtools.domain;
 
+import hashtools.domain.algorithm.Algorithm;
 import hashtools.domain.identification.Identifiable;
 import hashtools.domain.messagedigest.DigestUpdater;
 import lombok.Builder;

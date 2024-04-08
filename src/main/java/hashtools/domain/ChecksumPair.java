@@ -1,5 +1,6 @@
 package hashtools.domain;
 
+import hashtools.domain.algorithm.Algorithm;
 import lombok.Builder;
 import lombok.Data;
 

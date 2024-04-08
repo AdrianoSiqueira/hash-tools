@@ -1,6 +1,5 @@
 package hashtools.controller;
 
-import hashtools.domain.Algorithm;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ComparatorRequest;
@@ -9,6 +8,7 @@ import hashtools.domain.Environment;
 import hashtools.domain.ExtensionFilter;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
+import hashtools.domain.algorithm.Algorithm;
 import hashtools.domain.exception.PropertyException;
 import hashtools.domain.identification.Identifiable;
 import hashtools.domain.identification.IdentifiableFactory;
