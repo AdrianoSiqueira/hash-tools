@@ -3,6 +3,8 @@ package hashtools.domain.algorithm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @Getter
 public enum Algorithm {
@@ -16,4 +18,12 @@ public enum Algorithm {
 
     private final String name;
     private final int    length;
+
+    public static Optional<Algorithm> get(int length) {
+        return AlgorithmFactory.get(length);
+    }
+
+    public static Optional<Algorithm> get(String name) {
+        return AlgorithmFactory.get(name);
+    }
 }
