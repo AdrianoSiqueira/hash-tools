@@ -11,12 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AlgorithmFinderTest {
 
-    private AlgorithmFinder finder = new AlgorithmFinder();
-
     @ParameterizedTest
     @MethodSource(value = "hashtools.utility.AlgorithmFinderTest$TestFactory#getLengthResultTests")
     void find(int input, Algorithm output) {
-        assertThat(finder.find(input))
+        assertThat(Algorithm.get(input))
             .isPresent()
             .contains(output);
     }
@@ -24,14 +22,14 @@ class AlgorithmFinderTest {
     @ParameterizedTest
     @MethodSource(value = "hashtools.utility.AlgorithmFinderTest$TestFactory#getLengthErrorTests")
     void find(int input) {
-        assertThat(finder.find(input))
+        assertThat(Algorithm.get(input))
             .isEmpty();
     }
 
     @ParameterizedTest
     @MethodSource(value = "hashtools.utility.AlgorithmFinderTest$TestFactory#getNameResultTests")
     void find(String input, Algorithm output) {
-        assertThat(finder.find(input))
+        assertThat(Algorithm.get(input))
             .isPresent()
             .contains(output);
     }
@@ -39,7 +37,7 @@ class AlgorithmFinderTest {
     @ParameterizedTest
     @MethodSource(value = "hashtools.utility.AlgorithmFinderTest$TestFactory#getNameErrorTests")
     void find(String input) {
-        assertThat(finder.find(input))
+        assertThat(Algorithm.get(input))
             .isEmpty();
     }
 

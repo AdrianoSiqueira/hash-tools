@@ -2,7 +2,6 @@ package hashtools.domain.officialdata;
 
 import hashtools.domain.Checksum;
 import hashtools.domain.algorithm.Algorithm;
-import hashtools.utility.AlgorithmFinder;
 import lombok.AllArgsConstructor;
 
 import java.util.Collections;
@@ -23,8 +22,8 @@ public class StringOfficialDataGetter implements OfficialDataGetter {
 
     @Override
     public List<Checksum> get() {
-        return new AlgorithmFinder()
-            .find(string.length())
+        return Algorithm
+            .get(string.length())
             .map(this::createChecksum)
             .map(List::of)
             .orElse(Collections.emptyList());

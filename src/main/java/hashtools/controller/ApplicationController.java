@@ -22,7 +22,6 @@ import hashtools.formatter.GeneratorResponseFormatter;
 import hashtools.service.CheckerService;
 import hashtools.service.ComparatorService;
 import hashtools.service.GeneratorService;
-import hashtools.utility.AlgorithmFinder;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -679,7 +678,7 @@ public class ApplicationController extends Application implements Initializable,
                 .map(CheckBox.class::cast)
                 .filter(CheckBox::isSelected)
                 .map(CheckBox::getText)
-                .map(new AlgorithmFinder()::find)
+                .map(Algorithm::get)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .toList();

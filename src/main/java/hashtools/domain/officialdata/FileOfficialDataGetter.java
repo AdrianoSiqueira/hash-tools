@@ -2,7 +2,6 @@ package hashtools.domain.officialdata;
 
 import hashtools.domain.Checksum;
 import hashtools.domain.algorithm.Algorithm;
-import hashtools.utility.AlgorithmFinder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,12 +12,10 @@ import java.util.stream.Stream;
 
 public class FileOfficialDataGetter implements OfficialDataGetter {
 
-    private Path            file;
-    private AlgorithmFinder finder;
+    private Path file;
 
     public FileOfficialDataGetter(Path file) {
-        this.file   = file;
-        this.finder = new AlgorithmFinder();
+        this.file = file;
     }
 
     private Checksum createChecksum(Algorithm algorithm, String string) {
@@ -30,8 +27,8 @@ public class FileOfficialDataGetter implements OfficialDataGetter {
     }
 
     private Checksum createChecksum(String string) {
-        return finder
-            .find(string.length())
+        return Algorithm
+            .get(string.length())
             .map(algorithm -> createChecksum(algorithm, string))
             .orElse(null);
     }
