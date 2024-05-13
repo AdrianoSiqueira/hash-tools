@@ -2,6 +2,7 @@ package hashtools.controller;
 
 import hashtools.domain.Environment;
 import hashtools.domain.exception.FileNotFoundException;
+import hashtools.domain.exception.FxmlLoadException;
 import hashtools.domain.exception.NullParameterException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public interface Controller {
             Pane pane = loader.load();
             return new Scene(pane);
         } catch (IOException e) {
-            throw new RuntimeException("Could not load fxml", e);
+            throw new FxmlLoadException(e);
         }
     }
 
