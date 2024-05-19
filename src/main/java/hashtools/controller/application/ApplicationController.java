@@ -1,5 +1,7 @@
-package hashtools.controller;
+package hashtools.controller.application;
 
+import hashtools.controller.Controller;
+import hashtools.controller.PreloaderController;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ComparatorRequest;

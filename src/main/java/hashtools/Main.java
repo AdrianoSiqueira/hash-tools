@@ -1,6 +1,6 @@
 package hashtools;
 
-import hashtools.controller.ApplicationController;
+import hashtools.controller.application.ApplicationController;
 import hashtools.controller.PreloaderController;
 import hashtools.domain.Environment;
 import javafx.application.Application;
