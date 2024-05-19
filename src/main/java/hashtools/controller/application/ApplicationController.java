@@ -603,22 +603,13 @@ public class ApplicationController extends Application implements Initializable,
             return hasProblem.get();
         }
 
-        @Deprecated
-        boolean isNotReadyToRun();
-
         void run();
     }
 
     private class CheckerModule implements ApplicationModule {
-
-        @Override
-        public boolean isNotReadyToRun() {
-            return field2.getText().isBlank();
-        }
-
         @Override
         public void run() {
-            if (isNotReadyToRun()) {
+            if (isNotReadyToRun(new CanRunCheckerCondition(), createConditionData())) {
                 return;
             }
 
@@ -652,16 +643,9 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private class ComparatorModule implements ApplicationModule {
-
-        @Override
-        public boolean isNotReadyToRun() {
-            return field1.getText().isBlank() ||
-                   field2.getText().isBlank();
-        }
-
         @Override
         public void run() {
-            if (isNotReadyToRun()) {
+            if (isNotReadyToRun(null, createConditionData())) {
                 return;
             }
 
@@ -685,15 +669,9 @@ public class ApplicationController extends Application implements Initializable,
     }
 
     private class GeneratorModule implements ApplicationModule {
-
-        @Override
-        public boolean isNotReadyToRun() {
-            return false;
-        }
-
         @Override
         public void run() {
-            if (isNotReadyToRun()) {
+            if (isNotReadyToRun(null, createConditionData())) {
                 return;
             }
 
