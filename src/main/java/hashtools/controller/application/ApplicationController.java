@@ -6,6 +6,7 @@ import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
+import hashtools.domain.Condition;
 import hashtools.domain.Environment;
 import hashtools.domain.ExtensionFilter;
 import hashtools.domain.GeneratorRequest;
@@ -26,6 +27,7 @@ import hashtools.service.ComparatorService;
 import hashtools.service.GeneratorService;
 import hashtools.utility.FileManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,6 +65,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 
 @Slf4j
@@ -592,6 +595,15 @@ public class ApplicationController extends Application implements Initializable,
 
     private interface ApplicationModule {
 
+        default boolean isNotReadyToRun(Condition<ConditionData> condition, ConditionData data) {
+            var hasProblem = new AtomicBoolean();
+
+            Platform.runLater(() -> hasProblem.set(condition.isFalse(data)));
+
+            return hasProblem.get();
+        }
+
+        @Deprecated
         boolean isNotReadyToRun();
 
         void run();
