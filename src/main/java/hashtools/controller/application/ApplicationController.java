@@ -243,13 +243,13 @@ public class ApplicationController extends Application implements Initializable,
         enableCheckerMode();
 
         buttonCheck.setOnAction(event -> enableCheckerMode());
-        buttonCheck.getProperties().put(SERVICE_RUNNABLE, new CheckerRunnable());
+        buttonCheck.getProperties().put(SERVICE_RUNNABLE, new CheckerModule());
 
         buttonGenerate.setOnAction(event -> enableGeneratorMode());
-        buttonGenerate.getProperties().put(SERVICE_RUNNABLE, new GeneratorRunnable());
+        buttonGenerate.getProperties().put(SERVICE_RUNNABLE, new GeneratorModule());
 
         buttonCompare.setOnAction(event -> enableComparatorMode());
-        buttonCompare.getProperties().put(SERVICE_RUNNABLE, new ComparatorRunnable());
+        buttonCompare.getProperties().put(SERVICE_RUNNABLE, new ComparatorModule());
 
         buttonRun.setOnAction(event -> runService());
 
@@ -407,8 +407,8 @@ public class ApplicationController extends Application implements Initializable,
                 .ofNullable(groupRunMode.getSelectedToggle())
                 .map(Toggle::getProperties)
                 .map(properties -> properties.get(SERVICE_RUNNABLE))
-                .filter(ModuleRunnable.class::isInstance)
-                .map(ModuleRunnable.class::cast)
+                .filter(ApplicationModule.class::isInstance)
+                .map(ApplicationModule.class::cast)
                 .orElseThrow(() -> new PropertyException("Button run mode property does not have the runnable reference"))
                 .run();
 
@@ -570,14 +570,14 @@ public class ApplicationController extends Application implements Initializable,
     }
 
 
-    private interface ModuleRunnable {
+    private interface ApplicationModule {
 
         boolean isNotReadyToRun();
 
         void run();
     }
 
-    private class CheckerRunnable implements ModuleRunnable {
+    private class CheckerModule implements ApplicationModule {
 
         @Override
         public boolean isNotReadyToRun() {
@@ -619,7 +619,7 @@ public class ApplicationController extends Application implements Initializable,
         }
     }
 
-    private class ComparatorRunnable implements ModuleRunnable {
+    private class ComparatorModule implements ApplicationModule {
 
         @Override
         public boolean isNotReadyToRun() {
@@ -652,7 +652,7 @@ public class ApplicationController extends Application implements Initializable,
         }
     }
 
-    private class GeneratorRunnable implements ModuleRunnable {
+    private class GeneratorModule implements ApplicationModule {
 
         @Override
         public boolean isNotReadyToRun() {
