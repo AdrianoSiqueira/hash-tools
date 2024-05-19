@@ -139,6 +139,26 @@ public class ApplicationController extends Application implements Initializable,
 
     private ResourceBundle language;
 
+    private ConditionData createConditionData() {
+        return ConditionData
+            .builder()
+            .field1Content(field1.getText())
+            .field2Content(field2.getText())
+            .areaStatusContent(areaStatus.getText())
+            .checkUseFile1Selected(checkUseFile1.isSelected())
+            .checkUseFile2Selected(checkUseFile2.isSelected())
+            .buttonCheckSelected(buttonCheck.isSelected())
+            .buttonCompareSelected(buttonCompare.isSelected())
+            .buttonGenerateSelected(buttonGenerate.isSelected())
+            .checkMD5Selected(checkMd5.isSelected())
+            .checkSHA1Selected(checkSha1.isSelected())
+            .checkSHA224Selected(checkSha224.isSelected())
+            .checkSHA256Selected(checkSha256.isSelected())
+            .checkSHA384Selected(checkSha384.isSelected())
+            .checkSHA512Selected(checkSha512.isSelected())
+            .build();
+    }
+
     private void disableUI() {
         paneRoot
             .getChildren()
