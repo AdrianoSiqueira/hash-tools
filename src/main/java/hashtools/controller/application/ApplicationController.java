@@ -655,7 +655,7 @@ public class ApplicationController extends Application implements Initializable,
     private class GeneratorModule implements ApplicationModule {
         @Override
         public void run() {
-            if (isNotReadyToRun(null, createConditionData())) {
+            if (isNotReadyToRun(new CanRunGeneratorCondition(), createConditionData())) {
                 return;
             }
 
