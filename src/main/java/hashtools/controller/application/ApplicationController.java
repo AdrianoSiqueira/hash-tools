@@ -629,7 +629,7 @@ public class ApplicationController extends Application implements Initializable,
     private class ComparatorModule implements ApplicationModule {
         @Override
         public void run() {
-            if (isNotReadyToRun(null, createConditionData())) {
+            if (isNotReadyToRun(new CanRunComparatorCondition(), createConditionData())) {
                 return;
             }
 
