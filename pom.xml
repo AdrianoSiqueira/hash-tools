@@ -4,52 +4,34 @@
 
     <groupId>adriano.siqueira</groupId>
     <artifactId>hash-tools</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 
     <name>HashTools</name>
-    <description>Simple utility to check and generate hash checksums from both files and texts.</description>
+    <description>Utility to work with hash checksums.</description>
+    <url>https://www.github.com/adrianosiqueira/hash-tools</url>
 
     <properties>
-        <encoding>UTF-8</encoding>
-        <maven.compiler.source>${version.java}</maven.compiler.source>
-        <maven.compiler.target>${version.java}</maven.compiler.target>
-        <version.lombok>1.18.24</version.lombok>
-        <version.java>11</version.java>
-        <version.javafx>19</version.javafx>
-        <version.junit>5.9.0</version.junit>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${version.javafx}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${version.javafx}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${version.lombok}</version>
+            <version>22.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${version.junit}</version>
+            <version>5.10.3</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.6</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <version>1.5.6</version>
         </dependency>
     </dependencies>
 
@@ -59,15 +41,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${version.lombok}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -78,8 +51,8 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <noManPages>true</noManPages>
                     <stripDebug>true</stripDebug>
-                    <mainClass>hash.tools/hashtools.main.Main</mainClass>
-                    <launcher>hashtools-launcher</launcher>
+                    <mainClass>hash.tools/hashtools.Main</mainClass>
+                    <launcher>launcher</launcher>
                     <jlinkImageName>${project.build.finalName}</jlinkImageName>
                 </configuration>
             </plugin>
