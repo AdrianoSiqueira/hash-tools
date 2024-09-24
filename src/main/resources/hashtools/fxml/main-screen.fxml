@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:controller="hashtools.controller.MainScreenController" prefHeight="480.0" prefWidth="853.0" styleClass="pnl-root" stylesheets="@../css/main-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <VBox fx:id="pnlMainMenu" styleClass="pnl-main-menu">
+        <GridPane focusTraversable="true" onKeyPressed="#pnlCheckerKeyPressed" onKeyReleased="#pnlCheckerKeyReleased" onMouseClicked="#pnlCheckerMouseClicked" onMousePressed="#pnlCheckerMousePressed" onMouseReleased="#pnlCheckerMouseReleased" styleClass="pnl-button">
+            <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                <Image url="@../image/64/checker.png"/>
+            </ImageView>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Checker"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Checks the integrity of a file."/>
+        </GridPane>
+
+        <GridPane focusTraversable="true" onKeyPressed="#pnlGeneratorKeyPressed" onKeyReleased="#pnlGeneratorKeyReleased" onMouseClicked="#pnlGeneratorMouseClicked" onMousePressed="#pnlGeneratorMousePressed" onMouseReleased="#pnlGeneratorMouseReleased" styleClass="pnl-button">
+            <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                <Image url="@../image/64/generator.png"/>
+            </ImageView>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Generator"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Generates hash checksum of a file."/>
+        </GridPane>
+
+        <GridPane focusTraversable="true" onKeyPressed="#pnlComparatorKeyPressed" onKeyReleased="#pnlComparatorKeyReleased" onMouseClicked="#pnlComparatorMouseClicked" onMousePressed="#pnlComparatorMousePressed" onMouseReleased="#pnlComparatorMouseReleased" styleClass="pnl-button">
+            <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                <Image url="@../image/64/comparator.png"/>
+            </ImageView>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Comparator"/>
+            <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Checks if two files are equals."/>
+        </GridPane>
+    </VBox>
+
+    <StackPane focusTraversable="true" fx:id="pnlChecker" onKeyReleased="#closeScreen" visible="false"/>
+    <StackPane focusTraversable="true" fx:id="pnlComparator" onKeyReleased="#closeScreen" visible="false"/>
+    <StackPane focusTraversable="true" fx:id="pnlGenerator" onKeyReleased="#closeScreen" visible="false"/>
+</StackPane>

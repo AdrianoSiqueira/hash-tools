@@ -1,0 +1,46 @@
+.pnl-root {
+    -fx-padding: 30;
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+
+.pnl-root .pnl-main-menu {
+    -fx-alignment: center;
+    -fx-spacing: 30;
+}
+
+
+.pnl-root .pnl-main-menu .pnl-button {
+    -fx-padding: 10;
+    -fx-hgap: 20;
+    -fx-vgap: 10;
+
+    -fx-background-color: rgb(230, 230, 230);
+    -fx-background-radius: 5;
+}
+
+.pnl-root .pnl-main-menu .pnl-button:armed,
+.pnl-root .pnl-main-menu .pnl-button:armed:hover {
+    -fx-background-color: rgb(255, 0, 0);
+}
+
+.pnl-root .pnl-main-menu .pnl-button:focused {
+    -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+}
+
+.pnl-root .pnl-main-menu .pnl-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgb(200, 200, 200);
+}
+
+
+.pnl-root .pnl-main-menu .pnl-button .lbl-description {
+    -fx-text-alignment: justify;
+    -fx-wrap-text: true;
+}
+
+
+.pnl-root .pnl-main-menu .pnl-button .lbl-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
