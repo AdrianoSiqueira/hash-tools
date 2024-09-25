@@ -11,7 +11,7 @@
     <VBox fx:id="pnlMainMenu" styleClass="pnl-main-menu">
         <GridPane focusTraversable="true" onKeyPressed="#pnlCheckerKeyPressed" onKeyReleased="#pnlCheckerKeyReleased" onMouseClicked="#pnlCheckerMouseClicked" onMousePressed="#pnlCheckerMousePressed" onMouseReleased="#pnlCheckerMouseReleased" styleClass="pnl-button">
             <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
-                <Image url="@../image/64/checker.png"/>
+                <Image url="@../image/64x64/checker.png"/>
             </ImageView>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Checker"/>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Checks the integrity of a file."/>
@@ -19,7 +19,7 @@
 
         <GridPane focusTraversable="true" onKeyPressed="#pnlGeneratorKeyPressed" onKeyReleased="#pnlGeneratorKeyReleased" onMouseClicked="#pnlGeneratorMouseClicked" onMousePressed="#pnlGeneratorMousePressed" onMouseReleased="#pnlGeneratorMouseReleased" styleClass="pnl-button">
             <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
-                <Image url="@../image/64/generator.png"/>
+                <Image url="@../image/64x64/generator.png"/>
             </ImageView>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Generator"/>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Generates hash checksum of a file."/>
@@ -27,7 +27,7 @@
 
         <GridPane focusTraversable="true" onKeyPressed="#pnlComparatorKeyPressed" onKeyReleased="#pnlComparatorKeyReleased" onMouseClicked="#pnlComparatorMouseClicked" onMousePressed="#pnlComparatorMousePressed" onMouseReleased="#pnlComparatorMouseReleased" styleClass="pnl-button">
             <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
-                <Image url="@../image/64/comparator.png"/>
+                <Image url="@../image/64x64/comparator.png"/>
             </ImageView>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="Comparator"/>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="Checks if two files are equals."/>
