@@ -16,6 +16,11 @@ public abstract class Controller implements Initializable {
 
     protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
 
+
+    protected final void performOperation(Operation operation) {
+        operation.perform();
+    }
+
     protected final void performOperation(Condition condition, Operation operation) {
         if (condition.isTrue()) {
             operation.perform();
