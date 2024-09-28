@@ -16,28 +16,75 @@ public abstract class Controller implements Initializable {
 
     private static final PseudoClass ARMED = PseudoClass.getPseudoClass("armed");
 
+    /**
+     * <p>
+     * Internal thread pool. This pool do not need to be
+     * closed because is uses daemon threads.
+     * </p>
+     */
     protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
 
 
+    /**
+     * <p>
+     * Performs the operation.
+     * </p>
+     *
+     * @param operation Operation to perform.
+     */
     protected final void performOperation(Operation operation) {
         operation.perform();
     }
 
+    /**
+     * <p>
+     * Performs the operation if the condition is true.
+     * </p>
+     *
+     * @param condition Determines if the operation should be performed.
+     * @param operation Operation to perform.
+     */
     protected final void performOperation(Condition condition, Operation operation) {
         if (condition.isTrue()) {
             operation.perform();
         }
     }
 
+    /**
+     * <p>
+     * Returns an {@link  EventHandler} that performs the operation.
+     * </p>
+     *
+     * @param operation Operation to perform.
+     * @param <T>       The type of the {@link  EventHandler}.
+     *
+     * @return An {@link EventHandler} that performs the operation.
+     */
     protected final <T extends Event> EventHandler<T> triggerOperation(Operation operation) {
         return _ -> performOperation(operation);
     }
 
+    /**
+     * <p>
+     * Returns an {@link  EventHandler} that performs the operation if the condition is true.
+     * </p>
+     *
+     * @param condition Determines if the operation should be performed.
+     * @param operation Operation to perform.
+     * @param <T>The    type of the {@link  EventHandler}.
+     *
+     * @return An {@link EventHandler} that performs the operation.
+     */
     protected final <T extends Event> EventHandler<T> triggerOperation(Condition condition, Operation operation) {
         return _ -> performOperation(condition, operation);
     }
 
 
+    /**
+     * <p>
+     * Sets the armed state of the node to true.
+     * </p>
+     */
     @RequiredArgsConstructor
     @SuppressWarnings("InnerClassMayBeStatic")
     protected final class ArmNode implements Operation {
@@ -50,6 +97,11 @@ public abstract class Controller implements Initializable {
         }
     }
 
+    /**
+     * <p>
+     * Sets the armed state of the node to false.
+     * </p>
+     */
     @RequiredArgsConstructor
     @SuppressWarnings("InnerClassMayBeStatic")
     protected final class DisarmNode implements Operation {
@@ -62,6 +114,11 @@ public abstract class Controller implements Initializable {
         }
     }
 
+    /**
+     * <p>
+     * Throws the given exception.
+     * </p>
+     */
     @RequiredArgsConstructor
     @SuppressWarnings("InnerClassMayBeStatic")
     protected final class ThrowException implements Operation {
