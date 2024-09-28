@@ -4,6 +4,8 @@ import hashtools.condition.Condition;
 import hashtools.domain.Operation;
 import hashtools.domain.ThreadPool;
 import javafx.css.PseudoClass;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,14 @@ public abstract class Controller implements Initializable {
         if (condition.isTrue()) {
             operation.perform();
         }
+    }
+
+    protected final <T extends Event> EventHandler<T> triggerOperation(Operation operation) {
+        return _ -> performOperation(operation);
+    }
+
+    protected final <T extends Event> EventHandler<T> triggerOperation(Condition condition, Operation operation) {
+        return _ -> performOperation(condition, operation);
     }
 
 
