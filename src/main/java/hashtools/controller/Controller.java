@@ -61,4 +61,16 @@ public abstract class Controller implements Initializable {
             node.pseudoClassStateChanged(ARMED, false);
         }
     }
+
+    @RequiredArgsConstructor
+    @SuppressWarnings("InnerClassMayBeStatic")
+    protected final class ThrowException implements Operation {
+
+        private final RuntimeException exception;
+
+        @Override
+        public void perform() {
+            throw exception;
+        }
+    }
 }
