@@ -85,6 +85,25 @@ public abstract class Controller implements Initializable {
             operationIfFalse.perform();
         }
     }
+
+    /**
+     * <p>
+     * Performs one of the conditions based in all conditions.
+     * </p>
+     *
+     * @param conditions           Determines the operation that will perform.
+     * @param operationIfAllTrue   Operation to perform if all conditions are true.
+     * @param operationIfSomeFalse Operation to perform if some condition is false.
+     */
+    protected final void performOperation(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
+        boolean allConditionsAreTrue = conditions
+            .stream()
+            .allMatch(Condition::isTrue);
+
+        if (allConditionsAreTrue) {
+            operationIfAllTrue.perform();
+        } else {
+            operationIfSomeFalse.perform();
         }
     }
 
