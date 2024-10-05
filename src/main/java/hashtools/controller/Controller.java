@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 
 public abstract class Controller implements Initializable {
@@ -46,6 +47,24 @@ public abstract class Controller implements Initializable {
      */
     protected final void performOperation(Condition condition, Operation operation) {
         if (condition.isTrue()) {
+            operation.perform();
+        }
+    }
+
+    /**
+     * <p>
+     * Performs the conditions if all conditions are true.
+     * </p>
+     *
+     * @param conditions Determines the operation that will perform.
+     * @param operation  Operation to perform if all conditions are true.
+     */
+    protected final void performOperation(Collection<Condition> conditions, Operation operation) {
+        boolean allConditionsAreTrue = conditions
+            .stream()
+            .allMatch(Condition::isTrue);
+
+        if (allConditionsAreTrue) {
             operation.perform();
         }
     }
