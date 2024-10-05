@@ -71,6 +71,25 @@ public abstract class Controller implements Initializable {
 
     /**
      * <p>
+     * Performs one of the operation based in the condition.
+     * </p>
+     *
+     * @param condition        Determines the operation that will perform.
+     * @param operationIfTrue  Operation to perform if condition is true.
+     * @param operationIfFalse Operation to perform if condition is false.
+     */
+    protected final void performOperation(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
+        if (condition.isTrue()) {
+            operationIfTrue.perform();
+        } else {
+            operationIfFalse.perform();
+        }
+    }
+        }
+    }
+
+    /**
+     * <p>
      * Returns an {@link  EventHandler} that performs the operation.
      * </p>
      *
