@@ -187,6 +187,10 @@ public class MainScreenController extends Controller {
         ));
     }
 
+    @Override
+    protected void resetUI() {
+    }
+
 
     private final class OpenCheckerScreen implements Operation {
         @Override
