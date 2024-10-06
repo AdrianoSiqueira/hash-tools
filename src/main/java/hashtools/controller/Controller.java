@@ -15,7 +15,9 @@ import java.util.concurrent.ExecutorService;
 
 public abstract class Controller implements Initializable {
 
-    private static final PseudoClass ARMED = PseudoClass.getPseudoClass("armed");
+    protected static final PseudoClass
+        ARMED = PseudoClass.getPseudoClass("armed"),
+        DISABLED = PseudoClass.getPseudoClass("disabled");
 
     /**
      * <p>
