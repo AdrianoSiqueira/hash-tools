@@ -7,7 +7,7 @@ import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
-import hashtools.domain.Operation;
+import hashtools.operation.Operation;
 import hashtools.formatter.CLICheckerResponseFormatter;
 import hashtools.formatter.CLIComparatorResponseFormatter;
 import hashtools.formatter.CLIGeneratorResponseFormatter;
