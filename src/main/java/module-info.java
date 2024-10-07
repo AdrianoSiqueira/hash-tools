@@ -8,11 +8,13 @@ module hash.tools {
     exports hashtools.controller;
     exports hashtools.domain;
     exports hashtools.operation;
+    exports hashtools.service;
     exports hashtools.window;
 
     opens hashtools.condition;
     opens hashtools.controller;
     opens hashtools.domain;
     opens hashtools.operation;
+    opens hashtools.service;
     opens hashtools.window;
 }

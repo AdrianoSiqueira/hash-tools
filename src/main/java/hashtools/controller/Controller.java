@@ -3,6 +3,7 @@ package hashtools.controller;
 import hashtools.domain.ThreadPool;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.service.FileService;
 import javafx.css.PseudoClass;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ public abstract class Controller implements Initializable {
 
 
     protected final OperationPerformer operationPerformer = new OperationPerformer(ThreadPool.newCachedDaemon());
+    protected final FileService fileService = new FileService();
 
 
     /**
