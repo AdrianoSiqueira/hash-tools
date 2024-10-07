@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
 public abstract class Controller implements Initializable {
@@ -116,6 +117,25 @@ public abstract class Controller implements Initializable {
      * </p>
      */
     protected abstract void resetUI();
+
+    /**
+     * <p>
+     * Gets translation for the given key. If some issue
+     * occurs, the key itself will be returned.
+     * </p>
+     *
+     * @param language Dictionary used to translation.
+     * @param key      Dictionary key to get translation.
+     *
+     * @return The translation for the given key, or the key itself if translation fails.
+     */
+    protected final String translate(ResourceBundle language, String key) {
+        try {
+            return language.getString(key);
+        } catch (Exception e) {
+            return key;
+        }
+    }
 
     /**
      * <p>
