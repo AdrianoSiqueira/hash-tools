@@ -1,4 +1,4 @@
-package hashtools.domain;
+package hashtools.operation;
 
 public interface Operation {
 
