@@ -9,11 +9,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
+@Slf4j
 public abstract class Controller implements Initializable {
 
     protected static final PseudoClass
@@ -120,21 +123,28 @@ public abstract class Controller implements Initializable {
 
     /**
      * <p>
-     * Gets translation for the given key. If some issue
-     * occurs, the key itself will be returned.
+     * Gets translation for the given dictionary entry. If
+     * some issue occurs, the entry itself will be returned.
      * </p>
      *
-     * @param language Dictionary used to translation.
-     * @param key      Dictionary key to get translation.
+     * @param dictionary Dictionary used to get translation.
+     * @param entry      Dictionary entry to get translation.
      *
-     * @return The translation for the given key, or the key itself if translation fails.
+     * @return The translation for the given entry, or the
+     * entry itself if translation fails.
      */
-    protected final String translate(ResourceBundle language, String key) {
+    protected final String translate(ResourceBundle dictionary, String entry) {
         try {
-            return language.getString(key);
+            return dictionary.getString(entry);
+        } catch (NullPointerException e) {
+            log.error("The dictionary or entry is null", e);
+        } catch (MissingResourceException e) {
+            log.error("The entry was not found in dictionary", e);
         } catch (Exception e) {
-            return key;
+            log.error("Unknown issue", e);
         }
+
+        return entry;
     }
 
     /**

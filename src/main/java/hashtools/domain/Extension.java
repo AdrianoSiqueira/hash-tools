@@ -2,13 +2,15 @@ package hashtools.domain;
 
 import javafx.stage.FileChooser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
+@Slf4j
 @RequiredArgsConstructor
 public enum Extension {
 
@@ -49,13 +51,17 @@ public enum Extension {
         );
     }
 
-    @Deprecated
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    private String translate(ResourceBundle language, String input) {
-        //  TODO Remove this method when ResourceBundle be properly implemented.
-        return Optional
-            .ofNullable(language)
-            .map(l -> l.getString(input))
-            .orElse(input);
+    private String translate(ResourceBundle dictionary, String entry) {
+        try {
+            return dictionary.getString(entry);
+        } catch (NullPointerException e) {
+            log.error("The dictionary or entry is null", e);
+        } catch (MissingResourceException e) {
+            log.error("The entry was not found in dictionary", e);
+        } catch (Exception e) {
+            log.error("Unknown issue", e);
+        }
+
+        return entry;
     }
 }
