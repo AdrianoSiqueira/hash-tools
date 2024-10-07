@@ -59,7 +59,7 @@ public abstract class Controller implements Initializable {
 
     /**
      * <p>
-     * Performs the conditions if all conditions are true.
+     * Performs the operation if all conditions are true.
      * </p>
      *
      * @param conditions Determines the operation that will perform.
@@ -94,7 +94,7 @@ public abstract class Controller implements Initializable {
 
     /**
      * <p>
-     * Performs one of the conditions based in all conditions.
+     * Performs one of the operation based in all conditions.
      * </p>
      *
      * @param conditions           Determines the operation that will perform.
