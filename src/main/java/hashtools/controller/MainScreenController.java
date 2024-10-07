@@ -3,7 +3,7 @@ package hashtools.controller;
 import hashtools.condition.KeyboardKeyIsActionKey;
 import hashtools.condition.KeyboardKeyIsHomeKey;
 import hashtools.condition.MouseButtonIsPrimary;
-import hashtools.domain.Operation;
+import hashtools.operation.Operation;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -38,10 +38,10 @@ public class MainScreenController extends Controller {
     @FXML
     private void closeScreen(KeyEvent event) {
         // TODO Remove this method when all the three run screens are done
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsHomeKey(event),
             new OpenMainMenu()
-        ));
+        );
     }
 
     @Override
@@ -52,139 +52,139 @@ public class MainScreenController extends Controller {
 
     @FXML
     private void pnlCheckerKeyPressed(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlCheckerKeyReleased(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
 
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new OpenCheckerScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlCheckerMouseClicked(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenCheckerScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlCheckerMousePressed(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlCheckerMouseReleased(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
     }
 
 
     @FXML
     private void pnlComparatorKeyPressed(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlComparatorKeyReleased(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
 
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new OpenComparatorScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlComparatorMouseClicked(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenComparatorScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlComparatorMousePressed(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlComparatorMouseReleased(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
     }
 
 
     @FXML
     private void pnlGeneratorKeyPressed(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlGeneratorKeyReleased(KeyEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
 
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new OpenGeneratorScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlGeneratorMouseClicked(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenGeneratorScreen()
-        ));
+        );
     }
 
     @FXML
     private void pnlGeneratorMousePressed(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @FXML
     private void pnlGeneratorMouseReleased(MouseEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
-        ));
+        );
     }
 
     @Override
@@ -195,6 +195,7 @@ public class MainScreenController extends Controller {
     private final class OpenCheckerScreen implements Operation {
         @Override
         public void perform() {
+            // TODO Remove this statement when the checker screen is done
             System.out.println(getClass().getSimpleName());
             pnlChecker.setVisible(true);
         }
@@ -203,6 +204,7 @@ public class MainScreenController extends Controller {
     private final class OpenComparatorScreen implements Operation {
         @Override
         public void perform() {
+            // TODO Remove this statement when the comparator screen is done
             System.out.println(getClass().getSimpleName());
             pnlComparator.setVisible(true);
         }
@@ -211,6 +213,7 @@ public class MainScreenController extends Controller {
     private final class OpenGeneratorScreen implements Operation {
         @Override
         public void perform() {
+            // TODO Remove this statement when the generator screen is done
             System.out.println(getClass().getSimpleName());
             pnlGenerator.setVisible(true);
         }
