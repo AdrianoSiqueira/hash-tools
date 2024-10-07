@@ -1,8 +1,9 @@
 package hashtools.controller;
 
 import hashtools.condition.Condition;
-import hashtools.domain.Operation;
+import hashtools.operation.Operation;
 import hashtools.domain.ThreadPool;
+import hashtools.operation.OperationPerformer;
 import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -29,7 +30,10 @@ public abstract class Controller implements Initializable {
      * closed because is uses daemon threads.
      * </p>
      */
+    @Deprecated
     protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
+
+    protected final OperationPerformer operationPerformer = new OperationPerformer(ThreadPool.newCachedDaemon());
 
 
     /**
@@ -39,6 +43,7 @@ public abstract class Controller implements Initializable {
      *
      * @param operation Operation to perform.
      */
+    @Deprecated
     protected final void performOperation(Operation operation) {
         operation.perform();
     }
@@ -51,6 +56,7 @@ public abstract class Controller implements Initializable {
      * @param condition Determines if the operation should be performed.
      * @param operation Operation to perform.
      */
+    @Deprecated
     protected final void performOperation(Condition condition, Operation operation) {
         if (condition.isTrue()) {
             operation.perform();
@@ -65,6 +71,7 @@ public abstract class Controller implements Initializable {
      * @param conditions Determines the operation that will perform.
      * @param operation  Operation to perform if all conditions are true.
      */
+    @Deprecated
     protected final void performOperation(Collection<Condition> conditions, Operation operation) {
         boolean allConditionsAreTrue = conditions
             .stream()
@@ -84,6 +91,7 @@ public abstract class Controller implements Initializable {
      * @param operationIfTrue  Operation to perform if condition is true.
      * @param operationIfFalse Operation to perform if condition is false.
      */
+    @Deprecated
     protected final void performOperation(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
         if (condition.isTrue()) {
             operationIfTrue.perform();
@@ -101,6 +109,7 @@ public abstract class Controller implements Initializable {
      * @param operationIfAllTrue   Operation to perform if all conditions are true.
      * @param operationIfSomeFalse Operation to perform if some condition is false.
      */
+    @Deprecated
     protected final void performOperation(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
         boolean allConditionsAreTrue = conditions
             .stream()
@@ -120,6 +129,7 @@ public abstract class Controller implements Initializable {
      *
      * @param operation Operation to perform.
      */
+    @Deprecated
     protected final void performOperationAsync(Operation operation) {
         threadPool.execute(operation::perform);
     }
@@ -133,6 +143,7 @@ public abstract class Controller implements Initializable {
      * @param condition Determines if the operation should be performed.
      * @param operation Operation to perform.
      */
+    @Deprecated
     protected final void performOperationAsync(Condition condition, Operation operation) {
         if (condition.isTrue()) {
             threadPool.execute(operation::perform);
@@ -148,6 +159,7 @@ public abstract class Controller implements Initializable {
      * @param conditions Determines the operation that will perform.
      * @param operation  Operation to perform if all conditions are true.
      */
+    @Deprecated
     protected final void performOperationAsync(Collection<Condition> conditions, Operation operation) {
         if (Condition.allOf(conditions).isTrue()) {
             threadPool.execute(operation::perform);
@@ -164,6 +176,7 @@ public abstract class Controller implements Initializable {
      * @param operationIfTrue  Operation to perform if condition is true.
      * @param operationIfFalse Operation to perform if condition is false.
      */
+    @Deprecated
     protected final void performOperationAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
         threadPool.execute(condition.isTrue()
             ? operationIfTrue::perform
@@ -181,6 +194,7 @@ public abstract class Controller implements Initializable {
      * @param operationIfAllTrue   Operation to perform if all conditions are true.
      * @param operationIfSomeFalse Operation to perform if some condition is false.
      */
+    @Deprecated
     protected final void performOperationAsync(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
         threadPool.execute(
             Condition.allOf(conditions).isTrue()
@@ -234,6 +248,7 @@ public abstract class Controller implements Initializable {
      *
      * @return An {@link EventHandler} that performs the operation.
      */
+    @Deprecated
     protected final <T extends Event> EventHandler<T> triggerOperation(Operation operation) {
         return _ -> performOperation(operation);
     }
@@ -249,6 +264,7 @@ public abstract class Controller implements Initializable {
      *
      * @return An {@link EventHandler} that performs the operation.
      */
+    @Deprecated
     protected final <T extends Event> EventHandler<T> triggerOperation(Condition condition, Operation operation) {
         return _ -> performOperation(condition, operation);
     }
