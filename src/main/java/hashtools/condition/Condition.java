@@ -10,5 +10,9 @@ public interface Condition {
             .allMatch(Condition::isTrue);
     }
 
+    default boolean isFalse() {
+        return !isTrue();
+    }
+
     boolean isTrue();
 }
