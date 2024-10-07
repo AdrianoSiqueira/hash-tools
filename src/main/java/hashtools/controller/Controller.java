@@ -1,21 +1,16 @@
 package hashtools.controller;
 
-import hashtools.condition.Condition;
-import hashtools.operation.Operation;
 import hashtools.domain.ThreadPool;
+import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import javafx.css.PseudoClass;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collection;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public abstract class Controller implements Initializable {
@@ -24,184 +19,8 @@ public abstract class Controller implements Initializable {
         ARMED = PseudoClass.getPseudoClass("armed"),
         DISABLED = PseudoClass.getPseudoClass("disabled");
 
-    /**
-     * <p>
-     * Internal thread pool. This pool do not need to be
-     * closed because is uses daemon threads.
-     * </p>
-     */
-    @Deprecated
-    protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
 
     protected final OperationPerformer operationPerformer = new OperationPerformer(ThreadPool.newCachedDaemon());
-
-
-    /**
-     * <p>
-     * Performs the operation.
-     * </p>
-     *
-     * @param operation Operation to perform.
-     */
-    @Deprecated
-    protected final void performOperation(Operation operation) {
-        operation.perform();
-    }
-
-    /**
-     * <p>
-     * Performs the operation if the condition is true.
-     * </p>
-     *
-     * @param condition Determines if the operation should be performed.
-     * @param operation Operation to perform.
-     */
-    @Deprecated
-    protected final void performOperation(Condition condition, Operation operation) {
-        if (condition.isTrue()) {
-            operation.perform();
-        }
-    }
-
-    /**
-     * <p>
-     * Performs the operation if all conditions are true.
-     * </p>
-     *
-     * @param conditions Determines the operation that will perform.
-     * @param operation  Operation to perform if all conditions are true.
-     */
-    @Deprecated
-    protected final void performOperation(Collection<Condition> conditions, Operation operation) {
-        boolean allConditionsAreTrue = conditions
-            .stream()
-            .allMatch(Condition::isTrue);
-
-        if (allConditionsAreTrue) {
-            operation.perform();
-        }
-    }
-
-    /**
-     * <p>
-     * Performs one of the operation based in the condition.
-     * </p>
-     *
-     * @param condition        Determines the operation that will perform.
-     * @param operationIfTrue  Operation to perform if condition is true.
-     * @param operationIfFalse Operation to perform if condition is false.
-     */
-    @Deprecated
-    protected final void performOperation(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
-        if (condition.isTrue()) {
-            operationIfTrue.perform();
-        } else {
-            operationIfFalse.perform();
-        }
-    }
-
-    /**
-     * <p>
-     * Performs one of the operation based in all conditions.
-     * </p>
-     *
-     * @param conditions           Determines the operation that will perform.
-     * @param operationIfAllTrue   Operation to perform if all conditions are true.
-     * @param operationIfSomeFalse Operation to perform if some condition is false.
-     */
-    @Deprecated
-    protected final void performOperation(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
-        boolean allConditionsAreTrue = conditions
-            .stream()
-            .allMatch(Condition::isTrue);
-
-        if (allConditionsAreTrue) {
-            operationIfAllTrue.perform();
-        } else {
-            operationIfSomeFalse.perform();
-        }
-    }
-
-    /**
-     * <p>
-     * Performs the operation in the thread pool.
-     * </p>
-     *
-     * @param operation Operation to perform.
-     */
-    @Deprecated
-    protected final void performOperationAsync(Operation operation) {
-        threadPool.execute(operation::perform);
-    }
-
-    /**
-     * <p>
-     * Performs the operation in the thread pool if the
-     * condition is true.
-     * </p>
-     *
-     * @param condition Determines if the operation should be performed.
-     * @param operation Operation to perform.
-     */
-    @Deprecated
-    protected final void performOperationAsync(Condition condition, Operation operation) {
-        if (condition.isTrue()) {
-            threadPool.execute(operation::perform);
-        }
-    }
-
-    /**
-     * <p>
-     * Performs the operation in the tread pool if all
-     * conditions are true.
-     * </p>
-     *
-     * @param conditions Determines the operation that will perform.
-     * @param operation  Operation to perform if all conditions are true.
-     */
-    @Deprecated
-    protected final void performOperationAsync(Collection<Condition> conditions, Operation operation) {
-        if (Condition.allOf(conditions).isTrue()) {
-            threadPool.execute(operation::perform);
-        }
-    }
-
-    /**
-     * <p>
-     * Performs one of the operation in the thread pool
-     * based in the condition.
-     * </p>
-     *
-     * @param condition        Determines the operation that will perform.
-     * @param operationIfTrue  Operation to perform if condition is true.
-     * @param operationIfFalse Operation to perform if condition is false.
-     */
-    @Deprecated
-    protected final void performOperationAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
-        threadPool.execute(condition.isTrue()
-            ? operationIfTrue::perform
-            : operationIfFalse::perform
-        );
-    }
-
-    /**
-     * <p>
-     * Performs one of the operation in the thread pool
-     * based in all conditions.
-     * </p>
-     *
-     * @param conditions           Determines the operation that will perform.
-     * @param operationIfAllTrue   Operation to perform if all conditions are true.
-     * @param operationIfSomeFalse Operation to perform if some condition is false.
-     */
-    @Deprecated
-    protected final void performOperationAsync(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
-        threadPool.execute(
-            Condition.allOf(conditions).isTrue()
-                ? operationIfAllTrue::perform
-                : operationIfSomeFalse::perform
-        );
-    }
 
 
     /**
@@ -236,37 +55,6 @@ public abstract class Controller implements Initializable {
         }
 
         return entry;
-    }
-
-    /**
-     * <p>
-     * Returns an {@link  EventHandler} that performs the operation.
-     * </p>
-     *
-     * @param operation Operation to perform.
-     * @param <T>       The type of the {@link  EventHandler}.
-     *
-     * @return An {@link EventHandler} that performs the operation.
-     */
-    @Deprecated
-    protected final <T extends Event> EventHandler<T> triggerOperation(Operation operation) {
-        return _ -> performOperation(operation);
-    }
-
-    /**
-     * <p>
-     * Returns an {@link  EventHandler} that performs the operation if the condition is true.
-     * </p>
-     *
-     * @param condition Determines if the operation should be performed.
-     * @param operation Operation to perform.
-     * @param <T>The    type of the {@link  EventHandler}.
-     *
-     * @return An {@link EventHandler} that performs the operation.
-     */
-    @Deprecated
-    protected final <T extends Event> EventHandler<T> triggerOperation(Condition condition, Operation operation) {
-        return _ -> performOperation(condition, operation);
     }
 
 
