@@ -115,6 +115,83 @@ public abstract class Controller implements Initializable {
 
     /**
      * <p>
+     * Performs the operation in the thread pool.
+     * </p>
+     *
+     * @param operation Operation to perform.
+     */
+    protected final void performOperationAsync(Operation operation) {
+        threadPool.execute(operation::perform);
+    }
+
+    /**
+     * <p>
+     * Performs the operation in the thread pool if the
+     * condition is true.
+     * </p>
+     *
+     * @param condition Determines if the operation should be performed.
+     * @param operation Operation to perform.
+     */
+    protected final void performOperationAsync(Condition condition, Operation operation) {
+        if (condition.isTrue()) {
+            threadPool.execute(operation::perform);
+        }
+    }
+
+    /**
+     * <p>
+     * Performs the operation in the tread pool if all
+     * conditions are true.
+     * </p>
+     *
+     * @param conditions Determines the operation that will perform.
+     * @param operation  Operation to perform if all conditions are true.
+     */
+    protected final void performOperationAsync(Collection<Condition> conditions, Operation operation) {
+        if (Condition.allOf(conditions).isTrue()) {
+            threadPool.execute(operation::perform);
+        }
+    }
+
+    /**
+     * <p>
+     * Performs one of the operation in the thread pool
+     * based in the condition.
+     * </p>
+     *
+     * @param condition        Determines the operation that will perform.
+     * @param operationIfTrue  Operation to perform if condition is true.
+     * @param operationIfFalse Operation to perform if condition is false.
+     */
+    protected final void performOperationAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
+        threadPool.execute(condition.isTrue()
+            ? operationIfTrue::perform
+            : operationIfFalse::perform
+        );
+    }
+
+    /**
+     * <p>
+     * Performs one of the operation in the thread pool
+     * based in all conditions.
+     * </p>
+     *
+     * @param conditions           Determines the operation that will perform.
+     * @param operationIfAllTrue   Operation to perform if all conditions are true.
+     * @param operationIfSomeFalse Operation to perform if some condition is false.
+     */
+    protected final void performOperationAsync(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
+        threadPool.execute(
+            Condition.allOf(conditions).isTrue()
+                ? operationIfAllTrue::perform
+                : operationIfSomeFalse::perform
+        );
+    }
+
+
+    /**
+     * <p>
      * Resets the UI state clearing text fields, applying
      * default selection to checkboxes and so on.
      * </p>
