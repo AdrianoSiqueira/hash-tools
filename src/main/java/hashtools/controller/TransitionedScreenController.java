@@ -2,7 +2,7 @@ package hashtools.controller;
 
 import hashtools.condition.Condition;
 import hashtools.condition.NoCondition;
-import hashtools.domain.Operation;
+import hashtools.operation.Operation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import lombok.AllArgsConstructor;
@@ -23,18 +23,18 @@ public abstract class TransitionedScreenController extends Controller {
 
     @FXML
     protected void btnBackAction(ActionEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             btnBackAction.getCondition(),
             btnBackAction.getOperation()
-        ));
+        );
     }
 
     @FXML
     protected void btnNextAction(ActionEvent event) {
-        threadPool.execute(() -> performOperation(
+        operationPerformer.performAsync(
             btnNextAction.getCondition(),
             btnNextAction.getOperation()
-        ));
+        );
     }
 
 
