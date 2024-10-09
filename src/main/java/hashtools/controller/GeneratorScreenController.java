@@ -46,7 +46,6 @@ public class GeneratorScreenController extends TransitionedScreenController {
 
 
     private ResourceBundle language;
-    private List<Pane> screenPanes;
 
 
     @Override
@@ -83,11 +82,6 @@ public class GeneratorScreenController extends TransitionedScreenController {
             .filter(CheckBox.class::isInstance)
             .map(CheckBox.class::cast)
             .forEach(checkBox -> checkBox.setSelected(true));
-    }
-
-    private void showScreenPane(Pane screen) {
-        screenPanes.forEach(pane -> pane.setVisible(false));
-        screen.setVisible(true);
     }
 
 

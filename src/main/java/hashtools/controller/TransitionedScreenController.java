@@ -1,12 +1,19 @@
 package hashtools.controller;
 
+import hashtools.condition.CollectionContainsItem;
 import hashtools.condition.Condition;
 import hashtools.condition.NoCondition;
+import hashtools.condition.ObjectIsNotNull;
 import hashtools.operation.Operation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +27,7 @@ public abstract class TransitionedScreenController extends Controller {
         btnBackAction,
         btnNextAction;
 
+    protected Collection<Pane> screenPanes;
 
     @FXML
     protected void btnBackAction(ActionEvent event) {
@@ -37,6 +45,18 @@ public abstract class TransitionedScreenController extends Controller {
         );
     }
 
+    protected final void showScreenPane(Pane screenPane) {
+        List<Condition> conditions = List.of(
+            new ObjectIsNotNull(screenPanes),
+            new CollectionContainsItem<>(screenPanes, screenPane)
+        );
+
+        operationPerformer.perform(
+            conditions,
+            new ShowScreenPane(screenPane),
+            new ThrowException(new IllegalStateException("Panes list is null or screen pane is not present in list"))
+        );
+    }
 
     /**
      * <p>
@@ -61,6 +81,18 @@ public abstract class TransitionedScreenController extends Controller {
          */
         public ConditionalAction(Operation operation) {
             this(new NoCondition(), operation);
+        }
+    }
+
+    @RequiredArgsConstructor
+    private final class ShowScreenPane implements Operation {
+
+        private final Pane screenPane;
+
+        @Override
+        public void perform() {
+            screenPanes.forEach(pane -> pane.setVisible(false));
+            screenPane.setVisible(true);
         }
     }
 }
