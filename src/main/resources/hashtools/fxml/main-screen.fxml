@@ -34,7 +34,7 @@
         </GridPane>
     </VBox>
 
-    <StackPane focusTraversable="true" fx:id="pnlChecker" onKeyReleased="#closeScreen" visible="false"/>
+    <fx:include fx:id="pnlChecker" source="checker-screen.fxml" visible="false"/>
     <StackPane focusTraversable="true" fx:id="pnlComparator" onKeyReleased="#closeScreen" visible="false"/>
     <fx:include fx:id="pnlGenerator" source="generator-screen.fxml" visible="false"/>
 </StackPane>
