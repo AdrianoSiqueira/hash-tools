@@ -9,6 +9,7 @@ import hashtools.formatter.CLIGeneratorResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
 import hashtools.operation.Operation;
+import hashtools.operation.ReplaceFileContent;
 import hashtools.service.Service;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -18,7 +19,6 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -186,7 +186,7 @@ public class GeneratorScreenController extends TransitionedScreenController {
                     "Choose where to save",
                     System.getProperty("user.home"),
                     pnlRoot.getScene().getWindow())
-                .ifPresent(file -> operationPerformer.performAsync(new WriteToFile(txtResult.getText(), file)))
+                .ifPresent(file -> operationPerformer.performAsync(new ReplaceFileContent(txtResult.getText(), file)))
             );
         }
     }
@@ -212,18 +212,6 @@ public class GeneratorScreenController extends TransitionedScreenController {
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(false));
-        }
-    }
-
-    @RequiredArgsConstructor
-    private final class WriteToFile implements Operation {
-
-        private final String content;
-        private final Path file;
-
-        @Override
-        public void perform() {
-            fileService.replaceContent(content, file);
         }
     }
 }
