@@ -2,7 +2,6 @@ package hashtools.controller;
 
 import hashtools.domain.ThreadPool;
 import hashtools.operation.Operation;
-import hashtools.service.FileService;
 import javafx.css.PseudoClass;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -29,9 +28,6 @@ public abstract class Controller implements Initializable {
      * </p>
      */
     protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
-
-    @Deprecated(forRemoval = true)
-    protected final FileService fileService = new FileService();
 
 
     /**

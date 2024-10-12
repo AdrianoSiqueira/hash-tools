@@ -12,6 +12,7 @@ import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.ReplaceFileContent;
 import hashtools.service.Service;
+import hashtools.util.DialogUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -184,8 +185,8 @@ public class GeneratorScreenController extends TransitionedScreenController {
     private final class OpenInputFile implements Operation {
         @Override
         public void perform() {
-            Platform.runLater(() -> fileService
-                .openFile(
+            Platform.runLater(() -> DialogUtil
+                .showOpenDialog(
                     "Select a file to generate",
                     System.getProperty("user.home"),
                     Extension.getAllExtensions(language),
@@ -199,8 +200,8 @@ public class GeneratorScreenController extends TransitionedScreenController {
     private final class SaveResultToFile implements Operation {
         @Override
         public void perform() {
-            Platform.runLater(() -> fileService
-                .openFileToSave(
+            Platform.runLater(() -> DialogUtil
+                .showSaveDialog(
                     "Choose where to save",
                     System.getProperty("user.home"),
                     pnlRoot.getScene().getWindow())
