@@ -10,7 +10,6 @@ import hashtools.messagedigest.FileUpdater;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
-import hashtools.operation.ReplaceFileContent;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
@@ -222,10 +221,7 @@ public class CheckerScreenController extends TransitionedScreenController {
                     "Choose where to save",
                     System.getProperty("user.home"),
                     pnlRoot.getScene().getWindow())
-                .ifPresent(file -> OperationPerformer.performAsync(
-                    threadPool,
-                    new ReplaceFileContent(txtResult.getText(), file)
-                ))
+                .ifPresent(file -> FileUtil.replaceContent(txtResult.getText(), file))
             );
         }
     }
