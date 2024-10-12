@@ -5,6 +5,7 @@ import hashtools.condition.Condition;
 import hashtools.condition.NoCondition;
 import hashtools.condition.ObjectIsNotNull;
 import hashtools.operation.Operation;
+import hashtools.operation.OperationPerformer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -31,7 +32,8 @@ public abstract class TransitionedScreenController extends Controller {
 
     @FXML
     protected void btnBackAction(ActionEvent event) {
-        operationPerformer.performAsync(
+        OperationPerformer.performAsync(
+            threadPool,
             btnBackAction.getCondition(),
             btnBackAction.getOperation()
         );
@@ -39,7 +41,8 @@ public abstract class TransitionedScreenController extends Controller {
 
     @FXML
     protected void btnNextAction(ActionEvent event) {
-        operationPerformer.performAsync(
+        OperationPerformer.performAsync(
+            threadPool,
             btnNextAction.getCondition(),
             btnNextAction.getOperation()
         );
@@ -51,7 +54,7 @@ public abstract class TransitionedScreenController extends Controller {
             new CollectionContainsItem<>(screenPanes, screenPane)
         );
 
-        operationPerformer.perform(
+        OperationPerformer.perform(
             conditions,
             new ShowScreenPane(screenPane),
             new ThrowException(new IllegalStateException("Panes list is null or screen pane is not present in list"))

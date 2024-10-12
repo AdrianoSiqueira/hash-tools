@@ -9,6 +9,7 @@ import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.Operation;
+import hashtools.operation.OperationPerformer;
 import hashtools.operation.ReplaceFileContent;
 import hashtools.service.Service;
 import javafx.application.Platform;
@@ -59,12 +60,17 @@ public class CheckerScreenController extends TransitionedScreenController {
         );
 
         resetUI();
-        operationPerformer.performAsync(new GoToInputScreen());
+
+        OperationPerformer.performAsync(
+            threadPool,
+            new GoToInputScreen()
+        );
     }
 
     @FXML
     private void pnlChecksumMouseClicked(MouseEvent event) {
-        operationPerformer.performAsync(
+        OperationPerformer.performAsync(
+            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenChecksumFile()
         );
@@ -72,7 +78,8 @@ public class CheckerScreenController extends TransitionedScreenController {
 
     @FXML
     private void pnlInputMouseClicked(MouseEvent event) {
-        operationPerformer.performAsync(
+        OperationPerformer.performAsync(
+            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenInputFile()
         );
@@ -151,10 +158,22 @@ public class CheckerScreenController extends TransitionedScreenController {
         public void perform() {
             showScreenPane(pnlScreenSplash);
 
-            operationPerformer.performAsync(new StartSplash());
-            operationPerformer.perform(new CheckFile());
-            operationPerformer.performAsync(new StopSplash());
-            operationPerformer.performAsync(new GoToResultScreen());
+            OperationPerformer.performAsync(
+                threadPool,
+                new StartSplash()
+            );
+
+            OperationPerformer.perform(new CheckFile());
+
+            OperationPerformer.performAsync(
+                threadPool,
+                new StopSplash()
+            );
+
+            OperationPerformer.performAsync(
+                threadPool,
+                new GoToResultScreen()
+            );
         }
     }
 
@@ -201,7 +220,10 @@ public class CheckerScreenController extends TransitionedScreenController {
                     "Choose where to save",
                     System.getProperty("user.home"),
                     pnlRoot.getScene().getWindow())
-                .ifPresent(file -> operationPerformer.performAsync(new ReplaceFileContent(txtResult.getText(), file)))
+                .ifPresent(file -> OperationPerformer.performAsync(
+                    threadPool,
+                    new ReplaceFileContent(txtResult.getText(), file)
+                ))
             );
         }
     }
