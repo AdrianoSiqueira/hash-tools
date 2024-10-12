@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public abstract class Controller implements Initializable {
@@ -20,6 +21,15 @@ public abstract class Controller implements Initializable {
         ARMED = PseudoClass.getPseudoClass("armed"),
         DISABLED = PseudoClass.getPseudoClass("disabled");
 
+
+    /**
+     * <p>
+     * It is a cached thread pool that uses daemon threads,
+     * so there is no need to close it. It is not suitable
+     * for CPU intensive tasks.
+     * </p>
+     */
+    protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
 
     protected final OperationPerformer operationPerformer = new OperationPerformer(ThreadPool.newCachedDaemon());
     protected final FileService fileService = new FileService();
