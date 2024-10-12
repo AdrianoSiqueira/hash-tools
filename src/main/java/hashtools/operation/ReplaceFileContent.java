@@ -1,19 +1,29 @@
 package hashtools.operation;
 
-import hashtools.service.FileService;
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 @RequiredArgsConstructor
 public class ReplaceFileContent implements Operation {
 
-    private final String content;
+    private final CharSequence content;
     private final Path file;
 
     @Override
     public void perform() {
-        FileService service = new FileService();
-        service.replaceContent(content, file);
+        try {
+            Files.writeString(
+                file,
+                content,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
