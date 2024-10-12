@@ -1,4 +1,5 @@
 module hash.tools {
+    requires ch.qos.logback.classic;
     requires javafx.controls;
     requires javafx.fxml;
     requires lombok;
