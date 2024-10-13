@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * <p>
@@ -47,13 +46,13 @@ public abstract class TransitionedScreenController extends Controller {
     }
 
     protected final void showScreenPane(Pane screenPane) {
-        List<Condition> conditions = List.of(
+        Condition condition = Condition.allOf(
             new ObjectIsNotNull(screenPanes),
             new CollectionContainsItem<>(screenPanes, screenPane)
         );
 
         OperationPerformer.perform(
-            conditions,
+            condition,
             new ShowScreenPane(screenPane),
             new ThrowException(new IllegalStateException("Panes list is null or screen pane is not present in list"))
         );
