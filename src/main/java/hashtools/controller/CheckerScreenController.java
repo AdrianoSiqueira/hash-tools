@@ -61,17 +61,12 @@ public class CheckerScreenController extends TransitionedScreenController {
         );
 
         resetUI();
-
-        OperationPerformer.performAsync(
-            threadPool,
-            new GoToInputScreen()
-        );
+        OperationPerformer.performAsync(new GoToInputScreen());
     }
 
     @FXML
     private void pnlChecksumMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenChecksumFile()
         );
@@ -80,7 +75,6 @@ public class CheckerScreenController extends TransitionedScreenController {
     @FXML
     private void pnlInputMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenInputFile()
         );
@@ -159,22 +153,10 @@ public class CheckerScreenController extends TransitionedScreenController {
         public void perform() {
             showScreenPane(pnlScreenSplash);
 
-            OperationPerformer.performAsync(
-                threadPool,
-                new StartSplash()
-            );
-
+            OperationPerformer.performAsync(new StartSplash());
             OperationPerformer.perform(new CheckFile());
-
-            OperationPerformer.performAsync(
-                threadPool,
-                new StopSplash()
-            );
-
-            OperationPerformer.performAsync(
-                threadPool,
-                new GoToResultScreen()
-            );
+            OperationPerformer.performAsync(new StopSplash());
+            OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
 

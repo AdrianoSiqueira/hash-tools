@@ -1,6 +1,5 @@
 package hashtools.controller;
 
-import hashtools.domain.ThreadPool;
 import hashtools.operation.Operation;
 import javafx.css.PseudoClass;
 import javafx.fxml.Initializable;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public abstract class Controller implements Initializable {
@@ -18,16 +16,6 @@ public abstract class Controller implements Initializable {
     protected static final PseudoClass
         ARMED = PseudoClass.getPseudoClass("armed"),
         DISABLED = PseudoClass.getPseudoClass("disabled");
-
-
-    /**
-     * <p>
-     * It is a cached thread pool that uses daemon threads,
-     * so there is no need to close it. It is not suitable
-     * for CPU intensive tasks.
-     * </p>
-     */
-    protected final ExecutorService threadPool = ThreadPool.newCachedDaemon();
 
 
     /**

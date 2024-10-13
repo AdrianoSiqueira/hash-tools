@@ -33,7 +33,6 @@ public abstract class TransitionedScreenController extends Controller {
     @FXML
     protected void btnBackAction(ActionEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             btnBackAction.getCondition(),
             btnBackAction.getOperation()
         );
@@ -42,7 +41,6 @@ public abstract class TransitionedScreenController extends Controller {
     @FXML
     protected void btnNextAction(ActionEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             btnNextAction.getCondition(),
             btnNextAction.getOperation()
         );

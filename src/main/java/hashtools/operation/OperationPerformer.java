@@ -45,65 +45,38 @@ public class OperationPerformer {
     }
 
 
-    public static void performAsync(ExecutorService threadPool, Operation operation) {
-        performAsync(threadPool, NO_CONDITION, operation, NO_OPERATION);
-    }
-
-    public static void performAsync(ExecutorService threadPool, Condition condition, Operation operation) {
-        performAsync(threadPool, List.of(condition), operation, NO_OPERATION);
-    }
-
-    public static void performAsync(ExecutorService threadPool, Collection<Condition> conditions, Operation operationIfAllTrue) {
-        performAsync(threadPool, conditions, operationIfAllTrue, NO_OPERATION);
-    }
-
-    public static void performAsync(ExecutorService threadPool, Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
-        performAsync(threadPool, List.of(condition), operationIfTrue, operationIfFalse);
-    }
-
-    public static void performAsync(ExecutorService threadPool, Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
-        try {
-            threadPool.execute(Condition.allOf(conditions).isTrue()
-                ? operationIfAllTrue::perform
-                : operationIfSomeFalse::perform
-            );
-        } catch (NullPointerException e) {
-            throw new UnsupportedOperationException("Thread pool not provided", e);
-        } catch (Exception e) {
-            throw new RuntimeException("Unknown issue", e);
-        }
-    }
-
-
-    @Deprecated(forRemoval = true)
-    public void performAsync(Operation operation) {
+    public static void performAsync(Operation operation) {
         performAsync(NO_CONDITION, operation, NO_OPERATION);
     }
 
-    @Deprecated(forRemoval = true)
-    public void performAsync(Condition condition, Operation operation) {
+    public static void performAsync(Condition condition, Operation operation) {
         performAsync(List.of(condition), operation, NO_OPERATION);
     }
 
-    @Deprecated(forRemoval = true)
-    public void performAsync(Collection<Condition> conditions, Operation operationIfAllTrue) {
+    public static void performAsync(Collection<Condition> conditions, Operation operationIfAllTrue) {
         performAsync(conditions, operationIfAllTrue, NO_OPERATION);
     }
 
-    @Deprecated(forRemoval = true)
-    public void performAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
+    public static void performAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
         performAsync(List.of(condition), operationIfTrue, operationIfFalse);
     }
 
-    @Deprecated(forRemoval = true)
-    public void performAsync(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
+    /**
+     * @deprecated Replace this method with the
+     * {@link #performAsync(Condition, Operation, Operation)}
+     * one. The client will be responsible to call
+     * {@link Condition#allOf(Collection)} method.
+     */
+    @Deprecated
+    public static void performAsync(Collection<Condition> conditions, Operation operationIfAllTrue, Operation operationIfSomeFalse) {
         try {
-            threadPool.execute(Condition.allOf(conditions).isTrue()
-                ? operationIfAllTrue::perform
-                : operationIfSomeFalse::perform
-            );
+            new Thread(
+                Condition.allOf(conditions).isTrue()
+                    ? operationIfAllTrue::perform
+                    : operationIfSomeFalse::perform
+            ).start();
         } catch (NullPointerException e) {
-            throw new UnsupportedOperationException("Thread pool not provided", e);
+            throw new UnsupportedOperationException("Some parameter is null", e);
         } catch (Exception e) {
             throw new RuntimeException("Unknown issue", e);
         }

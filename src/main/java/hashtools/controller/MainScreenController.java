@@ -40,7 +40,6 @@ public class MainScreenController extends Controller {
     private void closeScreen(KeyEvent event) {
         // TODO Remove this method when all the three run screens are done
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsHomeKey(event),
             new OpenMainMenu()
         );
@@ -55,7 +54,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlCheckerKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
         );
@@ -64,13 +62,11 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlCheckerKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
         );
 
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new OpenCheckerScreen()
         );
@@ -79,7 +75,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlCheckerMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenCheckerScreen()
         );
@@ -88,7 +83,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlCheckerMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
         );
@@ -97,7 +91,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlCheckerMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
         );
@@ -107,7 +100,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlComparatorKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
         );
@@ -116,13 +108,11 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlComparatorKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
         );
 
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new OpenComparatorScreen()
         );
@@ -131,7 +121,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlComparatorMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenComparatorScreen()
         );
@@ -140,7 +129,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlComparatorMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
         );
@@ -149,7 +137,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlComparatorMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
         );
@@ -159,7 +146,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlGeneratorKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new ArmNode((Node) event.getSource())
         );
@@ -168,13 +154,11 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlGeneratorKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new DisarmNode((Node) event.getSource())
         );
 
         OperationPerformer.performAsync(
-            threadPool,
             new KeyboardKeyIsActionKey(event),
             new OpenGeneratorScreen()
         );
@@ -183,7 +167,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlGeneratorMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenGeneratorScreen()
         );
@@ -192,7 +175,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlGeneratorMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new ArmNode((Node) event.getSource())
         );
@@ -201,7 +183,6 @@ public class MainScreenController extends Controller {
     @FXML
     private void pnlGeneratorMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new DisarmNode((Node) event.getSource())
         );

@@ -62,17 +62,12 @@ public class GeneratorScreenController extends TransitionedScreenController {
         );
 
         resetUI();
-
-        OperationPerformer.performAsync(
-            threadPool,
-            new GoToInputScreen()
-        );
+        OperationPerformer.performAsync(new GoToInputScreen());
     }
 
     @FXML
     private void pnlInputMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            threadPool,
             new MouseButtonIsPrimary(event),
             new OpenInputFile()
         );
@@ -163,22 +158,10 @@ public class GeneratorScreenController extends TransitionedScreenController {
         public void perform() {
             showScreenPane(pnlScreenSplash);
 
-            OperationPerformer.performAsync(
-                threadPool,
-                new StartSplash()
-            );
-
+            OperationPerformer.performAsync(new StartSplash());
             OperationPerformer.perform(new GenerateChecksums());
-
-            OperationPerformer.performAsync(
-                threadPool,
-                new StopSplash()
-            );
-
-            OperationPerformer.performAsync(
-                threadPool,
-                new GoToResultScreen()
-            );
+            OperationPerformer.performAsync(new StopSplash());
+            OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
 
