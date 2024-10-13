@@ -1,12 +1,12 @@
 package hashtools.condition;
 
-import java.util.Collection;
+import java.util.stream.Stream;
 
 public interface Condition {
 
-    static Condition allOf(Collection<Condition> conditions) {
-        return () -> conditions
-            .stream()
+    static Condition allOf(Condition... conditions) {
+        return () -> Stream
+            .of(conditions)
             .allMatch(Condition::isTrue);
     }
 
