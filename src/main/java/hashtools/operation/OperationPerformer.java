@@ -2,11 +2,7 @@ package hashtools.operation;
 
 import hashtools.condition.Condition;
 import hashtools.condition.NoCondition;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class OperationPerformer {
 
     private static final Condition NO_CONDITION = new NoCondition();
