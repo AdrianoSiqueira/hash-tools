@@ -9,6 +9,7 @@ module hash.tools {
     exports hashtools.controller;
     exports hashtools.domain;
     exports hashtools.messagedigest;
+    exports hashtools.notification;
     exports hashtools.operation;
     exports hashtools.service;
     exports hashtools.window;
@@ -17,6 +18,7 @@ module hash.tools {
     opens hashtools.controller;
     opens hashtools.domain;
     opens hashtools.messagedigest;
+    opens hashtools.notification;
     opens hashtools.operation;
     opens hashtools.service;
     opens hashtools.window;
