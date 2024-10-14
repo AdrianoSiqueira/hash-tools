@@ -17,5 +17,9 @@ public final class Resource {
     public static final class Static {
         public static final PseudoClass ARMED = PseudoClass.getPseudoClass("armed");
         public static final PseudoClass DISABLED = PseudoClass.getPseudoClass("disabled");
+
+        public static final String CHECKER_SCREEN_PATH = "/hashtools/fxml/checker-screen.fxml";
+        public static final String COMPARATOR_SCREEN_PATH = "/hashtools/fxml/checker-screen.fxml";
+        public static final String GENERATOR_SCREEN_PATH = "/hashtools/fxml/checker-screen.fxml";
     }
 }
