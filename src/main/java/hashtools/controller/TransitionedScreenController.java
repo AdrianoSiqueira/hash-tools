@@ -6,6 +6,7 @@ import hashtools.condition.NoCondition;
 import hashtools.condition.ObjectIsNotNull;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.ThrowException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
