@@ -4,6 +4,7 @@ import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Extension;
+import hashtools.domain.Resource;
 import hashtools.formatter.CLICheckerResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
@@ -213,7 +214,7 @@ public class CheckerScreenController extends TransitionedScreenController {
         public void perform() {
             // TODO Replace this statement with a css rule
             pnlRoot.setCursor(Cursor.WAIT);
-            pnlRoot.pseudoClassStateChanged(DISABLED, true);
+            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, true);
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(true));
@@ -225,7 +226,7 @@ public class CheckerScreenController extends TransitionedScreenController {
         public void perform() {
             // TODO Replace this statement with a css rule
             pnlRoot.setCursor(Cursor.DEFAULT);
-            pnlRoot.pseudoClassStateChanged(DISABLED, false);
+            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, false);
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(false));

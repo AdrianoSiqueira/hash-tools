@@ -5,6 +5,7 @@ import hashtools.domain.Algorithm;
 import hashtools.domain.Extension;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
+import hashtools.domain.Resource;
 import hashtools.formatter.CLIGeneratorResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
@@ -198,7 +199,7 @@ public class GeneratorScreenController extends TransitionedScreenController {
         public void perform() {
             // TODO Replace this statement with a css rule
             pnlRoot.setCursor(Cursor.WAIT);
-            pnlRoot.pseudoClassStateChanged(DISABLED, true);
+            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, true);
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(true));
@@ -210,7 +211,7 @@ public class GeneratorScreenController extends TransitionedScreenController {
         public void perform() {
             // TODO Replace this statement with a css rule
             pnlRoot.setCursor(Cursor.DEFAULT);
-            pnlRoot.pseudoClassStateChanged(DISABLED, false);
+            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, false);
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(false));
