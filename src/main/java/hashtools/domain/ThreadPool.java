@@ -13,7 +13,7 @@ public class ThreadPool {
 
     public static ExecutorService newFixedDaemon() {
         return Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors(),
+            Resource.Hardware.CPU_CORES,
             new DaemonThreadFactory()
         );
     }
