@@ -3,6 +3,8 @@ package hashtools.controller;
 import hashtools.condition.KeyboardKeyIsActionKey;
 import hashtools.condition.KeyboardKeyIsHomeKey;
 import hashtools.condition.MouseButtonIsPrimary;
+import hashtools.operation.ArmNode;
+import hashtools.operation.DisarmNode;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import javafx.beans.binding.BooleanBinding;

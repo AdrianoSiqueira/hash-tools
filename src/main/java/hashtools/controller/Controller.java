@@ -1,10 +1,7 @@
 package hashtools.controller;
 
-import hashtools.operation.Operation;
 import javafx.css.PseudoClass;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.MissingResourceException;
@@ -50,40 +47,5 @@ public abstract class Controller implements Initializable {
         }
 
         return entry;
-    }
-
-
-    /**
-     * <p>
-     * Sets the armed state of the node to true.
-     * </p>
-     */
-    @RequiredArgsConstructor
-    @SuppressWarnings("InnerClassMayBeStatic")
-    protected final class ArmNode implements Operation {
-
-        private final Node node;
-
-        @Override
-        public void perform() {
-            node.pseudoClassStateChanged(ARMED, true);
-        }
-    }
-
-    /**
-     * <p>
-     * Sets the armed state of the node to false.
-     * </p>
-     */
-    @RequiredArgsConstructor
-    @SuppressWarnings("InnerClassMayBeStatic")
-    protected final class DisarmNode implements Operation {
-
-        private final Node node;
-
-        @Override
-        public void perform() {
-            node.pseudoClassStateChanged(ARMED, false);
-        }
     }
 }
