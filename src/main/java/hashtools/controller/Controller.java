@@ -1,6 +1,5 @@
 package hashtools.controller;
 
-import javafx.css.PseudoClass;
 import javafx.fxml.Initializable;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,11 +8,6 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public abstract class Controller implements Initializable {
-
-    protected static final PseudoClass
-        ARMED = PseudoClass.getPseudoClass("armed"),
-        DISABLED = PseudoClass.getPseudoClass("disabled");
-
 
     /**
      * <p>
