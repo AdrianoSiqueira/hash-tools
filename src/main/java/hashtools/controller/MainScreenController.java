@@ -13,6 +13,8 @@ import hashtools.util.FXUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -24,10 +26,25 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     @FXML
     private Pane
+        pnlRoot,
+        pnlContent,
+        pnlFooter,
+        pnlMenu,
+        pnlMenuChecker,
+        pnlMenuComparator,
+        pnlMenuGenerator,
         pnlMainMenu,
         pnlChecker,
         pnlComparator,
         pnlGenerator;
+
+    @FXML
+    private Button
+        btnFooterBack,
+        btnFooterNext;
+
+    @FXML
+    private Labeled lblFooterSpacer;
 
 
     private void bindPnlRootVisibility() {
