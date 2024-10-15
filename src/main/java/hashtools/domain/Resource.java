@@ -1,10 +1,15 @@
 package hashtools.domain;
 
 import javafx.css.PseudoClass;
+import javafx.event.ActionEvent;
 
 import java.util.concurrent.ExecutorService;
 
 public final class Resource {
+
+    public static final class EventHandler {
+        public static final javafx.event.EventHandler<ActionEvent> NO_ACTION_EVENT = _ -> {};
+    }
 
     public static final class Hardware {
         public static final int CPU_CORES = Runtime.getRuntime().availableProcessors();
