@@ -13,7 +13,7 @@ public class ArmNode implements Operation {
     @Override
     public void perform() {
         node.pseudoClassStateChanged(
-            Resource.Static.ARMED,
+            Resource.PseudoClass.ARMED,
             true
         );
     }

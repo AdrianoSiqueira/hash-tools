@@ -13,7 +13,7 @@ public class DisableNode implements Operation {
     @Override
     public void perform() {
         node.pseudoClassStateChanged(
-            Resource.Static.DISABLED,
+            Resource.PseudoClass.DISABLED,
             true
         );
     }

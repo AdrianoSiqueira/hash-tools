@@ -13,7 +13,7 @@ public class DisarmNode implements Operation {
     @Override
     public void perform() {
         node.pseudoClassStateChanged(
-            Resource.Static.ARMED,
+            Resource.PseudoClass.ARMED,
             false
         );
     }
