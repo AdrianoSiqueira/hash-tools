@@ -8,6 +8,9 @@ import hashtools.domain.Resource;
 import hashtools.formatter.CLICheckerResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
+import hashtools.notification.Notification;
+import hashtools.notification.NotificationReceiver;
+import hashtools.notification.NotificationSender;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
@@ -16,6 +19,7 @@ import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
@@ -25,10 +29,11 @@ import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CheckerScreenController extends TransitionedScreenController {
+public class CheckerScreenController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
     private Pane
@@ -47,8 +52,14 @@ public class CheckerScreenController extends TransitionedScreenController {
     private TextInputControl txtResult;
 
 
+    private Collection<Pane> screenPanes;
     private ResourceBundle language;
 
+
+    @Override
+    public Notification getCallerNotification() {
+        return null;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
@@ -61,7 +72,6 @@ public class CheckerScreenController extends TransitionedScreenController {
             pnlScreenResult
         );
 
-        resetUI();
         OperationPerformer.performAsync(new GoToInputScreen());
     }
 
@@ -82,13 +92,15 @@ public class CheckerScreenController extends TransitionedScreenController {
     }
 
     @Override
-    protected void resetUI() {
-        Platform.runLater(() -> {
-            lblInput.setText("");
-            lblChecksum.setText("");
-        });
+    public void registerNotificationReceiver(NotificationReceiver receiver) {
+    }
 
-        txtResult.clear();
+    @Override
+    public void sendNotification(Notification notification) {
+    }
+
+    @Override
+    public void showScreen(Pane screen) {
     }
 
 
@@ -114,27 +126,26 @@ public class CheckerScreenController extends TransitionedScreenController {
     private class GoToChecksumScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenChecksum);
+            showScreen(pnlScreenChecksum);
 
-            btnBackAction = new ConditionalAction(new GoToInputScreen());
-            btnNextAction = new ConditionalAction(new GoToSplashScreen());
+//            btnBackAction = new ConditionalAction(new GoToInputScreen());
+//            btnNextAction = new ConditionalAction(new GoToSplashScreen());
         }
     }
 
     private final class GoToInputScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenInput);
+            showScreen(pnlScreenInput);
 
-            btnBackAction = new ConditionalAction(new GoToMainScreen());
-            btnNextAction = new ConditionalAction(new GoToChecksumScreen());
+//            btnBackAction = new ConditionalAction(new GoToMainScreen());
+//            btnNextAction = new ConditionalAction(new GoToChecksumScreen());
         }
     }
 
     private final class GoToMainScreen implements Operation {
         @Override
         public void perform() {
-            resetUI();
             pnlRoot.setVisible(false);
         }
     }
@@ -142,17 +153,17 @@ public class CheckerScreenController extends TransitionedScreenController {
     private final class GoToResultScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenResult);
+            showScreen(pnlScreenResult);
 
-            btnBackAction = new ConditionalAction(new GoToChecksumScreen());
-            btnNextAction = new ConditionalAction(new SaveResultToFile());
+//            btnBackAction = new ConditionalAction(new GoToChecksumScreen());
+//            btnNextAction = new ConditionalAction(new SaveResultToFile());
         }
     }
 
     private class GoToSplashScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenSplash);
+            showScreen(pnlScreenSplash);
 
             OperationPerformer.performAsync(new StartSplash());
             OperationPerformer.perform(new CheckFile());

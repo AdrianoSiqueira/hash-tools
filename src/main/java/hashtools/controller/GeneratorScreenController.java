@@ -9,6 +9,9 @@ import hashtools.domain.Resource;
 import hashtools.formatter.CLIGeneratorResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
+import hashtools.notification.Notification;
+import hashtools.notification.NotificationReceiver;
+import hashtools.notification.NotificationSender;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.service.Service;
@@ -16,6 +19,7 @@ import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Labeled;
@@ -26,11 +30,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 @Slf4j
-public class GeneratorScreenController extends TransitionedScreenController {
+public class GeneratorScreenController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
     private Pane
@@ -48,8 +53,14 @@ public class GeneratorScreenController extends TransitionedScreenController {
     private TextInputControl txtResult;
 
 
+    private Collection<Pane> screenPanes;
     private ResourceBundle language;
 
+
+    @Override
+    public Notification getCallerNotification() {
+        return null;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
@@ -62,7 +73,6 @@ public class GeneratorScreenController extends TransitionedScreenController {
             pnlScreenResult
         );
 
-        resetUI();
         OperationPerformer.performAsync(new GoToInputScreen());
     }
 
@@ -75,16 +85,15 @@ public class GeneratorScreenController extends TransitionedScreenController {
     }
 
     @Override
-    protected void resetUI() {
-        Platform.runLater(() -> lblInput.setText(""));
-        txtResult.clear();
+    public void registerNotificationReceiver(NotificationReceiver receiver) {
+    }
 
-        pnlAlgorithm
-            .getChildren()
-            .stream()
-            .filter(CheckBox.class::isInstance)
-            .map(CheckBox.class::cast)
-            .forEach(checkBox -> checkBox.setSelected(true));
+    @Override
+    public void sendNotification(Notification notification) {
+    }
+
+    @Override
+    public void showScreen(Pane screen) {
     }
 
 
@@ -119,27 +128,26 @@ public class GeneratorScreenController extends TransitionedScreenController {
     private final class GoToAlgorithmScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenAlgorithm);
+            showScreen(pnlScreenAlgorithm);
 
-            btnBackAction = new ConditionalAction(new GoToInputScreen());
-            btnNextAction = new ConditionalAction(new GoToSplashScreen());
+//            btnBackAction = new ConditionalAction(new GoToInputScreen());
+//            btnNextAction = new ConditionalAction(new GoToSplashScreen());
         }
     }
 
     private final class GoToInputScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenInput);
+            showScreen(pnlScreenInput);
 
-            btnBackAction = new ConditionalAction(new GoToMainScreen());
-            btnNextAction = new ConditionalAction(new GoToAlgorithmScreen());
+//            btnBackAction = new ConditionalAction(new GoToMainScreen());
+//            btnNextAction = new ConditionalAction(new GoToAlgorithmScreen());
         }
     }
 
     private final class GoToMainScreen implements Operation {
         @Override
         public void perform() {
-            resetUI();
             pnlRoot.setVisible(false);
         }
     }
@@ -147,17 +155,17 @@ public class GeneratorScreenController extends TransitionedScreenController {
     private final class GoToResultScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenResult);
+            showScreen(pnlScreenResult);
 
-            btnBackAction = new ConditionalAction(new GoToAlgorithmScreen());
-            btnNextAction = new ConditionalAction(new SaveResultToFile());
+//            btnBackAction = new ConditionalAction(new GoToAlgorithmScreen());
+//            btnNextAction = new ConditionalAction(new SaveResultToFile());
         }
     }
 
     private final class GoToSplashScreen implements Operation {
         @Override
         public void perform() {
-            showScreenPane(pnlScreenSplash);
+            showScreen(pnlScreenSplash);
 
             OperationPerformer.performAsync(new StartSplash());
             OperationPerformer.perform(new GenerateChecksums());

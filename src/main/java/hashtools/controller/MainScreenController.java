@@ -3,12 +3,15 @@ package hashtools.controller;
 import hashtools.condition.KeyboardKeyIsActionKey;
 import hashtools.condition.KeyboardKeyIsHomeKey;
 import hashtools.condition.MouseButtonIsPrimary;
+import hashtools.notification.Notification;
+import hashtools.notification.NotificationReceiver;
 import hashtools.operation.ArmNode;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +20,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainScreenController extends Controller {
+public class MainScreenController implements Initializable, NotificationReceiver {
 
     @FXML
     private Pane
@@ -191,7 +194,7 @@ public class MainScreenController extends Controller {
     }
 
     @Override
-    protected void resetUI() {
+    public void receiveNotification(Notification notification) {
     }
 
 
