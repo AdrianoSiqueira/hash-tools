@@ -9,10 +9,10 @@ import hashtools.operation.ArmNode;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.util.FXUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -60,7 +60,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlCheckerKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -68,7 +68,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlCheckerKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
 
         OperationPerformer.performAsync(
@@ -89,7 +89,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlCheckerMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -97,7 +97,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlCheckerMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
     }
 
@@ -106,7 +106,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlComparatorKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -114,7 +114,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlComparatorKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
 
         OperationPerformer.performAsync(
@@ -135,7 +135,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlComparatorMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -143,7 +143,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlComparatorMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
     }
 
@@ -152,7 +152,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlGeneratorKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -160,7 +160,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlGeneratorKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
 
         OperationPerformer.performAsync(
@@ -181,7 +181,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlGeneratorMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new ArmNode((Node) event.getSource())
+            new ArmNode(FXUtil.getNode(event))
         );
     }
 
@@ -189,7 +189,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlGeneratorMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new DisarmNode((Node) event.getSource())
+            new DisarmNode(FXUtil.getNode(event))
         );
     }
 
