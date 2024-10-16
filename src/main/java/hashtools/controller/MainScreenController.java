@@ -1,7 +1,6 @@
 package hashtools.controller;
 
 import hashtools.condition.KeyboardKeyIsActionKey;
-import hashtools.condition.KeyboardKeyIsHomeKey;
 import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
@@ -57,15 +56,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
         pnlMainMenu
             .visibleProperty()
             .bind(shouldBeVisible);
-    }
-
-    @FXML
-    private void closeScreen(KeyEvent event) {
-        // TODO Remove this method when all the three run screens are done
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsHomeKey(event),
-            new OpenMainMenu()
-        );
     }
 
     @Override
