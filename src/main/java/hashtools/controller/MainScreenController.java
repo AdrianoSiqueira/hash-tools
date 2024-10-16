@@ -36,11 +36,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
         pnlMenu,
         pnlMenuChecker,
         pnlMenuComparator,
-        pnlMenuGenerator,
-        pnlMainMenu,
-        pnlChecker,
-        pnlComparator,
-        pnlGenerator;
+        pnlMenuGenerator;
 
     @FXML
     private Button
