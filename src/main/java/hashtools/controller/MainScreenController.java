@@ -2,6 +2,7 @@ package hashtools.controller;
 
 import hashtools.condition.KeyboardKeyIsActionKey;
 import hashtools.condition.MouseButtonIsPrimary;
+import hashtools.domain.Resource;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.operation.ArmNode;
@@ -10,6 +11,8 @@ import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.util.FXUtil;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,10 +48,25 @@ public class MainScreenController implements Initializable, NotificationReceiver
     @FXML
     private Labeled lblFooterSpacer;
 
+    private EventHandler<ActionEvent>
+        btnFooterBackAction,
+        btnFooterNextAction;
+
+
+    @FXML
+    private void btnFooterBackAction(ActionEvent event) {
+        btnFooterBackAction.handle(event);
+    }
+
+    @FXML
+    private void btnFooterNextAction(ActionEvent event) {
+        btnFooterNextAction.handle(event);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-
+        btnFooterBackAction = Resource.EventHandler.NO_ACTION_EVENT;
+        btnFooterNextAction = Resource.EventHandler.NO_ACTION_EVENT;
     }
 
     @FXML
