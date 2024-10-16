@@ -147,6 +147,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private final class OpenMainMenu implements Operation {
         @Override
         public void perform() {
+            pnlFooter.setVisible(false);
+
             pnlContent
                 .getChildren()
                 .setAll(pnlMenu);
