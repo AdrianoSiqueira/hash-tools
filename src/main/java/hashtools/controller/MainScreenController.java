@@ -123,6 +123,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
 
+    private final class NotificationHandler {}
+
     private final class OpenMainMenu implements Operation {
         @Override
         public void perform() {
