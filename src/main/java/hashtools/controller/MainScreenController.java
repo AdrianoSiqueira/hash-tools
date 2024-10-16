@@ -124,15 +124,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
 
-    private final class OpenGeneratorScreen implements Operation {
-        @Override
-        public void perform() {
-            // TODO Remove this statement when the generator screen is done
-            System.out.println(getClass().getSimpleName());
-            pnlGenerator.setVisible(true);
-        }
-    }
-
     private final class OpenMainMenu implements Operation {
         @Override
         public void perform() {
