@@ -3,6 +3,7 @@ package hashtools.operation;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
+import hashtools.notification.ScreenOpenNotification;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class OpenScreen implements Operation {
 
             Notification notification = sender.getCallerNotification();
             receiver.receiveNotification(notification);
+
+            receiver.receiveNotification(new ScreenOpenNotification());
         } catch (IOException e) {
             throw new RuntimeException("Failed to open the screen: '" + fxmlPath + "'", e);
         }
