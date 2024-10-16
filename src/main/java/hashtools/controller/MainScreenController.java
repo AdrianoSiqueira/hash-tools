@@ -124,15 +124,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
 
-    private final class OpenComparatorScreen implements Operation {
-        @Override
-        public void perform() {
-            // TODO Remove this statement when the comparator screen is done
-            System.out.println(getClass().getSimpleName());
-            pnlComparator.setVisible(true);
-        }
-    }
-
     private final class OpenGeneratorScreen implements Operation {
         @Override
         public void perform() {
