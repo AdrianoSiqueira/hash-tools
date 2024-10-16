@@ -104,10 +104,9 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private final class OpenMainMenu implements Operation {
         @Override
         public void perform() {
-            // TODO Remove this class when all the three run screens are done.
-            pnlChecker.setVisible(false);
-            pnlComparator.setVisible(false);
-            pnlGenerator.setVisible(false);
+            pnlContent
+                .getChildren()
+                .setAll(pnlMenu);
         }
     }
 }
