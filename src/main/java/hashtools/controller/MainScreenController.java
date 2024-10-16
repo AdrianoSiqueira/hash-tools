@@ -129,6 +129,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
         switch (notification) {
             case ScreenCloseNotification n -> notificationHandler.handle(n);
             case ScreenOpenNotification n -> notificationHandler.handle(n);
+            default -> {}
         }
     }
 
