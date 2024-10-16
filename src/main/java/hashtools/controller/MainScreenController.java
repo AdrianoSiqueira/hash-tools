@@ -6,6 +6,7 @@ import hashtools.domain.Resource;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.ScreenCloseNotification;
+import hashtools.notification.ScreenOpenNotification;
 import hashtools.operation.ArmNode;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.OpenScreen;
@@ -127,6 +128,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     public void receiveNotification(Notification notification) {
         switch (notification) {
             case ScreenCloseNotification n -> notificationHandler.handle(n);
+            case ScreenOpenNotification n -> notificationHandler.handle(n);
         }
     }
 
@@ -135,6 +137,10 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         public void handle(ScreenCloseNotification notification) {
             OperationPerformer.performAsync(new OpenMainMenu());
+        }
+
+        public void handle(ScreenOpenNotification notification) {
+            OperationPerformer.performAsync(new ShowFooter());
         }
     }
 
