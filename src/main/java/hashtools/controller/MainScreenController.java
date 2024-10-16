@@ -7,6 +7,7 @@ import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.operation.ArmNode;
 import hashtools.operation.DisarmNode;
+import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.util.FXUtil;
@@ -95,14 +96,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
     @FXML
-    private void pnlCheckerMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new OpenCheckerScreen()
-        );
-    }
-
-    @FXML
     private void pnlCheckerMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
@@ -136,14 +129,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new OpenComparatorScreen()
-        );
-    }
-
-    @FXML
-    private void pnlComparatorMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
             new OpenComparatorScreen()
         );
     }
@@ -187,14 +172,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
     @FXML
-    private void pnlGeneratorMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new OpenGeneratorScreen()
-        );
-    }
-
-    @FXML
     private void pnlGeneratorMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
@@ -207,6 +184,15 @@ public class MainScreenController implements Initializable, NotificationReceiver
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new DisarmNode(FXUtil.getNode(event))
+        );
+    }
+
+
+    @FXML
+    private void pnlMenuItemMouseClicked(MouseEvent event) {
+        OperationPerformer.performAsync(
+            new MouseButtonIsPrimary(event),
+            new OpenScreen(this, FXUtil.getFXMLPath(event), pnlContent)
         );
     }
 
