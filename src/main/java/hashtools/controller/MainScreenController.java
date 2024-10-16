@@ -67,6 +67,10 @@ public class MainScreenController implements Initializable, NotificationReceiver
     public void initialize(URL url, ResourceBundle bundle) {
         btnFooterBackAction = Resource.EventHandler.NO_ACTION_EVENT;
         btnFooterNextAction = Resource.EventHandler.NO_ACTION_EVENT;
+
+        pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
+        pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
+        pnlMenuGenerator.setUserData(Resource.FXMLPath.GENERATOR_SCREEN);
     }
 
     @FXML
