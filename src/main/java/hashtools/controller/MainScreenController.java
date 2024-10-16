@@ -146,4 +146,11 @@ public class MainScreenController implements Initializable, NotificationReceiver
                 .setAll(pnlMenu);
         }
     }
+
+    private final class ShowFooter implements Operation {
+        @Override
+        public void perform() {
+            pnlFooter.setVisible(true);
+        }
+    }
 }
