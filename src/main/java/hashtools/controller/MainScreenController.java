@@ -75,31 +75,12 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
 
     @FXML
-    private void pnlCheckerKeyPressed(KeyEvent event) {
+    private void pnlMenuItemKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
             new ArmNode(FXUtil.getNode(event))
         );
     }
-
-
-    @FXML
-    private void pnlComparatorKeyPressed(KeyEvent event) {
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKey(event),
-            new ArmNode(FXUtil.getNode(event))
-        );
-    }
-
-
-    @FXML
-    private void pnlGeneratorKeyPressed(KeyEvent event) {
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKey(event),
-            new ArmNode(FXUtil.getNode(event))
-        );
-    }
-
 
     @FXML
     private void pnlMenuItemKeyReleased(KeyEvent event) {
