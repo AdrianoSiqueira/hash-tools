@@ -5,6 +5,7 @@ import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.Resource;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
+import hashtools.notification.ScreenCloseNotification;
 import hashtools.operation.ArmNode;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.OpenScreen;
@@ -52,6 +53,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
         btnFooterBackAction,
         btnFooterNextAction;
 
+    private NotificationHandler notificationHandler;
+
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
@@ -65,6 +68,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
+        notificationHandler = new NotificationHandler();
+
         btnFooterBackAction = Resource.EventHandler.NO_ACTION_EVENT;
         btnFooterNextAction = Resource.EventHandler.NO_ACTION_EVENT;
 
@@ -120,10 +125,18 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     @Override
     public void receiveNotification(Notification notification) {
+        switch (notification) {
+            case ScreenCloseNotification n -> notificationHandler.handle(n);
+        }
     }
 
 
-    private final class NotificationHandler {}
+    private final class NotificationHandler {
+
+        public void handle(ScreenCloseNotification notification) {
+            OperationPerformer.performAsync(new OpenMainMenu());
+        }
+    }
 
     private final class OpenMainMenu implements Operation {
         @Override
