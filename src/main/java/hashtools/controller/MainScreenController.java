@@ -103,14 +103,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
         );
     }
 
-    @FXML
-    private void pnlCheckerMouseReleased(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new DisarmNode(FXUtil.getNode(event))
-        );
-    }
-
 
     @FXML
     private void pnlComparatorKeyPressed(KeyEvent event) {
@@ -138,14 +130,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ArmNode(FXUtil.getNode(event))
-        );
-    }
-
-    @FXML
-    private void pnlComparatorMouseReleased(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new DisarmNode(FXUtil.getNode(event))
         );
     }
 
@@ -179,20 +163,20 @@ public class MainScreenController implements Initializable, NotificationReceiver
         );
     }
 
-    @FXML
-    private void pnlGeneratorMouseReleased(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new DisarmNode(FXUtil.getNode(event))
-        );
-    }
-
 
     @FXML
     private void pnlMenuItemMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenScreen(this, FXUtil.getFXMLPath(event), pnlContent)
+        );
+    }
+
+    @FXML
+    private void pnlMenuItemMouseReleased(MouseEvent event) {
+        OperationPerformer.performAsync(
+            new MouseButtonIsPrimary(event),
+            new DisarmNode(FXUtil.getNode(event))
         );
     }
 
