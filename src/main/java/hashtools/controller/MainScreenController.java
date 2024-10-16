@@ -124,15 +124,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
 
-    private final class OpenCheckerScreen implements Operation {
-        @Override
-        public void perform() {
-            // TODO Remove this statement when the checker screen is done
-            System.out.println(getClass().getSimpleName());
-            pnlChecker.setVisible(true);
-        }
-    }
-
     private final class OpenComparatorScreen implements Operation {
         @Override
         public void perform() {
