@@ -10,7 +10,6 @@ import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.util.FXUtil;
-import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -47,22 +46,10 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private Labeled lblFooterSpacer;
 
 
-    private void bindPnlRootVisibility() {
-        BooleanBinding shouldBeVisible = pnlChecker
-            .visibleProperty().not()
-            .and(pnlComparator.visibleProperty().not())
-            .and(pnlGenerator.visibleProperty().not());
-
-        pnlMainMenu
-            .visibleProperty()
-            .bind(shouldBeVisible);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        bindPnlRootVisibility();
-    }
 
+    }
 
     @FXML
     private void pnlMenuItemKeyPressed(KeyEvent event) {
