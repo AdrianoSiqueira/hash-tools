@@ -3,6 +3,7 @@ package hashtools.controller;
 import hashtools.condition.KeyboardKeyIsActionKey;
 import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.Resource;
+import hashtools.notification.FooterButtonActionNotification;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.ScreenCloseNotification;
@@ -123,6 +124,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     @Override
     public void receiveNotification(Notification notification) {
         switch (notification) {
+            case FooterButtonActionNotification n -> notificationHandler.handle(n);
             case ScreenCloseNotification n -> notificationHandler.handle(n);
             case ScreenOpenNotification n -> notificationHandler.handle(n);
             default -> {}
@@ -131,6 +133,11 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
 
     private final class NotificationHandler {
+
+        public void handle(FooterButtonActionNotification notification) {
+            btnFooterBackAction = notification.getBtnFooterBackAction();
+            btnFooterNextAction = notification.getBtnFooterNextAction();
+        }
 
         public void handle(ScreenCloseNotification notification) {
             OperationPerformer.performAsync(new OpenMainMenu());
