@@ -92,7 +92,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new OpenScreen(this, FXUtil.getFXMLPath(event), pnlContent)
+            new OpenScreen(this, FXUtil.getUserData(event, String.class), pnlContent)
         );
     }
 
@@ -100,7 +100,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlMenuItemMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new OpenScreen(this, FXUtil.getFXMLPath(event), pnlContent)
+            new OpenScreen(this, FXUtil.getUserData(event, String.class), pnlContent)
         );
     }
 

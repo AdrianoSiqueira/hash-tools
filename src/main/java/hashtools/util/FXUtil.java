@@ -5,13 +5,11 @@ import javafx.scene.Node;
 
 public class FXUtil {
 
-    public static String getFXMLPath(Event event) {
-        return (String) FXUtil
-            .getNode(event)
-            .getUserData();
-    }
-
     public static Node getNode(Event event) {
         return (Node) event.getSource();
+    }
+
+    public static <T> T getUserData(Event event, Class<T> userDataType) {
+        return userDataType.cast(getNode(event));
     }
 }
