@@ -1,7 +1,6 @@
 package hashtools.notification;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import hashtools.operation.ConditionalOperation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("ClassCanBeRecord")
 public class FooterButtonActionNotification implements Notification {
-    private final EventHandler<ActionEvent> btnFooterBackAction;
-    private final EventHandler<ActionEvent> btnFooterNextAction;
+    private final ConditionalOperation btnFooterBackAction;
+    private final ConditionalOperation btnFooterNextAction;
 }

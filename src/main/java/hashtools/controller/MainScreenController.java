@@ -9,13 +9,13 @@ import hashtools.notification.NotificationReceiver;
 import hashtools.notification.ScreenCloseNotification;
 import hashtools.notification.ScreenOpenNotification;
 import hashtools.operation.ArmNode;
+import hashtools.operation.ConditionalOperation;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.util.FXUtil;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -47,7 +47,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     @FXML
     private Labeled lblFooterSpacer;
 
-    private EventHandler<ActionEvent>
+    private ConditionalOperation
         btnFooterBackAction,
         btnFooterNextAction;
 
@@ -56,20 +56,26 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
-        btnFooterBackAction.handle(event);
+        OperationPerformer.performAsync(
+            btnFooterBackAction.getCondition(),
+            btnFooterBackAction.getOperation()
+        );
     }
 
     @FXML
     private void btnFooterNextAction(ActionEvent event) {
-        btnFooterNextAction.handle(event);
+        OperationPerformer.performAsync(
+            btnFooterNextAction.getCondition(),
+            btnFooterNextAction.getOperation()
+        );
     }
 
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
         notificationHandler = new NotificationHandler();
 
-        btnFooterBackAction = Resource.EventHandler.NO_ACTION_EVENT;
-        btnFooterNextAction = Resource.EventHandler.NO_ACTION_EVENT;
+        btnFooterBackAction = Resource.ConditionalOperation.NO_ACTION;
+        btnFooterNextAction = Resource.ConditionalOperation.NO_ACTION;
 
         pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
