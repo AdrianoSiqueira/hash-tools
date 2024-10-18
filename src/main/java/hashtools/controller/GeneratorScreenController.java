@@ -9,9 +9,11 @@ import hashtools.domain.Resource;
 import hashtools.formatter.CLIGeneratorResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
+import hashtools.notification.FooterButtonActionNotification;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
+import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.service.Service;
@@ -30,9 +32,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static hashtools.domain.Resource.StaticImplementation.NO_CONDITION;
 
 @Slf4j
 public class GeneratorScreenController implements Initializable, NotificationSender, TransitionedScreen {
@@ -68,18 +73,23 @@ public class GeneratorScreenController implements Initializable, NotificationSen
     private TextInputControl txtScreenResultContent;
 
 
+    private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
     private ResourceBundle language;
 
 
     @Override
     public Notification getCallerNotification() {
-        return null;
+        return new FooterButtonActionNotification(
+            new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
+            new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen())
+        );
     }
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
         this.language = language;
+        receivers = new ArrayList<>();
 
         screenPanes = List.of(
             pnlScreenInput,
@@ -101,10 +111,12 @@ public class GeneratorScreenController implements Initializable, NotificationSen
 
     @Override
     public void registerNotificationReceiver(NotificationReceiver receiver) {
+        receivers.add(receiver);
     }
 
     @Override
     public void sendNotification(Notification notification) {
+        receivers.forEach(receiver -> receiver.receiveNotification(notification));
     }
 
     @Override
