@@ -4,7 +4,6 @@ import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
 import hashtools.domain.Extension;
-import hashtools.domain.Resource;
 import hashtools.formatter.CLICheckerResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
@@ -14,6 +13,7 @@ import hashtools.notification.NotificationSender;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
@@ -21,7 +21,6 @@ import hashtools.util.FileUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
@@ -172,7 +171,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
         public void perform() {
             showScreen(pnlScreenSplash);
 
-            OperationPerformer.performAsync(new StartSplash());
+            OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.perform(new CheckFile());
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new GoToResultScreen());
@@ -224,18 +223,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
                     pnlRoot.getScene().getWindow())
                 .ifPresent(file -> FileUtil.replaceContent(txtResult.getText(), file))
             );
-        }
-    }
-
-    private final class StartSplash implements Operation {
-        @Override
-        public void perform() {
-            // TODO Replace this statement with a css rule
-            pnlRoot.setCursor(Cursor.WAIT);
-            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, true);
-            pnlRoot
-                .getChildren()
-                .forEach(node -> node.setDisable(true));
         }
     }
 }
