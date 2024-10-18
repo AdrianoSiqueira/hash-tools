@@ -240,18 +240,6 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         }
     }
 
-    private final class StartSplash implements Operation {
-        @Override
-        public void perform() {
-            // TODO Replace this statement with a css rule
-            pnlRoot.setCursor(Cursor.WAIT);
-            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, true);
-            pnlRoot
-                .getChildren()
-                .forEach(node -> node.setDisable(true));
-        }
-    }
-
     private final class StopSplash implements Operation {
         @Override
         public void perform() {
