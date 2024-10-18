@@ -1,13 +1,11 @@
 package hashtools.operation;
 
 import hashtools.condition.Condition;
-import hashtools.condition.NoCondition;
+
+import static hashtools.domain.Resource.StaticImplementation.NO_CONDITION;
+import static hashtools.domain.Resource.StaticImplementation.NO_OPERATION;
 
 public class OperationPerformer {
-
-    private static final Condition NO_CONDITION = new NoCondition();
-    private static final Operation NO_OPERATION = new NoOperation();
-
 
     public static void perform(Operation operation) {
         perform(NO_CONDITION, operation, NO_OPERATION);

@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 public final class Resource {
 
     public static final class ConditionalOperation {
-        public static final hashtools.operation.ConditionalOperation NO_ACTION = new hashtools.operation.ConditionalOperation(new NoCondition(), new NoOperation());
+        public static final hashtools.operation.ConditionalOperation NO_ACTION = new hashtools.operation.ConditionalOperation(StaticImplementation.NO_CONDITION, StaticImplementation.NO_OPERATION);
     }
 
     public static final class FXMLPath {
