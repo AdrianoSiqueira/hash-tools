@@ -7,10 +7,12 @@ import hashtools.domain.Extension;
 import hashtools.formatter.CLICheckerResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
+import hashtools.notification.FooterButtonActionNotification;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
+import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.StartSplashScreen;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static hashtools.domain.Resource.StaticImplementation.NO_CONDITION;
 
 public class CheckerScreenController implements Initializable, NotificationSender, TransitionedScreen {
 
@@ -151,8 +155,10 @@ public class CheckerScreenController implements Initializable, NotificationSende
         public void perform() {
             showScreen(pnlScreenInput);
 
-//            btnBackAction = new ConditionalAction(new GoToMainScreen());
-//            btnNextAction = new ConditionalAction(new GoToChecksumScreen());
+            sendNotification(new FooterButtonActionNotification(
+                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
+                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+            ));
         }
     }
 
