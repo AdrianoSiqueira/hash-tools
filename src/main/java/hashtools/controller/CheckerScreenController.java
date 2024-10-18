@@ -11,6 +11,7 @@ import hashtools.notification.FooterButtonActionNotification;
 import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
+import hashtools.notification.ScreenCloseNotification;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
@@ -167,7 +168,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     private final class GoToMainScreen implements Operation {
         @Override
         public void perform() {
-            pnlRoot.setVisible(false);
+            sendNotification(new ScreenCloseNotification());
         }
     }
 
