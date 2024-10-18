@@ -14,6 +14,7 @@ import hashtools.notification.NotificationSender;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
@@ -173,7 +174,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
             OperationPerformer.performAsync(new StartSplash());
             OperationPerformer.perform(new CheckFile());
-            OperationPerformer.performAsync(new StopSplash());
+            OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
@@ -235,18 +236,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
             pnlRoot
                 .getChildren()
                 .forEach(node -> node.setDisable(true));
-        }
-    }
-
-    private final class StopSplash implements Operation {
-        @Override
-        public void perform() {
-            // TODO Replace this statement with a css rule
-            pnlRoot.setCursor(Cursor.DEFAULT);
-            pnlRoot.pseudoClassStateChanged(Resource.Static.DISABLED, false);
-            pnlRoot
-                .getChildren()
-                .forEach(node -> node.setDisable(false));
         }
     }
 }
