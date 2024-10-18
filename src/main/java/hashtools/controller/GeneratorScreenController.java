@@ -39,18 +39,33 @@ public class GeneratorScreenController implements Initializable, NotificationSen
 
     @FXML
     private Pane
-        pnlScreenInput,
-        pnlScreenAlgorithm,
-        pnlScreenSplash,
-        pnlScreenResult,
         pnlRoot,
-        pnlAlgorithm;
+        pnlScreenInput,
+        pnlScreenInputContent,
+        pnlScreenAlgorithm,
+        pnlScreenAlgorithmContent,
+        pnlScreenSplash,
+        pnlScreenResult;
 
     @FXML
-    private Labeled lblInput;
+    private Labeled
+        lblScreenInputHeader,
+        lblScreenInputContent,
+        lblScreenAlgorithmHeader,
+        lblScreenSplashContent,
+        lblScreenResultHeader;
 
     @FXML
-    private TextInputControl txtResult;
+    private CheckBox
+        chkMd5,
+        chkSha1,
+        chkSha224,
+        chkSha256,
+        chkSha384,
+        chkSha512;
+
+    @FXML
+    private TextInputControl txtScreenResultContent;
 
 
     private Collection<Pane> screenPanes;
@@ -77,7 +92,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
     }
 
     @FXML
-    private void pnlInputMouseClicked(MouseEvent event) {
+    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenInputFile()
@@ -100,9 +115,9 @@ public class GeneratorScreenController implements Initializable, NotificationSen
     private final class GenerateChecksums implements Operation {
         @Override
         public void perform() {
-            Path inputFile = Path.of(lblInput.getText());
+            Path inputFile = Path.of(lblScreenInputContent.getText());
 
-            List<Algorithm> algorithms = pnlAlgorithm
+            List<Algorithm> algorithms = pnlScreenAlgorithmContent
                 .getChildren()
                 .stream()
                 .filter(CheckBox.class::isInstance)
@@ -121,7 +136,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
             GeneratorResponse response = service.run(request);
 
             String result = service.format(response, new CLIGeneratorResponseFormatter());
-            txtResult.setText(result);
+            txtScreenResultContent.setText(result);
         }
     }
 
@@ -184,7 +199,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
                     Extension.getAllExtensions(language),
                     pnlRoot.getScene().getWindow())
                 .map(Path::toString)
-                .ifPresent(lblInput::setText)
+                .ifPresent(lblScreenInputContent::setText)
             );
         }
     }
@@ -197,7 +212,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
                     "Choose where to save",
                     System.getProperty("user.home"),
                     pnlRoot.getScene().getWindow())
-                .ifPresent(file -> FileUtil.replaceContent(txtResult.getText(), file))
+                .ifPresent(file -> FileUtil.replaceContent(txtScreenResultContent.getText(), file))
             );
         }
     }
