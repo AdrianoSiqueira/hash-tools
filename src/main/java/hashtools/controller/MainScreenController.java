@@ -15,6 +15,7 @@ import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.util.FXUtil;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -159,9 +160,10 @@ public class MainScreenController implements Initializable, NotificationReceiver
         public void perform() {
             pnlFooter.setVisible(false);
 
-            pnlContent
+            Platform.runLater(() -> pnlContent
                 .getChildren()
-                .setAll(pnlMenu);
+                .setAll(pnlMenu)
+            );
         }
     }
 

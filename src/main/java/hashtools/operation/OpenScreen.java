@@ -4,6 +4,7 @@ import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
 import hashtools.notification.ScreenOpenNotification;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,10 @@ public class OpenScreen implements Operation {
             loader.setLocation(getClass().getResource(fxmlPath));
 
             Pane pane = loader.load();
-            pnlContent.getChildren().setAll(pane);
+            Platform.runLater(() -> pnlContent
+                .getChildren()
+                .setAll(pane)
+            );
 
             NotificationSender sender = loader.getController();
             sender.registerNotificationReceiver(receiver);
