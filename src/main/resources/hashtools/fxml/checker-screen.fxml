@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="hashtools.controller.CheckerScreenController" fx:id="pnlRoot" stylesheets="@../css/parent.css, @../css/checker-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <StackPane VBox.vgrow="ALWAYS">
-        <VBox fx:id="pnlScreenInput" styleClass="pnl-slide">
-            <Label maxWidth="1E6" text="Select a file to check"/>
-            <StackPane VBox.vgrow="ALWAYS" onMouseClicked="#pnlInputMouseClicked" styleClass="pnl-button">
-                <Label fx:id="lblInput" styleClass="lbl-button-text"/>
-            </StackPane>
-        </VBox>
+<StackPane fx:controller="hashtools.controller.CheckerScreenController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-        <VBox fx:id="pnlScreenChecksum" styleClass="pnl-slide">
-            <Label maxWidth="1E6" text="Select the checksum file"/>
-            <StackPane VBox.vgrow="ALWAYS" onMouseClicked="#pnlChecksumMouseClicked" styleClass="pnl-button">
-                <Label fx:id="lblChecksum" styleClass="lbl-button-text"/>
-            </StackPane>
-        </VBox>
-
-        <StackPane fx:id="pnlScreenSplash" visible="false">
-            <Label text="Wait..."/>
+    <VBox fx:id="pnlScreenInput">
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="Select a file to check"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pnl-button">
+            <Label fx:id="lblScreenInputContent" styleClass="lbl-button-text"/>
         </StackPane>
+    </VBox>
 
-        <VBox fx:id="pnlScreenResult" styleClass="pnl-slide" visible="false">
-            <Label text="Checking results"/>
-            <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
-        </VBox>
+    <VBox fx:id="pnlScreenChecksum" visible="false">
+        <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="Select the checksum file"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pnl-button">
+            <Label fx:id="lblScreenChecksumContent" styleClass="lbl-button-text"/>
+        </StackPane>
+    </VBox>
+
+    <StackPane fx:id="pnlScreenSplash" visible="false">
+        <Label fx:id="lblScreenSplashContent" text="Wait..."/>
     </StackPane>
 
-    <HBox>
-        <Button onAction="#btnBackAction" text="Back"/>
-        <Label HBox.hgrow="ALWAYS" maxWidth="1E6"/>
-        <Button onAction="#btnNextAction" text="Next"/>
-    </HBox>
-</VBox>
+    <VBox fx:id="pnlScreenResult" visible="false">
+        <Label fx:id="lblScreenResultHeader" text="Checking results"/>
+        <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
+    </VBox>
+</StackPane>
