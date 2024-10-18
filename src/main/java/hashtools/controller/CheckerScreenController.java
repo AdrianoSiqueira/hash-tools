@@ -176,8 +176,10 @@ public class CheckerScreenController implements Initializable, NotificationSende
         public void perform() {
             showScreen(pnlScreenResult);
 
-//            btnBackAction = new ConditionalAction(new GoToChecksumScreen());
-//            btnNextAction = new ConditionalAction(new SaveResultToFile());
+            sendNotification(new FooterButtonActionNotification(
+                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen()),
+                new ConditionalOperation(NO_CONDITION, new SaveResultToFile())
+            ));
         }
     }
 
