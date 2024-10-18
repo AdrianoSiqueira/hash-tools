@@ -82,7 +82,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     }
 
     @FXML
-    private void pnlChecksumMouseClicked(MouseEvent event) {
+    private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenChecksumFile()
@@ -90,7 +90,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     }
 
     @FXML
-    private void pnlInputMouseClicked(MouseEvent event) {
+    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new OpenInputFile()
@@ -113,8 +113,8 @@ public class CheckerScreenController implements Initializable, NotificationSende
     private final class CheckFile implements Operation {
         @Override
         public void perform() {
-            Path inputFile = Path.of(lblInput.getText());
-            Path checksumFile = Path.of(lblChecksum.getText());
+            Path inputFile = Path.of(lblScreenInputContent.getText());
+            Path checksumFile = Path.of(lblScreenChecksumContent.getText());
 
             CheckerRequest request = new CheckerRequest();
             request.setInput(new FileUpdater(inputFile));
@@ -193,7 +193,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
                     filters,
                     pnlRoot.getScene().getWindow())
                 .map(Path::toString)
-                .ifPresent(lblChecksum::setText)
+                .ifPresent(lblScreenChecksumContent::setText)
             );
         }
     }
@@ -208,7 +208,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
                     Extension.getAllExtensions(language),
                     pnlRoot.getScene().getWindow())
                 .map(Path::toString)
-                .ifPresent(lblInput::setText)
+                .ifPresent(lblScreenInputContent::setText)
             );
         }
     }
