@@ -39,14 +39,20 @@ public class CheckerScreenController implements Initializable, NotificationSende
     private Pane
         pnlRoot,
         pnlScreenInput,
+        pnlScreenInputContent,
         pnlScreenChecksum,
+        pnlScreenChecksumContent,
         pnlScreenSplash,
         pnlScreenResult;
 
     @FXML
     private Labeled
-        lblInput,
-        lblChecksum;
+        lblScreenInputHeader,
+        lblScreenInputContent,
+        lblScreenChecksumHeader,
+        lblScreenChecksumContent,
+        lblScreenSplashContent,
+        lblScreenResultHeader;
 
     @FXML
     private TextInputControl txtResult;
