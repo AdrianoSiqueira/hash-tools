@@ -1,7 +1,9 @@
 package hashtools.domain;
 
+import hashtools.condition.Condition;
 import hashtools.condition.NoCondition;
 import hashtools.operation.NoOperation;
+import hashtools.operation.Operation;
 
 import java.util.concurrent.ExecutorService;
 
@@ -28,5 +30,10 @@ public final class Resource {
 
     public static final class Software {
         public static final ExecutorService THREAD_POOL = ThreadPool.newCachedDaemon();
+    }
+
+    public static final class StaticImplementation {
+        public static final Condition NO_CONDITION = new NoCondition();
+        public static final Operation NO_OPERATION = new NoOperation();
     }
 }
