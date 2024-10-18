@@ -193,8 +193,10 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         public void perform() {
             showScreen(pnlScreenResult);
 
-//            btnBackAction = new ConditionalAction(new GoToAlgorithmScreen());
-//            btnNextAction = new ConditionalAction(new SaveResultToFile());
+            sendNotification(new FooterButtonActionNotification(
+                new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen()),
+                new ConditionalOperation(NO_CONDITION, new SaveResultToFile())
+            ));
         }
     }
 
