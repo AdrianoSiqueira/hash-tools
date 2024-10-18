@@ -10,6 +10,6 @@ public class FXUtil {
     }
 
     public static <T> T getUserData(Event event, Class<T> userDataType) {
-        return userDataType.cast(getNode(event));
+        return userDataType.cast(getNode(event).getUserData());
     }
 }
