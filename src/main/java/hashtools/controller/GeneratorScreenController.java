@@ -121,6 +121,8 @@ public class GeneratorScreenController implements Initializable, NotificationSen
 
     @Override
     public void showScreen(Pane screen) {
+        screenPanes.forEach(pane -> pane.setVisible(false));
+        screen.setVisible(true);
     }
 
 
