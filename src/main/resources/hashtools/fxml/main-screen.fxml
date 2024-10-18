@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox fx:controller="hashtools.controller.MainScreenController" fx:id="pnlRoot" prefHeight="480.0" prefWidth="853.0" styleClass="pnl-root" stylesheets="@../css/main-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-    <StackPane fx:id="pnlContent">
+    <StackPane VBox.vgrow="ALWAYS" fx:id="pnlContent">
         <VBox fx:id="pnlMenu" styleClass="pnl-main-menu">
             <GridPane focusTraversable="true" fx:id="pnlMenuChecker" onKeyPressed="#pnlMenuItemKeyPressed" onKeyReleased="#pnlMenuItemKeyReleased" onMouseClicked="#pnlMenuItemMouseClicked" onMousePressed="#pnlMenuItemMousePressed" onMouseReleased="#pnlMenuItemMouseReleased" styleClass="pnl-button">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
