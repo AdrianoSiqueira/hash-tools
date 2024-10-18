@@ -29,6 +29,7 @@ import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -58,6 +59,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     private TextInputControl txtResult;
 
 
+    private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
     private ResourceBundle language;
 
@@ -70,6 +72,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     @Override
     public void initialize(URL url, ResourceBundle language) {
         this.language = language;
+        receivers = new ArrayList<>();
 
         screenPanes = List.of(
             pnlScreenInput,
@@ -99,10 +102,12 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     @Override
     public void registerNotificationReceiver(NotificationReceiver receiver) {
+        receivers.add(receiver);
     }
 
     @Override
     public void sendNotification(Notification notification) {
+        receivers.forEach(receiver -> receiver.receiveNotification(notification));
     }
 
     @Override
