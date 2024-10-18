@@ -17,6 +17,8 @@ import hashtools.notification.ScreenCloseNotification;
 import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.StartSplashScreen;
+import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
@@ -201,9 +203,9 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         public void perform() {
             showScreen(pnlScreenSplash);
 
-            OperationPerformer.performAsync(new StartSplash());
+            OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.perform(new GenerateChecksums());
-            OperationPerformer.performAsync(new StopSplash());
+            OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
