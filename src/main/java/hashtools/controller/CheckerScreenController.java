@@ -71,7 +71,10 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     @Override
     public Notification getCallerNotification() {
-        return null;
+        return new FooterButtonActionNotification(
+            new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
+            new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+        );
     }
 
     @Override
