@@ -1,48 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="hashtools.controller.GeneratorScreenController" fx:id="pnlRoot" styleClass="transparent-pane" stylesheets="@../css/parent.css, @../css/generator-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<StackPane fx:controller="hashtools.controller.GeneratorScreenController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-    <StackPane VBox.vgrow="ALWAYS">
-        <VBox fx:id="pnlScreenInput" styleClass="pnl-slide">
-            <Label maxWidth="1E6" text="Select a file to generate"/>
-            <StackPane VBox.vgrow="ALWAYS" onMouseClicked="#pnlInputMouseClicked" styleClass="pnl-button">
-                <Label fx:id="lblInput" styleClass="lbl-button-text"/>
-            </StackPane>
-        </VBox>
-
-        <VBox fx:id="pnlScreenAlgorithm" styleClass="pnl-slide" visible="false">
-            <Label maxWidth="1E6" text="Which algorithms to generate?"/>
-            <GridPane VBox.vgrow="ALWAYS" fx:id="pnlAlgorithm" styleClass="pnl-algorithm">
-                <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="1E6" selected="true" text="MD5"/>
-                <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="1E6" selected="true" text="SHA-1"/>
-                <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="1E6" selected="true" text="SHA-224"/>
-                <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="1E6" selected="true" text="SHA-256"/>
-                <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="1E6" selected="true" text="SHA-384"/>
-                <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="1E6" selected="true" text="SHA-512"/>
-            </GridPane>
-        </VBox>
-
-        <StackPane fx:id="pnlScreenSplash" visible="false">
-            <Label text="Wait..."/>
+    <VBox fx:id="pnlScreenInput">
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="Select a file to generate"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked">
+            <Label fx:id="lblScreenInputContent"/>
         </StackPane>
+    </VBox>
 
-        <VBox fx:id="pnlScreenResult" styleClass="pnl-slide" visible="false">
-            <Label text="Generation results"/>
-            <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
-        </VBox>
+    <VBox fx:id="pnlScreenAlgorithm" visible="false">
+        <Label fx:id="lblScreenAlgorithmHeader" maxWidth="1E6" text="Which algorithms to generate?"/>
+        <GridPane VBox.vgrow="ALWAYS" fx:id="pnlScreenAlgorithmContent">
+            <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="chkMd5" maxWidth="1E6" selected="true" text="MD5"/>
+            <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="chkSha1" maxWidth="1E6" selected="true" text="SHA-1"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="chkSha224" maxWidth="1E6" selected="true" text="SHA-224"/>
+            <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="chkSha256" maxWidth="1E6" selected="true" text="SHA-256"/>
+            <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="chkSha384" maxWidth="1E6" selected="true" text="SHA-384"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="chkSha512" maxWidth="1E6" selected="true" text="SHA-512"/>
+        </GridPane>
+    </VBox>
+
+    <StackPane fx:id="pnlScreenSplash" visible="false">
+        <Label fx:id="lblScreenSplashContent" text="Wait..."/>
     </StackPane>
 
-    <HBox>
-        <Button onAction="#btnBackAction" text="Back"/>
-        <Label HBox.hgrow="ALWAYS" maxWidth="1E6"/>
-        <Button onAction="#btnNextAction" text="Next"/>
-    </HBox>
-</VBox>
+    <VBox fx:id="pnlScreenResult" visible="false">
+        <Label fx:id="lblScreenResultHeader" text="Generation results"/>
+        <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtScreenResultContent"/>
+    </VBox>
+</StackPane>
