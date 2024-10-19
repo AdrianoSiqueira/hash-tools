@@ -18,6 +18,7 @@ import hashtools.operation.EnableChildren;
 import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.ShowNode;
 import hashtools.util.FXUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -151,7 +152,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
         }
 
         public void handle(ScreenOpenNotification notification) {
-            OperationPerformer.performAsync(new ShowFooter());
+            OperationPerformer.performAsync(new ShowNode(pnlFooter));
         }
 
         public void handle(SplashStartNotification notification) {
@@ -172,13 +173,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
                 .getChildren()
                 .setAll(pnlMenu)
             );
-        }
-    }
-
-    private final class ShowFooter implements Operation {
-        @Override
-        public void perform() {
-            pnlFooter.setVisible(true);
         }
     }
 }
