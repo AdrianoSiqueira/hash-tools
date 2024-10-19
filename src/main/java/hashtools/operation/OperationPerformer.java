@@ -23,6 +23,10 @@ public class OperationPerformer {
         }
     }
 
+    public static void perform(ConditionalOperation operation) {
+        perform(operation.getCondition(), operation.getOperation(), NO_OPERATION);
+    }
+
 
     public static void performAsync(Operation operation) {
         performAsync(NO_CONDITION, operation, NO_OPERATION);
@@ -38,5 +42,9 @@ public class OperationPerformer {
                 ? operationIfTrue::perform
                 : operationIfFalse::perform
         ).start();
+    }
+
+    public static void performAsync(ConditionalOperation operation) {
+        performAsync(operation.getCondition(), operation.getOperation(), NO_OPERATION);
     }
 }

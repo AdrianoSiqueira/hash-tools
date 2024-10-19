@@ -57,18 +57,12 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
-        OperationPerformer.performAsync(
-            btnFooterBackAction.getCondition(),
-            btnFooterBackAction.getOperation()
-        );
+        OperationPerformer.perform(btnFooterBackAction);
     }
 
     @FXML
     private void btnFooterNextAction(ActionEvent event) {
-        OperationPerformer.performAsync(
-            btnFooterNextAction.getCondition(),
-            btnFooterNextAction.getOperation()
-        );
+        OperationPerformer.performAsync(btnFooterNextAction);
     }
 
     @Override
