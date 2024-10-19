@@ -8,8 +8,10 @@ import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.ScreenCloseNotification;
 import hashtools.notification.ScreenOpenNotification;
+import hashtools.notification.SplashStartNotification;
 import hashtools.operation.ArmNode;
 import hashtools.operation.ConditionalOperation;
+import hashtools.operation.DisableChildren;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
@@ -128,6 +130,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
             case FooterButtonActionNotification n -> notificationHandler.handle(n);
             case ScreenCloseNotification n -> notificationHandler.handle(n);
             case ScreenOpenNotification n -> notificationHandler.handle(n);
+            case SplashStartNotification n -> notificationHandler.handle(n);
             default -> {}
         }
     }
@@ -146,6 +149,10 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         public void handle(ScreenOpenNotification notification) {
             OperationPerformer.performAsync(new ShowFooter());
+        }
+
+        public void handle(SplashStartNotification notification) {
+            OperationPerformer.performAsync(new DisableChildren(pnlFooter));
         }
     }
 
