@@ -1,6 +1,7 @@
 package hashtools.operation;
 
 import hashtools.condition.Condition;
+import hashtools.domain.Resource;
 
 import static hashtools.domain.Resource.StaticImplementation.NO_CONDITION;
 import static hashtools.domain.Resource.StaticImplementation.NO_OPERATION;
@@ -37,11 +38,11 @@ public class OperationPerformer {
     }
 
     public static void performAsync(Condition condition, Operation operationIfTrue, Operation operationIfFalse) {
-        new Thread(
+        Resource.Software.THREAD_POOL.execute(
             condition.isTrue()
                 ? operationIfTrue::perform
                 : operationIfFalse::perform
-        ).start();
+        );
     }
 
     public static void performAsync(ConditionalOperation operation) {
