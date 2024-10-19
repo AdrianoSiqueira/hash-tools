@@ -15,8 +15,8 @@ public final class Resource {
 
     public static final class FXMLPath {
         public static final String CHECKER_SCREEN = "/hashtools/fxml/checker-screen.fxml";
-        public static final String COMPARATOR_SCREEN = "/hashtools/fxml/checker-screen.fxml";
-        public static final String GENERATOR_SCREEN = "/hashtools/fxml/checker-screen.fxml";
+        public static final String COMPARATOR_SCREEN = "/hashtools/fxml/comparator-screen.fxml";
+        public static final String GENERATOR_SCREEN = "/hashtools/fxml/generator-screen.fxml";
     }
 
     public static final class Hardware {
