@@ -23,6 +23,13 @@ public final class Resource {
         public static final int CPU_CORES = Runtime.getRuntime().availableProcessors();
     }
 
+    public static final class PropertyKey {
+        public static final String LABELED = "labeled";
+        public static final String DIALOG_FILTER = "dialog.filter";
+        public static final String DIALOG_TITLE = "dialog.title";
+        public static final String HOME_DIRECTORY = "user.home";
+    }
+
     public static final class PseudoClass {
         public static final javafx.css.PseudoClass ARMED = javafx.css.PseudoClass.getPseudoClass("armed");
         public static final javafx.css.PseudoClass DISABLED = javafx.css.PseudoClass.getPseudoClass("disabled");
