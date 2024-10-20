@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:controller="hashtools.controller.ComparatorScreenController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <VBox fx:id="pnlScreenInput1">
+        <Label fx:id="lblScreenInput1Header" text="Select the first file to compare"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput1Content" onMouseClicked="#pnlScreenInputContentMouseClicked">
+            <Label fx:id="lblScreenInput1Content"/>
+        </StackPane>
+    </VBox>
+
+    <VBox fx:id="pnlScreenInput2" visible="false">
+        <Label fx:id="lblScreenInput2Header" text="Select the second file to compare"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput2Content" onMouseClicked="#pnlScreenInputContentMouseClicked">
+            <Label fx:id="lblScreenInput2Content"/>
+        </StackPane>
+    </VBox>
+
+    <StackPane fx:id="pnlScreenSplash" visible="false">
+        <Label fx:id="lblScreenSplashContent" text="Wait..."/>
+    </StackPane>
+
+    <VBox fx:id="pnlScreenResult" visible="false">
+        <Label fx:id="lblScreenResultHeader" text="Comparing results"/>
+        <TextArea VBox.vgrow="ALWAYS" fx:id="txtScreenResultContent"/>
+    </VBox>
+</StackPane>
