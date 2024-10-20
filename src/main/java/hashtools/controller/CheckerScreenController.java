@@ -25,9 +25,7 @@ import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
-import hashtools.util.DialogUtil;
 import hashtools.util.FXUtil;
-import javafx.application.Platform;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,7 +72,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
-    private ResourceBundle language;
 
 
     @Override
@@ -87,7 +84,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -234,41 +230,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());
-        }
-    }
-
-    private final class OpenChecksumFile implements Operation {
-        @Override
-        public void perform() {
-            List<FileChooser.ExtensionFilter> filters = List.of(
-                Extension.HASH.getFilter(language),
-                Extension.ALL.getFilter(language)
-            );
-
-            Platform.runLater(() -> DialogUtil
-                .showOpenDialog(
-                    "Select the checksums file",
-                    System.getProperty("user.home"),
-                    filters,
-                    pnlRoot.getScene().getWindow())
-                .map(Path::toString)
-                .ifPresent(lblScreenChecksumContent::setText)
-            );
-        }
-    }
-
-    private final class OpenInputFile implements Operation {
-        @Override
-        public void perform() {
-            Platform.runLater(() -> DialogUtil
-                .showOpenDialog(
-                    "Select a file to check",
-                    System.getProperty("user.home"),
-                    Extension.getAllExtensions(language),
-                    pnlRoot.getScene().getWindow())
-                .map(Path::toString)
-                .ifPresent(lblScreenInputContent::setText)
-            );
         }
     }
 }
