@@ -15,6 +15,7 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.DisableChildren;
 import hashtools.operation.DisarmNode;
 import hashtools.operation.EnableChildren;
+import hashtools.operation.HideNode;
 import hashtools.operation.OpenScreen;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
@@ -149,6 +150,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         public void handle(ScreenCloseNotification notification) {
             OperationPerformer.performAsync(new OpenMainMenu());
+            OperationPerformer.performAsync(new HideNode(pnlFooter));
         }
 
         public void handle(ScreenOpenNotification notification) {
@@ -167,8 +169,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private final class OpenMainMenu implements Operation {
         @Override
         public void perform() {
-            pnlFooter.setVisible(false);
-
             Platform.runLater(() -> pnlContent
                 .getChildren()
                 .setAll(pnlMenu)
