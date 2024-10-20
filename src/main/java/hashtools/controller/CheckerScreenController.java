@@ -20,12 +20,15 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SendNotification;
+import hashtools.operation.ShowOpenFileDialog;
 import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
+import hashtools.util.FXUtil;
 import javafx.application.Platform;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
@@ -97,18 +100,23 @@ public class CheckerScreenController implements Initializable, NotificationSende
     }
 
     @FXML
-    private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
-            new OpenChecksumFile()
-        );
-    }
+    private void pnlInputContentMouseClicked(MouseEvent event) {
+        ObservableMap<Object, Object> properties = FXUtil
+            .getNode(event)
+            .getProperties();
 
-    @FXML
-    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
+        @SuppressWarnings("unchecked")
+        Operation openFile = new ShowOpenFileDialog(
+            (String) properties.get(Resource.PropertyKey.DIALOG_TITLE),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            (Collection<FileChooser.ExtensionFilter>) properties.get(Resource.PropertyKey.DIALOG_FILTER),
+            (Labeled) properties.get(Resource.PropertyKey.LABELED),
+            pnlRoot.getScene().getWindow()
+        );
+
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new OpenInputFile()
+            openFile
         );
     }
 

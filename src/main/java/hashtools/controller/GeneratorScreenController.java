@@ -20,12 +20,13 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SendNotification;
+import hashtools.operation.ShowOpenFileDialog;
 import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
-import hashtools.util.DialogUtil;
-import javafx.application.Platform;
+import hashtools.util.FXUtil;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -33,12 +34,14 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -80,7 +83,6 @@ public class GeneratorScreenController implements Initializable, NotificationSen
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
-    private ResourceBundle language;
 
 
     @Override
@@ -93,7 +95,6 @@ public class GeneratorScreenController implements Initializable, NotificationSen
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -103,14 +104,35 @@ public class GeneratorScreenController implements Initializable, NotificationSen
             pnlScreenResult
         );
 
+        pnlScreenInputContent
+            .getProperties()
+            .putAll(new HashMap<>() {{
+                put(Resource.PropertyKey.DIALOG_TITLE, "Select the file to generate");
+                put(Resource.PropertyKey.DIALOG_FILTER, Extension.getAllExtensions(language));
+                put(Resource.PropertyKey.LABELED, lblScreenInputContent);
+            }});
+
         OperationPerformer.performAsync(new GoToInputScreen());
     }
 
     @FXML
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
+        ObservableMap<Object, Object> properties = FXUtil
+            .getNode(event)
+            .getProperties();
+
+        @SuppressWarnings("unchecked")
+        Operation openFile = new ShowOpenFileDialog(
+            (String) properties.get(Resource.PropertyKey.DIALOG_TITLE),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            (Collection<FileChooser.ExtensionFilter>) properties.get(Resource.PropertyKey.DIALOG_FILTER),
+            (Labeled) properties.get(Resource.PropertyKey.LABELED),
+            pnlRoot.getScene().getWindow()
+        );
+
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new OpenInputFile()
+            openFile
         );
     }
 
@@ -220,21 +242,6 @@ public class GeneratorScreenController implements Initializable, NotificationSen
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(GeneratorScreenController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());
-        }
-    }
-
-    private final class OpenInputFile implements Operation {
-        @Override
-        public void perform() {
-            Platform.runLater(() -> DialogUtil
-                .showOpenDialog(
-                    "Select a file to generate",
-                    System.getProperty("user.home"),
-                    Extension.getAllExtensions(language),
-                    pnlRoot.getScene().getWindow())
-                .map(Path::toString)
-                .ifPresent(lblScreenInputContent::setText)
-            );
         }
     }
 }
