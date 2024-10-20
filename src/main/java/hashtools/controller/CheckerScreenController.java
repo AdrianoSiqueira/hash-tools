@@ -239,6 +239,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
         }
     }
 
+    @Deprecated(forRemoval = true)
     private final class SaveResultToFile implements Operation {
         @Override
         public void perform() {

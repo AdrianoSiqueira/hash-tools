@@ -230,6 +230,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         }
     }
 
+    @Deprecated(forRemoval = true)
     private final class SaveResultToFile implements Operation {
         @Override
         public void perform() {
