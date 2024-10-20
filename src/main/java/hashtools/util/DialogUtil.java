@@ -21,6 +21,12 @@ public class DialogUtil {
         return chooser;
     }
 
+    private static FileChooser createFileChooser(String title, String initialDirectory, Collection<FileChooser.ExtensionFilter> filters) {
+        FileChooser chooser = createFileChooser(title, initialDirectory);
+        chooser.getExtensionFilters().setAll(filters);
+        return chooser;
+    }
+
     public static Optional<Path> showOpenDialog(String title, String initialDirectory, Collection<FileChooser.ExtensionFilter> filters, Window ownerWindow) {
         OperationPerformer.perform(
             new ThreadIsNotJavaFx(),
