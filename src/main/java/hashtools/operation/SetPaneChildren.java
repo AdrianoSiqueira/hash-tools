@@ -1,5 +1,6 @@
 package hashtools.operation;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,9 @@ public class SetPaneChildren implements Operation {
 
     @Override
     public void perform() {
-        pane
+        Platform.runLater(() -> pane
             .getChildren()
-            .setAll(node);
+            .setAll(node)
+        );
     }
 }
