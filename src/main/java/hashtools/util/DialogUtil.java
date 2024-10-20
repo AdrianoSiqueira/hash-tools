@@ -1,8 +1,6 @@
 package hashtools.util;
 
-import hashtools.condition.ThreadIsNotJavaFx;
-import hashtools.operation.OperationPerformer;
-import hashtools.operation.ThrowException;
+import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -10,6 +8,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class DialogUtil {
@@ -28,29 +27,34 @@ public class DialogUtil {
     }
 
     public static Optional<Path> showOpenDialog(String title, String initialDirectory, Collection<FileChooser.ExtensionFilter> filters, Window ownerWindow) {
-        OperationPerformer.perform(
-            new ThreadIsNotJavaFx(),
-            new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
-        );
+        AtomicReference<File> fileWrapper = new AtomicReference<>();
 
-        FileChooser chooser = createFileChooser(title, initialDirectory);
-        chooser.getExtensionFilters().setAll(filters);
+        Platform.runLater(() -> {
+            File file = DialogUtil
+                .createFileChooser(title, initialDirectory, filters)
+                .showOpenDialog(ownerWindow);
+
+            fileWrapper.set(file);
+        });
 
         return Optional
-            .ofNullable(chooser.showOpenDialog(ownerWindow))
+            .ofNullable(fileWrapper.get())
             .map(new FileToAbsolutePath());
     }
 
     public static Optional<Path> showSaveDialog(String title, String initialDirectory, Window ownerWindow) {
-        OperationPerformer.perform(
-            new ThreadIsNotJavaFx(),
-            new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
-        );
+        AtomicReference<File> fileWrapper = new AtomicReference<>();
 
-        FileChooser chooser = createFileChooser(title, initialDirectory);
+        Platform.runLater(() -> {
+            File file = DialogUtil
+                .createFileChooser(title, initialDirectory)
+                .showSaveDialog(ownerWindow);
+
+            fileWrapper.set(file);
+        });
 
         return Optional
-            .ofNullable(chooser.showSaveDialog(ownerWindow))
+            .ofNullable(fileWrapper.get())
             .map(new FileToAbsolutePath());
     }
 

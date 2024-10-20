@@ -1,7 +1,6 @@
 package hashtools.operation;
 
 import hashtools.util.DialogUtil;
-import javafx.application.Platform;
 import javafx.scene.control.Labeled;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -21,10 +20,9 @@ public class ShowOpenFileDialog implements Operation {
 
     @Override
     public void perform() {
-        Platform.runLater(() -> DialogUtil
+        DialogUtil
             .showOpenDialog(title, initialDirectory, filters, ownerWindow)
             .map(Path::toString)
-            .ifPresent(labeled::setText)
-        );
+            .ifPresent(labeled::setText);
     }
 }
