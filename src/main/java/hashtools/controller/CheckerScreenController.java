@@ -12,10 +12,13 @@ import hashtools.notification.Notification;
 import hashtools.notification.NotificationReceiver;
 import hashtools.notification.NotificationSender;
 import hashtools.notification.ScreenCloseNotification;
+import hashtools.notification.SplashStartNotification;
+import hashtools.notification.SplashStopNotification;
 import hashtools.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.SendNotification;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
@@ -193,8 +196,10 @@ public class CheckerScreenController implements Initializable, NotificationSende
             showScreen(pnlScreenSplash);
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
+            OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStartNotification()));
             OperationPerformer.perform(new CheckFile());
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
+            OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
