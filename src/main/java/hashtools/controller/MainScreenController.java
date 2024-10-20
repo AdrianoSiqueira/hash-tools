@@ -17,11 +17,10 @@ import hashtools.operation.DisarmNode;
 import hashtools.operation.EnableChildren;
 import hashtools.operation.HideNode;
 import hashtools.operation.OpenScreen;
-import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
+import hashtools.operation.SetPaneChildren;
 import hashtools.operation.ShowNode;
 import hashtools.util.FXUtil;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -149,7 +148,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
         }
 
         public void handle(ScreenCloseNotification notification) {
-            OperationPerformer.performAsync(new OpenMainMenu());
+            OperationPerformer.performAsync(new SetPaneChildren(pnlContent, pnlMenu));
             OperationPerformer.performAsync(new HideNode(pnlFooter));
         }
 
@@ -163,16 +162,6 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         public void handle(SplashStopNotification notification) {
             OperationPerformer.performAsync(new EnableChildren(pnlFooter));
-        }
-    }
-
-    private final class OpenMainMenu implements Operation {
-        @Override
-        public void perform() {
-            Platform.runLater(() -> pnlContent
-                .getChildren()
-                .setAll(pnlMenu)
-            );
         }
     }
 }
