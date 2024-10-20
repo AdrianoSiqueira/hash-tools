@@ -41,6 +41,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -95,6 +96,22 @@ public class CheckerScreenController implements Initializable, NotificationSende
             pnlScreenSplash,
             pnlScreenResult
         );
+
+        pnlScreenInputContent
+            .getProperties()
+            .putAll(new HashMap<>() {{
+                put(Resource.PropertyKey.DIALOG_TITLE, "Select the file to check");
+                put(Resource.PropertyKey.DIALOG_FILTER, Extension.getAllExtensions(language));
+                put(Resource.PropertyKey.LABELED, lblScreenInputContent);
+            }});
+
+        pnlScreenChecksumContent
+            .getProperties()
+            .putAll(new HashMap<>() {{
+                put(Resource.PropertyKey.DIALOG_TITLE, "Select the checksums file");
+                put(Resource.PropertyKey.DIALOG_FILTER, List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)));
+                put(Resource.PropertyKey.LABELED, lblScreenChecksumContent);
+            }});
 
         OperationPerformer.performAsync(new GoToInputScreen());
     }
