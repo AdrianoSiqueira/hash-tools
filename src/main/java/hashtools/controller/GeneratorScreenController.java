@@ -5,6 +5,7 @@ import hashtools.domain.Algorithm;
 import hashtools.domain.Extension;
 import hashtools.domain.GeneratorRequest;
 import hashtools.domain.GeneratorResponse;
+import hashtools.domain.Resource;
 import hashtools.formatter.CLIGeneratorResponseFormatter;
 import hashtools.identification.FileIdentification;
 import hashtools.messagedigest.FileUpdater;
@@ -19,11 +20,11 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SendNotification;
+import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
 import hashtools.util.DialogUtil;
-import hashtools.util.FileUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -194,9 +195,16 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         public void perform() {
             showScreen(pnlScreenResult);
 
+            Operation saveFile = new ShowSaveFileDialog(
+                "Choose where to save",
+                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                txtScreenResultContent.getText(),
+                pnlRoot.getScene().getWindow()
+            );
+
             sendNotification(new FooterButtonActionNotification(
                 new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen()),
-                new ConditionalOperation(NO_CONDITION, new SaveResultToFile())
+                new ConditionalOperation(NO_CONDITION, saveFile)
             ));
         }
     }
@@ -226,20 +234,6 @@ public class GeneratorScreenController implements Initializable, NotificationSen
                     pnlRoot.getScene().getWindow())
                 .map(Path::toString)
                 .ifPresent(lblScreenInputContent::setText)
-            );
-        }
-    }
-
-    @Deprecated(forRemoval = true)
-    private final class SaveResultToFile implements Operation {
-        @Override
-        public void perform() {
-            Platform.runLater(() -> DialogUtil
-                .showSaveDialog(
-                    "Choose where to save",
-                    System.getProperty("user.home"),
-                    pnlRoot.getScene().getWindow())
-                .ifPresent(file -> FileUtil.replaceContent(txtScreenResultContent.getText(), file))
             );
         }
     }
