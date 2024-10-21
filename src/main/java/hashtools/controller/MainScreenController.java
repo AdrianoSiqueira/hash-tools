@@ -12,14 +12,14 @@ import hashtools.notification.SplashStartNotification;
 import hashtools.notification.SplashStopNotification;
 import hashtools.operation.ArmNode;
 import hashtools.operation.ConditionalOperation;
-import hashtools.operation.DisableChildren;
 import hashtools.operation.DisarmNode;
-import hashtools.operation.EnableChildren;
 import hashtools.operation.HideNode;
 import hashtools.operation.OpenScreen;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SetPaneChildren;
 import hashtools.operation.ShowNode;
+import hashtools.operation.StartSplashScreen;
+import hashtools.operation.StopSplashScreen;
 import hashtools.util.FXUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -157,11 +157,11 @@ public class MainScreenController implements Initializable, NotificationReceiver
         }
 
         public void handle(SplashStartNotification notification) {
-            OperationPerformer.performAsync(new DisableChildren(pnlFooter));
+            OperationPerformer.performAsync(new StartSplashScreen(pnlFooter));
         }
 
         public void handle(SplashStopNotification notification) {
-            OperationPerformer.performAsync(new EnableChildren(pnlFooter));
+            OperationPerformer.performAsync(new StopSplashScreen(pnlFooter));
         }
     }
 }
