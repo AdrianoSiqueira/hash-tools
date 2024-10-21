@@ -1,5 +1,8 @@
 package hashtools.controller;
 
+import hashtools.condition.FileIsMissingCondition;
+import hashtools.condition.FileIsNotTextFileCondition;
+import hashtools.condition.FileSizeIsNotBetweenCondition;
 import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.CheckerRequest;
 import hashtools.domain.CheckerResponse;
@@ -20,6 +23,7 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SendNotification;
+import hashtools.operation.ShowMessageDialogOperation;
 import hashtools.operation.ShowOpenFileDialog;
 import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
@@ -139,25 +143,6 @@ public class CheckerScreenController implements Initializable, NotificationSende
     }
 
 
-    private final class CheckFile implements Operation {
-        @Override
-        public void perform() {
-            Path inputFile = Path.of(lblScreenInputContent.getText());
-            Path checksumFile = Path.of(lblScreenChecksumContent.getText());
-
-            CheckerRequest request = new CheckerRequest();
-            request.setInput(new FileUpdater(inputFile));
-            request.setIdentification(new FileIdentification(inputFile));
-            request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
-
-            Service service = new Service();
-            CheckerResponse response = service.run(request);
-
-            String result = service.format(response, new CLICheckerResponseFormatter());
-            txtResult.setText(result);
-        }
-    }
-
     private class GoToChecksumScreen implements Operation {
         @Override
         public void perform() {
@@ -165,7 +150,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
             sendNotification(new FooterButtonActionNotification(
                 new ConditionalOperation(NO_CONDITION, new GoToInputScreen()),
-                new ConditionalOperation(NO_CONDITION, new GoToSplashScreen())
+                new ConditionalOperation(NO_CONDITION, new RunModule())
             ));
         }
     }
@@ -208,14 +193,58 @@ public class CheckerScreenController implements Initializable, NotificationSende
         }
     }
 
-    private class GoToSplashScreen implements Operation {
+    private final class RunModule implements Operation {
+
+        private static final int CHECKSUM_FILE_MIN_SIZE = 1;
+        private static final int CHECKSUM_FILE_MAX_SIZE = 5_000;
+
         @Override
         public void perform() {
-            showScreen(pnlScreenSplash);
+            Path inputFile = Path.of(lblScreenInputContent.getText());
+            Path checksumFile = Path.of(lblScreenChecksumContent.getText());
+
+
+            if (new FileIsMissingCondition(inputFile).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Input file is not provided"));
+                OperationPerformer.performAsync(new GoToInputScreen());
+                return;
+            }
+
+            if (new FileIsMissingCondition(checksumFile).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is not provided"));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+                return;
+            }
+
+            if (new FileIsNotTextFileCondition(checksumFile).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is not a text file"));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+                return;
+            }
+
+            if (new FileSizeIsNotBetweenCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is too big to be valid"));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+                return;
+            }
+
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStartNotification()));
-            OperationPerformer.perform(new CheckFile());
+
+
+            CheckerRequest request = new CheckerRequest();
+            request.setInput(new FileUpdater(inputFile));
+            request.setIdentification(new FileIdentification(inputFile));
+            request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
+
+            Service service = new Service();
+            CheckerResponse response = service.run(request);
+
+            String result = service.format(response, new CLICheckerResponseFormatter());
+            txtResult.setText(result);
+
+
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());
