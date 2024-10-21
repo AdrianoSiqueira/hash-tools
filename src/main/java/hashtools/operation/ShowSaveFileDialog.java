@@ -2,6 +2,7 @@ package hashtools.operation;
 
 import hashtools.util.DialogUtil;
 import hashtools.util.FileUtil;
+import javafx.application.Platform;
 import javafx.stage.Window;
 import lombok.RequiredArgsConstructor;
 
@@ -15,8 +16,9 @@ public class ShowSaveFileDialog implements Operation {
 
     @Override
     public void perform() {
-        DialogUtil
+        Platform.runLater(() -> DialogUtil
             .showSaveDialog(title, initialDirectory, ownerWindow)
-            .ifPresent(file -> FileUtil.replaceContent(content, file));
+            .ifPresent(file -> FileUtil.replaceContent(content, file))
+        );
     }
 }
