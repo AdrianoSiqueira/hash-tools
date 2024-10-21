@@ -43,11 +43,9 @@ public class DialogUtil {
             new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
         );
 
-        FileChooser chooser = createFileChooser(title, initialDirectory);
-        chooser.getExtensionFilters().setAll(filters);
-
         return Optional
-            .ofNullable(chooser.showOpenDialog(ownerWindow))
+            .of(createFileChooser(title, initialDirectory, filters))
+            .map(chooser -> chooser.showOpenDialog(ownerWindow))
             .map(new FileToAbsolutePath());
     }
 
@@ -57,10 +55,9 @@ public class DialogUtil {
             new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
         );
 
-        FileChooser chooser = createFileChooser(title, initialDirectory);
-
         return Optional
-            .ofNullable(chooser.showSaveDialog(ownerWindow))
+            .of(createFileChooser(title, initialDirectory))
+            .map(chooser -> chooser.showSaveDialog(ownerWindow))
             .map(new FileToAbsolutePath());
     }
 
