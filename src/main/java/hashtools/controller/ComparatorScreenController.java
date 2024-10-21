@@ -1,5 +1,6 @@
 package hashtools.controller;
 
+import hashtools.condition.FileIsMissingCondition;
 import hashtools.condition.MouseButtonIsPrimary;
 import hashtools.domain.ComparatorRequest;
 import hashtools.domain.ComparatorResponse;
@@ -19,26 +20,23 @@ import hashtools.operation.ConditionalOperation;
 import hashtools.operation.Operation;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.SendNotification;
+import hashtools.operation.ShowMessageDialogOperation;
 import hashtools.operation.ShowOpenFileDialog;
 import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
-import hashtools.util.FXUtil;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,6 +69,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
+    private ResourceBundle language;
 
 
     @Override
@@ -83,6 +82,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
+        this.language = language;
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -92,43 +92,34 @@ public class ComparatorScreenController implements Initializable, NotificationSe
             pnlScreenResult
         );
 
-        pnlScreenInput1Content
-            .getProperties()
-            .putAll(new HashMap<>() {{
-                put(Resource.PropertyKey.DIALOG_TITLE, "Select the first file to compare");
-                put(Resource.PropertyKey.DIALOG_FILTER, Extension.getAllExtensions(language));
-                put(Resource.PropertyKey.LABELED, lblScreenInput1Content);
-            }});
-
-        pnlScreenInput2Content
-            .getProperties()
-            .putAll(new HashMap<>() {{
-                put(Resource.PropertyKey.DIALOG_TITLE, "Select the second file to compare");
-                put(Resource.PropertyKey.DIALOG_FILTER, Extension.getAllExtensions(language));
-                put(Resource.PropertyKey.LABELED, lblScreenInput2Content);
-            }});
-
         OperationPerformer.performAsync(new GoToInputScreen1());
     }
 
     @FXML
-    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
-        ObservableMap<Object, Object> properties = FXUtil
-            .getNode(event)
-            .getProperties();
-
-        @SuppressWarnings("unchecked")
-        Operation showOpenFileDialog = new ShowOpenFileDialog(
-            (String) properties.get(Resource.PropertyKey.DIALOG_TITLE),
-            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-            (Collection<FileChooser.ExtensionFilter>) properties.get(Resource.PropertyKey.DIALOG_FILTER),
-            (Labeled) properties.get(Resource.PropertyKey.LABELED),
-            pnlRoot.getScene().getWindow()
-        );
-
+    private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            showOpenFileDialog
+            new ShowOpenFileDialog(
+                "Select the first file to compare",
+                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                Extension.getAllExtensions(language),
+                lblScreenInput1Content,
+                pnlRoot.getScene().getWindow()
+            )
+        );
+    }
+
+    @FXML
+    private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
+        OperationPerformer.performAsync(
+            new MouseButtonIsPrimary(event),
+            new ShowOpenFileDialog(
+                "Select the second file to compare",
+                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                Extension.getAllExtensions(language),
+                lblScreenInput2Content,
+                pnlRoot.getScene().getWindow()
+            )
         );
     }
 
@@ -149,26 +140,6 @@ public class ComparatorScreenController implements Initializable, NotificationSe
     }
 
 
-    private final class CompareFiles implements Operation {
-        @Override
-        public void perform() {
-            Path inputFile1 = Path.of(lblScreenInput1Content.getText());
-            Path inputFile2 = Path.of(lblScreenInput2Content.getText());
-
-            ComparatorRequest request = new ComparatorRequest();
-            request.setInput1(new FileUpdater(inputFile1));
-            request.setInput2(new FileUpdater(inputFile2));
-            request.setIdentification1(new FileIdentification(inputFile1));
-            request.setIdentification2(new FileIdentification(inputFile2));
-
-            Service service = new Service();
-            ComparatorResponse response = service.run(request);
-
-            String result = service.format(response, new CLIComparatorResponseFormatter());
-            txtScreenResultContent.setText(result);
-        }
-    }
-
     private final class GoToInputScreen1 implements Operation {
         @Override
         public void perform() {
@@ -188,7 +159,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
 
             sendNotification(new FooterButtonActionNotification(
                 new ConditionalOperation(NO_CONDITION, new GoToInputScreen1()),
-                new ConditionalOperation(NO_CONDITION, new GoToSplashScreen())
+                new ConditionalOperation(NO_CONDITION, new RunModule())
             ));
         }
     }
@@ -219,14 +190,43 @@ public class ComparatorScreenController implements Initializable, NotificationSe
         }
     }
 
-    private final class GoToSplashScreen implements Operation {
+    private final class RunModule implements Operation {
         @Override
         public void perform() {
-            showScreen(pnlScreenSplash);
+            Path inputFile1 = Path.of(lblScreenInput1Content.getText());
+            Path inputFile2 = Path.of(lblScreenInput2Content.getText());
+
+
+            if (new FileIsMissingCondition(inputFile1).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "First input file is not provided"));
+                OperationPerformer.performAsync(new GoToInputScreen1());
+                return;
+            }
+
+            if (new FileIsMissingCondition(inputFile2).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Second input file is not provided"));
+                OperationPerformer.performAsync(new GoToInputScreen2());
+                return;
+            }
+
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(ComparatorScreenController.this, new SplashStartNotification()));
-            OperationPerformer.perform(new CompareFiles());
+
+
+            ComparatorRequest request = new ComparatorRequest();
+            request.setInput1(new FileUpdater(inputFile1));
+            request.setInput2(new FileUpdater(inputFile2));
+            request.setIdentification1(new FileIdentification(inputFile1));
+            request.setIdentification2(new FileIdentification(inputFile2));
+
+            Service service = new Service();
+            ComparatorResponse response = service.run(request);
+
+            String result = service.format(response, new CLIComparatorResponseFormatter());
+            txtScreenResultContent.setText(result);
+
+
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(ComparatorScreenController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());

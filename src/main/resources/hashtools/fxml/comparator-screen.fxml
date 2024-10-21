@@ -8,14 +8,14 @@
 
     <VBox fx:id="pnlScreenInput1">
         <Label fx:id="lblScreenInput1Header" text="Select the first file to compare"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput1Content" onMouseClicked="#pnlScreenInputContentMouseClicked">
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput1Content" onMouseClicked="#pnlScreenInput1ContentMouseClicked">
             <Label fx:id="lblScreenInput1Content"/>
         </StackPane>
     </VBox>
 
     <VBox fx:id="pnlScreenInput2" visible="false">
         <Label fx:id="lblScreenInput2Header" text="Select the second file to compare"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput2Content" onMouseClicked="#pnlScreenInputContentMouseClicked">
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput2Content" onMouseClicked="#pnlScreenInput2ContentMouseClicked">
             <Label fx:id="lblScreenInput2Content"/>
         </StackPane>
     </VBox>
