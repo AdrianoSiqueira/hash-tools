@@ -25,21 +25,17 @@ import hashtools.operation.ShowSaveFileDialog;
 import hashtools.operation.StartSplashScreen;
 import hashtools.operation.StopSplashScreen;
 import hashtools.service.Service;
-import hashtools.util.FXUtil;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -72,6 +68,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
+    private ResourceBundle language;
 
 
     @Override
@@ -84,6 +81,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
+        this.language = language;
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -93,43 +91,34 @@ public class CheckerScreenController implements Initializable, NotificationSende
             pnlScreenResult
         );
 
-        pnlScreenInputContent
-            .getProperties()
-            .putAll(new HashMap<>() {{
-                put(Resource.PropertyKey.DIALOG_TITLE, "Select the file to check");
-                put(Resource.PropertyKey.DIALOG_FILTER, Extension.getAllExtensions(language));
-                put(Resource.PropertyKey.LABELED, lblScreenInputContent);
-            }});
-
-        pnlScreenChecksumContent
-            .getProperties()
-            .putAll(new HashMap<>() {{
-                put(Resource.PropertyKey.DIALOG_TITLE, "Select the checksums file");
-                put(Resource.PropertyKey.DIALOG_FILTER, List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)));
-                put(Resource.PropertyKey.LABELED, lblScreenChecksumContent);
-            }});
-
         OperationPerformer.performAsync(new GoToInputScreen());
     }
 
     @FXML
-    private void pnlInputContentMouseClicked(MouseEvent event) {
-        ObservableMap<Object, Object> properties = FXUtil
-            .getNode(event)
-            .getProperties();
-
-        @SuppressWarnings("unchecked")
-        Operation openFile = new ShowOpenFileDialog(
-            (String) properties.get(Resource.PropertyKey.DIALOG_TITLE),
-            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-            (Collection<FileChooser.ExtensionFilter>) properties.get(Resource.PropertyKey.DIALOG_FILTER),
-            (Labeled) properties.get(Resource.PropertyKey.LABELED),
-            pnlRoot.getScene().getWindow()
-        );
-
+    private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            openFile
+            new ShowOpenFileDialog(
+                "Select the checksums file",
+                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
+                lblScreenChecksumContent,
+                pnlRoot.getScene().getWindow()
+            )
+        );
+    }
+
+    @FXML
+    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
+        OperationPerformer.performAsync(
+            new MouseButtonIsPrimary(event),
+            new ShowOpenFileDialog(
+                "Select the file to check",
+                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                Extension.getAllExtensions(language),
+                lblScreenInputContent,
+                pnlRoot.getScene().getWindow()
+            )
         );
     }
 

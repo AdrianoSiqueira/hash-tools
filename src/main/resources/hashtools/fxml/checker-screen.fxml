@@ -8,14 +8,14 @@
 
     <VBox fx:id="pnlScreenInput">
         <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="Select a file to check"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlInputContentMouseClicked" styleClass="pnl-button">
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pnl-button">
             <Label fx:id="lblScreenInputContent" styleClass="lbl-button-text"/>
         </StackPane>
     </VBox>
 
     <VBox fx:id="pnlScreenChecksum" visible="false">
         <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="Select the checksum file"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlInputContentMouseClicked" styleClass="pnl-button">
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pnl-button">
             <Label fx:id="lblScreenChecksumContent" styleClass="lbl-button-text"/>
         </StackPane>
     </VBox>
