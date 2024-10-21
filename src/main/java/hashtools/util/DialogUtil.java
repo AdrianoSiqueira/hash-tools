@@ -1,8 +1,5 @@
 package hashtools.util;
 
-import hashtools.condition.ThreadIsNotJavaFx;
-import hashtools.operation.OperationPerformer;
-import hashtools.operation.ThrowException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
@@ -38,11 +35,6 @@ public class DialogUtil {
     }
 
     public static Optional<Path> showOpenDialog(String title, String initialDirectory, Collection<FileChooser.ExtensionFilter> filters, Window ownerWindow) {
-        OperationPerformer.perform(
-            new ThreadIsNotJavaFx(),
-            new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
-        );
-
         return Optional
             .of(createFileChooser(title, initialDirectory, filters))
             .map(chooser -> chooser.showOpenDialog(ownerWindow))
@@ -50,11 +42,6 @@ public class DialogUtil {
     }
 
     public static Optional<Path> showSaveDialog(String title, String initialDirectory, Window ownerWindow) {
-        OperationPerformer.perform(
-            new ThreadIsNotJavaFx(),
-            new ThrowException(new IllegalStateException("This method must be called within a JavaFX thread"))
-        );
-
         return Optional
             .of(createFileChooser(title, initialDirectory))
             .map(chooser -> chooser.showSaveDialog(ownerWindow))
