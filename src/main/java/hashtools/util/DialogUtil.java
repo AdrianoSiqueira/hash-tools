@@ -3,6 +3,8 @@ package hashtools.util;
 import hashtools.condition.ThreadIsNotJavaFx;
 import hashtools.operation.OperationPerformer;
 import hashtools.operation.ThrowException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -25,6 +27,14 @@ public class DialogUtil {
         FileChooser chooser = createFileChooser(title, initialDirectory);
         chooser.getExtensionFilters().setAll(filters);
         return chooser;
+    }
+
+    public static void showMessageDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.getButtonTypes().setAll(ButtonType.OK);
+        alert.showAndWait();
     }
 
     public static Optional<Path> showOpenDialog(String title, String initialDirectory, Collection<FileChooser.ExtensionFilter> filters, Window ownerWindow) {
