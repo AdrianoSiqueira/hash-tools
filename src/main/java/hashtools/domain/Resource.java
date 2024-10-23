@@ -24,9 +24,6 @@ public final class Resource {
     }
 
     public static final class PropertyKey {
-        public static final String LABELED = "labeled";
-        public static final String DIALOG_FILTER = "dialog.filter";
-        public static final String DIALOG_TITLE = "dialog.title";
         public static final String HOME_DIRECTORY = "user.home";
     }
 
