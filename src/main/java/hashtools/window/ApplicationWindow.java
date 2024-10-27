@@ -1,5 +1,6 @@
 package hashtools.window;
 
+import hashtools.domain.Resource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,13 +11,11 @@ import java.io.IOException;
 
 public class ApplicationWindow extends Application {
 
-    private static final String FXML_PATH = "/hashtools/fxml/main-screen.fxml";
-
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(FXML_PATH));
+            loader.setLocation(getClass().getResource(Resource.FXMLPath.MAIN_SCREEN));
             Pane pane = loader.load();
 
             stage.setScene(new Scene(pane));
