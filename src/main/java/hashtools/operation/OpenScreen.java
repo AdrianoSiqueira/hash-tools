@@ -10,12 +10,14 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
 public class OpenScreen implements Operation {
 
     private final NotificationReceiver receiver;
     private final String fxmlPath;
+    private final ResourceBundle language;
     private final Pane pnlContent;
 
     @Override
@@ -23,6 +25,7 @@ public class OpenScreen implements Operation {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlPath));
+            loader.setResources(language);
 
             Pane pane = loader.load();
             Platform.runLater(() -> pnlContent

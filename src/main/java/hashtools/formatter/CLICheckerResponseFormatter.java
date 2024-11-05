@@ -3,10 +3,13 @@ package hashtools.formatter;
 import hashtools.domain.Algorithm;
 import hashtools.domain.CheckerChecksum;
 import hashtools.domain.CheckerResponse;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class CLICheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     private static final String LAYOUT = """
@@ -16,8 +19,16 @@ public class CLICheckerResponseFormatter implements Formatter<CheckerResponse> {
                                          %s
                                          """;
 
+    private final ResourceBundle language;
+
     @Override
     public String format(CheckerResponse response) {
+        String
+            matches = language.getString("hashtools.formatter.cli-checker-response-formatter.matches"),
+            notMatches = language.getString("hashtools.formatter.cli-checker-response-formatter.not-matches"),
+            reliability = language.getString("hashtools.formatter.cli-checker-response-formatter.reliability"),
+            statusMask = "%s: %.2f%%";
+
         return response
             .getChecksums()
             .stream()
@@ -26,9 +37,9 @@ public class CLICheckerResponseFormatter implements Formatter<CheckerResponse> {
                 checksum.getAlgorithm(),
                 checksum.getOfficialHash(),
                 checksum.getGeneratedHash(),
-                checksum.matches() ? "Matches" : "Does not match"))
+                checksum.matches() ? matches : notMatches))
             .collect(Collectors.joining(System.lineSeparator(), "", System.lineSeparator()))
-            .concat("Reliability: " + response.calculateReliabilityPercentage() + "%");
+            .concat(statusMask.formatted(reliability, response.calculateReliabilityPercentage()));
     }
 
 

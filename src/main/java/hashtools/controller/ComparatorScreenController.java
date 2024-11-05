@@ -100,7 +100,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                "Select the first file to compare",
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-1"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInput1Content,
@@ -114,7 +114,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                "Select the second file to compare",
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-2"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInput2Content,
@@ -177,7 +177,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                "Choose where to save",
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtScreenResultContent.getText(),
                 pnlRoot.getScene().getWindow()
@@ -197,14 +197,16 @@ public class ComparatorScreenController implements Initializable, NotificationSe
             Path inputFile2 = Path.of(lblScreenInput2Content.getText());
 
 
+            String title = language.getString("hashtools.controller.comparator-screen-controller.dialog.title.warning");
+
             if (new FileIsMissingCondition(inputFile1).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "First input file is not provided"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-1")));
                 OperationPerformer.performAsync(new GoToInputScreen1());
                 return;
             }
 
             if (new FileIsMissingCondition(inputFile2).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Second input file is not provided"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-2")));
                 OperationPerformer.performAsync(new GoToInputScreen2());
                 return;
             }
@@ -223,7 +225,7 @@ public class ComparatorScreenController implements Initializable, NotificationSe
             Service service = new Service();
             ComparatorResponse response = service.run(request);
 
-            String result = service.format(response, new CLIComparatorResponseFormatter());
+            String result = service.format(response, new CLIComparatorResponseFormatter(language));
             txtScreenResultContent.setText(result);
 
 

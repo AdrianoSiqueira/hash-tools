@@ -59,6 +59,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
     private NotificationHandler notificationHandler;
 
+    private ResourceBundle language;
+
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
@@ -71,7 +73,8 @@ public class MainScreenController implements Initializable, NotificationReceiver
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle bundle) {
+    public void initialize(URL url, ResourceBundle language) {
+        this.language = language;
         notificationHandler = new NotificationHandler();
 
         btnFooterBackAction = Resource.ConditionalOperation.NO_ACTION;
@@ -99,7 +102,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
 
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new OpenScreen(this, FXUtil.getUserData(event, String.class), pnlContent)
+            new OpenScreen(this, FXUtil.getUserData(event, String.class), language, pnlContent)
         );
     }
 
@@ -107,7 +110,7 @@ public class MainScreenController implements Initializable, NotificationReceiver
     private void pnlMenuItemMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new OpenScreen(this, FXUtil.getUserData(event, String.class), pnlContent)
+            new OpenScreen(this, FXUtil.getUserData(event, String.class), language, pnlContent)
         );
     }
 

@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class ApplicationWindow extends Application {
 
@@ -16,6 +17,7 @@ public class ApplicationWindow extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(Resource.FXMLPath.MAIN_SCREEN));
+            loader.setResources(ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE));
             Pane pane = loader.load();
 
             stage.setScene(new Scene(pane));

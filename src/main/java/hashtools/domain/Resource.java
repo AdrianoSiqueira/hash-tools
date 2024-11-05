@@ -33,6 +33,10 @@ public final class Resource {
         public static final javafx.css.PseudoClass DISABLED = javafx.css.PseudoClass.getPseudoClass("disabled");
     }
 
+    public static final class ResourceBundle {
+        public static final String LANGUAGE = "hashtools.language.language";
+    }
+
     public static final class Software {
         public static final ExecutorService THREAD_POOL = ThreadPool.newCachedDaemon();
     }

@@ -103,7 +103,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                "Select the checksums file",
+                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-checksum"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
                 lblScreenChecksumContent,
@@ -117,7 +117,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                "Select the file to check",
+                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInputContent,
@@ -180,7 +180,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                "Choose where to save",
+                language.getString("hashtools.controller.checker-screen-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtResult.getText(),
                 pnlRoot.getScene().getWindow()
@@ -204,26 +204,28 @@ public class CheckerScreenController implements Initializable, NotificationSende
             Path checksumFile = Path.of(lblScreenChecksumContent.getText());
 
 
+            String title = language.getString("hashtools.controller.checker-screen-controller.dialog.title.warning");
+
             if (new FileIsMissingCondition(inputFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Input file is not provided"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }
 
             if (new FileIsMissingCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is not provided"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-checksum")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
 
             if (new FileIsNotTextFileCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is not a text file"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-not-text")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
 
             if (new FileSizeIsNotBetweenCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Checksums file is too big to be valid"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-too-big")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
@@ -241,7 +243,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
             Service service = new Service();
             CheckerResponse response = service.run(request);
 
-            String result = service.format(response, new CLICheckerResponseFormatter());
+            String result = service.format(response, new CLICheckerResponseFormatter(language));
             txtResult.setText(result);
 
 

@@ -112,7 +112,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                "Select the file to generate",
+                language.getString("hashtools.controller.generator-screen-controller.dialog.title.open-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInputContent,
@@ -175,7 +175,7 @@ public class GeneratorScreenController implements Initializable, NotificationSen
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                "Choose where to save",
+                language.getString("hashtools.controller.generator-screen-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtScreenResultContent.getText(),
                 pnlRoot.getScene().getWindow()
@@ -194,8 +194,10 @@ public class GeneratorScreenController implements Initializable, NotificationSen
             Path inputFile = Path.of(lblScreenInputContent.getText());
 
 
+            String title = language.getString("hashtools.controller.generator-screen-controller.dialog.title.warning");
+
             if (new FileIsMissingCondition(inputFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation("Warning", "Input file is not provided"));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.generator-screen-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }
