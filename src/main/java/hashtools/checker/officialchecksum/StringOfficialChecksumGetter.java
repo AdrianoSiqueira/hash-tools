@@ -1,4 +1,4 @@
-package hashtools.checker.officialchecksum.officialchecksum;
+package hashtools.checker.officialchecksum;
 
 import hashtools.shared.Algorithm;
 import hashtools.checker.CheckerChecksum;

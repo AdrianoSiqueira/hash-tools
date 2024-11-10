@@ -16,7 +16,7 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.checker.officialchecksum.officialchecksum.FileOfficialChecksumGetter;
+import hashtools.checker.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;

@@ -2,7 +2,7 @@ package hashtools.checker;
 
 import hashtools.shared.identification.Identification;
 import hashtools.shared.messagedigest.Updater;
-import hashtools.checker.officialchecksum.officialchecksum.OfficialChecksumGetter;
+import hashtools.checker.officialchecksum.OfficialChecksumGetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
