@@ -6,7 +6,7 @@ import hashtools.shared.Formatter;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-public class CLIGeneratorResponseFormatter implements Formatter<GeneratorResponse> {
+public class GeneratorResponseFormatter implements Formatter<GeneratorResponse> {
 
     private static final String LAYOUT = "%s  %s";
 

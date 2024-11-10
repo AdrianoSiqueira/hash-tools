@@ -223,7 +223,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
             Service service = new Service();
             ComparatorResponse response = service.run(request);
 
-            String result = service.format(response, new CLIComparatorResponseFormatter(language));
+            String result = service.format(response, new ComparatorResponseFormatter(language));
             txtScreenResultContent.setText(result);
 
 

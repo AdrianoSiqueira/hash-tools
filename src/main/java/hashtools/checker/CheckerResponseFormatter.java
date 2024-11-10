@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class CLICheckerResponseFormatter implements Formatter<CheckerResponse> {
+public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     private static final String LAYOUT = """
                                          %s

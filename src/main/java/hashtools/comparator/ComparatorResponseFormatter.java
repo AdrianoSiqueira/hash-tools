@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
-public class CLIComparatorResponseFormatter implements Formatter<ComparatorResponse> {
+public class ComparatorResponseFormatter implements Formatter<ComparatorResponse> {
 
     private static final String LAYOUT = """
                                          %s  %s

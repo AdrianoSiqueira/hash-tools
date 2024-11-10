@@ -241,7 +241,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             Service service = new Service();
             CheckerResponse response = service.run(request);
 
-            String result = service.format(response, new CLICheckerResponseFormatter(language));
+            String result = service.format(response, new CheckerResponseFormatter(language));
             txtResult.setText(result);
 
 

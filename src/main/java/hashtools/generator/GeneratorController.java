@@ -223,7 +223,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
             Service service = new Service();
             GeneratorResponse response = service.run(request);
 
-            String result = service.format(response, new CLIGeneratorResponseFormatter());
+            String result = service.format(response, new GeneratorResponseFormatter());
             txtScreenResultContent.setText(result);
 
 
