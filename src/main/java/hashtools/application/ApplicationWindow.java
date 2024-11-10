@@ -1,4 +1,4 @@
-package hashtools.window;
+package hashtools.application;
 
 import hashtools.shared.Resource;
 import javafx.application.Application;
@@ -16,7 +16,7 @@ public class ApplicationWindow extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(Resource.FXMLPath.MAIN_SCREEN));
+            loader.setLocation(getClass().getResource(Resource.FXMLPath.APPLICATION_SCREEN));
             loader.setResources(ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE));
             Pane pane = loader.load();
 

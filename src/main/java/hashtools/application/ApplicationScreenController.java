@@ -1,4 +1,4 @@
-package hashtools.window;
+package hashtools.application;
 
 import hashtools.shared.condition.KeyboardKeyIsActionKey;
 import hashtools.shared.condition.MouseButtonIsPrimary;
@@ -33,7 +33,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements Initializable, NotificationReceiver {
+public class ApplicationScreenController implements Initializable, NotificationReceiver {
 
     @FXML
     private Pane

@@ -18,7 +18,7 @@ public final class Resource {
         public static final String CHECKER_SCREEN = "/hashtools/checker/checker-screen.fxml";
         public static final String COMPARATOR_SCREEN = "/hashtools/comparator/comparator-screen.fxml";
         public static final String GENERATOR_SCREEN = "/hashtools/generator/generator-screen.fxml";
-        public static final String MAIN_SCREEN = "/hashtools/window/main-screen.fxml";
+        public static final String APPLICATION_SCREEN = "/hashtools/application/application-screen.fxml";
     }
 
     public static final class Hardware {

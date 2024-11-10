@@ -5,6 +5,7 @@ module hash.tools {
     requires javafx.fxml;
     requires org.slf4j;
 
+    exports hashtools.application;
     exports hashtools.checker;
     exports hashtools.comparator;
     exports hashtools.generator;
@@ -15,8 +16,8 @@ module hash.tools {
     exports hashtools.shared.operation;
     exports hashtools.shared.threadpool;
     exports hashtools.shared;
-    exports hashtools.window;
 
+    opens hashtools.application;
     opens hashtools.checker;
     opens hashtools.comparator;
     opens hashtools.generator;
@@ -27,5 +28,4 @@ module hash.tools {
     opens hashtools.shared.operation;
     opens hashtools.shared.threadpool;
     opens hashtools.shared;
-    opens hashtools.window;
 }
