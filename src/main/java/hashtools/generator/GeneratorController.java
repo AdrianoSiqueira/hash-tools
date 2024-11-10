@@ -110,7 +110,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.generator-screen-controller.dialog.title.open-file"),
+                language.getString("hashtools.generator.generator-controller.dialog.title.open-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInputContent,
@@ -173,7 +173,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                language.getString("hashtools.controller.generator-screen-controller.dialog.title.save-file"),
+                language.getString("hashtools.generator.generator-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtScreenResultContent.getText(),
                 pnlRoot.getScene().getWindow()
@@ -192,10 +192,10 @@ public class GeneratorController implements Initializable, NotificationSender, T
             Path inputFile = Path.of(lblScreenInputContent.getText());
 
 
-            String title = language.getString("hashtools.controller.generator-screen-controller.dialog.title.warning");
+            String title = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
 
             if (new FileIsMissingCondition(inputFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.generator-screen-controller.dialog.content.missing-file")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }

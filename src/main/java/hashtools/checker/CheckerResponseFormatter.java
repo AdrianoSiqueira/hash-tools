@@ -23,9 +23,9 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
     @Override
     public String format(CheckerResponse response) {
         String
-            matches = language.getString("hashtools.formatter.cli-checker-response-formatter.matches"),
-            notMatches = language.getString("hashtools.formatter.cli-checker-response-formatter.not-matches"),
-            reliability = language.getString("hashtools.formatter.cli-checker-response-formatter.reliability"),
+            matches = language.getString("hashtools.checker.checker-response-formatter.matches"),
+            notMatches = language.getString("hashtools.checker.checker-response-formatter.not-matches"),
+            reliability = language.getString("hashtools.checker.checker-response-formatter.reliability"),
             statusMask = "%s: %.2f%%";
 
         return response

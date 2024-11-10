@@ -16,31 +16,31 @@
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <Image url="@../shared/image/64x64/checker.png"/>
                 </ImageView>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.fxml.main-screen.checker-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.fxml.main-screen.checker-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.application.application-screen.checker-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.application.application-screen.checker-description"/>
             </GridPane>
 
             <GridPane focusTraversable="true" fx:id="pnlMenuGenerator" onKeyPressed="#pnlMenuItemKeyPressed" onKeyReleased="#pnlMenuItemKeyReleased" onMouseClicked="#pnlMenuItemMouseClicked" onMousePressed="#pnlMenuItemMousePressed" onMouseReleased="#pnlMenuItemMouseReleased" styleClass="pnl-button">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <Image url="@../shared/image/64x64/generator.png"/>
                 </ImageView>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.fxml.main-screen.generator-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.fxml.main-screen.generator-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.application.application-screen.generator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.application.application-screen.generator-description"/>
             </GridPane>
 
             <GridPane focusTraversable="true" fx:id="pnlMenuComparator" onKeyPressed="#pnlMenuItemKeyPressed" onKeyReleased="#pnlMenuItemKeyReleased" onMouseClicked="#pnlMenuItemMouseClicked" onMousePressed="#pnlMenuItemMousePressed" onMouseReleased="#pnlMenuItemMouseReleased" styleClass="pnl-button">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
                     <Image url="@../shared/image/64x64/comparator.png"/>
                 </ImageView>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.fxml.main-screen.comparator-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.fxml.main-screen.comparator-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="lbl-title" text="%hashtools.application.application-screen.comparator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="lbl-description" text="%hashtools.application.application-screen.comparator-description"/>
             </GridPane>
         </VBox>
     </StackPane>
 
     <HBox fx:id="pnlFooter" visible="false">
-        <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%hashtools.fxml.main-screen.footer-back"/>
+        <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%hashtools.application.application-screen.footer-back"/>
         <Label HBox.hgrow="ALWAYS" fx:id="lblFooterSpacer" maxWidth="1E6"/>
-        <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%hashtools.fxml.main-screen.footer-next"/>
+        <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%hashtools.application.application-screen.footer-next"/>
     </HBox>
 </VBox>

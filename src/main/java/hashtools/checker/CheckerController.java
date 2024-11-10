@@ -101,7 +101,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-checksum"),
+                language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
                 lblScreenChecksumContent,
@@ -115,7 +115,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-file"),
+                language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInputContent,
@@ -178,7 +178,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.save-file"),
+                language.getString("hashtools.checker.checker-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtResult.getText(),
                 pnlRoot.getScene().getWindow()
@@ -202,28 +202,28 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             Path checksumFile = Path.of(lblScreenChecksumContent.getText());
 
 
-            String title = language.getString("hashtools.controller.checker-screen-controller.dialog.title.warning");
+            String title = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
             if (new FileIsMissingCondition(inputFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-file")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }
 
             if (new FileIsMissingCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-checksum")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
 
             if (new FileIsNotTextFileCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-not-text")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
 
             if (new FileSizeIsNotBetweenCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-too-big")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }

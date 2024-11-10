@@ -98,7 +98,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-1"),
+                language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInput1Content,
@@ -112,7 +112,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-2"),
+                language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
                 lblScreenInput2Content,
@@ -175,7 +175,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.save-file"),
+                language.getString("hashtools.comparator.comparator-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtScreenResultContent.getText(),
                 pnlRoot.getScene().getWindow()
@@ -195,16 +195,16 @@ public class ComparatorController implements Initializable, NotificationSender, 
             Path inputFile2 = Path.of(lblScreenInput2Content.getText());
 
 
-            String title = language.getString("hashtools.controller.comparator-screen-controller.dialog.title.warning");
+            String title = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
             if (new FileIsMissingCondition(inputFile1).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-1")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
                 OperationPerformer.performAsync(new GoToInputScreen1());
                 return;
             }
 
             if (new FileIsMissingCondition(inputFile2).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-2")));
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
                 OperationPerformer.performAsync(new GoToInputScreen2());
                 return;
             }

@@ -15,72 +15,72 @@ import java.util.stream.Stream;
 public enum Extension {
 
     ALL(
-        "hashtools.domain.extension.all",
+        "hashtools.shared.extension.all",
         List.of("*")
     ),
 
     COMPRESSED(
-        "hashtools.domain.extension.compressed",
+        "hashtools.shared.extension.compressed",
         List.of("*.7z", "*.ace", "*.alz", "*.arc", "*.arj", "*.bzip2", "*.egg", "*.gz", "*.gzip", "*.rar", "*.tar", "*.zip")
     ),
 
     DISK_IMAGE(
-        "hashtools.domain.extension.disc-image",
+        "hashtools.shared.extension.disc-image",
         List.of("*.adf", "*.bin", "*.cue", "*.dmg", "*.img", "*.iso", "*.nrg")
     ),
 
     DOCUMENT(
-        "hashtools.domain.extension.document",
+        "hashtools.shared.extension.document",
         List.of("*.doc", "*.docx", "*.odp", "*.ods", "*.odt", "*.pdf", "*.ppt", "*.pptx", "*.rtf", "*.txt", "*.xls", "*.xlsx")
     ),
 
     HASH(
-        "hashtools.domain.extension.hash",
+        "hashtools.shared.extension.hash",
         List.of("*.md5", "*.sha1", "*.sha224", "*.sha256", "*.sha384", "*.sha512", "*.txt")
     ),
 
     MARKDOWN(
-        "hashtools.domain.extension.markdown",
+        "hashtools.shared.extension.markdown",
         List.of("*.markdown", "*.MARKDOWN", "*.md", "*.MD")
     ),
 
     MARKUP(
-        "hashtools.domain.extension.markup",
+        "hashtools.shared.extension.markup",
         List.of("*.cfml", "*.gml", "*.htm", "*.html", "*.kml", "*.xaml", "*.xhtml", "*.xml", "*.yaml")
     ),
 
     MUSIC(
-        "hashtools.domain.extension.music",
+        "hashtools.shared.extension.music",
         List.of("*.aac", "*.aiff", "*.mp3", "*.oga", "*.ogg", "*.wav", "*.wma")
     ),
 
     PICTURE(
-        "hashtools.domain.extension.picture",
+        "hashtools.shared.extension.picture",
         List.of("*.gif", "*.jpg", "*.jpeg", "*.png", "*.svg", "*.tiff", "*.webp")
     ),
 
     RUNNABLE(
-        "hashtools.domain.extension.runnable",
+        "hashtools.shared.extension.runnable",
         List.of("*.apk", "*.appimage", "*.AppImage", "*.exe", "*.jar", "*.msi", "*.run")
     ),
 
     SCRIPT(
-        "hashtools.domain.extension.script",
+        "hashtools.shared.extension.script",
         List.of("*.bash", "*.bat", "*.dat", "*.js", "*.php", "*.sh", "*.vbs", "*.zsh")
     ),
 
     SOURCE_CODE(
-        "hashtools.domain.extension.source-code",
+        "hashtools.shared.extension.source-code",
         List.of("*.c", "*.cpp", "*.java", "*.pas", "*.py")
     ),
 
     STYLESHEET(
-        "hashtools.domain.extension.stylesheet",
+        "hashtools.shared.extension.stylesheet",
         List.of("*.css", "*.less", "*.sass", "*.scss", "*.styl", "*.xslt")
     ),
 
     VIDEO(
-        "hashtools.domain.extension.video",
+        "hashtools.shared.extension.video",
         List.of("*.3gp", "*.avi", "*.flv", "*.mkv", "*.mp4", "*.mpeg", "*.mpg", "*.ogv", "*.rmvb", "*.webm", "*.wmv")
     );
 

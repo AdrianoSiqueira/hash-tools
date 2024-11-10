@@ -7,25 +7,25 @@
 <StackPane fx:controller="hashtools.checker.CheckerController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
     <VBox fx:id="pnlScreenInput">
-        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%hashtools.fxml.checker-screen.open-file"/>
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%hashtools.checker.checker-screen.open-file"/>
         <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pnl-button">
             <Label fx:id="lblScreenInputContent" styleClass="lbl-button-text"/>
         </StackPane>
     </VBox>
 
     <VBox fx:id="pnlScreenChecksum" visible="false">
-        <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="%hashtools.fxml.checker-screen.open-checksum"/>
+        <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="%hashtools.checker.checker-screen.open-checksum"/>
         <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pnl-button">
             <Label fx:id="lblScreenChecksumContent" styleClass="lbl-button-text"/>
         </StackPane>
     </VBox>
 
     <StackPane fx:id="pnlScreenSplash" visible="false">
-        <Label fx:id="lblScreenSplashContent" text="%hashtools.fxml.checker-screen.wait"/>
+        <Label fx:id="lblScreenSplashContent" text="%hashtools.checker.checker-screen.wait"/>
     </StackPane>
 
     <VBox fx:id="pnlScreenResult" visible="false">
-        <Label fx:id="lblScreenResultHeader" text="%hashtools.fxml.checker-screen.result"/>
+        <Label fx:id="lblScreenResultHeader" text="%hashtools.checker.checker-screen.result"/>
         <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
     </VBox>
 </StackPane>

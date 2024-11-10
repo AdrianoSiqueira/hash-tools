@@ -7,25 +7,25 @@
 <StackPane fx:controller="hashtools.comparator.ComparatorController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
     <VBox fx:id="pnlScreenInput1">
-        <Label fx:id="lblScreenInput1Header" text="%hashtools.fxml.comparator-screen.open-file-1"/>
+        <Label fx:id="lblScreenInput1Header" text="%hashtools.comparator.comparator-screen.open-file-1"/>
         <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput1Content" onMouseClicked="#pnlScreenInput1ContentMouseClicked">
             <Label fx:id="lblScreenInput1Content"/>
         </StackPane>
     </VBox>
 
     <VBox fx:id="pnlScreenInput2" visible="false">
-        <Label fx:id="lblScreenInput2Header" text="%hashtools.fxml.comparator-screen.open-file-2"/>
+        <Label fx:id="lblScreenInput2Header" text="%hashtools.comparator.comparator-screen.open-file-2"/>
         <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInput2Content" onMouseClicked="#pnlScreenInput2ContentMouseClicked">
             <Label fx:id="lblScreenInput2Content"/>
         </StackPane>
     </VBox>
 
     <StackPane fx:id="pnlScreenSplash" visible="false">
-        <Label fx:id="lblScreenSplashContent" text="%hashtools.fxml.comparator-screen.wait"/>
+        <Label fx:id="lblScreenSplashContent" text="%hashtools.comparator.comparator-screen.wait"/>
     </StackPane>
 
     <VBox fx:id="pnlScreenResult" visible="false">
-        <Label fx:id="lblScreenResultHeader" text="%hashtools.fxml.comparator-screen.result"/>
+        <Label fx:id="lblScreenResultHeader" text="%hashtools.comparator.comparator-screen.result"/>
         <TextArea VBox.vgrow="ALWAYS" fx:id="txtScreenResultContent"/>
     </VBox>
 </StackPane>
