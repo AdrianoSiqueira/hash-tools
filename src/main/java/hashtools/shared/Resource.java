@@ -35,7 +35,7 @@ public final class Resource {
     }
 
     public static final class ResourceBundle {
-        public static final String LANGUAGE = "hashtools.language.language";
+        public static final String LANGUAGE = "hashtools.shared.language.language";
     }
 
     public static final class Software {
