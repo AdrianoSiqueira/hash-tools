@@ -8,7 +8,7 @@ import hashtools.shared.TransitionedScreen;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.identification.FileIdentification;
-import hashtools.shared.messagedigest.FileUpdater;
+import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
 import hashtools.shared.notification.NotificationReceiver;
@@ -234,7 +234,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
 
             CheckerRequest request = new CheckerRequest();
-            request.setInput(new FileUpdater(inputFile));
+            request.setInput(new FileMessageDigestUpdater(inputFile));
             request.setIdentification(new FileIdentification(inputFile));
             request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
 

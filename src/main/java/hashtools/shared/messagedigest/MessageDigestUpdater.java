@@ -2,7 +2,7 @@ package hashtools.shared.messagedigest;
 
 import java.security.MessageDigest;
 
-public interface Updater {
+public interface MessageDigestUpdater {
 
     void update(MessageDigest messageDigest);
 }

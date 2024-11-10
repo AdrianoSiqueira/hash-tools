@@ -1,7 +1,7 @@
 package hashtools.checker;
 
 import hashtools.shared.identification.Identification;
-import hashtools.shared.messagedigest.Updater;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.checker.officialchecksum.OfficialChecksumGetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CheckerRequest {
-    private Updater input;
+    private MessageDigestUpdater input;
     private Identification identification;
     private OfficialChecksumGetter officialChecksumGetter;
 }

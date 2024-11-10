@@ -1,7 +1,7 @@
 package hashtools.comparator;
 
 import hashtools.shared.identification.Identification;
-import hashtools.shared.messagedigest.Updater;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComparatorRequest {
-    private Updater input1;
-    private Updater input2;
+    private MessageDigestUpdater input1;
+    private MessageDigestUpdater input2;
     private Identification identification1;
     private Identification identification2;
 }

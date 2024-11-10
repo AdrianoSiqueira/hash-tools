@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.security.MessageDigest;
 
 @RequiredArgsConstructor
-public class StringUpdater implements Updater {
+public class StringMessageDigestUpdater implements MessageDigestUpdater {
 
     private final String string;
 

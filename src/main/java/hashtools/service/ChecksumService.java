@@ -1,7 +1,7 @@
 package hashtools.service;
 
 import hashtools.shared.Algorithm;
-import hashtools.shared.messagedigest.Updater;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +18,7 @@ public class ChecksumService {
             .collect(Collectors.joining());
     }
 
-    public String generate(Algorithm algorithm, Updater updater) {
+    public String generate(Algorithm algorithm, MessageDigestUpdater updater) {
         MessageDigest messageDigest = getMessageDigest(algorithm);
         updater.update(messageDigest);
 

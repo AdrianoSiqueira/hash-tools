@@ -7,7 +7,7 @@ import hashtools.shared.Algorithm;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.identification.FileIdentification;
-import hashtools.shared.messagedigest.FileUpdater;
+import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
 import hashtools.shared.notification.NotificationReceiver;
@@ -216,7 +216,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 .toList();
 
             GeneratorRequest request = new GeneratorRequest();
-            request.setInput(new FileUpdater(inputFile));
+            request.setInput(new FileMessageDigestUpdater(inputFile));
             request.setIdentification(new FileIdentification(inputFile));
             request.setAlgorithms(algorithms);
 
