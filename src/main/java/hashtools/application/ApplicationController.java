@@ -33,7 +33,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ApplicationScreenController implements Initializable, NotificationReceiver {
+public class ApplicationController implements Initializable, NotificationReceiver {
 
     @FXML
     private Pane

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="hashtools.application.ApplicationScreenController" fx:id="pnlRoot" prefHeight="480.0" prefWidth="853.0" styleClass="pnl-root" stylesheets="@../shared/css/main-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<VBox fx:controller="hashtools.application.ApplicationController" fx:id="pnlRoot" prefHeight="480.0" prefWidth="853.0" styleClass="pnl-root" stylesheets="@../shared/css/main-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
     <StackPane VBox.vgrow="ALWAYS" fx:id="pnlContent">
         <VBox fx:id="pnlMenu" styleClass="pnl-main-menu">

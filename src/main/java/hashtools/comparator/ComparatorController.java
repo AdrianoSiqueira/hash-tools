@@ -1,8 +1,6 @@
-package hashtools.checker;
+package hashtools.comparator;
 
 import hashtools.shared.condition.FileIsMissingCondition;
-import hashtools.shared.condition.FileIsNotTextFileCondition;
-import hashtools.shared.condition.FileSizeIsNotBetweenCondition;
 import hashtools.shared.condition.MouseButtonIsPrimary;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.Extension;
@@ -16,7 +14,6 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.checker.officialchecksum.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
@@ -43,29 +40,29 @@ import java.util.ResourceBundle;
 
 import static hashtools.shared.Resource.StaticImplementation.NO_CONDITION;
 
-public class CheckerScreenController implements Initializable, NotificationSender, TransitionedScreen {
+public class ComparatorController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
     private Pane
         pnlRoot,
-        pnlScreenInput,
-        pnlScreenInputContent,
-        pnlScreenChecksum,
-        pnlScreenChecksumContent,
+        pnlScreenInput1,
+        pnlScreenInput1Content,
+        pnlScreenInput2,
+        pnlScreenInput2Content,
         pnlScreenSplash,
         pnlScreenResult;
 
     @FXML
     private Labeled
-        lblScreenInputHeader,
-        lblScreenInputContent,
-        lblScreenChecksumHeader,
-        lblScreenChecksumContent,
+        lblScreenInput1Header,
+        lblScreenInput1Content,
+        lblScreenInput2Header,
+        lblScreenInput2Content,
         lblScreenSplashContent,
         lblScreenResultHeader;
 
     @FXML
-    private TextInputControl txtResult;
+    private TextInputControl txtScreenResultContent;
 
 
     private Collection<NotificationReceiver> receivers;
@@ -77,7 +74,7 @@ public class CheckerScreenController implements Initializable, NotificationSende
     public Notification getCallerNotification() {
         return new FooterButtonActionNotification(
             new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-            new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+            new ConditionalOperation(NO_CONDITION, new GoToInputScreen2())
         );
     }
 
@@ -87,38 +84,38 @@ public class CheckerScreenController implements Initializable, NotificationSende
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
-            pnlScreenInput,
-            pnlScreenChecksum,
+            pnlScreenInput1,
+            pnlScreenInput2,
             pnlScreenSplash,
             pnlScreenResult
         );
 
-        OperationPerformer.performAsync(new GoToInputScreen());
+        OperationPerformer.performAsync(new GoToInputScreen1());
     }
 
     @FXML
-    private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
+    private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-checksum"),
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-1"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
-                lblScreenChecksumContent,
+                Extension.getAllExtensions(language),
+                lblScreenInput1Content,
                 pnlRoot.getScene().getWindow()
             )
         );
     }
 
     @FXML
-    private void pnlScreenInputContentMouseClicked(MouseEvent event) {
+    private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
             new ShowOpenFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.open-file"),
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.open-file-2"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 Extension.getAllExtensions(language),
-                lblScreenInputContent,
+                lblScreenInput2Content,
                 pnlRoot.getScene().getWindow()
             )
         );
@@ -141,26 +138,26 @@ public class CheckerScreenController implements Initializable, NotificationSende
     }
 
 
-    private class GoToChecksumScreen implements Operation {
+    private final class GoToInputScreen1 implements Operation {
         @Override
         public void perform() {
-            showScreen(pnlScreenChecksum);
+            showScreen(pnlScreenInput1);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen()),
-                new ConditionalOperation(NO_CONDITION, new RunModule())
+                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
+                new ConditionalOperation(NO_CONDITION, new GoToInputScreen2())
             ));
         }
     }
 
-    private final class GoToInputScreen implements Operation {
+    private final class GoToInputScreen2 implements Operation {
         @Override
         public void perform() {
-            showScreen(pnlScreenInput);
+            showScreen(pnlScreenInput2);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+                new ConditionalOperation(NO_CONDITION, new GoToInputScreen1()),
+                new ConditionalOperation(NO_CONDITION, new RunModule())
             ));
         }
     }
@@ -178,75 +175,60 @@ public class CheckerScreenController implements Initializable, NotificationSende
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
-                language.getString("hashtools.controller.checker-screen-controller.dialog.title.save-file"),
+                language.getString("hashtools.controller.comparator-screen-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                txtResult.getText(),
+                txtScreenResultContent.getText(),
                 pnlRoot.getScene().getWindow()
             );
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen()),
+                new ConditionalOperation(NO_CONDITION, new GoToInputScreen2()),
                 new ConditionalOperation(NO_CONDITION, saveFile)
             ));
         }
     }
 
     private final class RunModule implements Operation {
-
-        private static final int CHECKSUM_FILE_MIN_SIZE = 1;
-        private static final int CHECKSUM_FILE_MAX_SIZE = 5_000;
-
         @Override
         public void perform() {
-            Path inputFile = Path.of(lblScreenInputContent.getText());
-            Path checksumFile = Path.of(lblScreenChecksumContent.getText());
+            Path inputFile1 = Path.of(lblScreenInput1Content.getText());
+            Path inputFile2 = Path.of(lblScreenInput2Content.getText());
 
 
-            String title = language.getString("hashtools.controller.checker-screen-controller.dialog.title.warning");
+            String title = language.getString("hashtools.controller.comparator-screen-controller.dialog.title.warning");
 
-            if (new FileIsMissingCondition(inputFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-file")));
-                OperationPerformer.performAsync(new GoToInputScreen());
+            if (new FileIsMissingCondition(inputFile1).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-1")));
+                OperationPerformer.performAsync(new GoToInputScreen1());
                 return;
             }
 
-            if (new FileIsMissingCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.missing-checksum")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
-                return;
-            }
-
-            if (new FileIsNotTextFileCondition(checksumFile).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-not-text")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
-                return;
-            }
-
-            if (new FileSizeIsNotBetweenCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.checker-screen-controller.dialog.content.checksum-too-big")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
+            if (new FileIsMissingCondition(inputFile2).isTrue()) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.controller.comparator-screen-controller.dialog.content.missing-file-2")));
+                OperationPerformer.performAsync(new GoToInputScreen2());
                 return;
             }
 
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStartNotification()));
+            OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStartNotification()));
 
 
-            CheckerRequest request = new CheckerRequest();
-            request.setInput(new FileUpdater(inputFile));
-            request.setIdentification(new FileIdentification(inputFile));
-            request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
+            ComparatorRequest request = new ComparatorRequest();
+            request.setInput1(new FileUpdater(inputFile1));
+            request.setInput2(new FileUpdater(inputFile2));
+            request.setIdentification1(new FileIdentification(inputFile1));
+            request.setIdentification2(new FileIdentification(inputFile2));
 
             Service service = new Service();
-            CheckerResponse response = service.run(request);
+            ComparatorResponse response = service.run(request);
 
-            String result = service.format(response, new CLICheckerResponseFormatter(language));
-            txtResult.setText(result);
+            String result = service.format(response, new CLIComparatorResponseFormatter(language));
+            txtScreenResultContent.setText(result);
 
 
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(CheckerScreenController.this, new SplashStopNotification()));
+            OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStopNotification()));
             OperationPerformer.performAsync(new GoToResultScreen());
         }
     }

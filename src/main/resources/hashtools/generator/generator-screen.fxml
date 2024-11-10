@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<StackPane fx:controller="hashtools.generator.GeneratorScreenController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<StackPane fx:controller="hashtools.generator.GeneratorController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
     <VBox fx:id="pnlScreenInput">
         <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%hashtools.fxml.generator-screen.open-file"/>
