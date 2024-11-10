@@ -20,7 +20,7 @@ import hashtools.shared.operation.SetPaneChildren;
 import hashtools.shared.operation.ShowNode;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
-import hashtools.shared.FXUtil;
+import hashtools.shared.JavaFXUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -89,7 +89,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     private void pnlMenuItemKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new ArmNode(FXUtil.getNode(event))
+            new ArmNode(JavaFXUtil.getNode(event))
         );
     }
 
@@ -97,12 +97,12 @@ public class ApplicationController implements Initializable, NotificationReceive
     private void pnlMenuItemKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new DisarmNode(FXUtil.getNode(event))
+            new DisarmNode(JavaFXUtil.getNode(event))
         );
 
         OperationPerformer.performAsync(
             new KeyboardKeyIsActionKey(event),
-            new OpenScreen(this, FXUtil.getUserData(event, String.class), language, pnlContent)
+            new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
         );
     }
 
@@ -110,7 +110,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     private void pnlMenuItemMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new OpenScreen(this, FXUtil.getUserData(event, String.class), language, pnlContent)
+            new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
         );
     }
 
@@ -118,7 +118,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     private void pnlMenuItemMousePressed(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new ArmNode(FXUtil.getNode(event))
+            new ArmNode(JavaFXUtil.getNode(event))
         );
     }
 
@@ -126,7 +126,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     private void pnlMenuItemMouseReleased(MouseEvent event) {
         OperationPerformer.performAsync(
             new MouseButtonIsPrimary(event),
-            new DisarmNode(FXUtil.getNode(event))
+            new DisarmNode(JavaFXUtil.getNode(event))
         );
     }
 

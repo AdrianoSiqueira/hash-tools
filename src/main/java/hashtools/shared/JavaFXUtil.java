@@ -3,7 +3,7 @@ package hashtools.shared;
 import javafx.event.Event;
 import javafx.scene.Node;
 
-public class FXUtil {
+public class JavaFXUtil {
 
     public static Node getNode(Event event) {
         return (Node) event.getSource();
