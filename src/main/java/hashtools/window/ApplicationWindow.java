@@ -1,6 +1,6 @@
 package hashtools.window;
 
-import hashtools.domain.Resource;
+import hashtools.shared.Resource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

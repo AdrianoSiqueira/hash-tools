@@ -1,7 +1,7 @@
 package hashtools.service;
 
-import hashtools.domain.Algorithm;
-import hashtools.messagedigest.Updater;
+import hashtools.shared.Algorithm;
+import hashtools.shared.messagedigest.Updater;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

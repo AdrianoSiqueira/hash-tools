@@ -1,17 +1,17 @@
 package hashtools.service;
 
-import hashtools.domain.Algorithm;
-import hashtools.domain.CheckerChecksum;
-import hashtools.domain.CheckerRequest;
-import hashtools.domain.CheckerResponse;
-import hashtools.domain.ComparatorChecksum;
-import hashtools.domain.ComparatorRequest;
-import hashtools.domain.ComparatorResponse;
-import hashtools.domain.GeneratorChecksum;
-import hashtools.domain.GeneratorRequest;
-import hashtools.domain.GeneratorResponse;
-import hashtools.domain.ThreadPool;
-import hashtools.formatter.Formatter;
+import hashtools.shared.Algorithm;
+import hashtools.checker.CheckerChecksum;
+import hashtools.checker.CheckerRequest;
+import hashtools.checker.CheckerResponse;
+import hashtools.comparator.ComparatorChecksum;
+import hashtools.comparator.ComparatorRequest;
+import hashtools.comparator.ComparatorResponse;
+import hashtools.generator.GeneratorChecksum;
+import hashtools.generator.GeneratorRequest;
+import hashtools.generator.GeneratorResponse;
+import hashtools.shared.threadpool.ThreadPool;
+import hashtools.shared.Formatter;
 
 import java.util.ArrayList;
 import java.util.List;

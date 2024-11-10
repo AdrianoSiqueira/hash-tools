@@ -1,25 +1,31 @@
 module hash.tools {
+    requires static lombok;
     requires ch.qos.logback.classic;
     requires javafx.controls;
     requires javafx.fxml;
-    requires lombok;
     requires org.slf4j;
 
-    exports hashtools.condition;
-    exports hashtools.controller;
-    exports hashtools.domain;
-    exports hashtools.messagedigest;
-    exports hashtools.notification;
-    exports hashtools.operation;
+    exports hashtools.checker;
+    exports hashtools.comparator;
+    exports hashtools.generator;
     exports hashtools.service;
+    exports hashtools.shared.condition;
+    exports hashtools.shared.messagedigest;
+    exports hashtools.shared.notification;
+    exports hashtools.shared.operation;
+    exports hashtools.shared.threadpool;
+    exports hashtools.shared;
     exports hashtools.window;
 
-    opens hashtools.condition;
-    opens hashtools.controller;
-    opens hashtools.domain;
-    opens hashtools.messagedigest;
-    opens hashtools.notification;
-    opens hashtools.operation;
+    opens hashtools.checker;
+    opens hashtools.comparator;
+    opens hashtools.generator;
     opens hashtools.service;
+    opens hashtools.shared.condition;
+    opens hashtools.shared.messagedigest;
+    opens hashtools.shared.notification;
+    opens hashtools.shared.operation;
+    opens hashtools.shared.threadpool;
+    opens hashtools.shared;
     opens hashtools.window;
 }
