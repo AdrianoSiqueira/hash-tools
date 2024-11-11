@@ -1,11 +1,11 @@
 package hashtools.generator;
 
-import hashtools.shared.condition.FileIsMissingCondition;
-import hashtools.shared.condition.MouseButtonIsPrimary;
-import hashtools.shared.TransitionedScreen;
 import hashtools.shared.Algorithm;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
+import hashtools.shared.TransitionedScreen;
+import hashtools.shared.condition.FileIsMissingCondition;
+import hashtools.shared.condition.MouseButtonIsPrimary;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
@@ -24,7 +24,6 @@ import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
-import hashtools.service.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -220,10 +219,10 @@ public class GeneratorController implements Initializable, NotificationSender, T
             request.setIdentification(new FileIdentification(inputFile));
             request.setAlgorithms(algorithms);
 
-            Service service = new Service();
-            GeneratorResponse response = service.run(request);
+            GeneratorService service = new GeneratorService();
+            GeneratorResponse response = service.processRequest(request);
 
-            String result = service.format(response, new GeneratorResponseFormatter());
+            String result = service.formatResponse(response, new GeneratorResponseFormatter());
             txtScreenResultContent.setText(result);
 
 
