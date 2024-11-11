@@ -39,7 +39,7 @@ public final class Resource {
     }
 
     public static final class Software {
-        public static final ExecutorService THREAD_POOL = ThreadPool.newCachedDaemon();
+        public static final ExecutorService THREAD_POOL = ThreadPool.newCachedDaemon("GlobalThreadPool");
     }
 
     public static final class StaticImplementation {

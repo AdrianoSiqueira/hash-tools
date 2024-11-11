@@ -7,16 +7,16 @@ import java.util.concurrent.Executors;
 
 public class ThreadPool {
 
-    public static ExecutorService newCachedDaemon() {
+    public static ExecutorService newCachedDaemon(String name) {
         return Executors.newCachedThreadPool(
-            new DaemonThreadFactory()
+            new DaemonThreadFactory(name)
         );
     }
 
-    public static ExecutorService newFixedDaemon() {
+    public static ExecutorService newFixedDaemon(String name) {
         return Executors.newFixedThreadPool(
             Resource.Hardware.CPU_CORES,
-            new DaemonThreadFactory()
+            new DaemonThreadFactory(name)
         );
     }
 }

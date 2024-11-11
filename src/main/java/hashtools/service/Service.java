@@ -1,6 +1,5 @@
 package hashtools.service;
 
-import hashtools.shared.Algorithm;
 import hashtools.checker.CheckerChecksum;
 import hashtools.checker.CheckerRequest;
 import hashtools.checker.CheckerResponse;
@@ -10,8 +9,9 @@ import hashtools.comparator.ComparatorResponse;
 import hashtools.generator.GeneratorChecksum;
 import hashtools.generator.GeneratorRequest;
 import hashtools.generator.GeneratorResponse;
-import hashtools.shared.threadpool.ThreadPool;
+import hashtools.shared.Algorithm;
 import hashtools.shared.Formatter;
+import hashtools.shared.threadpool.ThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class Service {
             .getOfficialChecksumGetter()
             .get();
 
-        try (ExecutorService executor = ThreadPool.newFixedDaemon()) {
+        try (ExecutorService executor = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
             ChecksumService checksumService = new ChecksumService();
 
             for (CheckerChecksum checksum : checksums) {
@@ -49,7 +49,7 @@ public class Service {
         ComparatorChecksum checksum = new ComparatorChecksum();
         checksum.setAlgorithm(Algorithm.MD5);
 
-        try (ExecutorService executor = ThreadPool.newFixedDaemon()) {
+        try (ExecutorService executor = ThreadPool.newFixedDaemon("ComparatorThreadPool")) {
             ChecksumService checksumService = new ChecksumService();
 
             executor.execute(() -> {
@@ -73,7 +73,7 @@ public class Service {
     public GeneratorResponse run(GeneratorRequest request) {
         List<GeneratorChecksum> checksums = new ArrayList<>();
 
-        try (ExecutorService executor = ThreadPool.newFixedDaemon()) {
+        try (ExecutorService executor = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {
             ChecksumService checksumService = new ChecksumService();
 
             for (Algorithm algorithm : request.getAlgorithms()) {
