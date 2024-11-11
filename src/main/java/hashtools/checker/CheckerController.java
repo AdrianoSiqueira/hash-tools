@@ -1,12 +1,13 @@
 package hashtools.checker;
 
+import hashtools.checker.officialchecksum.FileOfficialChecksumGetter;
+import hashtools.shared.Extension;
+import hashtools.shared.Resource;
+import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsMissingCondition;
 import hashtools.shared.condition.FileIsNotTextFileCondition;
 import hashtools.shared.condition.FileSizeIsNotBetweenCondition;
 import hashtools.shared.condition.MouseButtonIsPrimary;
-import hashtools.shared.TransitionedScreen;
-import hashtools.shared.Extension;
-import hashtools.shared.Resource;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
@@ -16,7 +17,6 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.checker.officialchecksum.FileOfficialChecksumGetter;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
@@ -26,7 +26,6 @@ import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
-import hashtools.service.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
@@ -238,10 +237,10 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             request.setIdentification(new FileIdentification(inputFile));
             request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
 
-            Service service = new Service();
-            CheckerResponse response = service.run(request);
+            CheckerService service = new CheckerService();
+            CheckerResponse response = service.processRequest(request);
 
-            String result = service.format(response, new CheckerResponseFormatter(language));
+            String result = service.formatResponse(response, new CheckerResponseFormatter(language));
             txtResult.setText(result);
 
 

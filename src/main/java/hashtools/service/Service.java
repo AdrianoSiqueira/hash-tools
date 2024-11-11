@@ -1,8 +1,5 @@
 package hashtools.service;
 
-import hashtools.checker.CheckerChecksum;
-import hashtools.checker.CheckerRequest;
-import hashtools.checker.CheckerResponse;
 import hashtools.comparator.ComparatorChecksum;
 import hashtools.comparator.ComparatorRequest;
 import hashtools.comparator.ComparatorResponse;
@@ -21,28 +18,6 @@ public class Service {
 
     public <RESPONSE_TYPE> String format(RESPONSE_TYPE response, Formatter<RESPONSE_TYPE> formatter) {
         return formatter.format(response);
-    }
-
-    public CheckerResponse run(CheckerRequest request) {
-        List<CheckerChecksum> checksums = request
-            .getOfficialChecksumGetter()
-            .get();
-
-        try (ExecutorService executor = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
-            ChecksumService checksumService = new ChecksumService();
-
-            for (CheckerChecksum checksum : checksums) {
-                executor.execute(() -> {
-                    String hash = checksumService.generate(checksum.getAlgorithm(), request.getInput());
-                    checksum.setGeneratedHash(hash);
-                });
-            }
-        }
-
-        CheckerResponse response = new CheckerResponse();
-        response.setIdentification(request.getIdentification());
-        response.setChecksums(checksums);
-        return response;
     }
 
     public ComparatorResponse run(ComparatorRequest request) {
