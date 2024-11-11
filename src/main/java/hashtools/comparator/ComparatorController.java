@@ -1,10 +1,10 @@
 package hashtools.comparator;
 
-import hashtools.shared.condition.FileIsMissingCondition;
-import hashtools.shared.condition.MouseButtonIsPrimary;
-import hashtools.shared.TransitionedScreen;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
+import hashtools.shared.TransitionedScreen;
+import hashtools.shared.condition.FileIsMissingCondition;
+import hashtools.shared.condition.MouseButtonIsPrimary;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
@@ -23,7 +23,6 @@ import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
-import hashtools.service.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
@@ -220,10 +219,10 @@ public class ComparatorController implements Initializable, NotificationSender, 
             request.setIdentification1(new FileIdentification(inputFile1));
             request.setIdentification2(new FileIdentification(inputFile2));
 
-            Service service = new Service();
-            ComparatorResponse response = service.run(request);
+            ComparatorService service = new ComparatorService();
+            ComparatorResponse response = service.processRequest(request);
 
-            String result = service.format(response, new ComparatorResponseFormatter(language));
+            String result = service.formatResponse(response, new ComparatorResponseFormatter(language));
             txtScreenResultContent.setText(result);
 
 
