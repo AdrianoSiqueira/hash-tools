@@ -1,4 +1,4 @@
-﻿package hashtools.shared;
+package hashtools.shared;
 
 public interface RequestProcessor<REQUEST_TYPE, RESPONSE_TYPE> {
 

@@ -1,4 +1,4 @@
-﻿package hashtools.checker;
+package hashtools.checker;
 
 import hashtools.service.ChecksumService;
 import hashtools.shared.Formatter;

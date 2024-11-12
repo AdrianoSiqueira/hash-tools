@@ -1,4 +1,4 @@
-﻿package hashtools.generator;
+package hashtools.generator;
 
 import hashtools.service.ChecksumService;
 import hashtools.shared.Algorithm;

@@ -1,4 +1,4 @@
-﻿package hashtools.comparator;
+package hashtools.comparator;
 
 import hashtools.service.ChecksumService;
 import hashtools.shared.Algorithm;
