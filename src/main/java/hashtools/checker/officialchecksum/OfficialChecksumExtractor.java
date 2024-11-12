@@ -4,7 +4,7 @@ import hashtools.checker.CheckerChecksum;
 
 import java.util.List;
 
-public interface OfficialChecksumGetter {
+public interface OfficialChecksumExtractor {
 
-    List<CheckerChecksum> get();
+    List<CheckerChecksum> extract();
 }

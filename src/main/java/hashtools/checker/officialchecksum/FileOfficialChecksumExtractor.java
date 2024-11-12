@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FileOfficialChecksumGetter implements OfficialChecksumGetter {
+public class FileOfficialChecksumExtractor implements OfficialChecksumExtractor {
 
     private final Path file;
 
     @Override
-    public List<CheckerChecksum> get() {
+    public List<CheckerChecksum> extract() {
         try (BufferedReader reader = Files.newBufferedReader(file)) {
             List<CheckerChecksum> checksums = new ArrayList<>();
             String line;

@@ -1,6 +1,6 @@
 package hashtools.checker;
 
-import hashtools.checker.officialchecksum.FileOfficialChecksumGetter;
+import hashtools.checker.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
@@ -235,7 +235,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             CheckerRequest request = new CheckerRequest();
             request.setInput(new FileMessageDigestUpdater(inputFile));
             request.setIdentification(new FileIdentification(inputFile));
-            request.setOfficialChecksumGetter(new FileOfficialChecksumGetter(checksumFile));
+            request.setOfficialChecksumExtractor(new FileOfficialChecksumExtractor(checksumFile));
 
             CheckerService service = new CheckerService();
             CheckerResponse response = service.processRequest(request);

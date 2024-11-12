@@ -19,8 +19,8 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
     @Override
     public CheckerResponse processRequest(CheckerRequest request) {
         List<CheckerChecksum> checksums = request
-            .getOfficialChecksumGetter()
-            .get();
+            .getOfficialChecksumExtractor()
+            .extract();
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
             ChecksumService checksumService = new ChecksumService();

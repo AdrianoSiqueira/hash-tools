@@ -7,12 +7,12 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class StringOfficialChecksumGetter implements OfficialChecksumGetter {
+public class StringOfficialChecksumExtractor implements OfficialChecksumExtractor {
 
     private final String string;
 
     @Override
-    public List<CheckerChecksum> get() {
+    public List<CheckerChecksum> extract() {
         return Algorithm
             .from(string.length())
             .map(algorithm -> {
