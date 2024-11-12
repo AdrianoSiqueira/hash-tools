@@ -25,12 +25,20 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
             ChecksumService checksumService = new ChecksumService();
 
             executor.execute(() -> {
-                String hash = checksumService.generate(checksum.getAlgorithm(), request.getInput1());
+                String hash = checksumService.generate(
+                    checksum.getAlgorithm(),
+                    request.getInput1()
+                );
+
                 checksum.setHash1(hash);
             });
 
             executor.execute(() -> {
-                String hash = checksumService.generate(checksum.getAlgorithm(), request.getInput2());
+                String hash = checksumService.generate(
+                    checksum.getAlgorithm(),
+                    request.getInput2()
+                );
+
                 checksum.setHash2(hash);
             });
         }

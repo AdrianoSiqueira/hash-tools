@@ -25,10 +25,16 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
             ChecksumService checksumService = new ChecksumService();
 
-            checksums.forEach(checksum -> threadPool.execute(() -> {
-                String hash = checksumService.generate(checksum.getAlgorithm(), request.getInput());
-                checksum.setGeneratedHash(hash);
-            }));
+            for (CheckerChecksum checksum : checksums) {
+                threadPool.execute(() -> {
+                    String hash = checksumService.generate(
+                        checksum.getAlgorithm(),
+                        request.getInput()
+                    );
+
+                    checksum.setGeneratedHash(hash);
+                });
+            }
         }
 
         CheckerResponse response = new CheckerResponse();

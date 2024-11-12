@@ -27,7 +27,10 @@ public class GeneratorService implements RequestProcessor<GeneratorRequest, Gene
 
             for (Algorithm algorithm : request.getAlgorithms()) {
                 executor.execute(() -> {
-                    String hash = checksumService.generate(algorithm, request.getInput());
+                    String hash = checksumService.generate(
+                        algorithm,
+                        request.getInput()
+                    );
 
                     GeneratorChecksum checksum = new GeneratorChecksum();
                     checksum.setAlgorithm(algorithm);
