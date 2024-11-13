@@ -1,6 +1,6 @@
 package hashtools.checker;
 
-import hashtools.service.ChecksumService;
+import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -23,11 +23,11 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
             .extract();
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
-            ChecksumService checksumService = new ChecksumService();
+            ChecksumGenerator generator = new ChecksumGenerator();
 
             for (CheckerChecksum checksum : checksums) {
                 threadPool.execute(() -> {
-                    String hash = checksumService.generate(
+                    String hash = generator.generate(
                         checksum.getAlgorithm(),
                         request.getInput()
                     );

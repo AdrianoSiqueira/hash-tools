@@ -1,6 +1,6 @@
 package hashtools.comparator;
 
-import hashtools.service.ChecksumService;
+import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Algorithm;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
@@ -22,10 +22,10 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
         checksum.setAlgorithm(Algorithm.MD5);
 
         try (ExecutorService executor = ThreadPool.newFixedDaemon("ComparatorThreadPool")) {
-            ChecksumService checksumService = new ChecksumService();
+            ChecksumGenerator generator = new ChecksumGenerator();
 
             executor.execute(() -> {
-                String hash = checksumService.generate(
+                String hash = generator.generate(
                     checksum.getAlgorithm(),
                     request.getInput1()
                 );
@@ -34,7 +34,7 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
             });
 
             executor.execute(() -> {
-                String hash = checksumService.generate(
+                String hash = generator.generate(
                     checksum.getAlgorithm(),
                     request.getInput2()
                 );

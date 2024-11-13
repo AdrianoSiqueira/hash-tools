@@ -1,6 +1,5 @@
-package hashtools.service;
+package hashtools.shared;
 
-import hashtools.shared.Algorithm;
 import hashtools.shared.messagedigest.MessageDigestUpdater;
 
 import java.security.MessageDigest;
@@ -8,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class ChecksumService {
+public class ChecksumGenerator {
 
     private String decode(byte[] bytes) {
         return IntStream

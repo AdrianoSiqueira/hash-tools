@@ -1,6 +1,6 @@
 package hashtools.generator;
 
-import hashtools.service.ChecksumService;
+import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Algorithm;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
@@ -23,11 +23,11 @@ public class GeneratorService implements RequestProcessor<GeneratorRequest, Gene
         List<GeneratorChecksum> checksums = new ArrayList<>();
 
         try (ExecutorService executor = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {
-            ChecksumService checksumService = new ChecksumService();
+            ChecksumGenerator generator = new ChecksumGenerator();
 
             for (Algorithm algorithm : request.getAlgorithms()) {
                 executor.execute(() -> {
-                    String hash = checksumService.generate(
+                    String hash = generator.generate(
                         algorithm,
                         request.getInput()
                     );
