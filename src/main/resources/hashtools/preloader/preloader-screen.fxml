@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Despite the error report that IDE might show about the
+constants, it will work as long the name matches the
+namespace key defined in Preloader subclass.
+
+OBS.: The constant name follows java's variable name
+declaration rules, that is, it uses camel case.
+-->
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.ImageCursor?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane prefHeight="$applicationHeight" prefWidth="$applicationWidth" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <cursor>
+        <ImageCursor fx:constant="WAIT"/>
+    </cursor>
+
+    <ImageView fitHeight="$applicationHeight" preserveRatio="true">
+        <Image backgroundLoading="true" url="@../shared/image/1920x1080/preloader.png"/>
+    </ImageView>
+</StackPane>

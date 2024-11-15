@@ -1,5 +1,6 @@
 package hashtools.shared;
 
+import hashtools.preloader.PreloaderWindow;
 import hashtools.shared.condition.Condition;
 import hashtools.shared.condition.NoCondition;
 import hashtools.shared.operation.NoOperation;
@@ -20,10 +21,11 @@ public final class Resource {
     }
 
     public static final class FXMLPath {
+        public static final String APPLICATION_SCREEN = "/hashtools/application/application-screen.fxml";
         public static final String CHECKER_SCREEN = "/hashtools/checker/checker-screen.fxml";
         public static final String COMPARATOR_SCREEN = "/hashtools/comparator/comparator-screen.fxml";
         public static final String GENERATOR_SCREEN = "/hashtools/generator/generator-screen.fxml";
-        public static final String APPLICATION_SCREEN = "/hashtools/application/application-screen.fxml";
+        public static final String PRELOADER_SCREEN = "/hashtools/preloader/preloader-screen.fxml";
     }
 
     public static final class Hardware {
@@ -32,6 +34,7 @@ public final class Resource {
 
     public static final class PropertyKey {
         public static final String HOME_DIRECTORY = "user.home";
+        public static final String JAVAFX_PRELOADER = "javafx.preloader";
     }
 
     public static final class PseudoClass {
@@ -50,5 +53,6 @@ public final class Resource {
     public static final class StaticImplementation {
         public static final Condition NO_CONDITION = new NoCondition();
         public static final Operation NO_OPERATION = new NoOperation();
+        public static final String PRELOADER_CLASS = PreloaderWindow.class.getCanonicalName();
     }
 }

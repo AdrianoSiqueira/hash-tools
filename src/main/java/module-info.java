@@ -9,7 +9,7 @@ module hash.tools {
     exports hashtools.checker;
     exports hashtools.comparator;
     exports hashtools.generator;
-    exports hashtools.service;
+    exports hashtools.preloader;
     exports hashtools.shared.condition;
     exports hashtools.shared.messagedigest;
     exports hashtools.shared.notification;
@@ -21,7 +21,7 @@ module hash.tools {
     opens hashtools.checker;
     opens hashtools.comparator;
     opens hashtools.generator;
-    opens hashtools.service;
+    opens hashtools.preloader;
     opens hashtools.shared.condition;
     opens hashtools.shared.messagedigest;
     opens hashtools.shared.notification;
