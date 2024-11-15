@@ -10,6 +10,11 @@ import java.util.concurrent.ExecutorService;
 
 public final class Resource {
 
+    public static final class ApplicationDimension {
+        public static final double WIDTH = 853.0;
+        public static final double HEIGHT = 480.0;
+    }
+
     public static final class ConditionalOperation {
         public static final hashtools.shared.operation.ConditionalOperation NO_ACTION = new hashtools.shared.operation.ConditionalOperation(StaticImplementation.NO_CONDITION, StaticImplementation.NO_OPERATION);
     }
