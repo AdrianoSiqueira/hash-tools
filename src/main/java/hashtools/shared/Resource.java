@@ -29,6 +29,10 @@ public final class Resource {
         public static final int CPU_CORES = Runtime.getRuntime().availableProcessors();
     }
 
+    public static final class ImagePath {
+        public static final String FAV_ICON = "/hashtools/shared/image/1920x1920/application.png";
+    }
+
     public static final class PropertyKey {
         public static final String HOME_DIRECTORY = "user.home";
         public static final String JAVAFX_PRELOADER = "javafx.preloader";
