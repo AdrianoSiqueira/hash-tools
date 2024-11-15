@@ -1,5 +1,6 @@
 package hashtools.application;
 
+import hashtools.preloader.PreloaderWindow;
 import hashtools.shared.Resource;
 import javafx.application.Application;
 import javafx.collections.ObservableMap;
@@ -42,5 +43,7 @@ public class ApplicationWindow extends Application {
         stage.sizeToScene();
         stage.centerOnScreen();
         stage.show();
+
+        notifyPreloader(new PreloaderWindow.ClosePreloaderNotification());
     }
 }
