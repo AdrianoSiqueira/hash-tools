@@ -1,8 +1,9 @@
 package hashtools.application;
 
+import hashtools.shared.JavaFXUtil;
+import hashtools.shared.Resource;
 import hashtools.shared.condition.KeyboardKeyIsActionKey;
 import hashtools.shared.condition.MouseButtonIsPrimary;
-import hashtools.shared.Resource;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
 import hashtools.shared.notification.NotificationReceiver;
@@ -20,7 +21,6 @@ import hashtools.shared.operation.SetPaneChildren;
 import hashtools.shared.operation.ShowNode;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
-import hashtools.shared.JavaFXUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,8 +77,8 @@ public class ApplicationController implements Initializable, NotificationReceive
         this.language = language;
         notificationHandler = new NotificationHandler();
 
-        btnFooterBackAction = Resource.ConditionalOperation.NO_ACTION;
-        btnFooterNextAction = Resource.ConditionalOperation.NO_ACTION;
+        btnFooterBackAction = Resource.StaticImplementation.NO_CONDITIONAL_OPERATION;
+        btnFooterNextAction = Resource.StaticImplementation.NO_CONDITIONAL_OPERATION;
 
         pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
