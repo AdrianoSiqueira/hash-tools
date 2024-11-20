@@ -11,14 +11,14 @@ import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.ScreenOpenNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
+import hashtools.shared.operation.AddNodeToPaneOperation;
 import hashtools.shared.operation.ArmNode;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.DisarmNode;
-import hashtools.shared.operation.HideNode;
 import hashtools.shared.operation.OpenScreen;
 import hashtools.shared.operation.OperationPerformer;
+import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetPaneChildren;
-import hashtools.shared.operation.ShowNode;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
 import javafx.event.ActionEvent;
@@ -83,6 +83,8 @@ public class ApplicationController implements Initializable, NotificationReceive
         pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
         pnlMenuGenerator.setUserData(Resource.FXMLPath.GENERATOR_SCREEN);
+
+        OperationPerformer.performAsync(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter));
     }
 
     @FXML
@@ -152,11 +154,11 @@ public class ApplicationController implements Initializable, NotificationReceive
 
         public void handle(ScreenCloseNotification notification) {
             OperationPerformer.performAsync(new SetPaneChildren(pnlContent, pnlMenu));
-            OperationPerformer.performAsync(new HideNode(pnlFooter));
+            OperationPerformer.performAsync(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter));
         }
 
         public void handle(ScreenOpenNotification notification) {
-            OperationPerformer.performAsync(new ShowNode(pnlFooter));
+            OperationPerformer.performAsync(new AddNodeToPaneOperation(pnlRoot, pnlFooter));
         }
 
         public void handle(SplashStartNotification notification) {

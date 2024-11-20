@@ -40,7 +40,7 @@ declaration rules, that is, it uses camel case.
         </VBox>
     </StackPane>
 
-    <HBox fx:id="pnlFooter" styleClass="pane-footer" visible="false">
+    <HBox fx:id="pnlFooter" styleClass="pane-footer">
         <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%hashtools.application.application-screen.footer-back"/>
         <Label HBox.hgrow="ALWAYS" fx:id="lblFooterSpacer" maxWidth="1E6"/>
         <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%hashtools.application.application-screen.footer-next"/>
