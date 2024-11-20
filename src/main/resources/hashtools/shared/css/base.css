@@ -1,0 +1,80 @@
+@import "color.css";
+
+
+.button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+
+    -fx-border-color: transparent_text_color;
+    -fx-border-radius: 10px;
+
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+    -fx-text-fill: transparent_text_color;
+
+    -fx-cursor: action_cursor;
+}
+
+.button:armed,
+.button:armed:hover {
+    -fx-cursor: actioned_cursor;
+}
+
+.button:hover {
+    -fx-background-color: strong_highlight;
+}
+
+
+.check-box {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+    -fx-text-fill: transparent_text_color;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+
+    -fx-border-color: transparent_text_color;
+    -fx-border-radius: 10px;
+}
+
+.check-box:hover .box {
+    -fx-background-color: weak_highlight;
+}
+
+.check-box:selected .box,
+.check-box:selected:hover .box {
+    -fx-background-color: strong_highlight;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: transparent_text_color;
+}
+
+
+.image-view {
+    -fx-preserve-ratio: true;
+}
+
+
+.label {
+    -fx-font-family: "Ubuntu";
+    -fx-font-size: 20px;
+    -fx-text-fill: transparent_text_color;
+    -fx-wrap-text: true;
+}
+
+
+.text-area,
+.text-area .scroll-pane,
+.text-area .scroll-pane .content,
+.text-area .scroll-pane .viewport {
+    -fx-background-color: weak_highlight;
+    -fx-background-radius: 10px;
+
+    -fx-text-fill: transparent_text_color;
+
+    -fx-font-family: "Ubuntu Mono";
+    -fx-font-size: 25px;
+}

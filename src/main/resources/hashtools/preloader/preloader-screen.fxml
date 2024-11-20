@@ -9,16 +9,8 @@ OBS.: The constant name follows java's variable name
 declaration rules, that is, it uses camel case.
 -->
 
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.ImageCursor?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane prefHeight="$applicationHeight" prefWidth="$applicationWidth" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <cursor>
-        <ImageCursor fx:constant="WAIT"/>
-    </cursor>
-
-    <ImageView fitHeight="$applicationHeight" preserveRatio="true">
-        <Image backgroundLoading="true" url="@../shared/image/1920x1080/preloader.png"/>
-    </ImageView>
+<StackPane prefHeight="$applicationHeight" prefWidth="$applicationWidth" styleClass="pane-root" stylesheets="@preloader-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <ImageView id="preloader" fitHeight="$applicationHeight"/>
 </StackPane>

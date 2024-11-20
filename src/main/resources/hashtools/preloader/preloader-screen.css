@@ -1,0 +1,12 @@
+@import "../shared/css/base.css";
+@import "../shared/css/color.css";
+
+
+.image-view#preloader {
+    -fx-image: url("../shared/image/1920x1080/preloader.png");
+}
+
+
+.pane-root {
+    -fx-cursor: actioned_cursor;
+}

@@ -4,19 +4,19 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<StackPane fx:controller="hashtools.checker.CheckerController" fx:id="pnlRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<StackPane fx:controller="hashtools.checker.CheckerController" fx:id="pnlRoot" stylesheets="@checker-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-    <VBox fx:id="pnlScreenInput">
+    <VBox fx:id="pnlScreenInput" styleClass="pane-screen">
         <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%hashtools.checker.checker-screen.open-file"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pnl-button">
-            <Label fx:id="lblScreenInputContent" styleClass="lbl-button-text"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pane-button">
+            <Label fx:id="lblScreenInputContent" styleClass="label-path"/>
         </StackPane>
     </VBox>
 
-    <VBox fx:id="pnlScreenChecksum" visible="false">
+    <VBox fx:id="pnlScreenChecksum" styleClass="pane-screen" visible="false">
         <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="%hashtools.checker.checker-screen.open-checksum"/>
-        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pnl-button">
-            <Label fx:id="lblScreenChecksumContent" styleClass="lbl-button-text"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pane-button">
+            <Label fx:id="lblScreenChecksumContent" styleClass="label-path"/>
         </StackPane>
     </VBox>
 
@@ -24,7 +24,7 @@
         <Label fx:id="lblScreenSplashContent" text="%hashtools.checker.checker-screen.wait"/>
     </StackPane>
 
-    <VBox fx:id="pnlScreenResult" visible="false">
+    <VBox fx:id="pnlScreenResult" styleClass="pane-screen" visible="false">
         <Label fx:id="lblScreenResultHeader" text="%hashtools.checker.checker-screen.result"/>
         <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
     </VBox>

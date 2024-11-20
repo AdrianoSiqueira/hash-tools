@@ -1,0 +1,36 @@
+@import "../shared/css/base.css";
+@import "../shared/css/color.css";
+
+
+.label-path {
+    -fx-font-family: "Ubuntu Mono";
+    -fx-font-size: 25px;
+
+    -fx-wrap-text: true;
+    -fx-line-spacing: 10px;
+}
+
+
+.pane-algorithm {
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
+}
+
+
+.pane-button {
+    -fx-background-radius: 10px;
+
+    -fx-border-color: transparent_text_color;
+    -fx-border-radius: 10px;
+
+    -fx-cursor: action_cursor;
+}
+
+.pane-button:hover {
+    -fx-background-color: strong_highlight;
+}
+
+
+.pane-screen {
+    -fx-spacing: 20px;
+}
