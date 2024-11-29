@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RequiredArgsConstructor
-public class FileSizeIsNotBetweenCondition implements Condition {
+public class FileSizeIsNotBetweenCondition extends Condition {
 
     private final Path file;
     private final long minSize;

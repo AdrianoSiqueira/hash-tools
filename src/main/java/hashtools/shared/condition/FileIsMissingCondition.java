@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RequiredArgsConstructor
-public class FileIsMissingCondition implements Condition {
+public class FileIsMissingCondition extends Condition {
 
     private final Path file;
 

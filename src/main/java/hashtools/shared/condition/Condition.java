@@ -1,18 +1,10 @@
 package hashtools.shared.condition;
 
-import java.util.stream.Stream;
+public abstract class Condition {
 
-public interface Condition {
-
-    static Condition allOf(Condition... conditions) {
-        return () -> Stream
-            .of(conditions)
-            .allMatch(Condition::isTrue);
-    }
-
-    default boolean isFalse() {
+    public final boolean isFalse() {
         return !isTrue();
     }
 
-    boolean isTrue();
+    public abstract boolean isTrue();
 }

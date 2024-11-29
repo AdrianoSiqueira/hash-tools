@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RequiredArgsConstructor
-public class FileIsNotTextFileCondition implements Condition {
+public class FileIsNotTextFileCondition extends Condition {
 
     private static final String TEXT_FILE_EXTENSION = "text/plain";
 
