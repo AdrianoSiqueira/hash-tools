@@ -1,5 +1,6 @@
-package hashtools.shared.condition;
+package hashtools.checker.condition;
 
+import hashtools.shared.condition.Condition;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RequiredArgsConstructor
-public class FileSizeIsNotBetweenCondition extends Condition {
+public class ChecksumFileSizeIsValidCondition extends Condition {
 
     private final Path file;
     private final long minSize;

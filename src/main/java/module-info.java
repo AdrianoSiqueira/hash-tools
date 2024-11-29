@@ -28,4 +28,6 @@ module hash.tools {
     opens hashtools.shared.operation;
     opens hashtools.shared.threadpool;
     opens hashtools.shared;
+    exports hashtools.checker.condition;
+    opens hashtools.checker.condition;
 }

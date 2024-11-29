@@ -5,8 +5,8 @@ import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
-import hashtools.shared.condition.FileIsNotTextFileCondition;
-import hashtools.shared.condition.FileSizeIsNotBetweenCondition;
+import hashtools.checker.condition.FileIsNotTextFileCondition;
+import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
@@ -221,7 +221,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 return;
             }
 
-            if (new FileSizeIsNotBetweenCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
+            if (new ChecksumFileSizeIsValidCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;

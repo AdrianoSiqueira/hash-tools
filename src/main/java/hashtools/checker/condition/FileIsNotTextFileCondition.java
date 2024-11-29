@@ -1,5 +1,6 @@
-package hashtools.shared.condition;
+package hashtools.checker.condition;
 
+import hashtools.shared.condition.Condition;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
