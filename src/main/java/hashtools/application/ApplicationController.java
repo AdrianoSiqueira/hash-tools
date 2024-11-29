@@ -2,7 +2,7 @@ package hashtools.application;
 
 import hashtools.shared.JavaFXUtil;
 import hashtools.shared.Resource;
-import hashtools.shared.condition.KeyboardKeyIsActionKey;
+import hashtools.shared.condition.KeyboardKeyIsActionKeyCondition;
 import hashtools.shared.condition.MouseButtonIsPrimary;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -90,7 +90,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     @FXML
     private void pnlMenuItemKeyPressed(KeyEvent event) {
         OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKey(event),
+            new KeyboardKeyIsActionKeyCondition(event),
             new ArmNode(JavaFXUtil.getNode(event))
         );
     }
@@ -98,12 +98,12 @@ public class ApplicationController implements Initializable, NotificationReceive
     @FXML
     private void pnlMenuItemKeyReleased(KeyEvent event) {
         OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKey(event),
+            new KeyboardKeyIsActionKeyCondition(event),
             new DisarmNode(JavaFXUtil.getNode(event))
         );
 
         OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKey(event),
+            new KeyboardKeyIsActionKeyCondition(event),
             new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
         );
     }

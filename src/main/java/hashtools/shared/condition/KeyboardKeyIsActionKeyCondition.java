@@ -5,7 +5,7 @@ import javafx.scene.input.KeyEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class KeyboardKeyIsActionKey extends Condition {
+public class KeyboardKeyIsActionKeyCondition extends Condition {
 
     private final KeyEvent event;
 
