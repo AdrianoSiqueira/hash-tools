@@ -10,17 +10,18 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 public class ChecksumFileSizeIsValidCondition extends Condition {
 
+    private static final int MIN = 1;
+    private static final int MAX = 5000;
+
     private final Path file;
-    private final long minSize;
-    private final long maxSize;
 
     @Override
     public boolean isTrue() {
         try {
-            long fileSize = Files.size(file);
+            long size = Files.size(file);
 
-            return fileSize < minSize
-                || fileSize > maxSize;
+            return size >= MIN
+                && size <= MAX;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

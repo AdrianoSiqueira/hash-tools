@@ -1,12 +1,12 @@
 package hashtools.checker;
 
+import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
+import hashtools.checker.condition.ChecksumFileTypeIsValidCondition;
 import hashtools.checker.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
-import hashtools.checker.condition.ChecksumFileTypeIsValidCondition;
-import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
@@ -191,10 +191,6 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     }
 
     private final class RunModule implements Operation {
-
-        private static final int CHECKSUM_FILE_MIN_SIZE = 1;
-        private static final int CHECKSUM_FILE_MAX_SIZE = 5_000;
-
         @Override
         public void perform() {
             Path inputFile = Path.of(lblScreenInputContent.getText());
@@ -221,7 +217,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 return;
             }
 
-            if (new ChecksumFileSizeIsValidCondition(checksumFile, CHECKSUM_FILE_MIN_SIZE, CHECKSUM_FILE_MAX_SIZE).isTrue()) {
+            if (new ChecksumFileSizeIsValidCondition(checksumFile).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
