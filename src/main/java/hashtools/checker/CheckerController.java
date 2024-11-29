@@ -5,7 +5,7 @@ import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
-import hashtools.checker.condition.FileIsNotTextFileCondition;
+import hashtools.checker.condition.ChecksumFileTypeIsValidCondition;
 import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.identification.FileIdentification;
@@ -215,7 +215,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 return;
             }
 
-            if (new FileIsNotTextFileCondition(checksumFile).isTrue()) {
+            if (new ChecksumFileTypeIsValidCondition(checksumFile).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
