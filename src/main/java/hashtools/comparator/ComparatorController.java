@@ -4,7 +4,7 @@ import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
-import hashtools.shared.condition.MouseButtonIsPrimary;
+import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
@@ -95,7 +95,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
     @FXML
     private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
+            new MouseButtonIsPrimaryCondition(event),
             new ShowOpenFileDialog(
                 language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
@@ -109,7 +109,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
     @FXML
     private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
+            new MouseButtonIsPrimaryCondition(event),
             new ShowOpenFileDialog(
                 language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),

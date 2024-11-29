@@ -7,7 +7,7 @@ import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.FileIsNotTextFileCondition;
 import hashtools.shared.condition.FileSizeIsNotBetweenCondition;
-import hashtools.shared.condition.MouseButtonIsPrimary;
+import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
@@ -98,7 +98,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     @FXML
     private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
+            new MouseButtonIsPrimaryCondition(event),
             new ShowOpenFileDialog(
                 language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
@@ -112,7 +112,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     @FXML
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
         OperationPerformer.performAsync(
-            new MouseButtonIsPrimary(event),
+            new MouseButtonIsPrimaryCondition(event),
             new ShowOpenFileDialog(
                 language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),

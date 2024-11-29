@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class MouseButtonIsPrimary extends Condition {
+public class MouseButtonIsPrimaryCondition extends Condition {
 
     private final MouseEvent event;
 
