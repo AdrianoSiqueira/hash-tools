@@ -199,19 +199,19 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
             String title = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
-            if (new FileIsRegularFileCondition(inputFile).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }
 
-            if (new FileIsRegularFileCondition(checksumFile).isTrue()) {
+            if (new FileIsRegularFileCondition(checksumFile).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
             }
 
-            if (new ChecksumFileTypeIsValidCondition(checksumFile).isTrue()) {
+            if (new ChecksumFileTypeIsValidCondition(checksumFile).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;

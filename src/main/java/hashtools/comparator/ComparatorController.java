@@ -196,13 +196,13 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
             String title = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
-            if (new FileIsRegularFileCondition(inputFile1).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile1).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
                 OperationPerformer.performAsync(new GoToInputScreen1());
                 return;
             }
 
-            if (new FileIsRegularFileCondition(inputFile2).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile2).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
                 OperationPerformer.performAsync(new GoToInputScreen2());
                 return;

@@ -193,7 +193,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
 
             String title = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
 
-            if (new FileIsRegularFileCondition(inputFile).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile).isFalse()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
