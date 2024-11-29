@@ -3,7 +3,7 @@ package hashtools.comparator;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.FileIsMissingCondition;
+import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimary;
 import hashtools.shared.identification.FileIdentification;
 import hashtools.shared.messagedigest.FileMessageDigestUpdater;
@@ -196,13 +196,13 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
             String title = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
-            if (new FileIsMissingCondition(inputFile1).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile1).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
                 OperationPerformer.performAsync(new GoToInputScreen1());
                 return;
             }
 
-            if (new FileIsMissingCondition(inputFile2).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile2).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
                 OperationPerformer.performAsync(new GoToInputScreen2());
                 return;

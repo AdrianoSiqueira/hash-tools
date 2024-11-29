@@ -4,7 +4,7 @@ import hashtools.checker.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.FileIsMissingCondition;
+import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.FileIsNotTextFileCondition;
 import hashtools.shared.condition.FileSizeIsNotBetweenCondition;
 import hashtools.shared.condition.MouseButtonIsPrimary;
@@ -203,13 +203,13 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
             String title = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
-            if (new FileIsMissingCondition(inputFile).isTrue()) {
+            if (new FileIsRegularFileCondition(inputFile).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
                 OperationPerformer.performAsync(new GoToInputScreen());
                 return;
             }
 
-            if (new FileIsMissingCondition(checksumFile).isTrue()) {
+            if (new FileIsRegularFileCondition(checksumFile).isTrue()) {
                 OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
                 OperationPerformer.performAsync(new GoToChecksumScreen());
                 return;
