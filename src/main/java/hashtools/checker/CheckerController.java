@@ -1,11 +1,12 @@
 package hashtools.checker;
 
-import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
-import hashtools.checker.condition.ChecksumFileTypeIsValidCondition;
+import hashtools.checker.exception.InvalidChecksumFileSizeException;
+import hashtools.checker.exception.InvalidChecksumFileTypeException;
+import hashtools.checker.exception.MissingChecksumFileException;
+import hashtools.checker.exception.MissingInputFileException;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -190,55 +191,39 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     private final class RunModule implements Operation {
         @Override
         public void perform() {
-            Path inputFile = Path.of(lblScreenInputContent.getText());
-            Path checksumFile = Path.of(lblScreenChecksumContent.getText());
-
-
-            String title = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
-
-            if (new FileIsRegularFileCondition(inputFile).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
-                OperationPerformer.performAsync(new GoToInputScreen());
-                return;
-            }
-
-            if (new FileIsRegularFileCondition(checksumFile).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
-                return;
-            }
-
-            if (new ChecksumFileTypeIsValidCondition(checksumFile).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
-                return;
-            }
-
-            if (new ChecksumFileSizeIsValidCondition(checksumFile).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
-                return;
-            }
-
+            String dialogTitle = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(CheckerController.this, new SplashStartNotification()));
 
-
             CheckerRequest request = new CheckerRequest();
-            request.setInputFile(inputFile);
-            request.setChecksumFile(checksumFile);
+            request.setInputFile(Path.of(lblScreenInputContent.getText()));
+            request.setChecksumFile(Path.of(lblScreenChecksumContent.getText()));
 
-            CheckerService service = new CheckerService();
-            CheckerResponse response = service.processRequest(request);
+            try {
+                CheckerService service = new CheckerService();
+                CheckerResponse response = service.processRequest(request);
 
-            String result = service.formatResponse(response, new CheckerResponseFormatter(language));
-            txtResult.setText(result);
+                String result = service.formatResponse(response, new CheckerResponseFormatter(language));
+                txtResult.setText(result);
 
+                OperationPerformer.performAsync(new GoToResultScreen());
+            } catch (MissingInputFileException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
+                OperationPerformer.performAsync(new GoToInputScreen());
+            } catch (MissingChecksumFileException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+            } catch (InvalidChecksumFileTypeException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+            } catch (InvalidChecksumFileSizeException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
+                OperationPerformer.performAsync(new GoToChecksumScreen());
+            }
 
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(CheckerController.this, new SplashStopNotification()));
-            OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
 }

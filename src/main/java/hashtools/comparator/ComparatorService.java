@@ -2,6 +2,7 @@ package hashtools.comparator;
 
 import hashtools.shared.Algorithm;
 import hashtools.shared.ChecksumGenerator;
+import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -18,6 +19,8 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
 
     @Override
     public ComparatorResponse processRequest(ComparatorRequest request) {
+        Evaluation.evaluate(new ComparatorRequestEvaluation(request));
+
         ComparatorChecksum checksum = new ComparatorChecksum();
         checksum.setAlgorithm(Algorithm.MD5);
 

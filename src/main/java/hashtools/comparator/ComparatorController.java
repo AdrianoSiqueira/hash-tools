@@ -1,9 +1,10 @@
 package hashtools.comparator;
 
+import hashtools.comparator.exception.MissingInputFile1Exception;
+import hashtools.comparator.exception.MissingInputFile2Exception;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -188,43 +189,34 @@ public class ComparatorController implements Initializable, NotificationSender, 
     private final class RunModule implements Operation {
         @Override
         public void perform() {
-            Path inputFile1 = Path.of(lblScreenInput1Content.getText());
-            Path inputFile2 = Path.of(lblScreenInput2Content.getText());
-
-
-            String title = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
-
-            if (new FileIsRegularFileCondition(inputFile1).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
-                OperationPerformer.performAsync(new GoToInputScreen1());
-                return;
-            }
-
-            if (new FileIsRegularFileCondition(inputFile2).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
-                OperationPerformer.performAsync(new GoToInputScreen2());
-                return;
-            }
-
+            String dialogTitle = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStartNotification()));
 
-
             ComparatorRequest request = new ComparatorRequest();
-            request.setInputFile1(inputFile1);
-            request.setInputFile2(inputFile2);
+            request.setInputFile1(Path.of(lblScreenInput1Content.getText()));
+            request.setInputFile2(Path.of(lblScreenInput2Content.getText()));
 
-            ComparatorService service = new ComparatorService();
-            ComparatorResponse response = service.processRequest(request);
+            try {
+                ComparatorService service = new ComparatorService();
+                ComparatorResponse response = service.processRequest(request);
 
-            String result = service.formatResponse(response, new ComparatorResponseFormatter(language));
-            txtScreenResultContent.setText(result);
+                String result = service.formatResponse(response, new ComparatorResponseFormatter(language));
+                txtScreenResultContent.setText(result);
 
+                OperationPerformer.performAsync(new GoToResultScreen());
+            } catch (MissingInputFile1Exception e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
+                OperationPerformer.performAsync(new GoToInputScreen1());
+            } catch (MissingInputFile2Exception e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
+                OperationPerformer.performAsync(new GoToInputScreen2());
+            }
 
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStopNotification()));
-            OperationPerformer.performAsync(new GoToResultScreen());
+
         }
     }
 }

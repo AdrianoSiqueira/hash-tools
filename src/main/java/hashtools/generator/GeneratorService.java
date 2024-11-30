@@ -2,6 +2,7 @@ package hashtools.generator;
 
 import hashtools.shared.Algorithm;
 import hashtools.shared.ChecksumGenerator;
+import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -20,6 +21,8 @@ public class GeneratorService implements RequestProcessor<GeneratorRequest, Gene
 
     @Override
     public GeneratorResponse processRequest(GeneratorRequest request) {
+        Evaluation.evaluate(new GeneratorRequestEvaluation(request));
+
         List<GeneratorChecksum> checksums = new ArrayList<>();
 
         try (ExecutorService executor = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {

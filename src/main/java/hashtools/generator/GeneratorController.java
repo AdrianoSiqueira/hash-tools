@@ -1,10 +1,11 @@
 package hashtools.generator;
 
+import hashtools.generator.exception.InvalidAlgorithmSelectionException;
+import hashtools.generator.exception.MissingInputFileException;
 import hashtools.shared.Algorithm;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -186,21 +187,10 @@ public class GeneratorController implements Initializable, NotificationSender, T
     private final class RunModule implements Operation {
         @Override
         public void perform() {
-            Path inputFile = Path.of(lblScreenInputContent.getText());
-
-
-            String title = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
-
-            if (new FileIsRegularFileCondition(inputFile).isFalse()) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(title, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")));
-                OperationPerformer.performAsync(new GoToInputScreen());
-                return;
-            }
-
+            String dialogTitle = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(GeneratorController.this, new SplashStartNotification()));
-
 
             List<Algorithm> algorithms = pnlScreenAlgorithmContent
                 .getChildren()
@@ -213,19 +203,27 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 .toList();
 
             GeneratorRequest request = new GeneratorRequest();
-            request.setInputFile(inputFile);
+            request.setInputFile(Path.of(lblScreenInputContent.getText()));
             request.setAlgorithms(algorithms);
 
-            GeneratorService service = new GeneratorService();
-            GeneratorResponse response = service.processRequest(request);
+            try {
+                GeneratorService service = new GeneratorService();
+                GeneratorResponse response = service.processRequest(request);
 
-            String result = service.formatResponse(response, new GeneratorResponseFormatter());
-            txtScreenResultContent.setText(result);
+                String result = service.formatResponse(response, new GeneratorResponseFormatter());
+                txtScreenResultContent.setText(result);
 
+                OperationPerformer.performAsync(new GoToResultScreen());
+            } catch (MissingInputFileException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")));
+                OperationPerformer.performAsync(new GoToInputScreen());
+            } catch (InvalidAlgorithmSelectionException e) {
+                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")));
+                OperationPerformer.performAsync(new GoToAlgorithmScreen());
+            }
 
             OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
             OperationPerformer.performAsync(new SendNotification(GeneratorController.this, new SplashStopNotification()));
-            OperationPerformer.performAsync(new GoToResultScreen());
         }
     }
 }

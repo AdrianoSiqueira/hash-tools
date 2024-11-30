@@ -1,6 +1,7 @@
 package hashtools.checker;
 
 import hashtools.shared.ChecksumGenerator;
+import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -18,6 +19,8 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
 
     @Override
     public CheckerResponse processRequest(CheckerRequest request) {
+        Evaluation.evaluate(new CheckerRequestEvaluation(request));
+
         List<CheckerChecksum> checksums = request
             .createNewOfficialChecksumExtractor()
             .extract();
