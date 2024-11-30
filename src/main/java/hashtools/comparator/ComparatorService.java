@@ -1,7 +1,7 @@
 package hashtools.comparator;
 
-import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Algorithm;
+import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -27,7 +27,7 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
             executor.execute(() -> {
                 String hash = generator.generate(
                     checksum.getAlgorithm(),
-                    request.getInput1()
+                    request.createNewMessageDigestUpdater1()
                 );
 
                 checksum.setHash1(hash);
@@ -36,7 +36,7 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
             executor.execute(() -> {
                 String hash = generator.generate(
                     checksum.getAlgorithm(),
-                    request.getInput2()
+                    request.createNewMessageDigestUpdater2()
                 );
 
                 checksum.setHash2(hash);
@@ -44,8 +44,8 @@ public class ComparatorService implements RequestProcessor<ComparatorRequest, Co
         }
 
         ComparatorResponse response = new ComparatorResponse();
-        response.setIdentification1(request.getIdentification1());
-        response.setIdentification2(request.getIdentification2());
+        response.setIdentification1(request.createNewIdentification1());
+        response.setIdentification2(request.createNewIdentification2());
         response.setChecksum(checksum);
         return response;
     }

@@ -5,8 +5,6 @@ import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
-import hashtools.shared.identification.FileIdentification;
-import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
 import hashtools.shared.notification.NotificationReceiver;
@@ -214,10 +212,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
 
             ComparatorRequest request = new ComparatorRequest();
-            request.setInput1(new FileMessageDigestUpdater(inputFile1));
-            request.setInput2(new FileMessageDigestUpdater(inputFile2));
-            request.setIdentification1(new FileIdentification(inputFile1));
-            request.setIdentification2(new FileIdentification(inputFile2));
+            request.setInputFile1(inputFile1);
+            request.setInputFile2(inputFile2);
 
             ComparatorService service = new ComparatorService();
             ComparatorResponse response = service.processRequest(request);
