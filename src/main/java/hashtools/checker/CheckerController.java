@@ -2,14 +2,11 @@ package hashtools.checker;
 
 import hashtools.checker.condition.ChecksumFileSizeIsValidCondition;
 import hashtools.checker.condition.ChecksumFileTypeIsValidCondition;
-import hashtools.checker.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
 import hashtools.shared.condition.FileIsRegularFileCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
-import hashtools.shared.identification.FileIdentification;
-import hashtools.shared.messagedigest.FileMessageDigestUpdater;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
 import hashtools.shared.notification.NotificationReceiver;
@@ -229,9 +226,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
 
             CheckerRequest request = new CheckerRequest();
-            request.setInput(new FileMessageDigestUpdater(inputFile));
-            request.setIdentification(new FileIdentification(inputFile));
-            request.setOfficialChecksumExtractor(new FileOfficialChecksumExtractor(checksumFile));
+            request.setInputFile(inputFile);
+            request.setChecksumFile(checksumFile);
 
             CheckerService service = new CheckerService();
             CheckerResponse response = service.processRequest(request);

@@ -19,7 +19,7 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
     @Override
     public CheckerResponse processRequest(CheckerRequest request) {
         List<CheckerChecksum> checksums = request
-            .getOfficialChecksumExtractor()
+            .createNewOfficialChecksumExtractor()
             .extract();
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
@@ -29,7 +29,7 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
                 threadPool.execute(() -> {
                     String hash = generator.generate(
                         checksum.getAlgorithm(),
-                        request.getInput()
+                        request.createNewMessageDigestUpdater()
                     );
 
                     checksum.setGeneratedHash(hash);
@@ -38,7 +38,7 @@ public class CheckerService implements RequestProcessor<CheckerRequest, CheckerR
         }
 
         CheckerResponse response = new CheckerResponse();
-        response.setIdentification(request.getIdentification());
+        response.setIdentification(request.createNewIdentification());
         response.setChecksums(checksums);
         return response;
     }
