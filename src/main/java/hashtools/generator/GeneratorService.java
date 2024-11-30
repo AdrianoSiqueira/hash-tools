@@ -1,7 +1,7 @@
 package hashtools.generator;
 
-import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Algorithm;
+import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Formatter;
 import hashtools.shared.RequestProcessor;
 import hashtools.shared.ResponseFormatter;
@@ -29,7 +29,7 @@ public class GeneratorService implements RequestProcessor<GeneratorRequest, Gene
                 executor.execute(() -> {
                     String hash = generator.generate(
                         algorithm,
-                        request.getInput()
+                        request.createNewMessageDigestUpdater()
                     );
 
                     GeneratorChecksum checksum = new GeneratorChecksum();
@@ -42,7 +42,7 @@ public class GeneratorService implements RequestProcessor<GeneratorRequest, Gene
         }
 
         GeneratorResponse response = new GeneratorResponse();
-        response.setIdentification(request.getIdentification());
+        response.setIdentification(request.createNewIdentification());
         response.setChecksums(checksums);
         return response;
     }
