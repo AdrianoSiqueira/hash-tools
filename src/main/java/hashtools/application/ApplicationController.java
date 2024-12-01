@@ -19,7 +19,7 @@ import hashtools.shared.operation.OpenScreen;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetNodeToPaneOperation;
-import hashtools.shared.operation.StartSplashScreen;
+import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -195,7 +195,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         public void handle(SplashStartNotification notification) {
             Operation.perform(
                 THREAD_POOL,
-                new StartSplashScreen(pnlFooter)
+                new StartSplashOperation(pnlFooter)
             );
         }
 

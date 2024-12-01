@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class StartSplashScreen extends Operation {
+public class StartSplashOperation extends Operation {
 
     private final Pane pnlRoot;
 

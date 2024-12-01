@@ -20,7 +20,7 @@ import hashtools.shared.operation.SendNotification;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
-import hashtools.shared.operation.StartSplashScreen;
+import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -194,7 +194,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
 
             Operation.perform(
                 THREAD_POOL,
-                new StartSplashScreen(pnlRoot),
+                new StartSplashOperation(pnlRoot),
                 new SendNotification(GeneratorController.this, new SplashStartNotification())
             );
 
