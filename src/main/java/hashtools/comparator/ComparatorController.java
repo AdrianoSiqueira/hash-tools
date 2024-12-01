@@ -13,7 +13,6 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.SendNotification;
@@ -35,8 +34,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static hashtools.shared.Resource.StaticImplementation.NO_CONDITION;
 
 public class ComparatorController implements Initializable, NotificationSender, TransitionedScreen {
 
@@ -71,8 +68,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
     @Override
     public Notification getCallerNotification() {
         return new FooterButtonActionNotification(
-            new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-            new ConditionalOperation(NO_CONDITION, new GoToInputScreen2())
+            new GoToMainScreen(),
+            new GoToInputScreen2()
         );
     }
 
@@ -142,8 +139,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
             showScreen(pnlScreenInput1);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen2())
+                new GoToMainScreen(),
+                new GoToInputScreen2()
             ));
         }
     }
@@ -154,8 +151,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
             showScreen(pnlScreenInput2);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen1()),
-                new ConditionalOperation(NO_CONDITION, new RunModule())
+                new GoToInputScreen1(),
+                new RunModule()
             ));
         }
     }
@@ -180,8 +177,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
             );
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen2()),
-                new ConditionalOperation(NO_CONDITION, saveFile)
+                new GoToInputScreen2(),
+                saveFile
             ));
         }
     }

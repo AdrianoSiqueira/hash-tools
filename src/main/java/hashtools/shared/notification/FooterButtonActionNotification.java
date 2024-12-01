@@ -1,6 +1,6 @@
 package hashtools.shared.notification;
 
-import hashtools.shared.operation.ConditionalOperation;
+import hashtools.shared.operation.Operation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @SuppressWarnings("ClassCanBeRecord")
 public class FooterButtonActionNotification implements Notification {
-    private final ConditionalOperation btnFooterBackAction;
-    private final ConditionalOperation btnFooterNextAction;
+    private final Operation btnFooterBackAction;
+    private final Operation btnFooterNextAction;
 }

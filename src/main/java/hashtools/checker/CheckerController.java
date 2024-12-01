@@ -15,7 +15,6 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.SendNotification;
@@ -37,8 +36,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static hashtools.shared.Resource.StaticImplementation.NO_CONDITION;
 
 public class CheckerController implements Initializable, NotificationSender, TransitionedScreen {
 
@@ -73,8 +70,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     @Override
     public Notification getCallerNotification() {
         return new FooterButtonActionNotification(
-            new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-            new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+            new GoToMainScreen(),
+            new GoToChecksumScreen()
         );
     }
 
@@ -144,8 +141,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             showScreen(pnlScreenChecksum);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen()),
-                new ConditionalOperation(NO_CONDITION, new RunModule())
+                new GoToInputScreen(),
+                new RunModule()
             ));
         }
     }
@@ -156,8 +153,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             showScreen(pnlScreenInput);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen())
+                new GoToMainScreen(),
+                new GoToChecksumScreen()
             ));
         }
     }
@@ -182,8 +179,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             );
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToChecksumScreen()),
-                new ConditionalOperation(NO_CONDITION, saveFile)
+                new GoToChecksumScreen(),
+                saveFile
             ));
         }
     }

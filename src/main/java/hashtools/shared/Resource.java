@@ -3,7 +3,6 @@ package hashtools.shared;
 import hashtools.preloader.PreloaderWindow;
 import hashtools.shared.condition.Condition;
 import hashtools.shared.condition.NoCondition;
-import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.NoOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.threadpool.ThreadPool;
@@ -54,7 +53,6 @@ public final class Resource {
     public static final class StaticImplementation {
         public static final Condition NO_CONDITION = new NoCondition();
         public static final Operation NO_OPERATION = new NoOperation();
-        public static final ConditionalOperation NO_CONDITIONAL_OPERATION = new ConditionalOperation(NO_CONDITION, NO_OPERATION);
         public static final String PRELOADER_CLASS = PreloaderWindow.class.getCanonicalName();
     }
 }

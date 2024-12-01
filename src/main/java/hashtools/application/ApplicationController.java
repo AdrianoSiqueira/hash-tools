@@ -13,9 +13,9 @@ import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.AddNodeToPaneOperation;
 import hashtools.shared.operation.ArmNode;
-import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.DisarmNode;
 import hashtools.shared.operation.OpenScreen;
+import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetPaneChildren;
@@ -53,7 +53,7 @@ public class ApplicationController implements Initializable, NotificationReceive
     @FXML
     private Labeled lblFooterSpacer;
 
-    private ConditionalOperation
+    private Operation
         btnFooterBackAction,
         btnFooterNextAction;
 
@@ -77,8 +77,8 @@ public class ApplicationController implements Initializable, NotificationReceive
         this.language = language;
         notificationHandler = new NotificationHandler();
 
-        btnFooterBackAction = Resource.StaticImplementation.NO_CONDITIONAL_OPERATION;
-        btnFooterNextAction = Resource.StaticImplementation.NO_CONDITIONAL_OPERATION;
+        btnFooterBackAction = Resource.StaticImplementation.NO_OPERATION;
+        btnFooterNextAction = Resource.StaticImplementation.NO_OPERATION;
 
         pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);

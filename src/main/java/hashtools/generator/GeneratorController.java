@@ -14,7 +14,6 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
-import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.SendNotification;
@@ -30,7 +29,6 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -39,9 +37,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static hashtools.shared.Resource.StaticImplementation.NO_CONDITION;
-
-@Slf4j
 public class GeneratorController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
@@ -83,8 +78,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
     @Override
     public Notification getCallerNotification() {
         return new FooterButtonActionNotification(
-            new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-            new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen())
+            new GoToMainScreen(),
+            new GoToAlgorithmScreen()
         );
     }
 
@@ -140,8 +135,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
             showScreen(pnlScreenAlgorithm);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToInputScreen()),
-                new ConditionalOperation(NO_CONDITION, new RunModule())
+                new GoToInputScreen(),
+                new RunModule()
             ));
         }
     }
@@ -152,8 +147,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
             showScreen(pnlScreenInput);
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToMainScreen()),
-                new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen())
+                new GoToMainScreen(),
+                new GoToAlgorithmScreen()
             ));
         }
     }
@@ -178,8 +173,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
             );
 
             sendNotification(new FooterButtonActionNotification(
-                new ConditionalOperation(NO_CONDITION, new GoToAlgorithmScreen()),
-                new ConditionalOperation(NO_CONDITION, saveFile)
+                new GoToAlgorithmScreen(),
+                saveFile
             ));
         }
     }
