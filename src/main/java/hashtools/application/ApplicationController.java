@@ -66,12 +66,18 @@ public class ApplicationController implements Initializable, NotificationReceive
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
-        Operation.perform(btnFooterBackAction);
+        Operation.perform(
+            THREAD_POOL,
+            btnFooterBackAction
+        );
     }
 
     @FXML
     private void btnFooterNextAction(ActionEvent event) {
-        Operation.perform(btnFooterNextAction, THREAD_POOL);
+        Operation.perform(
+            THREAD_POOL,
+            btnFooterNextAction
+        );
     }
 
     @Override
@@ -86,69 +92,68 @@ public class ApplicationController implements Initializable, NotificationReceive
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
         pnlMenuGenerator.setUserData(Resource.FXMLPath.GENERATOR_SCREEN);
 
-        Operation.perform(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
+        Operation.perform(
+            THREAD_POOL,
+            new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter)
+        );
     }
 
     @FXML
     private void pnlMenuItemKeyPressed(KeyEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
                 new ArmNode(JavaFXUtil.getNode(event))
-            ),
-            THREAD_POOL
+            )
         );
     }
 
     @FXML
     private void pnlMenuItemKeyReleased(KeyEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
                 new DisarmNode(JavaFXUtil.getNode(event))
             ),
-            THREAD_POOL
-        );
-
-        Operation.perform(
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
                 new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
-            ),
-            THREAD_POOL
+            )
         );
     }
 
     @FXML
     private void pnlMenuItemMouseClicked(MouseEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
                 new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
-            ),
-            THREAD_POOL
+            )
         );
     }
 
     @FXML
     private void pnlMenuItemMousePressed(MouseEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
                 new ArmNode(JavaFXUtil.getNode(event))
-            ),
-            THREAD_POOL
+            )
         );
     }
 
     @FXML
     private void pnlMenuItemMouseReleased(MouseEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
                 new DisarmNode(JavaFXUtil.getNode(event))
-            ),
-            THREAD_POOL
+            )
         );
     }
 
@@ -173,20 +178,32 @@ public class ApplicationController implements Initializable, NotificationReceive
         }
 
         public void handle(ScreenCloseNotification notification) {
-            Operation.perform(new SetPaneChildren(pnlContent, pnlMenu), THREAD_POOL);
-            Operation.perform(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new SetPaneChildren(pnlContent, pnlMenu),
+                new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter)
+            );
         }
 
         public void handle(ScreenOpenNotification notification) {
-            Operation.perform(new AddNodeToPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new AddNodeToPaneOperation(pnlRoot, pnlFooter)
+            );
         }
 
         public void handle(SplashStartNotification notification) {
-            Operation.perform(new StartSplashScreen(pnlFooter), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new StartSplashScreen(pnlFooter)
+            );
         }
 
         public void handle(SplashStopNotification notification) {
-            Operation.perform(new StopSplashScreen(pnlFooter), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new StopSplashScreen(pnlFooter)
+            );
         }
     }
 }

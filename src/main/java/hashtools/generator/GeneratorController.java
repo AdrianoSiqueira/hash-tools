@@ -97,12 +97,16 @@ public class GeneratorController implements Initializable, NotificationSender, T
             pnlScreenResult
         );
 
-        Operation.perform(new GoToInputScreen(), THREAD_POOL);
+        Operation.perform(
+            THREAD_POOL,
+            new GoToInputScreen()
+        );
     }
 
     @FXML
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
         Operation.perform(
+            THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
                 new ShowOpenFileDialog(
@@ -112,8 +116,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
                     lblScreenInputContent,
                     pnlRoot.getScene().getWindow()
                 )
-            ),
-            THREAD_POOL
+            )
         );
     }
 
@@ -189,8 +192,11 @@ public class GeneratorController implements Initializable, NotificationSender, T
         protected void perform() {
             String dialogTitle = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
 
-            Operation.perform(new StartSplashScreen(pnlRoot), THREAD_POOL);
-            Operation.perform(new SendNotification(GeneratorController.this, new SplashStartNotification()), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new StartSplashScreen(pnlRoot),
+                new SendNotification(GeneratorController.this, new SplashStartNotification())
+            );
 
             List<Algorithm> algorithms = pnlScreenAlgorithmContent
                 .getChildren()
@@ -213,17 +219,29 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 String result = service.formatResponse(response, new GeneratorResponseFormatter());
                 txtScreenResultContent.setText(result);
 
-                Operation.perform(new GoToResultScreen(), THREAD_POOL);
+                Operation.perform(
+                    THREAD_POOL,
+                    new GoToResultScreen()
+                );
             } catch (MissingInputFileException e) {
-                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")), THREAD_POOL);
-                Operation.perform(new GoToInputScreen(), THREAD_POOL);
+                Operation.perform(
+                    THREAD_POOL,
+                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")),
+                    new GoToInputScreen()
+                );
             } catch (InvalidAlgorithmSelectionException e) {
-                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")), THREAD_POOL);
-                Operation.perform(new GoToAlgorithmScreen(), THREAD_POOL);
+                Operation.perform(
+                    THREAD_POOL,
+                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")),
+                    new GoToAlgorithmScreen()
+                );
             }
 
-            Operation.perform(new StopSplashScreen(pnlRoot), THREAD_POOL);
-            Operation.perform(new SendNotification(GeneratorController.this, new SplashStopNotification()), THREAD_POOL);
+            Operation.perform(
+                THREAD_POOL,
+                new StopSplashScreen(pnlRoot),
+                new SendNotification(GeneratorController.this, new SplashStopNotification())
+            );
         }
     }
 }
