@@ -7,6 +7,7 @@ import hashtools.checker.exception.MissingInputFileException;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
+import hashtools.shared.condition.Condition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -15,8 +16,8 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
+import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.SendNotification;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static hashtools.shared.Resource.Software.THREAD_POOL;
 
 public class CheckerController implements Initializable, NotificationSender, TransitionedScreen {
 
@@ -87,34 +90,42 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             pnlScreenResult
         );
 
-        OperationPerformer.performAsync(new GoToInputScreen());
+        Operation.perform(new GoToInputScreen(), THREAD_POOL);
     }
 
     @FXML
     private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new ShowOpenFileDialog(
-                language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
-                lblScreenChecksumContent,
-                pnlRoot.getScene().getWindow()
-            )
+        Condition condition = new MouseButtonIsPrimaryCondition(event);
+
+        Operation operation = new ShowOpenFileDialog(
+            language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
+            lblScreenChecksumContent,
+            pnlRoot.getScene().getWindow()
+        );
+
+        Operation.perform(
+            new ConditionalOperation(condition, operation),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new ShowOpenFileDialog(
-                language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                Extension.getAllExtensions(language),
-                lblScreenInputContent,
-                pnlRoot.getScene().getWindow()
-            )
+        Condition condition = new MouseButtonIsPrimaryCondition(event);
+
+        Operation operation = new ShowOpenFileDialog(
+            language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            Extension.getAllExtensions(language),
+            lblScreenInputContent,
+            pnlRoot.getScene().getWindow()
+        );
+
+        Operation.perform(
+            new ConditionalOperation(condition, operation),
+            THREAD_POOL
         );
     }
 
@@ -190,8 +201,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         protected void perform() {
             String dialogTitle = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
-            OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(CheckerController.this, new SplashStartNotification()));
+            Operation.perform(new StartSplashScreen(pnlRoot), THREAD_POOL);
+            Operation.perform(new SendNotification(CheckerController.this, new SplashStartNotification()), THREAD_POOL);
 
             CheckerRequest request = new CheckerRequest();
             request.setInputFile(Path.of(lblScreenInputContent.getText()));
@@ -204,23 +215,23 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 String result = service.formatResponse(response, new CheckerResponseFormatter(language));
                 txtResult.setText(result);
 
-                OperationPerformer.performAsync(new GoToResultScreen());
+                Operation.perform(new GoToResultScreen(), THREAD_POOL);
             } catch (MissingInputFileException e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")));
-                OperationPerformer.performAsync(new GoToInputScreen());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")), THREAD_POOL);
+                Operation.perform(new GoToInputScreen(), THREAD_POOL);
             } catch (MissingChecksumFileException e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")), THREAD_POOL);
+                Operation.perform(new GoToChecksumScreen(), THREAD_POOL);
             } catch (InvalidChecksumFileTypeException e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")), THREAD_POOL);
+                Operation.perform(new GoToChecksumScreen(), THREAD_POOL);
             } catch (InvalidChecksumFileSizeException e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")));
-                OperationPerformer.performAsync(new GoToChecksumScreen());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")), THREAD_POOL);
+                Operation.perform(new GoToChecksumScreen(), THREAD_POOL);
             }
 
-            OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(CheckerController.this, new SplashStopNotification()));
+            Operation.perform(new StopSplashScreen(pnlRoot), THREAD_POOL);
+            Operation.perform(new SendNotification(CheckerController.this, new SplashStopNotification()), THREAD_POOL);
         }
     }
 }

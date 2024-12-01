@@ -13,10 +13,10 @@ import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.AddNodeToPaneOperation;
 import hashtools.shared.operation.ArmNode;
+import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.DisarmNode;
 import hashtools.shared.operation.OpenScreen;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetPaneChildren;
 import hashtools.shared.operation.StartSplashScreen;
@@ -32,6 +32,8 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static hashtools.shared.Resource.Software.THREAD_POOL;
 
 public class ApplicationController implements Initializable, NotificationReceiver {
 
@@ -64,12 +66,12 @@ public class ApplicationController implements Initializable, NotificationReceive
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
-        OperationPerformer.perform(btnFooterBackAction);
+        Operation.perform(btnFooterBackAction);
     }
 
     @FXML
     private void btnFooterNextAction(ActionEvent event) {
-        OperationPerformer.performAsync(btnFooterNextAction);
+        Operation.perform(btnFooterNextAction, THREAD_POOL);
     }
 
     @Override
@@ -84,51 +86,69 @@ public class ApplicationController implements Initializable, NotificationReceive
         pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
         pnlMenuGenerator.setUserData(Resource.FXMLPath.GENERATOR_SCREEN);
 
-        OperationPerformer.performAsync(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter));
+        Operation.perform(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
     }
 
     @FXML
     private void pnlMenuItemKeyPressed(KeyEvent event) {
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKeyCondition(event),
-            new ArmNode(JavaFXUtil.getNode(event))
+        Operation.perform(
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event),
+                new ArmNode(JavaFXUtil.getNode(event))
+            ),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlMenuItemKeyReleased(KeyEvent event) {
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKeyCondition(event),
-            new DisarmNode(JavaFXUtil.getNode(event))
+        Operation.perform(
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event),
+                new DisarmNode(JavaFXUtil.getNode(event))
+            ),
+            THREAD_POOL
         );
 
-        OperationPerformer.performAsync(
-            new KeyboardKeyIsActionKeyCondition(event),
-            new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+        Operation.perform(
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event),
+                new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+            ),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlMenuItemMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+        Operation.perform(
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event),
+                new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+            ),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlMenuItemMousePressed(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new ArmNode(JavaFXUtil.getNode(event))
+        Operation.perform(
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event),
+                new ArmNode(JavaFXUtil.getNode(event))
+            ),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlMenuItemMouseReleased(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new DisarmNode(JavaFXUtil.getNode(event))
+        Operation.perform(
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event),
+                new DisarmNode(JavaFXUtil.getNode(event))
+            ),
+            THREAD_POOL
         );
     }
 
@@ -153,20 +173,20 @@ public class ApplicationController implements Initializable, NotificationReceive
         }
 
         public void handle(ScreenCloseNotification notification) {
-            OperationPerformer.performAsync(new SetPaneChildren(pnlContent, pnlMenu));
-            OperationPerformer.performAsync(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter));
+            Operation.perform(new SetPaneChildren(pnlContent, pnlMenu), THREAD_POOL);
+            Operation.perform(new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
         }
 
         public void handle(ScreenOpenNotification notification) {
-            OperationPerformer.performAsync(new AddNodeToPaneOperation(pnlRoot, pnlFooter));
+            Operation.perform(new AddNodeToPaneOperation(pnlRoot, pnlFooter), THREAD_POOL);
         }
 
         public void handle(SplashStartNotification notification) {
-            OperationPerformer.performAsync(new StartSplashScreen(pnlFooter));
+            Operation.perform(new StartSplashScreen(pnlFooter), THREAD_POOL);
         }
 
         public void handle(SplashStopNotification notification) {
-            OperationPerformer.performAsync(new StopSplashScreen(pnlFooter));
+            Operation.perform(new StopSplashScreen(pnlFooter), THREAD_POOL);
         }
     }
 }

@@ -5,6 +5,7 @@ import hashtools.comparator.exception.MissingInputFile2Exception;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
+import hashtools.shared.condition.Condition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -13,8 +14,8 @@ import hashtools.shared.notification.NotificationSender;
 import hashtools.shared.notification.ScreenCloseNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
+import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.OperationPerformer;
 import hashtools.shared.operation.SendNotification;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static hashtools.shared.Resource.Software.THREAD_POOL;
 
 public class ComparatorController implements Initializable, NotificationSender, TransitionedScreen {
 
@@ -85,34 +88,42 @@ public class ComparatorController implements Initializable, NotificationSender, 
             pnlScreenResult
         );
 
-        OperationPerformer.performAsync(new GoToInputScreen1());
+        Operation.perform(new GoToInputScreen1(), THREAD_POOL);
     }
 
     @FXML
     private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new ShowOpenFileDialog(
-                language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                Extension.getAllExtensions(language),
-                lblScreenInput1Content,
-                pnlRoot.getScene().getWindow()
-            )
+        Condition condition = new MouseButtonIsPrimaryCondition(event);
+
+        Operation operation = new ShowOpenFileDialog(
+            language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            Extension.getAllExtensions(language),
+            lblScreenInput1Content,
+            pnlRoot.getScene().getWindow()
+        );
+
+        Operation.perform(
+            new ConditionalOperation(condition, operation),
+            THREAD_POOL
         );
     }
 
     @FXML
     private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
-        OperationPerformer.performAsync(
-            new MouseButtonIsPrimaryCondition(event),
-            new ShowOpenFileDialog(
-                language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                Extension.getAllExtensions(language),
-                lblScreenInput2Content,
-                pnlRoot.getScene().getWindow()
-            )
+        Condition condition = new MouseButtonIsPrimaryCondition(event);
+
+        Operation operation = new ShowOpenFileDialog(
+            language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
+            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+            Extension.getAllExtensions(language),
+            lblScreenInput2Content,
+            pnlRoot.getScene().getWindow()
+        );
+
+        Operation.perform(
+            new ConditionalOperation(condition, operation),
+            THREAD_POOL
         );
     }
 
@@ -188,8 +199,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
         protected void perform() {
             String dialogTitle = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
-            OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStartNotification()));
+            Operation.perform(new StartSplashScreen(pnlRoot), THREAD_POOL);
+            Operation.perform(new SendNotification(ComparatorController.this, new SplashStartNotification()), THREAD_POOL);
 
             ComparatorRequest request = new ComparatorRequest();
             request.setInputFile1(Path.of(lblScreenInput1Content.getText()));
@@ -202,18 +213,17 @@ public class ComparatorController implements Initializable, NotificationSender, 
                 String result = service.formatResponse(response, new ComparatorResponseFormatter(language));
                 txtScreenResultContent.setText(result);
 
-                OperationPerformer.performAsync(new GoToResultScreen());
+                Operation.perform(new GoToResultScreen(), THREAD_POOL);
             } catch (MissingInputFile1Exception e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")));
-                OperationPerformer.performAsync(new GoToInputScreen1());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")), THREAD_POOL);
+                Operation.perform(new GoToInputScreen1(), THREAD_POOL);
             } catch (MissingInputFile2Exception e) {
-                OperationPerformer.performAsync(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")));
-                OperationPerformer.performAsync(new GoToInputScreen2());
+                Operation.perform(new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")), THREAD_POOL);
+                Operation.perform(new GoToInputScreen2(), THREAD_POOL);
             }
 
-            OperationPerformer.performAsync(new StopSplashScreen(pnlRoot));
-            OperationPerformer.performAsync(new SendNotification(ComparatorController.this, new SplashStopNotification()));
-
+            Operation.perform(new StopSplashScreen(pnlRoot), THREAD_POOL);
+            Operation.perform(new SendNotification(ComparatorController.this, new SplashStopNotification()), THREAD_POOL);
         }
     }
 }
