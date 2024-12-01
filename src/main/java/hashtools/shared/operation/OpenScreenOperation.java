@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
-public class OpenScreen extends Operation {
+public class OpenScreenOperation extends Operation {
 
     private final NotificationReceiver receiver;
     private final String fxmlPath;

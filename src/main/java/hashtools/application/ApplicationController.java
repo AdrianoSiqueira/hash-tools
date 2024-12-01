@@ -15,7 +15,7 @@ import hashtools.shared.operation.AddNodeToPaneOperation;
 import hashtools.shared.operation.ArmNodeOperation;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.DisarmNodeOperation;
-import hashtools.shared.operation.OpenScreen;
+import hashtools.shared.operation.OpenScreenOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetNodeToPaneOperation;
@@ -119,7 +119,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
-                new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+                new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
             )
         );
     }
@@ -130,7 +130,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
-                new OpenScreen(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+                new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
             )
         );
     }
