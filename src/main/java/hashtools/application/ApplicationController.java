@@ -14,7 +14,7 @@ import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.AddNodeToPaneOperation;
 import hashtools.shared.operation.ArmNodeOperation;
 import hashtools.shared.operation.ConditionalOperation;
-import hashtools.shared.operation.DisarmNode;
+import hashtools.shared.operation.DisarmNodeOperation;
 import hashtools.shared.operation.OpenScreen;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
@@ -115,7 +115,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
-                new DisarmNode(JavaFXUtil.getNode(event))
+                new DisarmNodeOperation(JavaFXUtil.getNode(event))
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
@@ -152,7 +152,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
-                new DisarmNode(JavaFXUtil.getNode(event))
+                new DisarmNodeOperation(JavaFXUtil.getNode(event))
             )
         );
     }

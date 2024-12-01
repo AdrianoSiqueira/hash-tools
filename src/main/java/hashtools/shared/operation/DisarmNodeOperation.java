@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DisarmNode extends Operation {
+public class DisarmNodeOperation extends Operation {
 
     private final Node node;
 
