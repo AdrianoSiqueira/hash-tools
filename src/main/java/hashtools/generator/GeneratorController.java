@@ -18,7 +18,7 @@ import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
-import hashtools.shared.operation.ShowOpenFileDialog;
+import hashtools.shared.operation.ShowOpenFileDialogOperation;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashOperation;
@@ -109,7 +109,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
-                new ShowOpenFileDialog(
+                new ShowOpenFileDialogOperation(
                     language.getString("hashtools.generator.generator-controller.dialog.title.open-file"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                     Extension.getAllExtensions(language),

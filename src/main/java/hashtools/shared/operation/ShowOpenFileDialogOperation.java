@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class ShowOpenFileDialog extends Operation {
+public class ShowOpenFileDialogOperation extends Operation {
 
     private final String title;
     private final String initialDirectory;

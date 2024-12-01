@@ -20,7 +20,7 @@ import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
-import hashtools.shared.operation.ShowOpenFileDialog;
+import hashtools.shared.operation.ShowOpenFileDialogOperation;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashOperation;
@@ -100,7 +100,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
         Condition condition = new MouseButtonIsPrimaryCondition(event);
 
-        Operation operation = new ShowOpenFileDialog(
+        Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
             System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
             List.of(Extension.HASH.getFilter(language), Extension.ALL.getFilter(language)),
@@ -118,7 +118,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
         Condition condition = new MouseButtonIsPrimaryCondition(event);
 
-        Operation operation = new ShowOpenFileDialog(
+        Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
             System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
             Extension.getAllExtensions(language),

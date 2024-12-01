@@ -18,7 +18,7 @@ import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
-import hashtools.shared.operation.ShowOpenFileDialog;
+import hashtools.shared.operation.ShowOpenFileDialogOperation;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashOperation;
@@ -98,7 +98,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
     private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
         Condition condition = new MouseButtonIsPrimaryCondition(event);
 
-        Operation operation = new ShowOpenFileDialog(
+        Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
             System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
             Extension.getAllExtensions(language),
@@ -116,7 +116,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
     private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
         Condition condition = new MouseButtonIsPrimaryCondition(event);
 
-        Operation operation = new ShowOpenFileDialog(
+        Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
             System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
             Extension.getAllExtensions(language),
