@@ -16,7 +16,7 @@ import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.SendNotification;
+import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
@@ -195,7 +195,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
             Operation.perform(
                 THREAD_POOL,
                 new StartSplashOperation(pnlRoot),
-                new SendNotification(GeneratorController.this, new SplashStartNotification())
+                new SendNotificationOperation(GeneratorController.this, new SplashStartNotification())
             );
 
             List<Algorithm> algorithms = pnlScreenAlgorithmContent
@@ -240,7 +240,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
             Operation.perform(
                 THREAD_POOL,
                 new StopSplashOperation(pnlRoot),
-                new SendNotification(GeneratorController.this, new SplashStopNotification())
+                new SendNotificationOperation(GeneratorController.this, new SplashStopNotification())
             );
         }
     }

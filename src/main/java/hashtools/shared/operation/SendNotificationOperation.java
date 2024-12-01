@@ -5,7 +5,7 @@ import hashtools.shared.notification.NotificationSender;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SendNotification extends Operation {
+public class SendNotificationOperation extends Operation {
 
     private final NotificationSender sender;
     private final Notification notification;

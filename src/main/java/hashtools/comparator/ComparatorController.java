@@ -16,7 +16,7 @@ import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.SendNotification;
+import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
@@ -205,7 +205,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
             Operation.perform(
                 THREAD_POOL,
                 new StartSplashOperation(pnlRoot),
-                new SendNotification(ComparatorController.this, new SplashStartNotification())
+                new SendNotificationOperation(ComparatorController.this, new SplashStartNotification())
             );
 
             ComparatorRequest request = new ComparatorRequest();
@@ -240,7 +240,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
             Operation.perform(
                 THREAD_POOL,
                 new StopSplashOperation(pnlRoot),
-                new SendNotification(ComparatorController.this, new SplashStopNotification())
+                new SendNotificationOperation(ComparatorController.this, new SplashStopNotification())
             );
         }
     }

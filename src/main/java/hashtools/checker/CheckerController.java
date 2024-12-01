@@ -18,7 +18,7 @@ import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.SendNotification;
+import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
@@ -207,7 +207,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             Operation.perform(
                 THREAD_POOL,
                 new StartSplashOperation(pnlRoot),
-                new SendNotification(CheckerController.this, new SplashStartNotification())
+                new SendNotificationOperation(CheckerController.this, new SplashStartNotification())
             );
 
             CheckerRequest request = new CheckerRequest();
@@ -254,7 +254,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             Operation.perform(
                 THREAD_POOL,
                 new StopSplashOperation(pnlRoot),
-                new SendNotification(CheckerController.this, new SplashStopNotification())
+                new SendNotificationOperation(CheckerController.this, new SplashStopNotification())
             );
         }
     }
