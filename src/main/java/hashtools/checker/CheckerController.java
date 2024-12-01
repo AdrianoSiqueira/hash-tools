@@ -138,9 +138,9 @@ public class CheckerController implements Initializable, NotificationSender, Tra
     }
 
 
-    private class GoToChecksumScreen implements Operation {
+    private class GoToChecksumScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenChecksum);
 
             sendNotification(new FooterButtonActionNotification(
@@ -150,9 +150,9 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         }
     }
 
-    private final class GoToInputScreen implements Operation {
+    private final class GoToInputScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenInput);
 
             sendNotification(new FooterButtonActionNotification(
@@ -162,16 +162,16 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         }
     }
 
-    private final class GoToMainScreen implements Operation {
+    private final class GoToMainScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             sendNotification(new ScreenCloseNotification());
         }
     }
 
-    private final class GoToResultScreen implements Operation {
+    private final class GoToResultScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
@@ -188,9 +188,9 @@ public class CheckerController implements Initializable, NotificationSender, Tra
         }
     }
 
-    private final class RunModule implements Operation {
+    private final class RunModule extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             String dialogTitle = language.getString("hashtools.checker.checker-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));

@@ -134,9 +134,9 @@ public class GeneratorController implements Initializable, NotificationSender, T
     }
 
 
-    private final class GoToAlgorithmScreen implements Operation {
+    private final class GoToAlgorithmScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenAlgorithm);
 
             sendNotification(new FooterButtonActionNotification(
@@ -146,9 +146,9 @@ public class GeneratorController implements Initializable, NotificationSender, T
         }
     }
 
-    private final class GoToInputScreen implements Operation {
+    private final class GoToInputScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenInput);
 
             sendNotification(new FooterButtonActionNotification(
@@ -158,16 +158,16 @@ public class GeneratorController implements Initializable, NotificationSender, T
         }
     }
 
-    private final class GoToMainScreen implements Operation {
+    private final class GoToMainScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             sendNotification(new ScreenCloseNotification());
         }
     }
 
-    private final class GoToResultScreen implements Operation {
+    private final class GoToResultScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
@@ -184,9 +184,9 @@ public class GeneratorController implements Initializable, NotificationSender, T
         }
     }
 
-    private final class RunModule implements Operation {
+    private final class RunModule extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             String dialogTitle = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));

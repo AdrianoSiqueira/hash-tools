@@ -6,12 +6,12 @@ import javafx.scene.Node;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ArmNode implements Operation {
+public class ArmNode extends Operation {
 
     private final Node node;
 
     @Override
-    public void perform() {
+    protected void perform() {
         node.pseudoClassStateChanged(
             Resource.PseudoClass.ARMED,
             true

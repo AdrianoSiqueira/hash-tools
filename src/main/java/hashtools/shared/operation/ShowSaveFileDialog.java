@@ -7,7 +7,7 @@ import javafx.stage.Window;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ShowSaveFileDialog implements Operation {
+public class ShowSaveFileDialog extends Operation {
 
     private final String title;
     private final String initialDirectory;
@@ -15,7 +15,7 @@ public class ShowSaveFileDialog implements Operation {
     private final Window ownerWindow;
 
     @Override
-    public void perform() {
+    protected void perform() {
         Platform.runLater(() -> DialogUtil
             .showSaveDialog(title, initialDirectory, ownerWindow)
             .ifPresent(file -> FileUtil.replaceContent(content, file))

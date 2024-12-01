@@ -4,12 +4,12 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DisableChildren implements Operation {
+public class DisableChildren extends Operation {
 
     private final Pane pane;
 
     @Override
-    public void perform() {
+    protected void perform() {
         pane
             .getChildren()
             .forEach(node -> node.setDisable(true));

@@ -5,13 +5,13 @@ import hashtools.shared.notification.NotificationSender;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SendNotification implements Operation {
+public class SendNotification extends Operation {
 
     private final NotificationSender sender;
     private final Notification notification;
 
     @Override
-    public void perform() {
+    protected void perform() {
         sender.sendNotification(notification);
     }
 }

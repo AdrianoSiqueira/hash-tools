@@ -1,8 +1,8 @@
 package hashtools.shared.operation;
 
-public class NoOperation implements Operation {
+public class NoOperation extends Operation {
 
     @Override
-    public void perform() {
+    protected void perform() {
     }
 }

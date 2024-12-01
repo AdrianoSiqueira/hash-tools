@@ -8,13 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 @RequiredArgsConstructor
-public class ReplaceFileContent implements Operation {
+public class ReplaceFileContent extends Operation {
 
     private final CharSequence content;
     private final Path file;
 
     @Override
-    public void perform() {
+    protected void perform() {
         try {
             Files.writeString(
                 file,

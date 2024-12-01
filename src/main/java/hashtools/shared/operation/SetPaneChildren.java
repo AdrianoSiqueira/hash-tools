@@ -6,13 +6,13 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SetPaneChildren implements Operation {
+public class SetPaneChildren extends Operation {
 
     private final Pane pane;
     private final Node node;
 
     @Override
-    public void perform() {
+    protected void perform() {
         Platform.runLater(() -> pane
             .getChildren()
             .setAll(node)

@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class ShowOpenFileDialog implements Operation {
+public class ShowOpenFileDialog extends Operation {
 
     private final String title;
     private final String initialDirectory;
@@ -20,7 +20,7 @@ public class ShowOpenFileDialog implements Operation {
     private final Window ownerWindow;
 
     @Override
-    public void perform() {
+    protected void perform() {
         Platform.runLater(() -> DialogUtil
             .showOpenDialog(title, initialDirectory, filters, ownerWindow)
             .map(Path::toString)

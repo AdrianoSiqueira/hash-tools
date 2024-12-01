@@ -136,9 +136,9 @@ public class ComparatorController implements Initializable, NotificationSender, 
     }
 
 
-    private final class GoToInputScreen1 implements Operation {
+    private final class GoToInputScreen1 extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenInput1);
 
             sendNotification(new FooterButtonActionNotification(
@@ -148,9 +148,9 @@ public class ComparatorController implements Initializable, NotificationSender, 
         }
     }
 
-    private final class GoToInputScreen2 implements Operation {
+    private final class GoToInputScreen2 extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenInput2);
 
             sendNotification(new FooterButtonActionNotification(
@@ -160,16 +160,16 @@ public class ComparatorController implements Initializable, NotificationSender, 
         }
     }
 
-    private final class GoToMainScreen implements Operation {
+    private final class GoToMainScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             sendNotification(new ScreenCloseNotification());
         }
     }
 
-    private final class GoToResultScreen implements Operation {
+    private final class GoToResultScreen extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             showScreen(pnlScreenResult);
 
             Operation saveFile = new ShowSaveFileDialog(
@@ -186,9 +186,9 @@ public class ComparatorController implements Initializable, NotificationSender, 
         }
     }
 
-    private final class RunModule implements Operation {
+    private final class RunModule extends Operation {
         @Override
-        public void perform() {
+        protected void perform() {
             String dialogTitle = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
 
             OperationPerformer.performAsync(new StartSplashScreen(pnlRoot));

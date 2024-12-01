@@ -3,12 +3,12 @@ package hashtools.shared.operation;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ThrowException implements Operation {
+public class ThrowException extends Operation {
 
     private final RuntimeException exception;
 
     @Override
-    public void perform() {
+    protected void perform() {
         throw exception;
     }
 }

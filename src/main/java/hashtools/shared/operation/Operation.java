@@ -1,6 +1,16 @@
 package hashtools.shared.operation;
 
-public interface Operation {
+import java.util.concurrent.Executor;
 
-    void perform();
+public abstract class Operation {
+
+    public static void perform(Operation operation) {
+        operation.perform();
+    }
+
+    public static void perform(Operation operation, Executor threadPool) {
+        threadPool.execute(operation::perform);
+    }
+
+    protected abstract void perform();
 }

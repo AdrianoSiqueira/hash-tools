@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
-public class OpenScreen implements Operation {
+public class OpenScreen extends Operation {
 
     private final NotificationReceiver receiver;
     private final String fxmlPath;
@@ -21,7 +21,7 @@ public class OpenScreen implements Operation {
     private final Pane pnlContent;
 
     @Override
-    public void perform() {
+    protected void perform() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(fxmlPath));
