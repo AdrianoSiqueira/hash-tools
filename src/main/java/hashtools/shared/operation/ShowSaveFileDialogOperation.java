@@ -7,7 +7,7 @@ import javafx.stage.Window;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ShowSaveFileDialog extends Operation {
+public class ShowSaveFileDialogOperation extends Operation {
 
     private final String title;
     private final String initialDirectory;

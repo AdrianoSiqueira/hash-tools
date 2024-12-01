@@ -19,7 +19,7 @@ import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.SendNotificationOperation;
 import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialogOperation;
-import hashtools.shared.operation.ShowSaveFileDialog;
+import hashtools.shared.operation.ShowSaveFileDialogOperation;
 import hashtools.shared.operation.StartSplashOperation;
 import hashtools.shared.operation.StopSplashOperation;
 import javafx.fxml.FXML;
@@ -183,7 +183,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
         protected void perform() {
             showScreen(pnlScreenResult);
 
-            Operation saveFile = new ShowSaveFileDialog(
+            Operation saveFile = new ShowSaveFileDialogOperation(
                 language.getString("hashtools.comparator.comparator-controller.dialog.title.save-file"),
                 System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                 txtScreenResultContent.getText(),
