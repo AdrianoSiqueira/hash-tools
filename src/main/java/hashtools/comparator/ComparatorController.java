@@ -21,7 +21,7 @@ import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashOperation;
-import hashtools.shared.operation.StopSplashScreen;
+import hashtools.shared.operation.StopSplashOperation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Labeled;
@@ -239,7 +239,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
             Operation.perform(
                 THREAD_POOL,
-                new StopSplashScreen(pnlRoot),
+                new StopSplashOperation(pnlRoot),
                 new SendNotification(ComparatorController.this, new SplashStopNotification())
             );
         }

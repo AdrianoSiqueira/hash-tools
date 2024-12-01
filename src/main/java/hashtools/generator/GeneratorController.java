@@ -21,7 +21,7 @@ import hashtools.shared.operation.ShowMessageDialogOperation;
 import hashtools.shared.operation.ShowOpenFileDialog;
 import hashtools.shared.operation.ShowSaveFileDialog;
 import hashtools.shared.operation.StartSplashOperation;
-import hashtools.shared.operation.StopSplashScreen;
+import hashtools.shared.operation.StopSplashOperation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -239,7 +239,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
 
             Operation.perform(
                 THREAD_POOL,
-                new StopSplashScreen(pnlRoot),
+                new StopSplashOperation(pnlRoot),
                 new SendNotification(GeneratorController.this, new SplashStopNotification())
             );
         }

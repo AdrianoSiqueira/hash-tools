@@ -20,7 +20,7 @@ import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
 import hashtools.shared.operation.SetNodeToPaneOperation;
 import hashtools.shared.operation.StartSplashOperation;
-import hashtools.shared.operation.StopSplashScreen;
+import hashtools.shared.operation.StopSplashOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -202,7 +202,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         public void handle(SplashStopNotification notification) {
             Operation.perform(
                 THREAD_POOL,
-                new StopSplashScreen(pnlFooter)
+                new StopSplashOperation(pnlFooter)
             );
         }
     }
