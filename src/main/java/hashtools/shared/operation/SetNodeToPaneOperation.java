@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SetPaneChildren extends Operation {
+public class SetNodeToPaneOperation extends Operation {
 
     private final Pane pane;
     private final Node node;

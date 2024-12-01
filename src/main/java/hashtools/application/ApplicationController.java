@@ -18,7 +18,7 @@ import hashtools.shared.operation.DisarmNode;
 import hashtools.shared.operation.OpenScreen;
 import hashtools.shared.operation.Operation;
 import hashtools.shared.operation.RemoveNodeFromPaneOperation;
-import hashtools.shared.operation.SetPaneChildren;
+import hashtools.shared.operation.SetNodeToPaneOperation;
 import hashtools.shared.operation.StartSplashScreen;
 import hashtools.shared.operation.StopSplashScreen;
 import javafx.event.ActionEvent;
@@ -180,7 +180,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         public void handle(ScreenCloseNotification notification) {
             Operation.perform(
                 THREAD_POOL,
-                new SetPaneChildren(pnlContent, pnlMenu),
+                new SetNodeToPaneOperation(pnlContent, pnlMenu),
                 new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter)
             );
         }
