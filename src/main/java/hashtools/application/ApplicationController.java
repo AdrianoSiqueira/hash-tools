@@ -12,7 +12,7 @@ import hashtools.shared.notification.ScreenOpenNotification;
 import hashtools.shared.notification.SplashStartNotification;
 import hashtools.shared.notification.SplashStopNotification;
 import hashtools.shared.operation.AddNodeToPaneOperation;
-import hashtools.shared.operation.ArmNode;
+import hashtools.shared.operation.ArmNodeOperation;
 import hashtools.shared.operation.ConditionalOperation;
 import hashtools.shared.operation.DisarmNode;
 import hashtools.shared.operation.OpenScreen;
@@ -104,7 +104,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event),
-                new ArmNode(JavaFXUtil.getNode(event))
+                new ArmNodeOperation(JavaFXUtil.getNode(event))
             )
         );
     }
@@ -141,7 +141,7 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event),
-                new ArmNode(JavaFXUtil.getNode(event))
+                new ArmNodeOperation(JavaFXUtil.getNode(event))
             )
         );
     }
