@@ -10,8 +10,8 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 public class ChecksumFileSizeIsValidCondition extends Condition {
 
-    private static final int MIN = 1;
-    private static final int MAX = 5000;
+    private static final int ONE_BYTE = 1;
+    private static final int THREE_KIBIBYTE = 3072;
 
     private final Path file;
 
@@ -20,10 +20,10 @@ public class ChecksumFileSizeIsValidCondition extends Condition {
         try {
             long size = Files.size(file);
 
-            return size >= MIN
-                && size <= MAX;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            return size >= ONE_BYTE
+                && size <= THREE_KIBIBYTE;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
