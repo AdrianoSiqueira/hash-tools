@@ -13,6 +13,16 @@ public class AlgorithmSelectionIsValidCondition extends Condition {
 
     @Override
     public boolean isTrue() {
-        return !algorithms.isEmpty();
+        if (algorithms == null) {
+            return false;
+        }
+
+        try {
+            // Null elements may be allowed, so if list contains it, return false.
+            return !algorithms.contains(null);
+        } catch (NullPointerException ignored) {
+            // Null elements is not allowed, so the list does not contain it.
+            return true;
+        }
     }
 }
