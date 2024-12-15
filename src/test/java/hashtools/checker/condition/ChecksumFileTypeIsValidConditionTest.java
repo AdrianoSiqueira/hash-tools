@@ -1,69 +1,66 @@
 package hashtools.checker.condition;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ChecksumFileTypeIsValidConditionTest {
 
+    static Stream<Arguments> getFalseTests() {
+        return Stream.of(
+            Arguments.of(true, null),
+            Arguments.of(true, Path.of("")),
+            Arguments.of(true, Path.of("file")),
+            Arguments.of(true, Path.of(".file")),
+            Arguments.of(true, Path.of("file.")),
+            Arguments.of(false, Path.of("file.md5")),
+            Arguments.of(false, Path.of("file.sha1")),
+            Arguments.of(false, Path.of("file.sha224")),
+            Arguments.of(false, Path.of("file.sha256")),
+            Arguments.of(false, Path.of("file.sha384")),
+            Arguments.of(false, Path.of("file.sha512")),
+            Arguments.of(false, Path.of("file.txt"))
+        );
+    }
+
+    static Stream<Arguments> getTrueTests() {
+        return Stream.of(
+            Arguments.of(false, null),
+            Arguments.of(false, Path.of("")),
+            Arguments.of(false, Path.of("file")),
+            Arguments.of(false, Path.of(".file")),
+            Arguments.of(false, Path.of("file.")),
+            Arguments.of(true, Path.of("file.md5")),
+            Arguments.of(true, Path.of("file.sha1")),
+            Arguments.of(true, Path.of("file.sha224")),
+            Arguments.of(true, Path.of("file.sha256")),
+            Arguments.of(true, Path.of("file.sha384")),
+            Arguments.of(true, Path.of("file.sha512")),
+            Arguments.of(true, Path.of("file.txt"))
+        );
+    }
+
+
     @ParameterizedTest
-    @CsvSource({
-        "file, true",
-        ".file, true",
-        "file., true",
-        "file.md5, false",
-        "file.sha1, false",
-        "file.sha224, false",
-        "file.sha256, false",
-        "file.sha384, false",
-        "file.sha512, false",
-        "file.txt, false"
-    })
-    void isFalse(String fileName, boolean expected) {
+    @MethodSource(value = "getFalseTests")
+    void isFalse(boolean expected, Path file) {
         assertEquals(
             expected,
-            new ChecksumFileTypeIsValidCondition(Path.of(fileName)).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new ChecksumFileTypeIsValidCondition(null).isFalse()
+            new ChecksumFileTypeIsValidCondition(file).isFalse()
         );
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "file, false",
-        ".file, false",
-        "file., false",
-        "file.md5, true",
-        "file.sha1, true",
-        "file.sha224, true",
-        "file.sha256, true",
-        "file.sha384, true",
-        "file.sha512, true",
-        "file.txt, true"
-    })
-    void isTrue(String fileName, boolean expected) {
+    @MethodSource(value = "getTrueTests")
+    void isTrue(boolean expected, Path file) {
         assertEquals(
             expected,
-            new ChecksumFileTypeIsValidCondition(Path.of(fileName)).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new ChecksumFileTypeIsValidCondition(null).isTrue()
+            new ChecksumFileTypeIsValidCondition(file).isTrue()
         );
     }
 }
