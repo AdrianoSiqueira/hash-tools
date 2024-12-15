@@ -1,10 +1,12 @@
 package hashtools.checker.officialchecksum;
 
-import hashtools.shared.Algorithm;
 import hashtools.checker.CheckerChecksum;
+import hashtools.shared.Algorithm;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class StringOfficialChecksumExtractor implements OfficialChecksumExtractor {
@@ -13,15 +15,20 @@ public class StringOfficialChecksumExtractor implements OfficialChecksumExtracto
 
     @Override
     public List<CheckerChecksum> extract() {
-        return Algorithm
-            .from(string.length())
+        List<CheckerChecksum> checksums = new ArrayList<>();
+
+        Optional
+            .ofNullable(string)
+            .map(String::length)
+            .flatMap(Algorithm::from)
             .map(algorithm -> {
                 CheckerChecksum checksum = new CheckerChecksum();
                 checksum.setAlgorithm(algorithm);
                 checksum.setOfficialHash(string);
                 return checksum;
             })
-            .map(List::of)
-            .orElse(List.of());
+            .ifPresent(checksums::add);
+
+        return checksums;
     }
 }
