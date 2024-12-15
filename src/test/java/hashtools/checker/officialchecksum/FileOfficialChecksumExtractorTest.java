@@ -2,17 +2,21 @@ package hashtools.checker.officialchecksum;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileOfficialChecksumExtractorTest {
+
+    public static final int MD5_LENGTH = 32;
+    public static final int SHA1_LENGTH = 40;
 
     private static Path
         nullFile,
@@ -23,7 +27,6 @@ class FileOfficialChecksumExtractorTest {
         oneChecksumFile,
         multiChecksumFile;
 
-
     @AfterAll
     static void cleanup() throws Exception {
         Files.deleteIfExists(folder);
@@ -32,85 +35,44 @@ class FileOfficialChecksumExtractorTest {
         Files.deleteIfExists(multiChecksumFile);
     }
 
+    static Stream<Arguments> getTests() {
+        return Stream.of(
+            Arguments.of(0, nullFile),
+            Arguments.of(0, noPathFile),
+            Arguments.of(0, nonExistentFile),
+            Arguments.of(0, folder),
+            Arguments.of(0, noChecksumFile),
+            Arguments.of(1, oneChecksumFile),
+            Arguments.of(2, multiChecksumFile)
+        );
+    }
+
     @BeforeAll
     static void setup() throws Exception {
         nullFile = null;
         noPathFile = Path.of("");
-        folder = Files.createTempDirectory("");
+        folder = Files.createTempDirectory("_folder_");
 
-        nonExistentFile = Files.createTempFile("", "");
+        nonExistentFile = Files.createTempFile("_non-existent_", "");
         Files.deleteIfExists(nonExistentFile);
 
-        noChecksumFile = Files.createTempFile("", "");
+        noChecksumFile = Files.createTempFile("_zero_", "");
         Files.writeString(noChecksumFile, "A");
 
-        oneChecksumFile = Files.createTempFile("", "");
-        Files.writeString(oneChecksumFile, "A".repeat(32));
+        oneChecksumFile = Files.createTempFile("_one_", "");
+        Files.writeString(oneChecksumFile, "A".repeat(MD5_LENGTH));
 
-        multiChecksumFile = Files.createTempFile("", "");
-        Files.writeString(multiChecksumFile, "A".repeat(32).concat("\n"), StandardOpenOption.APPEND);
-        Files.writeString(multiChecksumFile, "A".repeat(40), StandardOpenOption.APPEND);
+        multiChecksumFile = Files.createTempFile("_two_", "");
+        Files.writeString(multiChecksumFile, "A".repeat(MD5_LENGTH).concat("\n"), StandardOpenOption.APPEND);
+        Files.writeString(multiChecksumFile, "A".repeat(SHA1_LENGTH), StandardOpenOption.APPEND);
     }
 
-
-    @Test
-    void extractReturnsEmptyListWhenFileHasNoChecksum() {
-        assertTrue(
-            new FileOfficialChecksumExtractor(noChecksumFile)
-                .extract()
-                .isEmpty()
-        );
-    }
-
-    @Test
-    void extractReturnsMoreThanOneElementListWhenFileHasMoreThanOneChecksum() {
-        assertTrue(
-            new FileOfficialChecksumExtractor(multiChecksumFile)
-                .extract()
-                .size()
-                > 1
-        );
-    }
-
-    @Test
-    void extractReturnsOneElementListWhenFileHasOneChecksum() {
+    @ParameterizedTest
+    @MethodSource(value = "getTests")
+    void extract(int expected, Path file) {
         assertEquals(
-            1,
-            new FileOfficialChecksumExtractor(oneChecksumFile)
-                .extract()
-                .size()
-        );
-    }
-
-    @Test
-    void extractThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new FileOfficialChecksumExtractor(nullFile).extract()
-        );
-    }
-
-    @Test
-    void extractThrowsRuntimeExceptionWhenFileDoesNotExist() {
-        assertThrows(
-            RuntimeException.class,
-            () -> new FileOfficialChecksumExtractor(nonExistentFile).extract()
-        );
-    }
-
-    @Test
-    void extractThrowsRuntimeExceptionWhenFileHasNoPath() {
-        assertThrows(
-            RuntimeException.class,
-            () -> new FileOfficialChecksumExtractor(noPathFile).extract()
-        );
-    }
-
-    @Test
-    void extractThrowsRuntimeExceptionWhenFileIsFoder() {
-        assertThrows(
-            RuntimeException.class,
-            () -> new FileOfficialChecksumExtractor(folder).extract()
+            expected,
+            new FileOfficialChecksumExtractor(file).extract().size()
         );
     }
 }
