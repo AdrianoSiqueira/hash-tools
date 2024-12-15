@@ -2,13 +2,15 @@ package hashtools.checker.condition;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ChecksumFileSizeIsValidConditionTest {
 
@@ -33,119 +35,62 @@ class ChecksumFileSizeIsValidConditionTest {
         Files.deleteIfExists(validFile);
     }
 
+    static Stream<Arguments> getFalseTests() {
+        return Stream.of(
+            Arguments.of(false, validFile),
+            Arguments.of(true, nullFile),
+            Arguments.of(true, noPathFile),
+            Arguments.of(true, nonExistentFile),
+            Arguments.of(true, folder),
+            Arguments.of(true, smallFile),
+            Arguments.of(true, bigFile)
+        );
+    }
+
+    static Stream<Arguments> getTrueTests() {
+        return Stream.of(
+            Arguments.of(true, validFile),
+            Arguments.of(false, nullFile),
+            Arguments.of(false, noPathFile),
+            Arguments.of(false, nonExistentFile),
+            Arguments.of(false, folder),
+            Arguments.of(false, smallFile),
+            Arguments.of(false, bigFile)
+        );
+    }
+
     @BeforeAll
     static void setup() throws Exception {
         nullFile = null;
         noPathFile = Path.of("");
         folder = Files.createDirectory(Path.of(System.getProperty("user.home"), "erase"));
-        smallFile = Files.createTempFile("", "");
+        smallFile = Files.createTempFile("_small_", "");
 
-        nonExistentFile = Files.createTempFile("", "");
+        nonExistentFile = Files.createTempFile("_non-existent_", "");
         Files.deleteIfExists(nonExistentFile);
 
-        bigFile = Files.createTempFile("", "");
+        bigFile = Files.createTempFile("_big_", "");
         Files.writeString(bigFile, "A".repeat(THREE_KIBIBYTE + 1));
 
-        validFile = Files.createTempFile("", "");
+        validFile = Files.createTempFile("_valid_", "");
         Files.writeString(validFile, "A".repeat(MD5_LENGTH));
     }
 
-
-    @Test
-    void isFalseReturnsFalseWhenFileIsValid() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(validFile).isFalse()
+    @ParameterizedTest
+    @MethodSource(value = "getFalseTests")
+    void isFalse(boolean expected, Path file) {
+        assertEquals(
+            expected,
+            new ChecksumFileSizeIsValidCondition(file).isFalse()
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenFileDoesNotExist() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(nonExistentFile).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseReturnsTrueWhenFileHasNoPath() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(noPathFile).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseReturnsTrueWhenFileIsFolder() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(folder).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseReturnsTrueWhenFileIsNull() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(nullFile).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseReturnsTrueWhenFileIsTooBig() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(bigFile).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseReturnsTrueWhenFileIsTooSmall() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(smallFile).isFalse()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileDoesNotExist() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(nonExistentFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileHasNoPath() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(noPathFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsFolder() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(folder).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsNull() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(nullFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsTooBig() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(bigFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsTooSmall() {
-        assertFalse(
-            new ChecksumFileSizeIsValidCondition(smallFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsTrueWhenFileIsValid() {
-        assertTrue(
-            new ChecksumFileSizeIsValidCondition(validFile).isTrue()
+    @ParameterizedTest
+    @MethodSource(value = "getTrueTests")
+    void isTrue(boolean expected, Path file) {
+        assertEquals(
+            expected,
+            new ChecksumFileSizeIsValidCondition(file).isTrue()
         );
     }
 }
