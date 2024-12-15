@@ -1,8 +1,9 @@
 package hashtools.checker.officialchecksum;
 
-import hashtools.shared.Algorithm;
 import hashtools.checker.CheckerChecksum;
+import hashtools.shared.Algorithm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 public class FileOfficialChecksumExtractor implements OfficialChecksumExtractor {
 
@@ -18,8 +20,9 @@ public class FileOfficialChecksumExtractor implements OfficialChecksumExtractor 
 
     @Override
     public List<CheckerChecksum> extract() {
+        List<CheckerChecksum> checksums = new ArrayList<>();
+
         try (BufferedReader reader = Files.newBufferedReader(file)) {
-            List<CheckerChecksum> checksums = new ArrayList<>();
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -35,10 +38,10 @@ public class FileOfficialChecksumExtractor implements OfficialChecksumExtractor 
                     })
                     .ifPresent(checksums::add);
             }
-
-            return checksums;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error("Could not read checksum file", e);
         }
+
+        return checksums;
     }
 }
