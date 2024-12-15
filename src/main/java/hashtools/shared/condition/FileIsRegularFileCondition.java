@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class FileIsRegularFileCondition extends Condition {
@@ -12,6 +13,9 @@ public class FileIsRegularFileCondition extends Condition {
 
     @Override
     public boolean isTrue() {
-        return Files.isRegularFile(file);
+        return Optional
+            .ofNullable(file)
+            .map(Files::isRegularFile)
+            .orElse(false);
     }
 }

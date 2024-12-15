@@ -2,120 +2,86 @@ package hashtools.shared.condition;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileIsRegularFileConditionTest {
 
     private static Path nullFile;
-    private static Path emptyFile;
-    private static Path file;
-    private static Path folder;
+    private static Path noPathFile;
     private static Path nonExistentFile;
+    private static Path folder;
+    private static Path emptyFile;
+    private static Path textFile;
 
-
-    @BeforeAll
-    static void createFiles() {
-        try {
-            nullFile = null;
-            emptyFile = Path.of("");
-            file = Files.createTempFile("", "");
-            folder = Files.createTempDirectory("");
-
-            nonExistentFile = Files.createTempFile("", "");
-            Files.deleteIfExists(nonExistentFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @AfterAll
-    static void removeFiles() {
-        try {
-            Files.deleteIfExists(file);
-            Files.deleteIfExists(folder);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    static void cleanup() throws IOException {
+        Files.deleteIfExists(folder);
+        Files.deleteIfExists(emptyFile);
+        Files.deleteIfExists(textFile);
     }
 
-
-    @Test
-    void isFalseReturnsFalseWhenFileIsFile() {
-        assertFalse(
-            () -> new FileIsRegularFileCondition(file).isFalse()
+    static Stream<Arguments> getFalseTests() {
+        return Stream.of(
+            Arguments.of(false, emptyFile),
+            Arguments.of(false, textFile),
+            Arguments.of(true, nullFile),
+            Arguments.of(true, noPathFile),
+            Arguments.of(true, nonExistentFile),
+            Arguments.of(true, folder)
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenFileDoesNotExist() {
-        assertTrue(
-            () -> new FileIsRegularFileCondition(nonExistentFile).isFalse()
+    static Stream<Arguments> getTrueTests() {
+        return Stream.of(
+            Arguments.of(true, emptyFile),
+            Arguments.of(true, textFile),
+            Arguments.of(false, nullFile),
+            Arguments.of(false, noPathFile),
+            Arguments.of(false, nonExistentFile),
+            Arguments.of(false, folder)
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenFileIsEmpty() {
-        assertTrue(
-            () -> new FileIsRegularFileCondition(emptyFile).isFalse()
+    @BeforeAll
+    static void setup() throws IOException {
+        nullFile = null;
+        noPathFile = Path.of("");
+        folder = Files.createTempDirectory("_folder_");
+        emptyFile = Files.createTempFile("_empty_", "");
+
+        nonExistentFile = Files.createTempFile("_non-existent_", "");
+        Files.deleteIfExists(nonExistentFile);
+
+        textFile = Files.createTempFile("_text_", ".txt");
+        Files.writeString(textFile, "123");
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("getFalseTests")
+    void isFalse(boolean expected, Path file) {
+        assertEquals(
+            expected,
+            new FileIsRegularFileCondition(file).isFalse()
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenFileIsFolder() {
-        assertTrue(
-            () -> new FileIsRegularFileCondition(folder).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new FileIsRegularFileCondition(nullFile).isFalse()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileDoesNotExist() {
-        assertFalse(
-            () -> new FileIsRegularFileCondition(nonExistentFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsEmpty() {
-        assertFalse(
-            () -> new FileIsRegularFileCondition(emptyFile).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsFalseWhenFileIsFolder() {
-        assertFalse(
-            () -> new FileIsRegularFileCondition(folder).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsTrueWhenFileIsFile() {
-        assertTrue(
-            () -> new FileIsRegularFileCondition(file).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new FileIsRegularFileCondition(nullFile).isTrue()
+    @ParameterizedTest
+    @MethodSource("getTrueTests")
+    void isTrue(boolean expected, Path file) {
+        assertEquals(
+            expected,
+            new FileIsRegularFileCondition(file).isTrue()
         );
     }
 }
