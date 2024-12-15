@@ -23,6 +23,11 @@ public class ChecksumFileTypeIsValidCondition extends Condition {
 
     @Override
     public boolean isTrue() {
+        if (file == null) {
+            return false;
+        }
+
+
         String fileName = file
             .getFileName()
             .toString();
