@@ -7,20 +7,27 @@ import hashtools.checker.exception.MissingInputFileException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CheckerRequestEvaluationTest {
 
+    public static final int MD5_LENGTH = 32;
+
     @SuppressWarnings("FieldCanBeLocal")
     private static Path
         nullFile,
         image,
-        hugeFile,
+        smallFile,
+        bigFile,
         inputFile,
         checksumFile;
 
@@ -29,29 +36,42 @@ class CheckerRequestEvaluationTest {
         missingInputFile,
         missingChecksumFile,
         invalidChecksumFileType,
-        invalidChecksumFileSize,
+        invalidChecksumFileSizeSmall,
+        invalidChecksumFileSizeBig,
         validRequest;
 
 
     @AfterAll
     static void cleanup() throws Exception {
         Files.deleteIfExists(image);
-        Files.deleteIfExists(hugeFile);
+        Files.deleteIfExists(bigFile);
         Files.deleteIfExists(inputFile);
         Files.deleteIfExists(checksumFile);
+    }
+
+    static Stream<Arguments> getTests() {
+        return Stream.of(
+            Arguments.of(NullPointerException.class, nullRequest),
+            Arguments.of(MissingInputFileException.class, missingInputFile),
+            Arguments.of(MissingChecksumFileException.class, missingChecksumFile),
+            Arguments.of(InvalidChecksumFileTypeException.class, invalidChecksumFileType),
+            Arguments.of(InvalidChecksumFileSizeException.class, invalidChecksumFileSizeSmall),
+            Arguments.of(InvalidChecksumFileSizeException.class, invalidChecksumFileSizeBig)
+        );
     }
 
     @BeforeAll
     static void setup() throws Exception {
         nullFile = null;
-        image = Files.createTempFile("", ".jpg");
-        inputFile = Files.createTempFile("", ".txt");
+        image = Files.createTempFile("_image_", ".jpg");
+        smallFile = Files.createTempFile("_small_", ".txt");
+        inputFile = Files.createTempFile("_input_", ".txt");
 
-        hugeFile = Files.createTempFile("", ".txt");
-        Files.writeString(hugeFile, "a".repeat(Short.MAX_VALUE));
+        bigFile = Files.createTempFile("_big_", ".txt");
+        Files.writeString(bigFile, "a".repeat(Short.MAX_VALUE));
 
-        checksumFile = Files.createTempFile("", ".txt");
-        Files.writeString(checksumFile, "A".repeat(32));
+        checksumFile = Files.createTempFile("_valid-checksum_", ".txt");
+        Files.writeString(checksumFile, "A".repeat(MD5_LENGTH));
 
 
         nullRequest = null;
@@ -68,60 +88,32 @@ class CheckerRequestEvaluationTest {
         invalidChecksumFileType.setInputFile(inputFile);
         invalidChecksumFileType.setChecksumFile(image);
 
-        invalidChecksumFileSize = new CheckerRequest();
-        invalidChecksumFileSize.setInputFile(inputFile);
-        invalidChecksumFileSize.setChecksumFile(hugeFile);
+        invalidChecksumFileSizeSmall = new CheckerRequest();
+        invalidChecksumFileSizeSmall.setInputFile(inputFile);
+        invalidChecksumFileSizeSmall.setChecksumFile(smallFile);
+
+        invalidChecksumFileSizeBig = new CheckerRequest();
+        invalidChecksumFileSizeBig.setInputFile(inputFile);
+        invalidChecksumFileSizeBig.setChecksumFile(bigFile);
 
         validRequest = new CheckerRequest();
         validRequest.setInputFile(inputFile);
         validRequest.setChecksumFile(checksumFile);
     }
 
+    @ParameterizedTest
+    @MethodSource(value = "getTests")
+    void evaluate(Class<? extends Throwable> expected, CheckerRequest request) {
+        assertThrows(
+            expected,
+            () -> new CheckerRequestEvaluation(request).evaluate()
+        );
+    }
 
     @Test
     void evaluateDoesNotThrowExceptionWhenRequestIsValid() {
         assertDoesNotThrow(
             () -> new CheckerRequestEvaluation(validRequest).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsInvalidChecksumFileSizeExceptionWhenChecksumFileIsTooBigOrSmall() {
-        assertThrows(
-            InvalidChecksumFileSizeException.class,
-            () -> new CheckerRequestEvaluation(invalidChecksumFileSize).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsInvalidChecksumFileTypeExceptionWhenChecksumFileIsNotTextFile() {
-        assertThrows(
-            InvalidChecksumFileTypeException.class,
-            () -> new CheckerRequestEvaluation(invalidChecksumFileType).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsMissingChecksumFileExceptionWhenChecksumFileIsMissing() {
-        assertThrows(
-            MissingChecksumFileException.class,
-            () -> new CheckerRequestEvaluation(missingChecksumFile).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsMissingInputFileExceptionWhenInputFileIsMissing() {
-        assertThrows(
-            MissingInputFileException.class,
-            () -> new CheckerRequestEvaluation(missingInputFile).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsNullPointerExceptionWhenRequestIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new CheckerRequestEvaluation(nullRequest).evaluate()
         );
     }
 }
