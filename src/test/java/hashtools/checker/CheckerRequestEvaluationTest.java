@@ -6,7 +6,7 @@ import hashtools.checker.exception.MissingChecksumFileException;
 import hashtools.checker.exception.MissingInputFileException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,6 +25,7 @@ class CheckerRequestEvaluationTest {
     @SuppressWarnings("FieldCanBeLocal")
     private static Path
         nullFile,
+        folder,
         image,
         smallFile,
         bigFile,
@@ -33,16 +34,19 @@ class CheckerRequestEvaluationTest {
 
     private static CheckerRequest
         nullRequest,
-        missingInputFile,
-        missingChecksumFile,
-        invalidChecksumFileType,
-        invalidChecksumFileSizeSmall,
-        invalidChecksumFileSizeBig,
+        nullInputRequest,
+        folderInputRequest,
+        nullChecksumRequest,
+        folderChecksumRequest,
+        imageChecksumRequest,
+        smallChecksumRequest,
+        bigChecksumRequest,
         validRequest;
 
 
     @AfterAll
     static void cleanup() throws Exception {
+        Files.deleteIfExists(folder);
         Files.deleteIfExists(image);
         Files.deleteIfExists(bigFile);
         Files.deleteIfExists(inputFile);
@@ -51,18 +55,22 @@ class CheckerRequestEvaluationTest {
 
     static Stream<Arguments> getTests() {
         return Stream.of(
-            Arguments.of(NullPointerException.class, nullRequest),
-            Arguments.of(MissingInputFileException.class, missingInputFile),
-            Arguments.of(MissingChecksumFileException.class, missingChecksumFile),
-            Arguments.of(InvalidChecksumFileTypeException.class, invalidChecksumFileType),
-            Arguments.of(InvalidChecksumFileSizeException.class, invalidChecksumFileSizeSmall),
-            Arguments.of(InvalidChecksumFileSizeException.class, invalidChecksumFileSizeBig)
+            Arguments.of(true, NullPointerException.class, nullRequest),
+            Arguments.of(true, MissingInputFileException.class, nullInputRequest),
+            Arguments.of(true, MissingInputFileException.class, folderInputRequest),
+            Arguments.of(true, MissingChecksumFileException.class, nullChecksumRequest),
+            Arguments.of(true, MissingChecksumFileException.class, folderChecksumRequest),
+            Arguments.of(true, InvalidChecksumFileTypeException.class, imageChecksumRequest),
+            Arguments.of(true, InvalidChecksumFileSizeException.class, smallChecksumRequest),
+            Arguments.of(true, InvalidChecksumFileSizeException.class, bigChecksumRequest),
+            Arguments.of(false, null, validRequest)
         );
     }
 
     @BeforeAll
     static void setup() throws Exception {
         nullFile = null;
+        folder = Files.createTempDirectory("_folder_");
         image = Files.createTempFile("_image_", ".jpg");
         smallFile = Files.createTempFile("_small_", ".txt");
         inputFile = Files.createTempFile("_input_", ".txt");
@@ -76,25 +84,33 @@ class CheckerRequestEvaluationTest {
 
         nullRequest = null;
 
-        missingInputFile = new CheckerRequest();
-        missingInputFile.setInputFile(nullFile);
-        missingInputFile.setChecksumFile(checksumFile);
+        nullInputRequest = new CheckerRequest();
+        nullInputRequest.setInputFile(nullFile);
+        nullInputRequest.setChecksumFile(checksumFile);
 
-        missingChecksumFile = new CheckerRequest();
-        missingChecksumFile.setInputFile(inputFile);
-        missingChecksumFile.setChecksumFile(nullFile);
+        folderInputRequest = new CheckerRequest();
+        folderInputRequest.setInputFile(folder);
+        folderInputRequest.setChecksumFile(checksumFile);
 
-        invalidChecksumFileType = new CheckerRequest();
-        invalidChecksumFileType.setInputFile(inputFile);
-        invalidChecksumFileType.setChecksumFile(image);
+        nullChecksumRequest = new CheckerRequest();
+        nullChecksumRequest.setInputFile(inputFile);
+        nullChecksumRequest.setChecksumFile(nullFile);
 
-        invalidChecksumFileSizeSmall = new CheckerRequest();
-        invalidChecksumFileSizeSmall.setInputFile(inputFile);
-        invalidChecksumFileSizeSmall.setChecksumFile(smallFile);
+        folderChecksumRequest = new CheckerRequest();
+        folderChecksumRequest.setInputFile(inputFile);
+        folderChecksumRequest.setChecksumFile(folder);
 
-        invalidChecksumFileSizeBig = new CheckerRequest();
-        invalidChecksumFileSizeBig.setInputFile(inputFile);
-        invalidChecksumFileSizeBig.setChecksumFile(bigFile);
+        imageChecksumRequest = new CheckerRequest();
+        imageChecksumRequest.setInputFile(inputFile);
+        imageChecksumRequest.setChecksumFile(image);
+
+        smallChecksumRequest = new CheckerRequest();
+        smallChecksumRequest.setInputFile(inputFile);
+        smallChecksumRequest.setChecksumFile(smallFile);
+
+        bigChecksumRequest = new CheckerRequest();
+        bigChecksumRequest.setInputFile(inputFile);
+        bigChecksumRequest.setChecksumFile(bigFile);
 
         validRequest = new CheckerRequest();
         validRequest.setInputFile(inputFile);
@@ -103,17 +119,13 @@ class CheckerRequestEvaluationTest {
 
     @ParameterizedTest
     @MethodSource(value = "getTests")
-    void evaluate(Class<? extends Throwable> expected, CheckerRequest request) {
-        assertThrows(
-            expected,
-            () -> new CheckerRequestEvaluation(request).evaluate()
-        );
-    }
+    void evaluate(boolean shouldThrow, Class<? extends Throwable> expected, CheckerRequest request) {
+        Executable executable = () -> new CheckerRequestEvaluation(request).evaluate();
 
-    @Test
-    void evaluateDoesNotThrowExceptionWhenRequestIsValid() {
-        assertDoesNotThrow(
-            () -> new CheckerRequestEvaluation(validRequest).evaluate()
-        );
+        if (shouldThrow) {
+            assertThrows(expected, executable);
+        } else {
+            assertDoesNotThrow(executable);
+        }
     }
 }
