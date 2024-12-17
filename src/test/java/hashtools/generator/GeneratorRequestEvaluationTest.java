@@ -5,27 +5,42 @@ import hashtools.generator.exception.MissingInputFileException;
 import hashtools.shared.Algorithm;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GeneratorRequestEvaluationTest {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static Path
         nullFile,
         nonExistentFile,
         folder,
         validFile;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static List<Algorithm>
         nullList,
         emptyList,
         validList;
+
+    private static GeneratorRequest
+        nullRequest,
+        nullFileRequest,
+        missingFileRequest,
+        folderFileRequest,
+        nullListRequest,
+        emptyListRequest,
+        validRequest;
 
 
     @AfterAll
@@ -34,10 +49,22 @@ class GeneratorRequestEvaluationTest {
         Files.deleteIfExists(validFile);
     }
 
+    static Stream<Arguments> getTests() {
+        return Stream.of(
+            Arguments.of(true, NullPointerException.class, nullRequest),
+            Arguments.of(true, MissingInputFileException.class, nullFileRequest),
+            Arguments.of(true, MissingInputFileException.class, missingFileRequest),
+            Arguments.of(true, MissingInputFileException.class, folderFileRequest),
+            Arguments.of(true, InvalidAlgorithmSelectionException.class, nullListRequest),
+            Arguments.of(false, null, emptyListRequest),
+            Arguments.of(false, null, validRequest)
+        );
+    }
+
     @BeforeAll
     static void setup() throws Exception {
         nullFile = null;
-        folder = Files.createTempDirectory("");
+        folder = Files.createTempDirectory("_folder_");
         validFile = Files.createTempFile("", "");
 
         nonExistentFile = Files.createTempFile("", "");
@@ -47,85 +74,45 @@ class GeneratorRequestEvaluationTest {
         nullList = null;
         emptyList = List.of();
         validList = List.of(Algorithm.MD5);
+
+
+        nullRequest = null;
+
+        nullFileRequest = new GeneratorRequest();
+        nullFileRequest.setInputFile(nullFile);
+        nullFileRequest.setAlgorithms(validList);
+
+        missingFileRequest = new GeneratorRequest();
+        missingFileRequest.setInputFile(nonExistentFile);
+        missingFileRequest.setAlgorithms(validList);
+
+        folderFileRequest = new GeneratorRequest();
+        folderFileRequest.setInputFile(folder);
+        folderFileRequest.setAlgorithms(validList);
+
+        nullListRequest = new GeneratorRequest();
+        nullListRequest.setInputFile(validFile);
+        nullListRequest.setAlgorithms(nullList);
+
+        emptyListRequest = new GeneratorRequest();
+        emptyListRequest.setInputFile(validFile);
+        emptyListRequest.setAlgorithms(emptyList);
+
+        validRequest = new GeneratorRequest();
+        validRequest.setInputFile(validFile);
+        validRequest.setAlgorithms(validList);
     }
 
 
-    @Test
-    void evaluateDoesNotThrowExceptionWhenRequestIsValid() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(validFile);
-        request.setAlgorithms(validList);
+    @ParameterizedTest
+    @MethodSource(value = "getTests")
+    void evaluate(boolean shouldThrow, Class<? extends Throwable> expected, GeneratorRequest request) {
+        Executable executable = () -> new GeneratorRequestEvaluation(request).evaluate();
 
-        assertDoesNotThrow(
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsInvalidAlgorithmSelectionExceptionWhenListIsEmpty() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(validFile);
-        request.setAlgorithms(emptyList);
-
-        assertThrows(
-            InvalidAlgorithmSelectionException.class,
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsInvalidAlgorithmSelectionExceptionWhenListIsNull() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(validFile);
-        request.setAlgorithms(nullList);
-
-        assertThrows(
-            InvalidAlgorithmSelectionException.class,
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsMissingInputFileExceptionWhenFileDoesNotExist() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(nonExistentFile);
-        request.setAlgorithms(validList);
-
-        assertThrows(
-            MissingInputFileException.class,
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsMissingInputFileExceptionWhenFileIsFolder() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(folder);
-        request.setAlgorithms(validList);
-
-        assertThrows(
-            MissingInputFileException.class,
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsMissingInputFileExceptionWhenFileIsNull() {
-        GeneratorRequest request = new GeneratorRequest();
-        request.setInputFile(nullFile);
-        request.setAlgorithms(validList);
-
-        assertThrows(
-            MissingInputFileException.class,
-            () -> new GeneratorRequestEvaluation(request).evaluate()
-        );
-    }
-
-    @Test
-    void evaluateThrowsNullPointerExceptionWhenRequestIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new GeneratorRequestEvaluation(null).evaluate()
-        );
+        if (shouldThrow) {
+            assertThrows(expected, executable);
+        } else {
+            assertDoesNotThrow(executable);
+        }
     }
 }
