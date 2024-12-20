@@ -1,63 +1,58 @@
 package hashtools.shared.messagedigest;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringMessageDigestUpdaterTest {
 
-    private static String nullString;
-    private static String emptyString;
-    private static String string;
+    private static String
+        nullString,
+        emptyString,
+        regularString;
 
-    private static MessageDigest messageDigest;
+    private static MessageDigest
+        nullMessageDigest,
+        messageDigest;
+
+
+    static Stream<Arguments> getTests() {
+        return Stream.of(
+            Arguments.of(true, NullPointerException.class, nullMessageDigest, regularString),
+            Arguments.of(true, NullPointerException.class, messageDigest, nullString),
+            Arguments.of(false, null, messageDigest, emptyString),
+            Arguments.of(false, null, messageDigest, regularString)
+        );
+    }
 
     @BeforeAll
-    static void createStrings() {
+    static void setup() throws Exception {
         nullString = null;
         emptyString = "";
-        string = "string";
+        regularString = "string";
 
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        nullMessageDigest = null;
+        messageDigest = MessageDigest.getInstance("MD5");
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getTests")
+    void update(boolean shouldThrow, Class<? extends Throwable> expectedException, MessageDigest messageDigest, String string) {
+        Executable executable = () -> new StringMessageDigestUpdater(string).update(messageDigest);
+
+        if (shouldThrow) {
+            assertThrows(expectedException, executable);
+        } else {
+            assertDoesNotThrow(executable);
         }
-    }
-
-
-    @Test
-    void updateDoesNotThrowExceptionWhenStringIsEmpty() {
-        assertDoesNotThrow(
-            () -> new StringMessageDigestUpdater(emptyString).update(messageDigest)
-        );
-    }
-
-    @Test
-    void updateDoesNotThrowExceptionWhenStringIsNotEmpty() {
-        assertDoesNotThrow(
-            () -> new StringMessageDigestUpdater(string).update(messageDigest)
-        );
-    }
-
-    @Test
-    void updateThrowsNullPointerExceptionWhenMessageDigestIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new StringMessageDigestUpdater(string).update(null)
-        );
-    }
-
-    @Test
-    void updateThrowsNullPointerExceptionWhenStringIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new StringMessageDigestUpdater(nullString).update(messageDigest)
-        );
     }
 }
