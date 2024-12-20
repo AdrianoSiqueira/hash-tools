@@ -2,87 +2,65 @@ package hashtools.shared.identification;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FileIdentificationTest {
 
-    private static Path nullFile;
-    private static Path emptyFile;
-    private static Path file;
-    private static Path folder;
-    private static Path nonExistentFile;
+    private static Path
+        nullFile,
+        noPathFile,
+        regularFile,
+        folder,
+        nonExistentFile;
 
-
-    @BeforeAll
-    static void createFiles() {
-        try {
-            nullFile = null;
-            emptyFile = Path.of("");
-            file = Files.createTempFile("a", "");
-            folder = Files.createTempDirectory("a");
-
-            nonExistentFile = Files.createTempFile("", "");
-            Files.deleteIfExists(nonExistentFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @AfterAll
-    static void removeFiles() {
-        try {
-            Files.deleteIfExists(file);
-            Files.deleteIfExists(folder);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    static void cleanup() throws IOException {
+        Files.deleteIfExists(regularFile);
+        Files.deleteIfExists(folder);
+    }
+
+    static Stream<Arguments> getTests() {
+        return Stream.of(
+            Arguments.of(true, null, NullPointerException.class, nullFile),
+            Arguments.of(false, noPathFile.getFileName().toString(), null, noPathFile),
+            Arguments.of(false, regularFile.getFileName().toString(), null, regularFile),
+            Arguments.of(false, folder.getFileName().toString(), null, folder),
+            Arguments.of(false, nonExistentFile.getFileName().toString(), null, nonExistentFile)
+        );
+    }
+
+    @BeforeAll
+    static void setup() throws IOException {
+        nullFile = null;
+        noPathFile = Path.of("");
+        regularFile = Files.createTempFile("_file_", "");
+        folder = Files.createTempDirectory("_folder_");
+
+        nonExistentFile = Files.createTempFile("_non-existent_", "");
+        Files.deleteIfExists(nonExistentFile);
+    }
+
+
+    @ParameterizedTest
+    @MethodSource(value = "getTests")
+    void identify(boolean shouldThrow, String expectedResult, Class<? extends Throwable> expectedException, Path file) {
+        FileIdentification identification = new FileIdentification(file);
+
+        if (shouldThrow) {
+            assertThrows(expectedException, identification::identity);
+        } else {
+            assertEquals(expectedResult, identification.identity());
         }
-    }
-
-
-    @Test
-    void identifyReturnsFileNameWhenFileDoesNotExist() {
-        assertEquals(
-            nonExistentFile.getFileName().toString(),
-            new FileIdentification(nonExistentFile).identity()
-        );
-    }
-
-    @Test
-    void identifyReturnsFileNameWhenFileIsEmpty() {
-        assertEquals(
-            emptyFile.getFileName().toString(),
-            new FileIdentification(emptyFile).identity()
-        );
-    }
-
-    @Test
-    void identifyReturnsFileNameWhenFileIsFile() {
-        assertEquals(
-            file.getFileName().toString(),
-            new FileIdentification(file).identity()
-        );
-    }
-
-    @Test
-    void identifyReturnsFileNameWhenFileIsFolder() {
-        assertEquals(
-            folder.getFileName().toString(),
-            new FileIdentification(folder).identity()
-        );
-    }
-
-    @Test
-    void identifyThrowsNullPointerExceptionWhenFileIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new FileIdentification(nullFile).identity()
-        );
     }
 }
