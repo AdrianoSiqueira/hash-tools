@@ -103,7 +103,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new KeyboardKeyIsActionKeyCondition(event),
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
                 new ArmNodeOperation(JavaFXUtil.getNode(event))
             )
         );
@@ -114,11 +114,11 @@ public class ApplicationController implements Initializable, NotificationReceive
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new KeyboardKeyIsActionKeyCondition(event),
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
                 new DisarmNodeOperation(JavaFXUtil.getNode(event))
             ),
             new ConditionalOperation(
-                new KeyboardKeyIsActionKeyCondition(event),
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
                 new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
             )
         );

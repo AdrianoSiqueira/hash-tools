@@ -1,71 +1,62 @@
 package hashtools.shared.condition;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class KeyboardKeyIsActionKeyConditionTest {
 
-    private static KeyEvent nullKey;
-    private static KeyEvent actionKey;
-    private static KeyEvent noActionKey;
+    private static KeyCode
+        nullKeyCode,
+        noActionKeyCode,
+        actionKeyCode;
 
+
+    static Stream<Arguments> getFalseTests() {
+        return Stream.of(
+            Arguments.of(true, nullKeyCode),
+            Arguments.of(true, noActionKeyCode),
+            Arguments.of(false, actionKeyCode)
+        );
+    }
+
+    static Stream<Arguments> getTrueTests() {
+        return Stream.of(
+            Arguments.of(false, nullKeyCode),
+            Arguments.of(false, noActionKeyCode),
+            Arguments.of(true, actionKeyCode)
+        );
+    }
 
     @BeforeAll
-    static void createKeys() {
-        nullKey = null;
-        actionKey = new KeyEvent(null, null, null, KeyCode.ENTER, false, false, false, false);
-        noActionKey = new KeyEvent(null, null, null, KeyCode.ESCAPE, false, false, false, false);
+    static void setup() {
+        nullKeyCode = null;
+        noActionKeyCode = javafx.scene.input.KeyCode.A;
+        actionKeyCode = javafx.scene.input.KeyCode.ENTER;
     }
 
 
-    @Test
-    void isFalseReturnsFalseWhenKeyCodeIsActionKey() {
-        assertFalse(
-            () -> new KeyboardKeyIsActionKeyCondition(actionKey).isFalse()
+    @ParameterizedTest
+    @MethodSource(value = "getFalseTests")
+    void isFalse(boolean expectedResult, KeyCode keyCode) {
+        assertEquals(
+            expectedResult,
+            new KeyboardKeyIsActionKeyCondition(keyCode).isFalse()
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenKeyCodeIsNotActionKey() {
-        assertTrue(
-            () -> new KeyboardKeyIsActionKeyCondition(noActionKey).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseThrowsNullPointerExceptionWhenKeyEventIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new KeyboardKeyIsActionKeyCondition(nullKey).isFalse()
-        );
-    }
-
-
-    @Test
-    void isTrueReturnsFalseWhenKeyCodeIsNotActionKey() {
-        assertFalse(
-            () -> new KeyboardKeyIsActionKeyCondition(noActionKey).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsTrueWhenKeyCodeIsActionKey() {
-        assertTrue(
-            () -> new KeyboardKeyIsActionKeyCondition(actionKey).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueThrowsNullPointerExceptionWhenKeyEventIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new KeyboardKeyIsActionKeyCondition(nullKey).isTrue()
+    @ParameterizedTest
+    @MethodSource(value = "getTrueTests")
+    void isTrue(boolean expectedResult, KeyCode keyCode) {
+        assertEquals(
+            expectedResult,
+            new KeyboardKeyIsActionKeyCondition(keyCode).isTrue()
         );
     }
 }
