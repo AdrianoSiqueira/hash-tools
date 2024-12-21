@@ -1,71 +1,62 @@
 package hashtools.shared.condition;
 
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MouseButtonIsPrimaryConditionTest {
 
-    private static MouseEvent nullButton;
-    private static MouseEvent primaryButton;
-    private static MouseEvent secondaryButton;
+    private static MouseButton
+        nullMouseButton,
+        nonPrimaryMouseButton,
+        primaryMouseButton;
 
+
+    static Stream<Arguments> getFalseTests() {
+        return Stream.of(
+            Arguments.of(true, nullMouseButton),
+            Arguments.of(true, nonPrimaryMouseButton),
+            Arguments.of(false, primaryMouseButton)
+        );
+    }
+
+    static Stream<Arguments> getTrueTests() {
+        return Stream.of(
+            Arguments.of(false, nullMouseButton),
+            Arguments.of(false, nonPrimaryMouseButton),
+            Arguments.of(true, primaryMouseButton)
+        );
+    }
 
     @BeforeAll
-    static void createButtons() {
-        nullButton = null;
-        primaryButton = new MouseEvent(null, 0, 0, 0, 0, MouseButton.PRIMARY, 0, false, false, false, false, false, false, false, false, false, false, null);
-        secondaryButton = new MouseEvent(null, 0, 0, 0, 0, MouseButton.SECONDARY, 0, false, false, false, false, false, false, false, false, false, false, null);
+    static void setup() {
+        nullMouseButton = null;
+        nonPrimaryMouseButton = MouseButton.SECONDARY;
+        primaryMouseButton = MouseButton.PRIMARY;
     }
 
 
-    @Test
-    void isFalseReturnsFalseWhenButtonIsPrimary() {
-        assertFalse(
-            () -> new MouseButtonIsPrimaryCondition(primaryButton).isFalse()
+    @ParameterizedTest
+    @MethodSource(value = "getFalseTests")
+    void isFalse(boolean expectedResult, MouseButton mouseButton) {
+        assertEquals(
+            expectedResult,
+            new MouseButtonIsPrimaryCondition(mouseButton).isFalse()
         );
     }
 
-    @Test
-    void isFalseReturnsTrueWhenButtonIsNotPrimary() {
-        assertTrue(
-            () -> new MouseButtonIsPrimaryCondition(secondaryButton).isFalse()
-        );
-    }
-
-    @Test
-    void isFalseThrowsNullPointerExceptionWhenButtonIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new MouseButtonIsPrimaryCondition(nullButton).isFalse()
-        );
-    }
-
-
-    @Test
-    void isTrueReturnsFalseWhenButtonIsNotPrimary() {
-        assertFalse(
-            () -> new MouseButtonIsPrimaryCondition(secondaryButton).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueReturnsTrueWhenButtonIsPrimary() {
-        assertTrue(
-            () -> new MouseButtonIsPrimaryCondition(primaryButton).isTrue()
-        );
-    }
-
-    @Test
-    void isTrueThrowsNullPointerExceptionWhenButtonIsNull() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new MouseButtonIsPrimaryCondition(nullButton).isTrue()
+    @ParameterizedTest
+    @MethodSource(value = "getTrueTests")
+    void isTrue(boolean expectedResult, MouseButton mouseButton) {
+        assertEquals(
+            expectedResult,
+            new MouseButtonIsPrimaryCondition(mouseButton).isTrue()
         );
     }
 }

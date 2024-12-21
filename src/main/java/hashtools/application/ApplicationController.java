@@ -129,7 +129,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new MouseButtonIsPrimaryCondition(event),
+                new MouseButtonIsPrimaryCondition(event.getButton()),
                 new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
             )
         );
@@ -140,7 +140,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new MouseButtonIsPrimaryCondition(event),
+                new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ArmNodeOperation(JavaFXUtil.getNode(event))
             )
         );
@@ -151,7 +151,7 @@ public class ApplicationController implements Initializable, NotificationReceive
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new MouseButtonIsPrimaryCondition(event),
+                new MouseButtonIsPrimaryCondition(event.getButton()),
                 new DisarmNodeOperation(JavaFXUtil.getNode(event))
             )
         );

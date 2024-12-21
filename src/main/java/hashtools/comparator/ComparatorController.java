@@ -96,7 +96,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
     @FXML
     private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event);
+        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
 
         Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
@@ -114,7 +114,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
     @FXML
     private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event);
+        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
 
         Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),

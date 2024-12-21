@@ -1,16 +1,15 @@
 package hashtools.shared.condition;
 
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class MouseButtonIsPrimaryCondition extends Condition {
 
-    private final MouseEvent event;
+    private final MouseButton mouseButton;
 
     @Override
     public boolean isTrue() {
-        return event.getButton() == MouseButton.PRIMARY;
+        return mouseButton == MouseButton.PRIMARY;
     }
 }

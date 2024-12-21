@@ -108,7 +108,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
-                new MouseButtonIsPrimaryCondition(event),
+                new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
                     language.getString("hashtools.generator.generator-controller.dialog.title.open-file"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),

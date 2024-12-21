@@ -98,7 +98,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
     @FXML
     private void pnlScreenChecksumContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event);
+        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
 
         Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
@@ -116,7 +116,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
     @FXML
     private void pnlScreenInputContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event);
+        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
 
         Operation operation = new ShowOpenFileDialogOperation(
             language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
