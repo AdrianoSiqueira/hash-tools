@@ -4,20 +4,24 @@ import hashtools.shared.Algorithm;
 import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
-import hashtools.shared.RequestProcessor;
-import hashtools.shared.ResponseFormatter;
 import hashtools.shared.threadpool.ThreadPool;
+import lombok.RequiredArgsConstructor;
 
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
-public class ComparatorService implements RequestProcessor<ComparatorRequest, ComparatorResponse>, ResponseFormatter<ComparatorResponse> {
+@RequiredArgsConstructor
+public class ComparatorService {
 
-    @Override
-    public String formatResponse(ComparatorResponse response, Formatter<ComparatorResponse> formatter) {
-        return formatter.format(response);
+    private final ResourceBundle languageBundle;
+
+    public String formatResponse(ComparatorResponse response) {
+        return Formatter.format(
+            response,
+            new ComparatorResponseFormatter(languageBundle)
+        );
     }
 
-    @Override
     public ComparatorResponse processRequest(ComparatorRequest request) {
         Evaluation.evaluate(new ComparatorRequestEvaluation(request));
 

@@ -3,21 +3,25 @@ package hashtools.checker;
 import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
-import hashtools.shared.RequestProcessor;
-import hashtools.shared.ResponseFormatter;
 import hashtools.shared.threadpool.ThreadPool;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
-public class CheckerService implements RequestProcessor<CheckerRequest, CheckerResponse>, ResponseFormatter<CheckerResponse> {
+@RequiredArgsConstructor
+public class CheckerService {
 
-    @Override
-    public String formatResponse(CheckerResponse response, Formatter<CheckerResponse> formatter) {
-        return formatter.format(response);
+    private final ResourceBundle languageBundle;
+
+    public String formatResponse(CheckerResponse response) {
+        return Formatter.format(
+            response,
+            new CheckerResponseFormatter(languageBundle)
+        );
     }
 
-    @Override
     public CheckerResponse processRequest(CheckerRequest request) {
         Evaluation.evaluate(new CheckerRequestEvaluation(request));
 

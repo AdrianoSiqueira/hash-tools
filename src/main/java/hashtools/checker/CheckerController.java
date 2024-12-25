@@ -229,10 +229,10 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             request.setChecksumFile(Path.of(lblScreenChecksumContent.getText()));
 
             try {
-                CheckerService service = new CheckerService();
+                CheckerService service = new CheckerService(language);
                 CheckerResponse response = service.processRequest(request);
 
-                String result = service.formatResponse(response, new CheckerResponseFormatter(language));
+                String result = service.formatResponse(response);
                 txtResult.setText(result);
 
                 Operation.perform(

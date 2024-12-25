@@ -224,10 +224,10 @@ public class ComparatorController implements Initializable, NotificationSender, 
             request.setInputFile2(Path.of(lblScreenInput2Content.getText()));
 
             try {
-                ComparatorService service = new ComparatorService();
+                ComparatorService service = new ComparatorService(language);
                 ComparatorResponse response = service.processRequest(request);
 
-                String result = service.formatResponse(response, new ComparatorResponseFormatter(language));
+                String result = service.formatResponse(response);
                 txtScreenResultContent.setText(result);
 
                 Operation.perform(
