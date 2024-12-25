@@ -90,7 +90,10 @@ public class ApplicationController implements Initializable, NotificationReceive
 
         Operation.perform(
             THREAD_POOL,
-            new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter)
+            new RemoveNodeFromPaneOperation(
+                pnlRoot,
+                pnlFooter
+            )
         );
     }
 
@@ -115,7 +118,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new OpenScreenOperation(this, Resource.FXMLPath.CHECKER_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.CHECKER_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -126,7 +134,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new OpenScreenOperation(this, Resource.FXMLPath.CHECKER_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.CHECKER_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -174,7 +187,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new OpenScreenOperation(this, Resource.FXMLPath.COMPARATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.COMPARATOR_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -185,7 +203,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new OpenScreenOperation(this, Resource.FXMLPath.COMPARATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.COMPARATOR_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -233,7 +256,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new OpenScreenOperation(this, Resource.FXMLPath.GENERATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.GENERATOR_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -244,7 +272,12 @@ public class ApplicationController implements Initializable, NotificationReceive
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new OpenScreenOperation(this, Resource.FXMLPath.GENERATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+                new OpenScreenOperation(
+                    this,
+                    Resource.FXMLPath.GENERATOR_SCREEN,
+                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    pnlContent
+                )
             )
         );
     }
@@ -294,15 +327,24 @@ public class ApplicationController implements Initializable, NotificationReceive
         public void handle(ScreenCloseNotification notification) {
             Operation.perform(
                 THREAD_POOL,
-                new SetNodeToPaneOperation(pnlContent, pnlMenu),
-                new RemoveNodeFromPaneOperation(pnlRoot, pnlFooter)
+                new SetNodeToPaneOperation(
+                    pnlContent,
+                    pnlMenu
+                ),
+                new RemoveNodeFromPaneOperation(
+                    pnlRoot,
+                    pnlFooter
+                )
             );
         }
 
         public void handle(ScreenOpenNotification notification) {
             Operation.perform(
                 THREAD_POOL,
-                new AddNodeToPaneOperation(pnlRoot, pnlFooter)
+                new AddNodeToPaneOperation(
+                    pnlRoot,
+                    pnlFooter
+                )
             );
         }
 

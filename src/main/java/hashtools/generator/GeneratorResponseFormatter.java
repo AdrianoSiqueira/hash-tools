@@ -32,7 +32,10 @@ public class GeneratorResponseFormatter implements Formatter<GeneratorResponse> 
         public int compare(GeneratorChecksum c1, GeneratorChecksum c2) {
             return Comparator
                 .comparing(Algorithm::getLength)
-                .compare(c1.getAlgorithm(), c2.getAlgorithm());
+                .compare(
+                    c1.getAlgorithm(),
+                    c2.getAlgorithm()
+                );
         }
     }
 }

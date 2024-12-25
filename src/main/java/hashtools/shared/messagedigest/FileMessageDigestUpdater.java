@@ -20,10 +20,14 @@ public class FileMessageDigestUpdater implements MessageDigestUpdater {
     public void update(MessageDigest messageDigest) {
         try (InputStream stream = Files.newInputStream(file)) {
             byte[] buffer = new byte[BUFFER_SIZE];
-            int read;
+            int bytesRead;
 
-            while ((read = stream.read(buffer)) != -1) {
-                messageDigest.update(buffer, BUFFER_OFFSET, read);
+            while ((bytesRead = stream.read(buffer)) != -1) {
+                messageDigest.update(
+                    buffer,
+                    BUFFER_OFFSET,
+                    bytesRead
+                );
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

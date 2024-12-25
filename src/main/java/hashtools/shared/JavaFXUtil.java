@@ -3,6 +3,7 @@ package hashtools.shared;
 import javafx.event.Event;
 import javafx.scene.Node;
 
+@Deprecated(forRemoval = true)
 public class JavaFXUtil {
 
     public static Node getNode(Event event) {

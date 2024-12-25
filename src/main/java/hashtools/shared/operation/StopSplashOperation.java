@@ -13,7 +13,10 @@ public class StopSplashOperation extends Operation {
     @Override
     protected void perform() {
         pnlRoot.setCursor(Cursor.DEFAULT);
-        pnlRoot.pseudoClassStateChanged(Resource.PseudoClass.DISABLED, false);
+        pnlRoot.pseudoClassStateChanged(
+            Resource.PseudoClass.DISABLED,
+            false
+        );
 
         pnlRoot
             .getChildren()

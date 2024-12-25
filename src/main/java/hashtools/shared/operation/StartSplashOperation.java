@@ -13,7 +13,10 @@ public class StartSplashOperation extends Operation {
     @Override
     protected void perform() {
         pnlRoot.setCursor(Cursor.WAIT);
-        pnlRoot.pseudoClassStateChanged(Resource.PseudoClass.DISABLED, true);
+        pnlRoot.pseudoClassStateChanged(
+            Resource.PseudoClass.DISABLED,
+            true
+        );
 
         pnlRoot
             .getChildren()

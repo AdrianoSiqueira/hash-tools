@@ -5,7 +5,6 @@ import hashtools.comparator.exception.MissingInputFile2Exception;
 import hashtools.shared.Extension;
 import hashtools.shared.Resource;
 import hashtools.shared.TransitionedScreen;
-import hashtools.shared.condition.Condition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
 import hashtools.shared.notification.FooterButtonActionNotification;
 import hashtools.shared.notification.Notification;
@@ -105,37 +104,35 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
     @FXML
     private void pnlScreenInput1ContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
-
-        Operation operation = new ShowOpenFileDialogOperation(
-            language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
-            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-            Extension.getAllExtensions(language),
-            lblScreenInput1Content,
-            pnlRoot.getScene().getWindow()
-        );
-
         Operation.perform(
             THREAD_POOL,
-            new ConditionalOperation(condition, operation)
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new ShowOpenFileDialogOperation(
+                    language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
+                    System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                    Extension.getAllExtensions(language),
+                    lblScreenInput1Content,
+                    pnlRoot.getScene().getWindow()
+                )
+            )
         );
     }
 
     @FXML
     private void pnlScreenInput2ContentMouseClicked(MouseEvent event) {
-        Condition condition = new MouseButtonIsPrimaryCondition(event.getButton());
-
-        Operation operation = new ShowOpenFileDialogOperation(
-            language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
-            System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-            Extension.getAllExtensions(language),
-            lblScreenInput2Content,
-            pnlRoot.getScene().getWindow()
-        );
-
         Operation.perform(
             THREAD_POOL,
-            new ConditionalOperation(condition, operation)
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new ShowOpenFileDialogOperation(
+                    language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
+                    System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                    Extension.getAllExtensions(language),
+                    lblScreenInput2Content,
+                    pnlRoot.getScene().getWindow()
+                )
+            )
         );
     }
 
@@ -161,10 +158,12 @@ public class ComparatorController implements Initializable, NotificationSender, 
         protected void perform() {
             showScreen(pnlScreenInput1);
 
-            sendNotification(new FooterButtonActionNotification(
-                new GoToMainScreen(),
-                new GoToInputScreen2()
-            ));
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToMainScreen(),
+                    new GoToInputScreen2()
+                )
+            );
         }
     }
 
@@ -173,10 +172,12 @@ public class ComparatorController implements Initializable, NotificationSender, 
         protected void perform() {
             showScreen(pnlScreenInput2);
 
-            sendNotification(new FooterButtonActionNotification(
-                new GoToInputScreen1(),
-                new RunModule()
-            ));
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToInputScreen1(),
+                    new RunModule()
+                )
+            );
         }
     }
 
@@ -192,29 +193,30 @@ public class ComparatorController implements Initializable, NotificationSender, 
         protected void perform() {
             showScreen(pnlScreenResult);
 
-            Operation saveFile = new ShowSaveFileDialogOperation(
-                language.getString("hashtools.comparator.comparator-controller.dialog.title.save-file"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                txtScreenResultContent.getText(),
-                pnlRoot.getScene().getWindow()
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToInputScreen2(),
+                    new ShowSaveFileDialogOperation(
+                        language.getString("hashtools.comparator.comparator-controller.dialog.title.save-file"),
+                        System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                        txtScreenResultContent.getText(),
+                        pnlRoot.getScene().getWindow()
+                    )
+                )
             );
-
-            sendNotification(new FooterButtonActionNotification(
-                new GoToInputScreen2(),
-                saveFile
-            ));
         }
     }
 
     private final class RunModule extends Operation {
         @Override
         protected void perform() {
-            String dialogTitle = language.getString("hashtools.comparator.comparator-controller.dialog.title.warning");
-
             Operation.perform(
                 THREAD_POOL,
                 new StartSplashOperation(pnlRoot),
-                new SendNotificationOperation(ComparatorController.this, new SplashStartNotification())
+                new SendNotificationOperation(
+                    ComparatorController.this,
+                    new SplashStartNotification()
+                )
             );
 
             ComparatorRequest request = new ComparatorRequest();
@@ -235,13 +237,19 @@ public class ComparatorController implements Initializable, NotificationSender, 
             } catch (MissingInputFile1Exception e) {
                 Operation.perform(
                     THREAD_POOL,
-                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")),
+                    new ShowMessageDialogOperation(
+                        language.getString("hashtools.comparator.comparator-controller.dialog.title.warning"),
+                        language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")
+                    ),
                     new GoToInputScreen1()
                 );
             } catch (MissingInputFile2Exception e) {
                 Operation.perform(
                     THREAD_POOL,
-                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")),
+                    new ShowMessageDialogOperation(
+                        language.getString("hashtools.comparator.comparator-controller.dialog.title.warning"),
+                        language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")
+                    ),
                     new GoToInputScreen2()
                 );
             }
@@ -249,7 +257,10 @@ public class ComparatorController implements Initializable, NotificationSender, 
             Operation.perform(
                 THREAD_POOL,
                 new StopSplashOperation(pnlRoot),
-                new SendNotificationOperation(ComparatorController.this, new SplashStopNotification())
+                new SendNotificationOperation(
+                    ComparatorController.this,
+                    new SplashStopNotification()
+                )
             );
         }
     }

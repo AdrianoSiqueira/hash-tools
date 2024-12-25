@@ -154,10 +154,12 @@ public class GeneratorController implements Initializable, NotificationSender, T
         protected void perform() {
             showScreen(pnlScreenAlgorithm);
 
-            sendNotification(new FooterButtonActionNotification(
-                new GoToInputScreen(),
-                new RunModule()
-            ));
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToInputScreen(),
+                    new RunModule()
+                )
+            );
         }
     }
 
@@ -166,10 +168,12 @@ public class GeneratorController implements Initializable, NotificationSender, T
         protected void perform() {
             showScreen(pnlScreenInput);
 
-            sendNotification(new FooterButtonActionNotification(
-                new GoToMainScreen(),
-                new GoToAlgorithmScreen()
-            ));
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToMainScreen(),
+                    new GoToAlgorithmScreen()
+                )
+            );
         }
     }
 
@@ -185,29 +189,30 @@ public class GeneratorController implements Initializable, NotificationSender, T
         protected void perform() {
             showScreen(pnlScreenResult);
 
-            Operation saveFile = new ShowSaveFileDialogOperation(
-                language.getString("hashtools.generator.generator-controller.dialog.title.save-file"),
-                System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                txtScreenResultContent.getText(),
-                pnlRoot.getScene().getWindow()
+            sendNotification(
+                new FooterButtonActionNotification(
+                    new GoToAlgorithmScreen(),
+                    new ShowSaveFileDialogOperation(
+                        language.getString("hashtools.generator.generator-controller.dialog.title.save-file"),
+                        System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
+                        txtScreenResultContent.getText(),
+                        pnlRoot.getScene().getWindow()
+                    )
+                )
             );
-
-            sendNotification(new FooterButtonActionNotification(
-                new GoToAlgorithmScreen(),
-                saveFile
-            ));
         }
     }
 
     private final class RunModule extends Operation {
         @Override
         protected void perform() {
-            String dialogTitle = language.getString("hashtools.generator.generator-controller.dialog.title.warning");
-
             Operation.perform(
                 THREAD_POOL,
                 new StartSplashOperation(pnlRoot),
-                new SendNotificationOperation(GeneratorController.this, new SplashStartNotification())
+                new SendNotificationOperation(
+                    GeneratorController.this,
+                    new SplashStartNotification()
+                )
             );
 
             List<Algorithm> algorithms = pnlScreenAlgorithmContent
@@ -238,13 +243,19 @@ public class GeneratorController implements Initializable, NotificationSender, T
             } catch (MissingInputFileException e) {
                 Operation.perform(
                     THREAD_POOL,
-                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")),
+                    new ShowMessageDialogOperation(
+                        language.getString("hashtools.generator.generator-controller.dialog.title.warning"),
+                        language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")
+                    ),
                     new GoToInputScreen()
                 );
             } catch (InvalidAlgorithmSelectionException e) {
                 Operation.perform(
                     THREAD_POOL,
-                    new ShowMessageDialogOperation(dialogTitle, language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")),
+                    new ShowMessageDialogOperation(
+                        language.getString("hashtools.generator.generator-controller.dialog.title.warning"),
+                        language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")
+                    ),
                     new GoToAlgorithmScreen()
                 );
             }
@@ -252,7 +263,10 @@ public class GeneratorController implements Initializable, NotificationSender, T
             Operation.perform(
                 THREAD_POOL,
                 new StopSplashOperation(pnlRoot),
-                new SendNotificationOperation(GeneratorController.this, new SplashStopNotification())
+                new SendNotificationOperation(
+                    GeneratorController.this,
+                    new SplashStopNotification()
+                )
             );
         }
     }

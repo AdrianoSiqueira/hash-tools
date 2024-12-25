@@ -17,7 +17,11 @@ public class ShowSaveFileDialogOperation extends Operation {
     @Override
     protected void perform() {
         Platform.runLater(() -> DialogUtil
-            .showSaveDialog(title, initialDirectory, ownerWindow)
+            .showSaveDialog(
+                title,
+                initialDirectory,
+                ownerWindow
+            )
             .ifPresent(file -> FileUtil.replaceContent(content, file))
         );
     }

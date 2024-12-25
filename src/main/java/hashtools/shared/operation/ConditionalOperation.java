@@ -14,11 +14,19 @@ public class ConditionalOperation extends Operation {
     private final Operation operationIfFalse;
 
     public ConditionalOperation(Operation operation) {
-        this(NO_CONDITION, operation, NO_OPERATION);
+        this(
+            NO_CONDITION,
+            operation,
+            NO_OPERATION
+        );
     }
 
     public ConditionalOperation(Condition condition, Operation operationIfTrue) {
-        this(condition, operationIfTrue, NO_OPERATION);
+        this(
+            condition,
+            operationIfTrue,
+            NO_OPERATION
+        );
     }
 
     @Override

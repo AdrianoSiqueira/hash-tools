@@ -22,7 +22,12 @@ public class ShowOpenFileDialogOperation extends Operation {
     @Override
     protected void perform() {
         Platform.runLater(() -> DialogUtil
-            .showOpenDialog(title, initialDirectory, filters, ownerWindow)
+            .showOpenDialog(
+                title,
+                initialDirectory,
+                filters,
+                ownerWindow
+            )
             .map(Path::toString)
             .ifPresent(labeled::setText)
         );
