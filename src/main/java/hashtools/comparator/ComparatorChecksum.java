@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComparatorChecksum {
+
     private Algorithm algorithm;
     private String hash1;
     private String hash2;

@@ -18,9 +18,8 @@ public class ComparatorResponseFormatter implements Formatter<ComparatorResponse
 
     @Override
     public String format(ComparatorResponse response) {
-        String
-            equals = language.getString("hashtools.comparator.comparator-response-formatter.equals"),
-            notEquals = language.getString("hashtools.comparator.comparator-response-formatter.not-equals");
+        String equals = language.getString("hashtools.comparator.comparator-response-formatter.equals");
+        String notEquals = language.getString("hashtools.comparator.comparator-response-formatter.not-equals");
 
         return LAYOUT.formatted(
             response.getChecksum().getHash1(),

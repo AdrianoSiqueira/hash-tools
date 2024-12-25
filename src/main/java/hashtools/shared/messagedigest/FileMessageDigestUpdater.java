@@ -11,9 +11,8 @@ import java.security.MessageDigest;
 @RequiredArgsConstructor
 public class FileMessageDigestUpdater implements MessageDigestUpdater {
 
-    private static final int
-        BUFFER_SIZE = 2048,
-        BUFFER_OFFSET = 0;
+    private static final int BUFFER_SIZE = 2048;
+    private static final int BUFFER_OFFSET = 0;
 
     private final Path file;
 

@@ -18,10 +18,18 @@ public class AlgorithmSelectionIsValidCondition extends Condition {
         }
 
         try {
-            // Null elements may be allowed, so if list contains it, return false.
+            /*
+             * List implementation may allow null items, so
+             * if it is present return false because in business
+             * logic null items are not allowed.
+             */
             return !algorithms.contains(null);
         } catch (NullPointerException ignored) {
-            // Null elements is not allowed, so the list does not contain it.
+            /*
+             * List implementation does not allow null items,
+             * in this case return true because all other
+             * items are allowed in business logic.
+             */
             return true;
         }
     }

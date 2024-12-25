@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CheckerChecksum {
+
     private Algorithm algorithm;
     private String generatedHash;
     private String officialHash;

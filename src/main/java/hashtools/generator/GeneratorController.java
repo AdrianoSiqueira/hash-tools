@@ -42,31 +42,43 @@ import static hashtools.shared.Resource.Software.THREAD_POOL;
 public class GeneratorController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
-    private Pane
-        pnlRoot,
-        pnlScreenInput,
-        pnlScreenInputContent,
-        pnlScreenAlgorithm,
-        pnlScreenAlgorithmContent,
-        pnlScreenSplash,
-        pnlScreenResult;
+    private Pane pnlRoot;
+    @FXML
+    private Pane pnlScreenInput;
+    @FXML
+    private Pane pnlScreenInputContent;
+    @FXML
+    private Pane pnlScreenAlgorithm;
+    @FXML
+    private Pane pnlScreenAlgorithmContent;
+    @FXML
+    private Pane pnlScreenSplash;
+    @FXML
+    private Pane pnlScreenResult;
 
     @FXML
-    private Labeled
-        lblScreenInputHeader,
-        lblScreenInputContent,
-        lblScreenAlgorithmHeader,
-        lblScreenSplashContent,
-        lblScreenResultHeader;
+    private Labeled lblScreenInputHeader;
+    @FXML
+    private Labeled lblScreenInputContent;
+    @FXML
+    private Labeled lblScreenAlgorithmHeader;
+    @FXML
+    private Labeled lblScreenSplashContent;
+    @FXML
+    private Labeled lblScreenResultHeader;
 
     @FXML
-    private CheckBox
-        chkMd5,
-        chkSha1,
-        chkSha224,
-        chkSha256,
-        chkSha384,
-        chkSha512;
+    private CheckBox chkMd5;
+    @FXML
+    private CheckBox chkSha1;
+    @FXML
+    private CheckBox chkSha224;
+    @FXML
+    private CheckBox chkSha256;
+    @FXML
+    private CheckBox chkSha384;
+    @FXML
+    private CheckBox chkSha512;
 
     @FXML
     private TextInputControl txtScreenResultContent;

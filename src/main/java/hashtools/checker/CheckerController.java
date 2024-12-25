@@ -43,23 +43,32 @@ import static hashtools.shared.Resource.Software.THREAD_POOL;
 public class CheckerController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
-    private Pane
-        pnlRoot,
-        pnlScreenInput,
-        pnlScreenInputContent,
-        pnlScreenChecksum,
-        pnlScreenChecksumContent,
-        pnlScreenSplash,
-        pnlScreenResult;
+    private Pane pnlRoot;
+    @FXML
+    private Pane pnlScreenInput;
+    @FXML
+    private Pane pnlScreenInputContent;
+    @FXML
+    private Pane pnlScreenChecksum;
+    @FXML
+    private Pane pnlScreenChecksumContent;
+    @FXML
+    private Pane pnlScreenSplash;
+    @FXML
+    private Pane pnlScreenResult;
 
     @FXML
-    private Labeled
-        lblScreenInputHeader,
-        lblScreenInputContent,
-        lblScreenChecksumHeader,
-        lblScreenChecksumContent,
-        lblScreenSplashContent,
-        lblScreenResultHeader;
+    private Labeled lblScreenInputHeader;
+    @FXML
+    private Labeled lblScreenInputContent;
+    @FXML
+    private Labeled lblScreenChecksumHeader;
+    @FXML
+    private Labeled lblScreenChecksumContent;
+    @FXML
+    private Labeled lblScreenSplashContent;
+    @FXML
+    private Labeled lblScreenResultHeader;
 
     @FXML
     private TextInputControl txtResult;

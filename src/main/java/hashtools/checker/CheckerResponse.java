@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CheckerResponse {
+
     private Identification identification;
     private List<CheckerChecksum> checksums;
 

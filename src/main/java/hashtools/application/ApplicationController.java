@@ -37,26 +37,30 @@ import static hashtools.shared.Resource.Software.THREAD_POOL;
 public class ApplicationController implements Initializable, NotificationReceiver {
 
     @FXML
-    private Pane
-        pnlRoot,
-        pnlContent,
-        pnlFooter,
-        pnlMenu,
-        pnlMenuChecker,
-        pnlMenuComparator,
-        pnlMenuGenerator;
+    private Pane pnlRoot;
+    @FXML
+    private Pane pnlContent;
+    @FXML
+    private Pane pnlFooter;
+    @FXML
+    private Pane pnlMenu;
+    @FXML
+    private Pane pnlMenuChecker;
+    @FXML
+    private Pane pnlMenuComparator;
+    @FXML
+    private Pane pnlMenuGenerator;
 
     @FXML
-    private Button
-        btnFooterBack,
-        btnFooterNext;
+    private Button btnFooterBack;
+    @FXML
+    private Button btnFooterNext;
 
     @FXML
     private Labeled lblFooterSpacer;
 
-    private Operation
-        btnFooterBackAction,
-        btnFooterNextAction;
+    private Operation btnFooterBackAction;
+    private Operation btnFooterNextAction;
 
     private NotificationHandler notificationHandler;
 

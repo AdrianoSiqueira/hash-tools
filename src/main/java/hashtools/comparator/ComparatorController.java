@@ -41,23 +41,32 @@ import static hashtools.shared.Resource.Software.THREAD_POOL;
 public class ComparatorController implements Initializable, NotificationSender, TransitionedScreen {
 
     @FXML
-    private Pane
-        pnlRoot,
-        pnlScreenInput1,
-        pnlScreenInput1Content,
-        pnlScreenInput2,
-        pnlScreenInput2Content,
-        pnlScreenSplash,
-        pnlScreenResult;
+    private Pane pnlRoot;
+    @FXML
+    private Pane pnlScreenInput1;
+    @FXML
+    private Pane pnlScreenInput1Content;
+    @FXML
+    private Pane pnlScreenInput2;
+    @FXML
+    private Pane pnlScreenInput2Content;
+    @FXML
+    private Pane pnlScreenSplash;
+    @FXML
+    private Pane pnlScreenResult;
 
     @FXML
-    private Labeled
-        lblScreenInput1Header,
-        lblScreenInput1Content,
-        lblScreenInput2Header,
-        lblScreenInput2Content,
-        lblScreenSplashContent,
-        lblScreenResultHeader;
+    private Labeled lblScreenInput1Header;
+    @FXML
+    private Labeled lblScreenInput1Content;
+    @FXML
+    private Labeled lblScreenInput2Header;
+    @FXML
+    private Labeled lblScreenInput2Content;
+    @FXML
+    private Labeled lblScreenSplashContent;
+    @FXML
+    private Labeled lblScreenResultHeader;
 
     @FXML
     private TextInputControl txtScreenResultContent;
