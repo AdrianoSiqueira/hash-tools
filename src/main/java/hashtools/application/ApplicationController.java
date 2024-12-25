@@ -1,6 +1,5 @@
 package hashtools.application;
 
-import hashtools.shared.JavaFXUtil;
 import hashtools.shared.Resource;
 import hashtools.shared.condition.KeyboardKeyIsActionKeyCondition;
 import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
@@ -61,8 +60,6 @@ public class ApplicationController implements Initializable, NotificationReceive
 
     private NotificationHandler notificationHandler;
 
-    private ResourceBundle language;
-
 
     @FXML
     private void btnFooterBackAction(ActionEvent event) {
@@ -82,15 +79,10 @@ public class ApplicationController implements Initializable, NotificationReceive
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
         notificationHandler = new NotificationHandler();
 
         btnFooterBackAction = Resource.StaticImplementation.NO_OPERATION;
         btnFooterNextAction = Resource.StaticImplementation.NO_OPERATION;
-
-        pnlMenuChecker.setUserData(Resource.FXMLPath.CHECKER_SCREEN);
-        pnlMenuComparator.setUserData(Resource.FXMLPath.COMPARATOR_SCREEN);
-        pnlMenuGenerator.setUserData(Resource.FXMLPath.GENERATOR_SCREEN);
 
         Operation.perform(
             THREAD_POOL,
@@ -99,60 +91,178 @@ public class ApplicationController implements Initializable, NotificationReceive
     }
 
     @FXML
-    private void pnlMenuItemKeyPressed(KeyEvent event) {
+    private void pnlMenuCheckerKeyPressed(KeyEvent event) {
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new ArmNodeOperation(JavaFXUtil.getNode(event))
+                new ArmNodeOperation(pnlMenuChecker)
             )
         );
     }
 
     @FXML
-    private void pnlMenuItemKeyReleased(KeyEvent event) {
+    private void pnlMenuCheckerKeyReleased(KeyEvent event) {
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new DisarmNodeOperation(JavaFXUtil.getNode(event))
+                new DisarmNodeOperation(pnlMenuChecker)
             ),
             new ConditionalOperation(
                 new KeyboardKeyIsActionKeyCondition(event.getCode()),
-                new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+                new OpenScreenOperation(this, Resource.FXMLPath.CHECKER_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
             )
         );
     }
 
     @FXML
-    private void pnlMenuItemMouseClicked(MouseEvent event) {
+    private void pnlMenuCheckerMouseClicked(MouseEvent event) {
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new OpenScreenOperation(this, JavaFXUtil.getUserData(event, String.class), language, pnlContent)
+                new OpenScreenOperation(this, Resource.FXMLPath.CHECKER_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
             )
         );
     }
 
     @FXML
-    private void pnlMenuItemMousePressed(MouseEvent event) {
+    private void pnlMenuCheckerMousePressed(MouseEvent event) {
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new ArmNodeOperation(JavaFXUtil.getNode(event))
+                new ArmNodeOperation(pnlMenuChecker)
             )
         );
     }
 
     @FXML
-    private void pnlMenuItemMouseReleased(MouseEvent event) {
+    private void pnlMenuCheckerMouseReleased(MouseEvent event) {
         Operation.perform(
             THREAD_POOL,
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
-                new DisarmNodeOperation(JavaFXUtil.getNode(event))
+                new DisarmNodeOperation(pnlMenuChecker)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuComparatorKeyPressed(KeyEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new ArmNodeOperation(pnlMenuComparator)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuComparatorKeyReleased(KeyEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new DisarmNodeOperation(pnlMenuComparator)
+            ),
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new OpenScreenOperation(this, Resource.FXMLPath.COMPARATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuComparatorMouseClicked(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new OpenScreenOperation(this, Resource.FXMLPath.COMPARATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuComparatorMousePressed(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new ArmNodeOperation(pnlMenuComparator)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuComparatorMouseReleased(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new DisarmNodeOperation(pnlMenuComparator)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuGeneratorKeyPressed(KeyEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new ArmNodeOperation(pnlMenuGenerator)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuGeneratorKeyReleased(KeyEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new DisarmNodeOperation(pnlMenuGenerator)
+            ),
+            new ConditionalOperation(
+                new KeyboardKeyIsActionKeyCondition(event.getCode()),
+                new OpenScreenOperation(this, Resource.FXMLPath.GENERATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuGeneratorMouseClicked(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new OpenScreenOperation(this, Resource.FXMLPath.GENERATOR_SCREEN, ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE), pnlContent)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuGeneratorMousePressed(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new ArmNodeOperation(pnlMenuGenerator)
+            )
+        );
+    }
+
+    @FXML
+    private void pnlMenuGeneratorMouseReleased(MouseEvent event) {
+        Operation.perform(
+            THREAD_POOL,
+            new ConditionalOperation(
+                new MouseButtonIsPrimaryCondition(event.getButton()),
+                new DisarmNodeOperation(pnlMenuGenerator)
             )
         );
     }
