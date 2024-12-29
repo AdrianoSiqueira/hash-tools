@@ -32,6 +32,14 @@ public final class Resource {
         public static final String FAV_ICON = "/hashtools/shared/image/1920x1920/application.png";
     }
 
+    public static final class Language {
+        public static final String APPLICATION = "hashtools.application.language.language";
+        public static final String CHECKER = "hashtools.checker.language.language";
+        public static final String COMPARATOR = "hashtools.comparator.language.language";
+        public static final String GENERATOR = "hashtools.generator.language.language";
+        public static final String SHARED = "hashtools.shared.language.language";
+    }
+
     public static final class PropertyKey {
         public static final String HOME_DIRECTORY = "user.home";
         public static final String JAVAFX_PRELOADER = "javafx.preloader";
@@ -40,10 +48,6 @@ public final class Resource {
     public static final class PseudoClass {
         public static final javafx.css.PseudoClass ARMED = javafx.css.PseudoClass.getPseudoClass("armed");
         public static final javafx.css.PseudoClass DISABLED = javafx.css.PseudoClass.getPseudoClass("disabled");
-    }
-
-    public static final class ResourceBundle {
-        public static final String LANGUAGE = "hashtools.shared.language.language";
     }
 
     public static final class Software {

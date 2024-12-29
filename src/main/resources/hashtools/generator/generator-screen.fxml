@@ -10,14 +10,14 @@
 <StackPane fx:controller="hashtools.generator.GeneratorController" fx:id="pnlRoot" stylesheets="@generator-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
     <VBox fx:id="pnlScreenInput" styleClass="pane-screen">
-        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%hashtools.generator.generator-screen.open-file"/>
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%generator-screen.open-file"/>
         <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pane-button">
             <Label fx:id="lblScreenInputContent" styleClass="label-path"/>
         </StackPane>
     </VBox>
 
     <VBox fx:id="pnlScreenAlgorithm" styleClass="pane-screen" visible="false">
-        <Label fx:id="lblScreenAlgorithmHeader" maxWidth="1E6" text="%hashtools.generator.generator-screen.select-algorithm"/>
+        <Label fx:id="lblScreenAlgorithmHeader" maxWidth="1E6" text="%generator-screen.select-algorithm"/>
         <GridPane VBox.vgrow="ALWAYS" fx:id="pnlScreenAlgorithmContent" styleClass="pane-algorithm">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS"/>
@@ -34,11 +34,11 @@
     </VBox>
 
     <StackPane fx:id="pnlScreenSplash" visible="false">
-        <Label fx:id="lblScreenSplashContent" text="%hashtools.generator.generator-screen.wait"/>
+        <Label fx:id="lblScreenSplashContent" text="%generator-screen.wait"/>
     </StackPane>
 
     <VBox fx:id="pnlScreenResult" styleClass="pane-screen" visible="false">
-        <Label fx:id="lblScreenResultHeader" text="%hashtools.generator.generator-screen.result"/>
+        <Label fx:id="lblScreenResultHeader" text="%generator-screen.result"/>
         <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtScreenResultContent"/>
     </VBox>
 </StackPane>

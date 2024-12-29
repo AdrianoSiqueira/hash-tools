@@ -73,7 +73,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
-    private ResourceBundle language;
+    private ResourceBundle comparatorLanguage;
+    private ResourceBundle sharedLanguage;
 
 
     @Override
@@ -86,7 +87,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
+        comparatorLanguage = language;
+        sharedLanguage = ResourceBundle.getBundle(Resource.Language.SHARED);
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -109,9 +111,9 @@ public class ComparatorController implements Initializable, NotificationSender, 
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
-                    language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-1"),
+                    comparatorLanguage.getString("comparator-controller.dialog.title.open-file-1"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                    Extension.getAllExtensions(language),
+                    Extension.getAllExtensions(sharedLanguage),
                     lblScreenInput1Content,
                     pnlRoot.getScene().getWindow()
                 )
@@ -126,9 +128,9 @@ public class ComparatorController implements Initializable, NotificationSender, 
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
-                    language.getString("hashtools.comparator.comparator-controller.dialog.title.open-file-2"),
+                    comparatorLanguage.getString("comparator-controller.dialog.title.open-file-2"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                    Extension.getAllExtensions(language),
+                    Extension.getAllExtensions(sharedLanguage),
                     lblScreenInput2Content,
                     pnlRoot.getScene().getWindow()
                 )
@@ -197,7 +199,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
                 new FooterButtonActionNotification(
                     new GoToInputScreen2(),
                     new ShowSaveFileDialogOperation(
-                        language.getString("hashtools.comparator.comparator-controller.dialog.title.save-file"),
+                        comparatorLanguage.getString("comparator-controller.dialog.title.save-file"),
                         System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                         txtScreenResultContent.getText(),
                         pnlRoot.getScene().getWindow()
@@ -224,7 +226,7 @@ public class ComparatorController implements Initializable, NotificationSender, 
             request.setInputFile2(Path.of(lblScreenInput2Content.getText()));
 
             try {
-                ComparatorService service = new ComparatorService(language);
+                ComparatorService service = new ComparatorService(comparatorLanguage);
                 ComparatorResponse response = service.processRequest(request);
 
                 String result = service.formatResponse(response);
@@ -238,8 +240,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.comparator.comparator-controller.dialog.title.warning"),
-                        language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-1")
+                        comparatorLanguage.getString("comparator-controller.dialog.title.warning"),
+                        comparatorLanguage.getString("comparator-controller.dialog.content.missing-file-1")
                     ),
                     new GoToInputScreen1()
                 );
@@ -247,8 +249,8 @@ public class ComparatorController implements Initializable, NotificationSender, 
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.comparator.comparator-controller.dialog.title.warning"),
-                        language.getString("hashtools.comparator.comparator-controller.dialog.content.missing-file-2")
+                        comparatorLanguage.getString("comparator-controller.dialog.title.warning"),
+                        comparatorLanguage.getString("comparator-controller.dialog.content.missing-file-2")
                     ),
                     new GoToInputScreen2()
                 );

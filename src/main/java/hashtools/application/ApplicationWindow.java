@@ -1,6 +1,7 @@
 package hashtools.application;
 
 import hashtools.preloader.PreloaderWindow;
+import hashtools.shared.Resource;
 import javafx.application.Application;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,6 @@ import static hashtools.shared.Resource.ApplicationDimension.HEIGHT;
 import static hashtools.shared.Resource.ApplicationDimension.WIDTH;
 import static hashtools.shared.Resource.FXMLPath.APPLICATION_SCREEN;
 import static hashtools.shared.Resource.ImagePath.FAV_ICON;
-import static hashtools.shared.Resource.ResourceBundle.LANGUAGE;
 
 @Slf4j
 public class ApplicationWindow extends Application {
@@ -33,7 +33,7 @@ public class ApplicationWindow extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(fxmlPath);
-        loader.setResources(ResourceBundle.getBundle(LANGUAGE));
+        loader.setResources(ResourceBundle.getBundle(Resource.Language.APPLICATION));
 
         /*
          * Namespace is used to define constants that

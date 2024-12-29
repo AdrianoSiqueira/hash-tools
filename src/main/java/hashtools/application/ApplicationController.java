@@ -121,7 +121,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.CHECKER_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.CHECKER),
                     pnlContent
                 )
             )
@@ -137,7 +137,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.CHECKER_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.CHECKER),
                     pnlContent
                 )
             )
@@ -190,7 +190,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.COMPARATOR_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.COMPARATOR),
                     pnlContent
                 )
             )
@@ -206,7 +206,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.COMPARATOR_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.COMPARATOR),
                     pnlContent
                 )
             )
@@ -259,7 +259,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.GENERATOR_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.GENERATOR),
                     pnlContent
                 )
             )
@@ -275,7 +275,7 @@ public class ApplicationController implements Initializable, NotificationReceive
                 new OpenScreenOperation(
                     this,
                     Resource.FXMLPath.GENERATOR_SCREEN,
-                    ResourceBundle.getBundle(Resource.ResourceBundle.LANGUAGE),
+                    ResourceBundle.getBundle(Resource.Language.GENERATOR),
                     pnlContent
                 )
             )

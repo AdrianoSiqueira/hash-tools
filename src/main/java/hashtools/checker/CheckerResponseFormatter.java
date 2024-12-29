@@ -22,9 +22,9 @@ public class CheckerResponseFormatter implements Formatter<CheckerResponse> {
 
     @Override
     public String format(CheckerResponse response) {
-        String matches = language.getString("hashtools.checker.checker-response-formatter.matches");
-        String notMatches = language.getString("hashtools.checker.checker-response-formatter.not-matches");
-        String reliability = language.getString("hashtools.checker.checker-response-formatter.reliability");
+        String matches = language.getString("checker-response-formatter.matches");
+        String notMatches = language.getString("checker-response-formatter.not-matches");
+        String reliability = language.getString("checker-response-formatter.reliability");
         String statusMask = "%s: %.2f%%";
 
         return response

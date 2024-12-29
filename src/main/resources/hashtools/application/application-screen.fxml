@@ -22,27 +22,27 @@ declaration rules, that is, it uses camel case.
         <VBox fx:id="pnlMenu" styleClass="pane-menu">
             <GridPane fx:id="pnlMenuChecker" onKeyPressed="#pnlMenuCheckerKeyPressed" onKeyReleased="#pnlMenuCheckerKeyReleased" onMouseClicked="#pnlMenuCheckerMouseClicked" onMousePressed="#pnlMenuCheckerMousePressed" onMouseReleased="#pnlMenuCheckerMouseReleased" styleClass="pane-menu-item">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="checker"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%hashtools.application.application-screen.checker-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%hashtools.application.application-screen.checker-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.checker-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.checker-description"/>
             </GridPane>
 
             <GridPane fx:id="pnlMenuGenerator" onKeyPressed="#pnlMenuGeneratorKeyPressed" onKeyReleased="#pnlMenuGeneratorKeyReleased" onMouseClicked="#pnlMenuGeneratorMouseClicked" onMousePressed="#pnlMenuGeneratorMousePressed" onMouseReleased="#pnlMenuGeneratorMouseReleased" styleClass="pane-menu-item">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="generator"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%hashtools.application.application-screen.generator-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%hashtools.application.application-screen.generator-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.generator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.generator-description"/>
             </GridPane>
 
             <GridPane fx:id="pnlMenuComparator" onKeyPressed="#pnlMenuComparatorKeyPressed" onKeyReleased="#pnlMenuComparatorKeyReleased" onMouseClicked="#pnlMenuComparatorMouseClicked" onMousePressed="#pnlMenuComparatorMousePressed" onMouseReleased="#pnlMenuComparatorMouseReleased" styleClass="pane-menu-item">
                 <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="comparator"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%hashtools.application.application-screen.comparator-header"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%hashtools.application.application-screen.comparator-description"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.comparator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.comparator-description"/>
             </GridPane>
         </VBox>
     </StackPane>
 
     <HBox fx:id="pnlFooter" styleClass="pane-footer">
-        <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%hashtools.application.application-screen.footer-back"/>
+        <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%application-screen.footer-back"/>
         <Label HBox.hgrow="ALWAYS" fx:id="lblFooterSpacer" maxWidth="1E6"/>
-        <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%hashtools.application.application-screen.footer-next"/>
+        <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%application-screen.footer-next"/>
     </HBox>
 </VBox>

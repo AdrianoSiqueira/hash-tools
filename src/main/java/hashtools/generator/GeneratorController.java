@@ -86,7 +86,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
-    private ResourceBundle language;
+    private ResourceBundle generatorLanguage;
+    private ResourceBundle sharedLanguage;
 
 
     @Override
@@ -99,7 +100,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
+        generatorLanguage = language;
+        sharedLanguage = ResourceBundle.getBundle(Resource.Language.SHARED);
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -122,9 +124,9 @@ public class GeneratorController implements Initializable, NotificationSender, T
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
-                    language.getString("hashtools.generator.generator-controller.dialog.title.open-file"),
+                    generatorLanguage.getString("generator-controller.dialog.title.open-file"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                    Extension.getAllExtensions(language),
+                    Extension.getAllExtensions(sharedLanguage),
                     lblScreenInputContent,
                     pnlRoot.getScene().getWindow()
                 )
@@ -193,7 +195,7 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 new FooterButtonActionNotification(
                     new GoToAlgorithmScreen(),
                     new ShowSaveFileDialogOperation(
-                        language.getString("hashtools.generator.generator-controller.dialog.title.save-file"),
+                        generatorLanguage.getString("generator-controller.dialog.title.save-file"),
                         System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                         txtScreenResultContent.getText(),
                         pnlRoot.getScene().getWindow()
@@ -244,8 +246,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.generator.generator-controller.dialog.title.warning"),
-                        language.getString("hashtools.generator.generator-controller.dialog.content.missing-file")
+                        generatorLanguage.getString("generator-controller.dialog.title.warning"),
+                        generatorLanguage.getString("generator-controller.dialog.content.missing-file")
                     ),
                     new GoToInputScreen()
                 );
@@ -253,8 +255,8 @@ public class GeneratorController implements Initializable, NotificationSender, T
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.generator.generator-controller.dialog.title.warning"),
-                        language.getString("hashtools.generator.generator-controller.dialog.content.missing-algorithm")
+                        generatorLanguage.getString("generator-controller.dialog.title.warning"),
+                        generatorLanguage.getString("generator-controller.dialog.content.missing-algorithm")
                     ),
                     new GoToAlgorithmScreen()
                 );

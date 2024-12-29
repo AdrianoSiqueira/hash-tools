@@ -1,5 +1,6 @@
 package hashtools.preloader;
 
+import hashtools.shared.Resource;
 import javafx.application.Preloader;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,6 @@ import java.util.ResourceBundle;
 import static hashtools.shared.Resource.ApplicationDimension.HEIGHT;
 import static hashtools.shared.Resource.ApplicationDimension.WIDTH;
 import static hashtools.shared.Resource.FXMLPath.PRELOADER_SCREEN;
-import static hashtools.shared.Resource.ResourceBundle.LANGUAGE;
 
 @Slf4j
 public class PreloaderWindow extends Preloader {
@@ -33,7 +33,7 @@ public class PreloaderWindow extends Preloader {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(fxmlPath);
-        loader.setResources(ResourceBundle.getBundle(LANGUAGE));
+        loader.setResources(ResourceBundle.getBundle(Resource.Language.SHARED));
 
         /*
          * Namespace is used to define constants that

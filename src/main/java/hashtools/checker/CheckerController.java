@@ -75,7 +75,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
     private Collection<NotificationReceiver> receivers;
     private Collection<Pane> screenPanes;
-    private ResourceBundle language;
+    private ResourceBundle checkerLanguage;
+    private ResourceBundle sharedLanguage;
 
 
     @Override
@@ -88,7 +89,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
 
     @Override
     public void initialize(URL url, ResourceBundle language) {
-        this.language = language;
+        checkerLanguage = language;
+        sharedLanguage = ResourceBundle.getBundle(Resource.Language.SHARED);
         receivers = new ArrayList<>();
 
         screenPanes = List.of(
@@ -111,11 +113,11 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
-                    language.getString("hashtools.checker.checker-controller.dialog.title.open-checksum"),
+                    checkerLanguage.getString("checker-controller.dialog.title.open-checksum"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                     List.of(
-                        Extension.HASH.getFilter(language),
-                        Extension.ALL.getFilter(language)
+                        Extension.HASH.getFilter(sharedLanguage),
+                        Extension.ALL.getFilter(sharedLanguage)
                     ),
                     lblScreenChecksumContent,
                     pnlRoot.getScene().getWindow()
@@ -131,9 +133,9 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             new ConditionalOperation(
                 new MouseButtonIsPrimaryCondition(event.getButton()),
                 new ShowOpenFileDialogOperation(
-                    language.getString("hashtools.checker.checker-controller.dialog.title.open-file"),
+                    checkerLanguage.getString("checker-controller.dialog.title.open-file"),
                     System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
-                    Extension.getAllExtensions(language),
+                    Extension.getAllExtensions(sharedLanguage),
                     lblScreenInputContent,
                     pnlRoot.getScene().getWindow()
                 )
@@ -202,7 +204,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 new FooterButtonActionNotification(
                     new GoToChecksumScreen(),
                     new ShowSaveFileDialogOperation(
-                        language.getString("hashtools.checker.checker-controller.dialog.title.save-file"),
+                        checkerLanguage.getString("checker-controller.dialog.title.save-file"),
                         System.getProperty(Resource.PropertyKey.HOME_DIRECTORY),
                         txtResult.getText(),
                         pnlRoot.getScene().getWindow()
@@ -229,7 +231,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
             request.setChecksumFile(Path.of(lblScreenChecksumContent.getText()));
 
             try {
-                CheckerService service = new CheckerService(language);
+                CheckerService service = new CheckerService(checkerLanguage);
                 CheckerResponse response = service.processRequest(request);
 
                 String result = service.formatResponse(response);
@@ -243,8 +245,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.checker.checker-controller.dialog.title.warning"),
-                        language.getString("hashtools.checker.checker-controller.dialog.content.missing-file")
+                        checkerLanguage.getString("checker-controller.dialog.title.warning"),
+                        checkerLanguage.getString("checker-controller.dialog.content.missing-file")
                     ),
                     new GoToInputScreen()
                 );
@@ -252,8 +254,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.checker.checker-controller.dialog.title.warning"),
-                        language.getString("hashtools.checker.checker-controller.dialog.content.missing-checksum")
+                        checkerLanguage.getString("checker-controller.dialog.title.warning"),
+                        checkerLanguage.getString("checker-controller.dialog.content.missing-checksum")
                     ),
                     new GoToChecksumScreen()
                 );
@@ -261,8 +263,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.checker.checker-controller.dialog.title.warning"),
-                        language.getString("hashtools.checker.checker-controller.dialog.content.checksum-not-text")
+                        checkerLanguage.getString("checker-controller.dialog.title.warning"),
+                        checkerLanguage.getString("checker-controller.dialog.content.checksum-not-text")
                     ),
                     new GoToChecksumScreen()
                 );
@@ -270,8 +272,8 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                 Operation.perform(
                     THREAD_POOL,
                     new ShowMessageDialogOperation(
-                        language.getString("hashtools.checker.checker-controller.dialog.title.warning"),
-                        language.getString("hashtools.checker.checker-controller.dialog.content.checksum-too-big")
+                        checkerLanguage.getString("checker-controller.dialog.title.warning"),
+                        checkerLanguage.getString("checker-controller.dialog.content.checksum-too-big")
                     ),
                     new GoToChecksumScreen()
                 );
