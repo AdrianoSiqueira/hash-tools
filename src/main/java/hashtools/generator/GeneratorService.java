@@ -4,6 +4,8 @@ import hashtools.shared.Algorithm;
 import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
+import hashtools.shared.identification.Identification;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class GeneratorService {
                 executor.execute(() -> {
                     String hash = generator.generate(
                         algorithm,
-                        request.createNewMessageDigestUpdater()
+                        MessageDigestUpdater.of(request.getInputFile())
                     );
 
                     GeneratorChecksum checksum = new GeneratorChecksum();
@@ -44,7 +46,7 @@ public class GeneratorService {
         }
 
         GeneratorResponse response = new GeneratorResponse();
-        response.setIdentification(request.createNewIdentification());
+        response.setIdentification(Identification.of(request.getInputFile()));
         response.setChecksums(checksums);
         return response;
     }

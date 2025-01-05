@@ -4,6 +4,8 @@ import hashtools.shared.Algorithm;
 import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
+import hashtools.shared.identification.Identification;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +36,7 @@ public class ComparatorService {
             executor.execute(() -> {
                 String hash = generator.generate(
                     checksum.getAlgorithm(),
-                    request.createNewMessageDigestUpdater1()
+                    MessageDigestUpdater.of(request.getInputFile1())
                 );
 
                 checksum.setHash1(hash);
@@ -43,7 +45,7 @@ public class ComparatorService {
             executor.execute(() -> {
                 String hash = generator.generate(
                     checksum.getAlgorithm(),
-                    request.createNewMessageDigestUpdater2()
+                    MessageDigestUpdater.of(request.getInputFile2())
                 );
 
                 checksum.setHash2(hash);
@@ -51,8 +53,8 @@ public class ComparatorService {
         }
 
         ComparatorResponse response = new ComparatorResponse();
-        response.setIdentification1(request.createNewIdentification1());
-        response.setIdentification2(request.createNewIdentification2());
+        response.setIdentification1(Identification.of(request.getInputFile1()));
+        response.setIdentification2(Identification.of(request.getInputFile2()));
         response.setChecksum(checksum);
         return response;
     }

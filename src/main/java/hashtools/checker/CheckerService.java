@@ -1,8 +1,11 @@
 package hashtools.checker;
 
+import hashtools.checker.officialchecksum.OfficialChecksumExtractor;
 import hashtools.shared.ChecksumGenerator;
 import hashtools.shared.Evaluation;
 import hashtools.shared.Formatter;
+import hashtools.shared.identification.Identification;
+import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
@@ -25,8 +28,8 @@ public class CheckerService {
     public CheckerResponse processRequest(CheckerRequest request) {
         Evaluation.evaluate(new CheckerRequestEvaluation(request));
 
-        List<CheckerChecksum> checksums = request
-            .createNewOfficialChecksumExtractor()
+        List<CheckerChecksum> checksums = OfficialChecksumExtractor
+            .of(request.getChecksumFile())
             .extract();
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
@@ -36,7 +39,7 @@ public class CheckerService {
                 threadPool.execute(() -> {
                     String hash = generator.generate(
                         checksum.getAlgorithm(),
-                        request.createNewMessageDigestUpdater()
+                        MessageDigestUpdater.of(request.getInputFile())
                     );
 
                     checksum.setGeneratedHash(hash);
@@ -45,7 +48,7 @@ public class CheckerService {
         }
 
         CheckerResponse response = new CheckerResponse();
-        response.setIdentification(request.createNewIdentification());
+        response.setIdentification(Identification.of(request.getInputFile()));
         response.setChecksums(checksums);
         return response;
     }
