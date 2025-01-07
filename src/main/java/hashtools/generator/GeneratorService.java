@@ -28,12 +28,13 @@ public class GeneratorService {
 
         try (ExecutorService executor = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {
             ChecksumGenerator generator = new ChecksumGenerator();
+            MessageDigestUpdater updater = MessageDigestUpdater.of(request.getInputFile());
 
             for (Algorithm algorithm : request.getAlgorithms()) {
                 executor.execute(() -> {
                     String hash = generator.generate(
                         algorithm,
-                        MessageDigestUpdater.of(request.getInputFile())
+                        updater
                     );
 
                     GeneratorChecksum checksum = new GeneratorChecksum();

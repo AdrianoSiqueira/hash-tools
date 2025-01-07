@@ -34,12 +34,13 @@ public class CheckerService {
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
             ChecksumGenerator generator = new ChecksumGenerator();
+            MessageDigestUpdater updater = MessageDigestUpdater.of(request.getInputFile());
 
             for (CheckerChecksum checksum : checksums) {
                 threadPool.execute(() -> {
                     String hash = generator.generate(
                         checksum.getAlgorithm(),
-                        MessageDigestUpdater.of(request.getInputFile())
+                        updater
                     );
 
                     checksum.setGeneratedHash(hash);
