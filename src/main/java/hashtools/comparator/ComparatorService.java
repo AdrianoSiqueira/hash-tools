@@ -10,6 +10,7 @@ import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
@@ -42,7 +43,7 @@ public class ComparatorService {
                     );
 
                     checksum.setHash1(hash);
-                } catch (IOException e) {
+                } catch (IOException | NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
             });
@@ -55,7 +56,7 @@ public class ComparatorService {
                     );
 
                     checksum.setHash2(hash);
-                } catch (IOException e) {
+                } catch (IOException | NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
             });

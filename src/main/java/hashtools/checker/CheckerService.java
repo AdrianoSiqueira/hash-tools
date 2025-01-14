@@ -10,6 +10,7 @@ import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -46,7 +47,7 @@ public class CheckerService {
                         );
 
                         checksum.setGeneratedHash(hash);
-                    } catch (IOException e) {
+                    } catch (IOException | NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
                 });

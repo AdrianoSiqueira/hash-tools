@@ -9,6 +9,7 @@ import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -44,7 +45,7 @@ public class GeneratorService {
                         checksum.setHash(hash);
 
                         checksums.add(checksum);
-                    } catch (IOException e) {
+                    } catch (IOException | NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
                 });

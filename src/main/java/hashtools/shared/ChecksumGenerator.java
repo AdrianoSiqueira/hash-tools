@@ -19,20 +19,11 @@ public class ChecksumGenerator {
     }
 
     public String generate(Algorithm algorithm, MessageDigestUpdater updater)
-    throws IOException {
-        MessageDigest messageDigest = getMessageDigest(algorithm);
+    throws IOException, NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance(algorithm.getName());
         updater.update(messageDigest);
 
         byte[] bytes = messageDigest.digest();
         return decode(bytes);
-    }
-
-    private MessageDigest getMessageDigest(Algorithm algorithm) {
-        try {
-            return MessageDigest.getInstance(algorithm.getName());
-        } catch (NoSuchAlgorithmException e) {
-            // Never reach by design
-            throw new RuntimeException(e);
-        }
     }
 }
