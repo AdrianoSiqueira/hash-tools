@@ -9,6 +9,7 @@ import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
@@ -34,21 +35,29 @@ public class ComparatorService {
             ChecksumGenerator generator = new ChecksumGenerator();
 
             executor.execute(() -> {
-                String hash = generator.generate(
-                    checksum.getAlgorithm(),
-                    MessageDigestUpdater.of(request.getInputFile1())
-                );
+                try {
+                    String hash = generator.generate(
+                        checksum.getAlgorithm(),
+                        MessageDigestUpdater.of(request.getInputFile1())
+                    );
 
-                checksum.setHash1(hash);
+                    checksum.setHash1(hash);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
 
             executor.execute(() -> {
-                String hash = generator.generate(
-                    checksum.getAlgorithm(),
-                    MessageDigestUpdater.of(request.getInputFile2())
-                );
+                try {
+                    String hash = generator.generate(
+                        checksum.getAlgorithm(),
+                        MessageDigestUpdater.of(request.getInputFile2())
+                    );
 
-                checksum.setHash2(hash);
+                    checksum.setHash2(hash);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
         }
 

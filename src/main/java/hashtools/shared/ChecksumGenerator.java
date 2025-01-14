@@ -2,6 +2,7 @@ package hashtools.shared;
 
 import hashtools.shared.messagedigest.MessageDigestUpdater;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
@@ -17,7 +18,8 @@ public class ChecksumGenerator {
             .collect(Collectors.joining());
     }
 
-    public String generate(Algorithm algorithm, MessageDigestUpdater updater) {
+    public String generate(Algorithm algorithm, MessageDigestUpdater updater)
+    throws IOException {
         MessageDigest messageDigest = getMessageDigest(algorithm);
         updater.update(messageDigest);
 

@@ -8,6 +8,7 @@ import hashtools.shared.identification.Identification;
 import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -32,16 +33,20 @@ public class GeneratorService {
 
             for (Algorithm algorithm : request.getAlgorithms()) {
                 executor.execute(() -> {
-                    String hash = generator.generate(
-                        algorithm,
-                        updater
-                    );
+                    try {
+                        String hash = generator.generate(
+                            algorithm,
+                            updater
+                        );
 
-                    GeneratorChecksum checksum = new GeneratorChecksum();
-                    checksum.setAlgorithm(algorithm);
-                    checksum.setHash(hash);
+                        GeneratorChecksum checksum = new GeneratorChecksum();
+                        checksum.setAlgorithm(algorithm);
+                        checksum.setHash(hash);
 
-                    checksums.add(checksum);
+                        checksums.add(checksum);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
             }
         }

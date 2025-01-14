@@ -1,5 +1,6 @@
 package hashtools.shared.messagedigest;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 
@@ -13,5 +14,6 @@ public interface MessageDigestUpdater {
         return new FileMessageDigestUpdater(file);
     }
 
-    void update(MessageDigest messageDigest);
+    void update(MessageDigest messageDigest)
+    throws IOException;
 }

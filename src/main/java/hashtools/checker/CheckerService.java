@@ -9,6 +9,7 @@ import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -38,12 +39,16 @@ public class CheckerService {
 
             for (CheckerChecksum checksum : checksums) {
                 threadPool.execute(() -> {
-                    String hash = generator.generate(
-                        checksum.getAlgorithm(),
-                        updater
-                    );
+                    try {
+                        String hash = generator.generate(
+                            checksum.getAlgorithm(),
+                            updater
+                        );
 
-                    checksum.setGeneratedHash(hash);
+                        checksum.setGeneratedHash(hash);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
             }
         }

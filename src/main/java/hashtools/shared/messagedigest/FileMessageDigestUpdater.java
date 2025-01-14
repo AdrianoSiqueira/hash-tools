@@ -17,7 +17,8 @@ public class FileMessageDigestUpdater implements MessageDigestUpdater {
     private final Path file;
 
     @Override
-    public void update(MessageDigest messageDigest) {
+    public void update(MessageDigest messageDigest)
+    throws IOException {
         try (InputStream stream = Files.newInputStream(file)) {
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
@@ -29,8 +30,6 @@ public class FileMessageDigestUpdater implements MessageDigestUpdater {
                     bytesRead
                 );
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
