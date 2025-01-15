@@ -7,7 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.stream.Stream;
@@ -39,9 +41,9 @@ class FileMessageDigestUpdaterTest {
         return Stream.of(
             Arguments.of(true, NullPointerException.class, nullMessageDigest, regularFile),
             Arguments.of(true, NullPointerException.class, messageDigest, nullFile),
-            Arguments.of(true, RuntimeException.class, messageDigest, noPathFile),
-            Arguments.of(true, RuntimeException.class, messageDigest, folder),
-            Arguments.of(true, RuntimeException.class, messageDigest, nonExistentFile),
+            Arguments.of(true, IOException.class, messageDigest, noPathFile),
+            Arguments.of(true, IOException.class, messageDigest, folder),
+            Arguments.of(true, NoSuchFileException.class, messageDigest, nonExistentFile),
             Arguments.of(false, null, messageDigest, regularFile)
         );
     }
