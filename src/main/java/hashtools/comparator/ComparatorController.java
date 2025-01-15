@@ -28,12 +28,15 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 import static hashtools.shared.Resource.Software.THREAD_POOL;
 
@@ -253,6 +256,17 @@ public class ComparatorController implements Initializable, NotificationSender, 
                         comparatorLanguage.getString("comparator-controller.dialog.content.missing-file-2")
                     ),
                     new GoToInputScreen2()
+                );
+            } catch (ExecutionException | InterruptedException e) {
+                StringWriter stackTraceContent = new StringWriter();
+                e.printStackTrace(new PrintWriter(stackTraceContent));
+
+                Operation.perform(
+                    THREAD_POOL,
+                    new ShowMessageDialogOperation(
+                        comparatorLanguage.getString("checker-controller.dialog.title.warning"),
+                        stackTraceContent.toString()
+                    )
                 );
             }
 

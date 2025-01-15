@@ -8,11 +8,11 @@ import hashtools.shared.identification.Identification;
 import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class GeneratorService {
 
@@ -23,33 +23,41 @@ public class GeneratorService {
         );
     }
 
-    public GeneratorResponse processRequest(GeneratorRequest request) {
+    public GeneratorResponse processRequest(GeneratorRequest request)
+    throws ExecutionException, InterruptedException {
         Evaluation.evaluate(new GeneratorRequestEvaluation(request));
 
-        List<GeneratorChecksum> checksums = new ArrayList<>();
+        List<GeneratorChecksum> checksums = new LinkedList<>();
+        List<Future<String>> futureChecksums = new LinkedList<>();
 
-        try (ExecutorService executor = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {
-            ChecksumGenerator generator = new ChecksumGenerator();
-            MessageDigestUpdater updater = MessageDigestUpdater.of(request.getInputFile());
+        ChecksumGenerator generator = new ChecksumGenerator();
+        MessageDigestUpdater updater = MessageDigestUpdater.of(request.getInputFile());
 
+        try (ExecutorService threadPool = ThreadPool.newFixedDaemon("GeneratorThreadPool")) {
             for (Algorithm algorithm : request.getAlgorithms()) {
-                executor.execute(() -> {
-                    try {
-                        String hash = generator.generate(
+                futureChecksums.add(
+                    threadPool.submit(() ->
+                        generator.generate(
                             algorithm,
                             updater
-                        );
+                        )
+                    )
+                );
 
-                        GeneratorChecksum checksum = new GeneratorChecksum();
-                        checksum.setAlgorithm(algorithm);
-                        checksum.setHash(hash);
-
-                        checksums.add(checksum);
-                    } catch (IOException | NoSuchAlgorithmException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                GeneratorChecksum checksum = new GeneratorChecksum();
+                checksum.setAlgorithm(algorithm);
+                checksums.add(checksum);
             }
+        }
+
+        for (int i = 0; i < checksums.size(); i++) {
+            String generatedChecksum = futureChecksums
+                .get(i)
+                .get();
+
+            checksums
+                .get(i)
+                .setHash(generatedChecksum);
         }
 
         GeneratorResponse response = new GeneratorResponse();

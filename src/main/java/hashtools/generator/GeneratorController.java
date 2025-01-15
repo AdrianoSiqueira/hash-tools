@@ -30,12 +30,15 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 import static hashtools.shared.Resource.Software.THREAD_POOL;
 
@@ -259,6 +262,17 @@ public class GeneratorController implements Initializable, NotificationSender, T
                         generatorLanguage.getString("generator-controller.dialog.content.missing-algorithm")
                     ),
                     new GoToAlgorithmScreen()
+                );
+            } catch (ExecutionException | InterruptedException e) {
+                StringWriter stackTraceContent = new StringWriter();
+                e.printStackTrace(new PrintWriter(stackTraceContent));
+
+                Operation.perform(
+                    THREAD_POOL,
+                    new ShowMessageDialogOperation(
+                        generatorLanguage.getString("checker-controller.dialog.title.warning"),
+                        stackTraceContent.toString()
+                    )
                 );
             }
 

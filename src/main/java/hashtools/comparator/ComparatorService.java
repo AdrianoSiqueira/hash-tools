@@ -9,10 +9,12 @@ import hashtools.shared.messagedigest.MessageDigestUpdater;
 import hashtools.shared.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 @RequiredArgsConstructor
 public class ComparatorService {
@@ -26,41 +28,38 @@ public class ComparatorService {
         );
     }
 
-    public ComparatorResponse processRequest(ComparatorRequest request) {
+    public ComparatorResponse processRequest(ComparatorRequest request)
+    throws ExecutionException, InterruptedException {
         Evaluation.evaluate(new ComparatorRequestEvaluation(request));
 
         ComparatorChecksum checksum = new ComparatorChecksum();
         checksum.setAlgorithm(Algorithm.MD5);
 
-        try (ExecutorService executor = ThreadPool.newFixedDaemon("ComparatorThreadPool")) {
-            ChecksumGenerator generator = new ChecksumGenerator();
+        List<Future<String>> futureChecksums = new LinkedList<>();
+        ChecksumGenerator generator = new ChecksumGenerator();
 
-            executor.execute(() -> {
-                try {
-                    String hash = generator.generate(
+        try (ExecutorService threadPool = ThreadPool.newFixedDaemon("ComparatorThreadPool")) {
+            futureChecksums.add(
+                threadPool.submit(() ->
+                    generator.generate(
                         checksum.getAlgorithm(),
                         MessageDigestUpdater.of(request.getInputFile1())
-                    );
+                    )
+                )
+            );
 
-                    checksum.setHash1(hash);
-                } catch (IOException | NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
-            executor.execute(() -> {
-                try {
-                    String hash = generator.generate(
+            futureChecksums.add(
+                threadPool.submit(() ->
+                    generator.generate(
                         checksum.getAlgorithm(),
                         MessageDigestUpdater.of(request.getInputFile2())
-                    );
-
-                    checksum.setHash2(hash);
-                } catch (IOException | NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    )
+                )
+            );
         }
+
+        checksum.setHash1(futureChecksums.get(0).get());
+        checksum.setHash2(futureChecksums.get(1).get());
 
         ComparatorResponse response = new ComparatorResponse();
         response.setIdentification1(Identification.of(request.getInputFile1()));
