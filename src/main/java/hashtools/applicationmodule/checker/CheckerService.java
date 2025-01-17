@@ -1,6 +1,6 @@
 package hashtools.applicationmodule.checker;
 
-import hashtools.applicationmodule.checker.officialchecksum.OfficialChecksumExtractor;
+import hashtools.coremodule.officialchecksum.OfficialChecksumExtractor;
 import hashtools.coremodule.ChecksumGenerator;
 import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;

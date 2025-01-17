@@ -7,7 +7,7 @@ module hash.tools {
 
     exports hashtools.applicationmodule.application;
     exports hashtools.applicationmodule.checker.condition;
-    exports hashtools.applicationmodule.checker.officialchecksum;
+    exports hashtools.coremodule.officialchecksum;
     exports hashtools.applicationmodule.checker;
     exports hashtools.applicationmodule.comparator;
     exports hashtools.applicationmodule.generator;
@@ -22,7 +22,7 @@ module hash.tools {
 
     opens hashtools.applicationmodule.application;
     opens hashtools.applicationmodule.checker.condition;
-    opens hashtools.applicationmodule.checker.officialchecksum;
+    opens hashtools.coremodule.officialchecksum;
     opens hashtools.applicationmodule.checker;
     opens hashtools.applicationmodule.comparator;
     opens hashtools.applicationmodule.generator;

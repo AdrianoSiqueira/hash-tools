@@ -1,6 +1,5 @@
-package hashtools.applicationmodule.checker.officialchecksum;
+package hashtools.coremodule.officialchecksum;
 
-import hashtools.applicationmodule.checker.officialchecksum.StringOfficialChecksumExtractor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

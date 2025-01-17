@@ -1,4 +1,4 @@
-package hashtools.applicationmodule.checker.officialchecksum;
+package hashtools.coremodule.officialchecksum;
 
 import hashtools.applicationmodule.checker.CheckerChecksum;
 
