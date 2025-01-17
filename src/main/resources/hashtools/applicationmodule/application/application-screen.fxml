@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Despite the error report that IDE might show about the
+constants, it will work as long the name matches the
+namespace key defined in Application subclass.
+
+OBS.: The constant name follows java's variable name
+declaration rules, that is, it uses camel case.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:controller="hashtools.applicationmodule.application.ApplicationController" fx:id="pnlRoot" prefHeight="$applicationHeight" prefWidth="$applicationWidth" styleClass="pane-root" stylesheets="@application-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <StackPane VBox.vgrow="ALWAYS" fx:id="pnlContent" styleClass="pane-content">
+        <VBox fx:id="pnlMenu" styleClass="pane-menu">
+            <GridPane fx:id="pnlMenuChecker" onKeyPressed="#pnlMenuCheckerKeyPressed" onKeyReleased="#pnlMenuCheckerKeyReleased" onMouseClicked="#pnlMenuCheckerMouseClicked" onMousePressed="#pnlMenuCheckerMousePressed" onMouseReleased="#pnlMenuCheckerMouseReleased" styleClass="pane-menu-item">
+                <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="checker"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.checker-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.checker-description"/>
+            </GridPane>
+
+            <GridPane fx:id="pnlMenuGenerator" onKeyPressed="#pnlMenuGeneratorKeyPressed" onKeyReleased="#pnlMenuGeneratorKeyReleased" onMouseClicked="#pnlMenuGeneratorMouseClicked" onMousePressed="#pnlMenuGeneratorMousePressed" onMouseReleased="#pnlMenuGeneratorMouseReleased" styleClass="pane-menu-item">
+                <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="generator"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.generator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.generator-description"/>
+            </GridPane>
+
+            <GridPane fx:id="pnlMenuComparator" onKeyPressed="#pnlMenuComparatorKeyPressed" onKeyReleased="#pnlMenuComparatorKeyReleased" onMouseClicked="#pnlMenuComparatorMouseClicked" onMousePressed="#pnlMenuComparatorMousePressed" onMouseReleased="#pnlMenuComparatorMouseReleased" styleClass="pane-menu-item">
+                <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" id="comparator"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-title" text="%application-screen.comparator-header"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="%application-screen.comparator-description"/>
+            </GridPane>
+        </VBox>
+    </StackPane>
+
+    <HBox fx:id="pnlFooter" styleClass="pane-footer">
+        <Button fx:id="btnFooterBack" onAction="#btnFooterBackAction" text="%application-screen.footer-back"/>
+        <Label HBox.hgrow="ALWAYS" fx:id="lblFooterSpacer" maxWidth="1E6"/>
+        <Button fx:id="btnFooterNext" onAction="#btnFooterNextAction" text="%application-screen.footer-next"/>
+    </HBox>
+</VBox>

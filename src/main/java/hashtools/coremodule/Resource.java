@@ -5,7 +5,7 @@ import hashtools.coremodule.condition.NoCondition;
 import hashtools.coremodule.operation.NoOperation;
 import hashtools.coremodule.operation.Operation;
 import hashtools.coremodule.threadpool.ThreadPool;
-import hashtools.preloader.PreloaderWindow;
+import hashtools.applicationmodule.preloader.PreloaderWindow;
 
 import java.util.concurrent.ExecutorService;
 
@@ -17,11 +17,11 @@ public final class Resource {
     }
 
     public static final class FXMLPath {
-        public static final String APPLICATION_SCREEN = "/hashtools/application/application-screen.fxml";
-        public static final String CHECKER_SCREEN = "/hashtools/checker/checker-screen.fxml";
-        public static final String COMPARATOR_SCREEN = "/hashtools/comparator/comparator-screen.fxml";
-        public static final String GENERATOR_SCREEN = "/hashtools/generator/generator-screen.fxml";
-        public static final String PRELOADER_SCREEN = "/hashtools/preloader/preloader-screen.fxml";
+        public static final String APPLICATION_SCREEN = "/hashtools/applicationmodule/application/application-screen.fxml";
+        public static final String CHECKER_SCREEN = "/hashtools/applicationmodule/checker/checker-screen.fxml";
+        public static final String COMPARATOR_SCREEN = "/hashtools/applicationmodule/comparator/comparator-screen.fxml";
+        public static final String GENERATOR_SCREEN = "/hashtools/applicationmodule/generator/generator-screen.fxml";
+        public static final String PRELOADER_SCREEN = "/hashtools/applicationmodule/preloader/preloader-screen.fxml";
     }
 
     public static final class Hardware {

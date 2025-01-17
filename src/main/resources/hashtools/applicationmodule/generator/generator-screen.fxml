@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:controller="hashtools.applicationmodule.generator.GeneratorController" fx:id="pnlRoot" stylesheets="@generator-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <VBox fx:id="pnlScreenInput" styleClass="pane-screen">
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%generator-screen.open-file"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pane-button">
+            <Label fx:id="lblScreenInputContent" styleClass="label-path"/>
+        </StackPane>
+    </VBox>
+
+    <VBox fx:id="pnlScreenAlgorithm" styleClass="pane-screen" visible="false">
+        <Label fx:id="lblScreenAlgorithmHeader" maxWidth="1E6" text="%generator-screen.select-algorithm"/>
+        <GridPane VBox.vgrow="ALWAYS" fx:id="pnlScreenAlgorithmContent" styleClass="pane-algorithm">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="chkMd5" maxWidth="1E6" selected="true" text="MD5"/>
+            <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="chkSha1" maxWidth="1E6" selected="true" text="SHA-1"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="chkSha224" maxWidth="1E6" selected="true" text="SHA-224"/>
+            <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="chkSha256" maxWidth="1E6" selected="true" text="SHA-256"/>
+            <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="chkSha384" maxWidth="1E6" selected="true" text="SHA-384"/>
+            <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="chkSha512" maxWidth="1E6" selected="true" text="SHA-512"/>
+        </GridPane>
+    </VBox>
+
+    <StackPane fx:id="pnlScreenSplash" visible="false">
+        <Label fx:id="lblScreenSplashContent" text="%generator-screen.wait"/>
+    </StackPane>
+
+    <VBox fx:id="pnlScreenResult" styleClass="pane-screen" visible="false">
+        <Label fx:id="lblScreenResultHeader" text="%generator-screen.result"/>
+        <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtScreenResultContent"/>
+    </VBox>
+</StackPane>

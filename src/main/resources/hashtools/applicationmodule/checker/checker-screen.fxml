@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:controller="hashtools.applicationmodule.checker.CheckerController" fx:id="pnlRoot" stylesheets="@checker-screen.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <VBox fx:id="pnlScreenInput" styleClass="pane-screen">
+        <Label fx:id="lblScreenInputHeader" maxWidth="1E6" text="%checker-screen.open-file"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenInputContent" onMouseClicked="#pnlScreenInputContentMouseClicked" styleClass="pane-button">
+            <Label fx:id="lblScreenInputContent" styleClass="label-path"/>
+        </StackPane>
+    </VBox>
+
+    <VBox fx:id="pnlScreenChecksum" styleClass="pane-screen" visible="false">
+        <Label fx:id="lblScreenChecksumHeader" maxWidth="1E6" text="%checker-screen.open-checksum"/>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="pnlScreenChecksumContent" onMouseClicked="#pnlScreenChecksumContentMouseClicked" styleClass="pane-button">
+            <Label fx:id="lblScreenChecksumContent" styleClass="label-path"/>
+        </StackPane>
+    </VBox>
+
+    <StackPane fx:id="pnlScreenSplash" visible="false">
+        <Label fx:id="lblScreenSplashContent" text="%checker-screen.wait"/>
+    </StackPane>
+
+    <VBox fx:id="pnlScreenResult" styleClass="pane-screen" visible="false">
+        <Label fx:id="lblScreenResultHeader" text="%checker-screen.result"/>
+        <TextArea VBox.vgrow="ALWAYS" editable="false" fx:id="txtResult"/>
+    </VBox>
+</StackPane>
