@@ -12,13 +12,13 @@ module hash.tools {
     exports hashtools.comparator;
     exports hashtools.generator;
     exports hashtools.preloader;
-    exports hashtools.shared.condition;
-    exports hashtools.shared.identification;
-    exports hashtools.shared.messagedigest;
-    exports hashtools.shared.notification;
-    exports hashtools.shared.operation;
-    exports hashtools.shared.threadpool;
-    exports hashtools.shared;
+    exports hashtools.coremodule.condition;
+    exports hashtools.coremodule.identification;
+    exports hashtools.coremodule.messagedigest;
+    exports hashtools.coremodule.notification;
+    exports hashtools.coremodule.operation;
+    exports hashtools.coremodule.threadpool;
+    exports hashtools.coremodule;
 
     opens hashtools.application;
     opens hashtools.checker.condition;
@@ -27,11 +27,11 @@ module hash.tools {
     opens hashtools.comparator;
     opens hashtools.generator;
     opens hashtools.preloader;
-    opens hashtools.shared.condition;
-    opens hashtools.shared.identification;
-    opens hashtools.shared.messagedigest;
-    opens hashtools.shared.notification;
-    opens hashtools.shared.operation;
-    opens hashtools.shared.threadpool;
-    opens hashtools.shared;
+    opens hashtools.coremodule.condition;
+    opens hashtools.coremodule.identification;
+    opens hashtools.coremodule.messagedigest;
+    opens hashtools.coremodule.notification;
+    opens hashtools.coremodule.operation;
+    opens hashtools.coremodule.threadpool;
+    opens hashtools.coremodule;
 }

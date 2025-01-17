@@ -1,6 +1,6 @@
 package hashtools.checker.condition;
 
-import hashtools.shared.condition.Condition;
+import hashtools.coremodule.condition.Condition;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Files;

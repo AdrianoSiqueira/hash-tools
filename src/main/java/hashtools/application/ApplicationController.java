@@ -1,25 +1,25 @@
 package hashtools.application;
 
-import hashtools.shared.Resource;
-import hashtools.shared.condition.KeyboardKeyIsActionKeyCondition;
-import hashtools.shared.condition.MouseButtonIsPrimaryCondition;
-import hashtools.shared.notification.FooterButtonActionNotification;
-import hashtools.shared.notification.Notification;
-import hashtools.shared.notification.NotificationReceiver;
-import hashtools.shared.notification.ScreenCloseNotification;
-import hashtools.shared.notification.ScreenOpenNotification;
-import hashtools.shared.notification.SplashStartNotification;
-import hashtools.shared.notification.SplashStopNotification;
-import hashtools.shared.operation.AddNodeToPaneOperation;
-import hashtools.shared.operation.ArmNodeOperation;
-import hashtools.shared.operation.ConditionalOperation;
-import hashtools.shared.operation.DisarmNodeOperation;
-import hashtools.shared.operation.OpenScreenOperation;
-import hashtools.shared.operation.Operation;
-import hashtools.shared.operation.RemoveNodeFromPaneOperation;
-import hashtools.shared.operation.SetNodeToPaneOperation;
-import hashtools.shared.operation.StartSplashOperation;
-import hashtools.shared.operation.StopSplashOperation;
+import hashtools.coremodule.Resource;
+import hashtools.coremodule.condition.KeyboardKeyIsActionKeyCondition;
+import hashtools.coremodule.condition.MouseButtonIsPrimaryCondition;
+import hashtools.coremodule.notification.FooterButtonActionNotification;
+import hashtools.coremodule.notification.Notification;
+import hashtools.coremodule.notification.NotificationReceiver;
+import hashtools.coremodule.notification.ScreenCloseNotification;
+import hashtools.coremodule.notification.ScreenOpenNotification;
+import hashtools.coremodule.notification.SplashStartNotification;
+import hashtools.coremodule.notification.SplashStopNotification;
+import hashtools.coremodule.operation.AddNodeToPaneOperation;
+import hashtools.coremodule.operation.ArmNodeOperation;
+import hashtools.coremodule.operation.ConditionalOperation;
+import hashtools.coremodule.operation.DisarmNodeOperation;
+import hashtools.coremodule.operation.OpenScreenOperation;
+import hashtools.coremodule.operation.Operation;
+import hashtools.coremodule.operation.RemoveNodeFromPaneOperation;
+import hashtools.coremodule.operation.SetNodeToPaneOperation;
+import hashtools.coremodule.operation.StartSplashOperation;
+import hashtools.coremodule.operation.StopSplashOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +32,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static hashtools.shared.Resource.Software.THREAD_POOL;
+import static hashtools.coremodule.Resource.Software.THREAD_POOL;
 
 public class ApplicationController implements Initializable, NotificationReceiver {
 

@@ -1,6 +1,6 @@
 package hashtools.comparator;
 
-import hashtools.shared.Formatter;
+import hashtools.coremodule.Formatter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ResourceBundle;

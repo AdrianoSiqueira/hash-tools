@@ -1,7 +1,7 @@
 package hashtools.checker;
 
-import hashtools.shared.Algorithm;
-import hashtools.shared.Formatter;
+import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.Formatter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;

@@ -1,7 +1,7 @@
 package hashtools.generator.condition;
 
-import hashtools.shared.Algorithm;
-import hashtools.shared.condition.Condition;
+import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.condition.Condition;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package hashtools.generator;
 
 import hashtools.generator.exception.InvalidAlgorithmSelectionException;
 import hashtools.generator.exception.MissingInputFileException;
-import hashtools.shared.Algorithm;
+import hashtools.coremodule.Algorithm;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.function.Executable;

@@ -1,7 +1,7 @@
 package hashtools.checker.officialchecksum;
 
 import hashtools.checker.CheckerChecksum;
-import hashtools.shared.Algorithm;
+import hashtools.coremodule.Algorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

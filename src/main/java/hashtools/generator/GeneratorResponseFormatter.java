@@ -1,7 +1,7 @@
 package hashtools.generator;
 
-import hashtools.shared.Algorithm;
-import hashtools.shared.Formatter;
+import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.Formatter;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;

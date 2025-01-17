@@ -1,6 +1,6 @@
 package hashtools.preloader;
 
-import hashtools.shared.Resource;
+import hashtools.coremodule.Resource;
 import javafx.application.Preloader;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +16,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static hashtools.shared.Resource.ApplicationDimension.HEIGHT;
-import static hashtools.shared.Resource.ApplicationDimension.WIDTH;
-import static hashtools.shared.Resource.FXMLPath.PRELOADER_SCREEN;
+import static hashtools.coremodule.Resource.ApplicationDimension.HEIGHT;
+import static hashtools.coremodule.Resource.ApplicationDimension.WIDTH;
+import static hashtools.coremodule.Resource.FXMLPath.PRELOADER_SCREEN;
 
 @Slf4j
 public class PreloaderWindow extends Preloader {

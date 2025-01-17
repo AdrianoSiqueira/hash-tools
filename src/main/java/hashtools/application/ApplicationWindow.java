@@ -1,7 +1,7 @@
 package hashtools.application;
 
+import hashtools.coremodule.Resource;
 import hashtools.preloader.PreloaderWindow;
-import hashtools.shared.Resource;
 import javafx.application.Application;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +17,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static hashtools.shared.Resource.ApplicationDimension.HEIGHT;
-import static hashtools.shared.Resource.ApplicationDimension.WIDTH;
-import static hashtools.shared.Resource.FXMLPath.APPLICATION_SCREEN;
-import static hashtools.shared.Resource.ImagePath.FAV_ICON;
+import static hashtools.coremodule.Resource.ApplicationDimension.HEIGHT;
+import static hashtools.coremodule.Resource.ApplicationDimension.WIDTH;
+import static hashtools.coremodule.Resource.FXMLPath.APPLICATION_SCREEN;
+import static hashtools.coremodule.Resource.ImagePath.FAV_ICON;
 
 @Slf4j
 public class ApplicationWindow extends Application {

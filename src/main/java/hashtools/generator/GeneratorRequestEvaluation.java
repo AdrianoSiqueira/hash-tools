@@ -1,10 +1,10 @@
 package hashtools.generator;
 
+import hashtools.coremodule.Evaluation;
+import hashtools.coremodule.condition.FileIsRegularFileCondition;
 import hashtools.generator.condition.AlgorithmSelectionIsValidCondition;
 import hashtools.generator.exception.InvalidAlgorithmSelectionException;
 import hashtools.generator.exception.MissingInputFileException;
-import hashtools.shared.Evaluation;
-import hashtools.shared.condition.FileIsRegularFileCondition;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

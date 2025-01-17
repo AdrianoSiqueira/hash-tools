@@ -1,6 +1,6 @@
 package hashtools.checker;
 
-import hashtools.shared.Algorithm;
+import hashtools.coremodule.Algorithm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

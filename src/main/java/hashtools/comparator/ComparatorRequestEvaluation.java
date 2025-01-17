@@ -2,8 +2,8 @@ package hashtools.comparator;
 
 import hashtools.comparator.exception.MissingInputFile1Exception;
 import hashtools.comparator.exception.MissingInputFile2Exception;
-import hashtools.shared.Evaluation;
-import hashtools.shared.condition.FileIsRegularFileCondition;
+import hashtools.coremodule.Evaluation;
+import hashtools.coremodule.condition.FileIsRegularFileCondition;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

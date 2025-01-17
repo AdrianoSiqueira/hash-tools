@@ -6,8 +6,8 @@ import hashtools.checker.exception.InvalidChecksumFileSizeException;
 import hashtools.checker.exception.InvalidChecksumFileTypeException;
 import hashtools.checker.exception.MissingChecksumFileException;
 import hashtools.checker.exception.MissingInputFileException;
-import hashtools.shared.Evaluation;
-import hashtools.shared.condition.FileIsRegularFileCondition;
+import hashtools.coremodule.Evaluation;
+import hashtools.coremodule.condition.FileIsRegularFileCondition;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

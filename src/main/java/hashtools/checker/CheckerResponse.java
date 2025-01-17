@@ -1,6 +1,6 @@
 package hashtools.checker;
 
-import hashtools.shared.identification.Identification;
+import hashtools.coremodule.identification.Identification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

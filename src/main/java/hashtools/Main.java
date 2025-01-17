@@ -1,7 +1,7 @@
 package hashtools;
 
 import hashtools.application.ApplicationWindow;
-import hashtools.shared.Resource;
+import hashtools.coremodule.Resource;
 import javafx.application.Application;
 
 public class Main {

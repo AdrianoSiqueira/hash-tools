@@ -1,12 +1,12 @@
 package hashtools.checker;
 
 import hashtools.checker.officialchecksum.OfficialChecksumExtractor;
-import hashtools.shared.ChecksumGenerator;
-import hashtools.shared.Evaluation;
-import hashtools.shared.Formatter;
-import hashtools.shared.identification.Identification;
-import hashtools.shared.messagedigest.MessageDigestUpdater;
-import hashtools.shared.threadpool.ThreadPool;
+import hashtools.coremodule.ChecksumGenerator;
+import hashtools.coremodule.Evaluation;
+import hashtools.coremodule.Formatter;
+import hashtools.coremodule.identification.Identification;
+import hashtools.coremodule.messagedigest.MessageDigestUpdater;
+import hashtools.coremodule.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
 import java.util.LinkedList;
