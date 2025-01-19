@@ -14,7 +14,6 @@ module hash.tools {
     exports hashtools.coremodule.checksumgenerator;
     exports hashtools.coremodule.condition;
     exports hashtools.coremodule.identification;
-    exports hashtools.coremodule.messagedigest;
     exports hashtools.coremodule.notification;
     exports hashtools.coremodule.officialchecksum;
     exports hashtools.coremodule.operation;
@@ -30,7 +29,6 @@ module hash.tools {
     opens hashtools.coremodule.checksumgenerator;
     opens hashtools.coremodule.condition;
     opens hashtools.coremodule.identification;
-    opens hashtools.coremodule.messagedigest;
     opens hashtools.coremodule.notification;
     opens hashtools.coremodule.officialchecksum;
     opens hashtools.coremodule.operation;

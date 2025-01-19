@@ -1,4 +1,4 @@
-package hashtools.coremodule.messagedigest;
+package hashtools.coremodule.checksumgenerator;
 
 import java.io.IOException;
 import java.nio.file.Path;

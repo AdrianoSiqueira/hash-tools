@@ -1,7 +1,5 @@
 package hashtools.coremodule.checksumgenerator;
 
-import hashtools.coremodule.messagedigest.MessageDigestUpdater;
-
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

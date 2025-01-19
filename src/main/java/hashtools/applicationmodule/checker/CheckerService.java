@@ -5,7 +5,7 @@ import hashtools.coremodule.checksumgenerator.ChecksumGenerator;
 import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
 import hashtools.coremodule.identification.Identification;
-import hashtools.coremodule.messagedigest.MessageDigestUpdater;
+import hashtools.coremodule.checksumgenerator.MessageDigestUpdater;
 import hashtools.coremodule.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.coremodule.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
