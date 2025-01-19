@@ -30,6 +30,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
@@ -280,7 +281,7 @@ public class CheckerController implements Initializable, NotificationSender, Tra
                     ),
                     new GoToChecksumScreen()
                 );
-            } catch (ExecutionException | InterruptedException e) {
+            } catch (ExecutionException | IOException | InterruptedException e) {
                 StringWriter stackTraceContent = new StringWriter();
                 e.printStackTrace(new PrintWriter(stackTraceContent));
 
