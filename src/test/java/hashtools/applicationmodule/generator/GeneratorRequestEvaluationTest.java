@@ -1,10 +1,8 @@
 package hashtools.applicationmodule.generator;
 
-import hashtools.applicationmodule.generator.GeneratorRequest;
-import hashtools.applicationmodule.generator.GeneratorRequestEvaluation;
 import hashtools.applicationmodule.generator.exception.InvalidAlgorithmSelectionException;
 import hashtools.applicationmodule.generator.exception.MissingInputFileException;
-import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.checksumgenerator.Algorithm;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.function.Executable;

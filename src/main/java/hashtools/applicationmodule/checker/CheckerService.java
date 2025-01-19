@@ -1,7 +1,7 @@
 package hashtools.applicationmodule.checker;
 
-import hashtools.coremodule.Algorithm;
-import hashtools.coremodule.ChecksumGenerator;
+import hashtools.coremodule.checksumgenerator.Algorithm;
+import hashtools.coremodule.checksumgenerator.ChecksumGenerator;
 import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
 import hashtools.coremodule.identification.Identification;

@@ -1,6 +1,6 @@
 package hashtools.applicationmodule.generator;
 
-import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.checksumgenerator.Algorithm;
 import hashtools.coremodule.Extension;
 import hashtools.coremodule.Resource;
 import hashtools.coremodule.TransitionedScreen;

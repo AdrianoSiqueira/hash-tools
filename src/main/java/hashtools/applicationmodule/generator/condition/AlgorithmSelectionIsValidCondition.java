@@ -1,6 +1,6 @@
 package hashtools.applicationmodule.generator.condition;
 
-import hashtools.coremodule.Algorithm;
+import hashtools.coremodule.checksumgenerator.Algorithm;
 import hashtools.coremodule.condition.Condition;
 import lombok.RequiredArgsConstructor;
 

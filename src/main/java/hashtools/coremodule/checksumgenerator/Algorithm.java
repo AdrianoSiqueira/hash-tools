@@ -1,4 +1,4 @@
-package hashtools.coremodule;
+package hashtools.coremodule.checksumgenerator;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package hashtools.coremodule;
+package hashtools.coremodule.checksumgenerator;
 
 import hashtools.coremodule.messagedigest.MessageDigestUpdater;
 
