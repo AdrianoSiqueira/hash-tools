@@ -7,20 +7,24 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
-public class FileMessageDigestUpdater implements MessageDigestUpdater {
+public class FileChecksumGenerator extends ChecksumGenerator {
 
-    private static final int BUFFER_SIZE = 2048;
+    private static final int ONE_MEBIBYTE = 1_048_576;
     private static final int BUFFER_OFFSET = 0;
 
+    private final Algorithm algorithm;
     private final Path file;
 
     @Override
-    public void update(MessageDigest messageDigest)
-    throws IOException {
+    public String generate()
+    throws IOException, NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance(algorithm.getName());
+
         try (InputStream stream = Files.newInputStream(file)) {
-            byte[] buffer = new byte[BUFFER_SIZE];
+            byte[] buffer = new byte[ONE_MEBIBYTE];
             int bytesRead;
 
             while ((bytesRead = stream.read(buffer)) != -1) {
@@ -31,5 +35,8 @@ public class FileMessageDigestUpdater implements MessageDigestUpdater {
                 );
             }
         }
+
+        byte[] bytes = messageDigest.digest();
+        return decode(bytes);
     }
 }

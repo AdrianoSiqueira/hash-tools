@@ -1,11 +1,10 @@
 package hashtools.applicationmodule.checker;
 
-import hashtools.coremodule.checksumgenerator.Algorithm;
-import hashtools.coremodule.checksumgenerator.ChecksumGenerator;
 import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
+import hashtools.coremodule.checksumgenerator.Algorithm;
+import hashtools.coremodule.checksumgenerator.FileChecksumGenerator;
 import hashtools.coremodule.identification.Identification;
-import hashtools.coremodule.checksumgenerator.MessageDigestUpdater;
 import hashtools.coremodule.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.coremodule.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
@@ -48,11 +47,8 @@ public class CheckerService {
 
 
         List<String> officialHashes = extractOfficialChecksums(request.getChecksumFile());
-        List<CheckerChecksum> checksums = new ArrayList<>();
-
         List<Future<CheckerChecksum>> futureChecksums = new LinkedList<>();
-        ChecksumGenerator generator = new ChecksumGenerator();
-        MessageDigestUpdater updater = MessageDigestUpdater.of(request.getInputFile());
+        List<CheckerChecksum> checksums = new ArrayList<>();
 
 
         try (ExecutorService threadPool = ThreadPool.newFixedDaemon("CheckerThreadPool")) {
@@ -63,15 +59,21 @@ public class CheckerService {
                         .orElse(null);
 
                     if (algorithm == null) {
+                        /*
+                         * If official hash is not valid,
+                         * we return a null CheckerChecksum
+                         * that will need to be checked
+                         * when getting from the Future.
+                         */
                         log.debug("Ignoring invalid checksum: '{}'", officialHash);
                         return null;
                     }
 
 
-                    String generatedHash = generator.generate(
+                    String generatedHash = new FileChecksumGenerator(
                         algorithm,
-                        updater
-                    );
+                        request.getInputFile()
+                    ).generate();
 
 
                     CheckerChecksum checksum = new CheckerChecksum();
@@ -88,6 +90,11 @@ public class CheckerService {
 
 
         for (Future<CheckerChecksum> futureChecksum : futureChecksums) {
+            /*
+             * Using Optional because thread pool may return
+             * a null CheckerChecksum when the official hash
+             * is not valid.
+             */
             Optional
                 .ofNullable(futureChecksum.get())
                 .ifPresent(checksums::add);
