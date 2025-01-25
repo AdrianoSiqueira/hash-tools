@@ -4,7 +4,7 @@ import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
 import hashtools.coremodule.checksumgenerator.Algorithm;
 import hashtools.coremodule.checksumgenerator.FileChecksumGenerator;
-import hashtools.coremodule.identification.Identification;
+import hashtools.coremodule.identification.FileIdentification;
 import hashtools.coremodule.threadpool.ThreadPool;
 
 import java.util.LinkedList;
@@ -60,7 +60,7 @@ public class GeneratorService {
 
 
         GeneratorResponse response = new GeneratorResponse();
-        response.setIdentification(Identification.of(request.getInputFile()));
+        response.setIdentification(new FileIdentification(request.getInputFile()));
         response.setChecksums(checksums);
         return response;
     }

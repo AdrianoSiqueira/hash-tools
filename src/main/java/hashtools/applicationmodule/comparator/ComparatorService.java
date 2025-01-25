@@ -4,7 +4,7 @@ import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
 import hashtools.coremodule.checksumgenerator.Algorithm;
 import hashtools.coremodule.checksumgenerator.FileChecksumGenerator;
-import hashtools.coremodule.identification.Identification;
+import hashtools.coremodule.identification.FileIdentification;
 import hashtools.coremodule.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
 
@@ -65,8 +65,8 @@ public class ComparatorService {
 
 
         ComparatorResponse response = new ComparatorResponse();
-        response.setIdentification1(Identification.of(request.getInputFile1()));
-        response.setIdentification2(Identification.of(request.getInputFile2()));
+        response.setIdentification1(new FileIdentification(request.getInputFile1()));
+        response.setIdentification2(new FileIdentification(request.getInputFile2()));
         response.setChecksum(checksum);
         return response;
     }

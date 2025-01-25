@@ -4,7 +4,7 @@ import hashtools.coremodule.Evaluation;
 import hashtools.coremodule.Formatter;
 import hashtools.coremodule.checksumgenerator.Algorithm;
 import hashtools.coremodule.checksumgenerator.FileChecksumGenerator;
-import hashtools.coremodule.identification.Identification;
+import hashtools.coremodule.identification.FileIdentification;
 import hashtools.coremodule.officialchecksum.FileOfficialChecksumExtractor;
 import hashtools.coremodule.threadpool.ThreadPool;
 import lombok.RequiredArgsConstructor;
@@ -102,7 +102,7 @@ public class CheckerService {
 
 
         CheckerResponse response = new CheckerResponse();
-        response.setIdentification(Identification.of(request.getInputFile()));
+        response.setIdentification(new FileIdentification(request.getInputFile()));
         response.setChecksums(checksums);
         return response;
     }
